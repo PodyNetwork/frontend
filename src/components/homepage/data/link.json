@@ -1,0 +1,30 @@
+{
+    "mainLink": [
+        {
+            "title": "Home",
+            "url": "/"
+        },
+        {
+            "title": "Passport",
+            "url": "/passport"
+        },
+        {
+            "title": "Features",
+            "url": "/features"
+        },
+        {
+            "title": "3D Meeting",
+            "url": "/coming-soon"
+        }
+    ],
+    "authLink": [
+        {
+            "title": "Login",
+            "url": "/login"
+        },
+        {
+            "title": "Sign Up",
+            "url": "/signup"
+        }
+    ]
+}

@@ -9,9 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        pody: {
+          dark: '#07070A',
+          primary: '#96EA63',
+          gray: '#A6A7AD',
+          border: '#212429',
+        }
       },
+      fontFamily: {
+        podyfont: ['var(--font-manrope)']
+      }
     },
   },
   plugins: [],
