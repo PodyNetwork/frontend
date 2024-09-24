@@ -1,6 +1,7 @@
 import HeroSection from "@/components/homepage/Hero";
 import FeaturesSection from "@/components/homepage/Features";
 import Roadmap from "@/components/homepage/Roadmap";
+import Cta from "@/components/homepage/Cta";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
         <HeroSection />
         <FeaturesSection />
         <Roadmap />
+        <Cta />
     </div>
   );
 }
