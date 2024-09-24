@@ -3,6 +3,10 @@ import ButtonIcon from '../../global/buttonIcon'
 import service from '../data/service.json';
 import serviceb from '../data/serviceb.json';
 import servicec from '../data/servicec.json';
+import arcimage from "/public/misc/web_arc.png"
+import ecosystem from '../data/ecosystem.json'
+import support from '../data/support.json'
+import Image from 'next/image';
 
 const FeaturesCard = () => {
   return (
@@ -30,7 +34,7 @@ const FeaturesCard = () => {
                             ))}
                         </div>
                     </div>
-                 </div>
+                </div>
             </div>
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_main_2'></div>
@@ -52,7 +56,35 @@ const FeaturesCard = () => {
                     <h3 className='text-xl font-medium'>Flexible Architecture design</h3>
                     <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Seamlessly integrated WebRTC with Telegram</p>
                     <div className='flex flex-col gap-y-4 mt-8 pb-8 text-sm'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae dignissimos quia iusto sint veniam illo rerum, itaque architecto iste, maiores ab nobis saepe, molestiae odit in? Rem itaque consequatur provident.
+                        <Image src={arcimage} className='object-cover h-52' alt="architecture design" />
+                    </div>
+                </div>
+            </div>
+            <div className='p-7 relative rounded-xl shadow-xl overflow-hidden bg-red-50'>
+                <div className='_grad_card_base'></div>
+                <div className='relative z-50'>
+                    <h3 className='text-xl font-medium'>The best Ecosystem</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Join the unique ecosystem in decentralized solution</p>
+                    <div className='flex flex-col gap-y-4 mt-8 pb-8 text-sm'>
+                       <div className='ic_cr_container mx-auto flex-wrap animate-pulse'>
+                            {ecosystem.map((ecosystemdata, index) => (
+                                <div className='w-[40px] h-[40px] rounded-full flex items-center justify-center ic_cr_icon' style={{'background' : ecosystemdata.color ? ecosystemdata.color : '#000000'  }} key={index}>
+                                    <Image src={ecosystemdata.url} alt={ecosystemdata.name} className='w-6 h-6 object-contain' width={200} height={200} />
+                                </div>
+                            ))}
+                       </div>
+                    </div>
+                </div>
+            </div>
+            <div className='p-7 relative rounded-xl shadow-xl overflow-hidden bg-red-50'>
+                <div className='_grad_card_base'></div>
+                <div className='relative z-50'>
+                    <h3 className='text-xl font-medium'>3D & 2D Support</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center'>integrated WebRTC with realtime data</p>
+                    <div className='flex flex-row gap-4 mt-8 pb-8 text-sm flex-wrap'>
+                        {support.map((supportdata, index) => (
+                            <button className='px-3 py-2 text-nowrap rounded-full border border-pody-border/30' key={index}>{supportdata.title}</button>
+                        ))}
                     </div>
                 </div>
             </div>

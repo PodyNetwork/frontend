@@ -1,0 +1,42 @@
+[
+    {
+        "url": "/icon/bitcoin.png",
+        "name": "bitoin",
+        "color": "#FF8300"
+    },
+    {
+        "url": "/icon/ethereum.png",
+        "name": "ethereum",
+        "color": "#627EEA"
+    },
+    {
+        "url": "/icon/chainx.png",
+        "name": "chain",
+        "color": "#19A1A1"
+    },
+    {
+        "url": "/icon/polkadot.png",
+        "name": "polkadot",
+        "color": "#E6007A"
+    },
+    {
+        "url": "/icon/binance.png",
+        "name": "binance",
+        "color": "#FCD535"
+    },
+    {
+        "url": "/icon/solana.png",
+        "name": "solana",
+        "color": "#000000"
+    },
+    {
+        "url": "/icon/celo.png",
+        "name": "celo",
+        "color": "#FCFE52"
+    },
+    {
+        "url": "/icon/avax.svg",
+        "name": "avax",
+        "color": "#E84142"
+    }
+]

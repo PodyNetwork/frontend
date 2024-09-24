@@ -81,7 +81,23 @@ body {
     bottom: 0;
     background: linear-gradient(29deg, #97ea6337, rgba(27, 67, 1, 0.315));
     @apply rounded-xl;
-    padding: 2px;
+    padding: 1.5px;
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+._features_card_x3 > div::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(125deg, #212429, rgba(0, 0, 0, 0.315));
+    @apply rounded-xl;
+    padding: 1.5px;
     -webkit-mask: 
       linear-gradient(#fff 0 0) content-box, 
       linear-gradient(#fff 0 0);
@@ -90,4 +106,40 @@ body {
 }
 ._start_icon_shuffle > button:nth-child(1){
     @apply ms-5;
+}
+.ic_cr_container{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+.ic_cr_container > div:nth-child(1) {
+    transform: rotate(0deg) translate(80px) rotate(0deg);
+}
+.ic_cr_container > div:nth-child(2) {
+    transform: rotate(45deg) translate(80px) rotate(-45deg);
+}
+.ic_cr_container > div:nth-child(3) {
+    transform: rotate(90deg) translate(80px) rotate(-90deg);
+}
+.ic_cr_container > div:nth-child(4) {
+    transform: rotate(135deg) translate(80px) rotate(-135deg);
+}
+.ic_cr_container > div:nth-child(5) {
+    transform: rotate(180deg) translate(80px) rotate(-180deg);
+}
+.ic_cr_container > div:nth-child(6) {
+    transform: rotate(225deg) translate(80px) rotate(-225deg);
+}
+.ic_cr_container > div:nth-child(7) {
+    transform: rotate(270deg) translate(80px) rotate(-270deg);
+}
+.ic_cr_container > div:nth-child(8) {
+    transform: rotate(315deg) translate(80px) rotate(-315deg);
+}
+.ic_cr_icon{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    background-color: teal;
 }
