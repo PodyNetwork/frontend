@@ -27,3 +27,6 @@ body {
 ._hero_wrapper{
     margin-top: 8rem;
 }
+._grad_bg {
+    background: linear-gradient(0deg, #97ea6331 0.00%, #07070ac2 100.00%);
+}
