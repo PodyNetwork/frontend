@@ -13,7 +13,7 @@ const config: Config = {
           dark: '#07070A',
           primary: '#96EA63',
           gray: '#A6A7AD',
-          border: '#212429',
+          border: '#CFD3DA',
         }
       },
       fontFamily: {
