@@ -6,7 +6,7 @@ const FeaturesHeader = () => {
   return (
     <div className='text-center flex flex-col gap-y-6 mb-12'>
         <Heading2 className="font-bold">Explore Our feature</Heading2>
-        <Paragraph>Discover the powerful features that make our platform stand out</Paragraph>
+        <Paragraph className="text-slate-400">Discover the powerful features that make our platform stand out</Paragraph>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import React, { Children } from 'react'
 const Paragraph = (props : any) => {
     const {children, ...rest} = props;
     return (
-        <div className='text-base text-slate-300'>
+        <div className='text-base text-slate-400'>
             <p {...rest}>{children}</p>
         </div>
     )

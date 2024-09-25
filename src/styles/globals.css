@@ -25,7 +25,7 @@ body {
     background: linear-gradient(132deg, #96EA63 0.00%, #96EA63 100.00%);
 }
 ._radial_bg_cta{
-    width: 40%;
+    width: 350px;
     height: 350px;
     border-radius: 100%;
     top: 100px;
@@ -33,7 +33,7 @@ body {
     z-index: 1;
     background: linear-gradient(to bottom, #0D0F13 0.00%, #0D0F13 10.00%, #96EA63 100.00%); 
     filter: blur(100px);
-    opacity: 0.75;
+    opacity: 0.45;
 }
 ._hero_wrapper{
     margin-top: 8rem;
@@ -70,6 +70,18 @@ body {
     filter: blur(70px);
     border-radius: 60%;
     opacity: 0.15;
+}
+._grad_card_main_login{
+    width: 30%;
+    height: 150px;
+    position: absolute;
+    z-index: 1;
+    transform: rotate(45deg);
+    bottom: -1.75rem;
+    left: 0;
+    background: linear-gradient(360deg, #0D0F13 0.00%, #0D0F13 0.00%, #96EA63 100.00%); 
+    filter: blur(80px);
+    opacity: 0.55;
 }
 ._grad_card_base{
     width: 150px;
@@ -209,7 +221,7 @@ body {
 }
 .__list_ring_small > li{
     padding-left: 18px;
-    /* background-color: red; */
+    @apply text-slate-400;
     position: relative;
     display: flex;
     align-items: center;
@@ -228,9 +240,13 @@ body {
     @apply shadow-xl;
 }
 .__cta_wrapper{
-    background: rgba(13, 14, 20, 0.68);
+    background: rgba(13, 14, 20, 0.3);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
+}
+.__login_side{
+    width: 38rem;
+    background-color: #fff;
 }

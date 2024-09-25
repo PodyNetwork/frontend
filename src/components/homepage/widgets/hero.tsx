@@ -11,8 +11,8 @@ const Hero = () => {
         <div className='max-w-5xl mx-auto _hero_wrapper flex flex-col'>
             <div className='max-w-2xl mx-auto flex flex-col gap-y-6'>
                 <Heading1 className="text-center font-extrabold">Connect web3 <br /> meeting for everyone</Heading1>
-                <Paragraph className="text-center">Connect, interact, and learn from any anywhere with EduVR - The Future of Education on Chain</Paragraph>
-                <div className='flex flex-row justify-center gap-3 mt-4'>
+                <Paragraph className="text-center text-slate-400">Connect, interact, and learn from any anywhere with EduVR - The Future of Education on Chain</Paragraph>
+                <div className='flex flex-row justify-center gap-3 mt-4 text-sm'>
                     <Button><span className='text-sm'>Create Meeting</span></Button>
                     <ButtonBorder>Join Meeting</ButtonBorder>
                 </div>
@@ -34,7 +34,7 @@ const Hero = () => {
                             </div>
                             <Paragraph>{data.title}</Paragraph>
                         </div>
-                        <p className='text-sm mt-3'>{data.desc}</p>
+                        <p className='text-sm mt-3 text-slate-400'>{data.desc}</p>
                     </div>
                 ))}
             </div>

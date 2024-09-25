@@ -8,7 +8,7 @@ const Partner = () => {
     <div className='max-w-5xl mx-auto' aria-label='Partner'>
         <div className='text-center'>
             <div>
-                <Paragraph>Blockchain & Partner</Paragraph>
+                <Paragraph className="font-bold">Blockchain & Partner</Paragraph>
             </div>
             <div className='flex flex-col justify-center items-center'>
                 <div className='flex flex-row gap-x-16'>

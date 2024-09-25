@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         pody: {
           dark: '#07070A',
+          dark_secondary: '#0D0E14',
           primary: '#96EA63',
           gray: '#A6A7AD',
           border: '#CFD3DA',
