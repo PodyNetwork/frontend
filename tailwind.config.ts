@@ -15,6 +15,7 @@ const config: Config = {
           primary: '#96EA63',
           gray: '#A6A7AD',
           border: '#CFD3DA',
+          danger: '#F1414F',
         }
       },
       fontFamily: {

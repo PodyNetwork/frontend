@@ -250,3 +250,55 @@ body {
     width: 38rem;
     background-color: #fff;
 }
+.__main-screen{
+    width: calc(100vw - 28rem);
+}
+.__video_box {
+    display: inline-block;
+    --ratio: calc( 3 / 2);
+    --h: min(calc(100vw / var(--ratio)), 50vh);
+    height: var(--h);
+    width: calc(var(--h) * var(--ratio));
+}
+.__participant_and_chat{
+    width: 20rem;
+}
+.__video_box_participant {
+    display: inline-block;
+    width: 170px;
+    height: 170px;
+    z-index: 9999; /* Lowered z-index slightly unless you specifically need 99999 */
+    position: relative; /* Add positioning in case z-index is used */
+}
+.__message_chat{
+    border-top-right-radius: 1.125rem;
+    border-bottom-right-radius: 1.125rem;
+    border-top-left-radius: 1.125rem;
+}
+.__message_chat_sender{
+    border-top-left-radius: 1.125rem;
+    border-bottom-left-radius: 1.125rem;
+    border-top-right-radius: 1.125rem;
+}
+.__sender_chat{
+    @apply flex flex-row;
+}
+.__receiver_chat{
+    @apply flex flex-row-reverse;
+}
+@media (max-width: 767px) {
+    .__main-screen{
+        width: 100%;
+    }
+    .__participant_and_chat{
+        width: 100%;
+    }
+}
+@media(max-width: 370px) {
+    .__participant_list{
+        grid-template-columns: repeat(auto-fit,minmax(70px,1fr));
+    }
+}
+.__participant_message_container{
+    overflow-y: auto;
+}

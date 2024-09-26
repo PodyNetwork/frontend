@@ -1,0 +1,52 @@
+[
+    {
+        "name": "James",
+        "avatar": "public/avatar/user/1",
+        "host": true
+    },
+    {
+        "name": "Paul",
+        "avatar": "public/avatar/user/1",
+        "host": false
+    },
+    {
+        "name": "Telly",
+        "avatar": "public/avatar/user/1",
+        "host": false
+    },
+    {
+        "name": "Telly",
+        "avatar": "public/avatar/user/1",
+        "host": false
+    },
+    {
+        "name": "Telly",
+        "avatar": "public/avatar/user/1",
+        "host": false
+    },
+    {
+        "name": "James",
+        "avatar": "public/avatar/user/1",
+        "host": true
+    },
+    {
+        "name": "Paul",
+        "avatar": "public/avatar/user/1",
+        "host": false
+    },
+    {
+        "name": "Telly",
+        "avatar": "public/avatar/user/1",
+        "host": false
+    },
+    {
+        "name": "Telly",
+        "avatar": "public/avatar/user/1",
+        "host": false
+    },
+    {
+        "name": "Telly",
+        "avatar": "public/avatar/user/1",
+        "host": false
+    }
+]
