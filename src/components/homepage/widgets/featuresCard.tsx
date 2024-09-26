@@ -8,7 +8,7 @@ import ReadyToGo from './readyToGo';
 const FeaturesCard = () => {
   return (
     <>
-        <div className='grid grid-cols-2 gap-6 _features_card_x2'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 _features_card_x2'>
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
                 <ReadyToGo />
             </div>
@@ -25,7 +25,7 @@ const FeaturesCard = () => {
                 </div>
             </div>
         </div>
-        <div className='grid grid-cols-3 gap-6 mt-6 _features_card_x3'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 _features_card_x3'>
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden bg-red-50'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50'>

@@ -200,6 +200,11 @@ body {
 .__ring_map_extend::after{
     height: 150px !important;
 }
+@media (max-width: 767px) {
+    .__ring_map_extend::after{
+        height: 50px !important;
+    }
+}
 .__ring_line{
     width: calc(100% - 2.5rem);
     height: 2px;

@@ -1,52 +1,32 @@
 [
     {
         "name": "James",
-        "avatar": "public/avatar/user/1",
+        "avatar": "/avatar/user1.webp",
         "host": true
     },
     {
         "name": "Paul",
-        "avatar": "public/avatar/user/1",
+        "avatar": "/avatar/user2.webp",
         "host": false
     },
     {
         "name": "Telly",
-        "avatar": "public/avatar/user/1",
+        "avatar": "/avatar/user1.webp",
         "host": false
     },
     {
         "name": "Telly",
-        "avatar": "public/avatar/user/1",
+        "avatar": "/avatar/user1.webp",
         "host": false
     },
     {
         "name": "Telly",
-        "avatar": "public/avatar/user/1",
+        "avatar": "/avatar/user2.webp",
         "host": false
-    },
-    {
-        "name": "James",
-        "avatar": "public/avatar/user/1",
-        "host": true
     },
     {
         "name": "Paul",
-        "avatar": "public/avatar/user/1",
-        "host": false
-    },
-    {
-        "name": "Telly",
-        "avatar": "public/avatar/user/1",
-        "host": false
-    },
-    {
-        "name": "Telly",
-        "avatar": "public/avatar/user/1",
-        "host": false
-    },
-    {
-        "name": "Telly",
-        "avatar": "public/avatar/user/1",
+        "avatar": "/avatar/user2.webp",
         "host": false
     }
 ]

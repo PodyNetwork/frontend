@@ -7,15 +7,15 @@ import sociallink from "./data/socails.json"
 
 const Footer = () => {
   return (
-    <section className='bg-pody-dark_secondary relative py-4 minh-screen flex flex-col justify-center text-slate-500 text-sm' aria-label='Footer'>
+    <section className='bg-pody-dark_secondary relative py-4 minh-screen px-8 md:px-0 flex flex-col justify-center text-slate-500 text-sm' aria-label='Footer'>
         <div>
             <div className='max-w-5xl mx-auto'>
                 <div className='w-full relative'>
-                    <div className='flex flex-row justify-between gap-3 py-7 bg-ed-50'>
+                    <div className='flex md:flex-row flex-col justify-between gap-5 py-7 bg-ed-50'>
                         <Link href="/"><Image src={logo} alt='Pody Logo' className='w-20' /></Link>
-                        <ul className='flex flex-row gap-3 items-center' aria-label='Footer Menu'>
+                        <ul className='flex flex-row gap-5 flex-wrap items-center' aria-label='Footer Menu'>
                             {navlink.mainLink.map((link, index) => (
-                                <li key={index} className='px-2 hover:text-pody-primary hover:transition-all duration-100'>
+                                <li key={index} className='md:px-2 hover:text-pody-primary hover:transition-all duration-100'>
                                     <Link href={link.url}>{link.title}</Link>
                                 </li>
                             ))}

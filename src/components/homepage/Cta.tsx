@@ -5,7 +5,7 @@ import ButtonBorder from '../global/buttonborder'
 
 const Cta = () => {
   return (
-    <section className='bg-pody-dark relative text-white py-32 minh-screen flex flex-col justify-center overflow-hidden' aria-label='cta'>
+    <section className='bg-pody-dark relative text-white py-32 px-8 md:px-16 minh-screen flex flex-col justify-center overflow-hidden' aria-label='cta'>
         <div>
             <div className='max-w-5xl mx-auto'>
                 <div className="_radial_container relative z-10">

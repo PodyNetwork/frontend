@@ -7,7 +7,7 @@ import herocard from '../data/herocard.json'
 
 const Hero = () => {
   return (
-    <div className='relative w-full px-16'>
+    <div className='relative w-full px-8 md:px-16'>
         <div className='max-w-5xl mx-auto _hero_wrapper flex flex-col'>
             <div className='max-w-2xl mx-auto flex flex-col gap-y-6'>
                 <Heading1 className="text-center font-extrabold">Connect web3 <br /> meeting for everyone</Heading1>
@@ -17,7 +17,7 @@ const Hero = () => {
                     <ButtonBorder>Join Meeting</ButtonBorder>
                 </div>
             </div>
-            <div className='text-white grid grid-cols-3 gap-x-10 gap-y-10 flex-1 justify-between py-32'>
+            <div className='text-white grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-10 flex-1 justify-between py-32'>
                 {herocard.map((data, index) => (
                     <div className='w-11/12' key={index}>
                         <div className='flex flex-row gap-x-3 items-center'>
