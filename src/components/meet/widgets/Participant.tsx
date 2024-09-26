@@ -18,7 +18,7 @@ const Participant = () => {
                 <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
             </svg>
         </div>
-        <div className='grid grid-cols-4 gap-2 md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list'>
+        <div className='grid grid-cols-4 gap-2.5 md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list'>
             {participantList.map((data, index) => (
                 <div className='md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm text-slate-500' key={index}>
                     <div className='flex md:flex-row flex-col items-center'>
@@ -28,8 +28,8 @@ const Participant = () => {
                             {data.host && <p className='block md:hidden text-xs text-slate-300 leading-none'><span>Host</span></p>}
                         </div>
                     </div>
-                    <div className='hidden md:flex flex-row items-center gap-x-2'>
-                        <p>Host</p>
+                    <div className='hidden md:flex flex-row items-center gap-x-2.5'>
+                        {data.host && <p className='hidden md:block text-xs'><span>Host</span></p>}
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className='w-5 h-5'
