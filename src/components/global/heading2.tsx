@@ -1,12 +1,15 @@
-import React, { Children } from 'react'
+import React from 'react';
 
-const Heading2 = (props : any) => {
-  const {children,  ...rest} = props;
+interface Heading2Props extends React.HTMLAttributes<HTMLHeadingElement> {
+  children: React.ReactNode;
+}
+
+const Heading2: React.FC<Heading2Props> = ({ children, ...rest }) => {
   return (
     <div className='text-2xl md:text-3xl text-slate-200'>
       <h2 {...rest}>{children}</h2>
     </div>
-  )
+  );
 }
 
-export default Heading2
+export default Heading2;

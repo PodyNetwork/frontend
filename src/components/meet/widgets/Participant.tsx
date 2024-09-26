@@ -1,7 +1,6 @@
 import React from 'react'
 import participantList from "../../meet/data/participant.json"
 import Image from 'next/image'
-import user2 from '/public/avatar/user2.webp'
 
 const Participant = () => {
   return (

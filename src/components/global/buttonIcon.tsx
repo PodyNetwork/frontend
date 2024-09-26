@@ -1,7 +1,12 @@
 import React from "react";
 
-const ButtonIcon = (props: any) => {
-  const {children, svg, special} = props;
+interface ButtonIconProps{
+  children: React.ReactNode;
+  svg: string;
+  special: boolean;
+}
+
+const ButtonIcon:React.FC<ButtonIconProps> = ({children, svg, special} ) => {
   return (
     <button className="px-3 py-1.5 bg-black text-nowrap shadow-md text-slate-300 rounded-md hover:bg-pody-primary/80 hover:transition-all text-sm flex flex-row items-center">
       <svg

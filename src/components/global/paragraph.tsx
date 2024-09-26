@@ -1,7 +1,10 @@
-import React, { Children } from 'react'
+import React from 'react'
 
-const Paragraph = (props : any) => {
-    const {children, ...rest} = props;
+interface ParagraphProps extends React.HTMLAttributes<HTMLHeadingElement> {
+    children: React.ReactNode;
+}   
+  
+const Paragraph:React.FC<ParagraphProps> = ({children, ...rest} ) => {
     return (
         <div className='text-base text-slate-400'>
             <p {...rest}>{children}</p>
