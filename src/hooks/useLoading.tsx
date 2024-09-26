@@ -15,33 +15,6 @@ const useLoading = (state: boolean = false) => {
     return { startLoading, stopLoading, loading }
 }
 
-
-const LoginForm = () => {
-    const {startLoading, stopLoading, loading} = useLoading()
-
-    const login = useCallback(() =>{
-        startLoading()
-
-        ///
-
-        stopLoading()
-    }, [])
-
-    return <>
-    <div>
-        {loading && <p> is loading </p>}
-    </div>
-    <form action=""></form></>
-}
-
-
-const Preloader = () => {
-
-    const {startLoading, stopLoading, loading} = useLoading(true)
-
-
-}
-
 export default useLoading
 
 
