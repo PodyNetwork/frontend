@@ -7,10 +7,10 @@ const Participant = () => {
   return (
     <div className='w-full md:h-[calc(100%-300px)] md:overflow-y-auto'>
         <div className='hidden md:flex flex-row justify-between mb-3.5'>
-            <h3 className='text-base'><span className='font-bold text-slate-800 dark:text-slate-300'>Participant</span> {" "} <span className='text-slate-500'>(3)</span></h3>
+            <h3 className='text-base'><span className='font-semibold text-slate-600 dark:text-slate-400'>Participant</span> {" "} <span className='text-slate-500'>(3)</span></h3>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className='w-5 h-5 text-slate-600'
+                className='w-5 h-5 text-slate-500'
                 viewBox="0 0 24 24"
                 style={{ msFilter: "" }}
                 fill="currentColor"
@@ -20,15 +20,15 @@ const Participant = () => {
         </div>
         <div className='grid grid-cols-4 gap-2 md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list'>
             {participantList.map((data, index) => (
-                <div className='md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm' key={index}>
+                <div className='md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm text-slate-500' key={index}>
                     <div className='flex md:flex-row flex-col items-center'>
                         <Image src={data.avatar} alt='user icon' width={200} height={200} className='w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full' />
                         <div className='md:ms-2.5 flex flex-col items-center text-sm'>
-                            <p><span className='text-slate-500 leading-none font-semibold'>{data.name}</span></p>
+                            <p><span className='leading-none font-semibold'>{data.name}</span></p>
                             {data.host && <p className='block md:hidden text-xs text-slate-300 leading-none'><span>Host</span></p>}
                         </div>
                     </div>
-                    <div className='hidden md:flex flex-row items-center text-slate-500 gap-x-2'>
+                    <div className='hidden md:flex flex-row items-center gap-x-2'>
                         <p>Host</p>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

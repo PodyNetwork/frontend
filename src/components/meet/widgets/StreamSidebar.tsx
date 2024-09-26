@@ -3,12 +3,12 @@ import userLogo from '/public/avatar/user.png'
 
 const StreamSidebar = () => {
   return (
-        <div className='min-w-16 max-w-16 hidden md:block py-5 flex-1 bg-[#F9FAFB] dark:bg-pody-dark h-full rounded-2xl relative float-left'>
-            <div className='h-full flex flex-col justify-between items-center gap-3'>
+        <div className='min-w-16 max-w-16 hidden md:block py-5 bg-[#F9FAFB] dark:bg-pody-dark h-full rounded-2xl relative float-left'>
+            <div className='h-full flex flex-col justify-between items-center gap-3 text-slate-600 dark:text-slate-400'>
                 <div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className='w-7 h-7 text-pody-dark_secondary'
+                        className='w-7 h-7'
                         viewBox="0 0 24 24"
                         style={{ msFilter: "" }}
                         fill="currentColor"
@@ -21,7 +21,7 @@ const StreamSidebar = () => {
                         <li className='w-full justify-center flex py-1'>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className='w-6 h-6 text-slate-600'
+                                className='w-6 h-6'
                                 viewBox="0 0 24 24"
                                 style={{ msFilter: "" }}
                                 fill="currentColor"
@@ -32,7 +32,7 @@ const StreamSidebar = () => {
                         <li className='w-full justify-center flex py-1'>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className='w-6 h-6 text-slate-600'
+                                className='w-6 h-6'
                                 viewBox="0 0 24 24"
                                 style={{ msFilter: "" }}
                                 fill="currentColor"
@@ -43,7 +43,7 @@ const StreamSidebar = () => {
                         <li className='w-full justify-center flex py-1'>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className='w-6 h-6 text-slate-600'
+                                className='w-6 h-6'
                                 viewBox="0 0 24 24"
                                 style={{ msFilter: "" }}
                                 fill="currentColor"
@@ -54,7 +54,7 @@ const StreamSidebar = () => {
                         <li className='w-full justify-center flex py-1'>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className='w-6 h-6 text-slate-600'
+                                className='w-6 h-6'
                                 viewBox="0 0 24 24"
                                 style={{ msFilter: "" }}
                                 fill="currentColor"

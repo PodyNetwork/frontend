@@ -11,22 +11,22 @@
     },
     {
         "name": "Telly",
-        "avatar": "/avatar/user1.webp",
+        "avatar": "/avatar/user4.jpg",
         "host": false
     },
     {
         "name": "Telly",
-        "avatar": "/avatar/user1.webp",
+        "avatar": "/avatar/user3.jpeg",
         "host": false
     },
     {
-        "name": "Telly",
-        "avatar": "/avatar/user2.webp",
+        "name": "ÆĞËÞ",
+        "avatar": "/avatar/user5.jpeg",
         "host": false
     },
     {
-        "name": "Paul",
-        "avatar": "/avatar/user2.webp",
+        "name": "Shola",
+        "avatar": "/avatar/user6.png",
         "host": false
     }
 ]
