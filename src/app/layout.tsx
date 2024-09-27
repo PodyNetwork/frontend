@@ -1,52 +1,15 @@
-import type { Metadata } from "next";
+"use client"
+
 import "../styles/globals.css";
-import localFont from 'next/font/local'
+import "@rainbow-me/rainbowkit/styles.css";
+import { Manrope } from "next/font/google";
+import { WagmiProvider } from "wagmi";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { config } from "@/utils/wagmi";
+import queryClient from "@/utils/queryClient";
 
-const manrope = localFont({
-  src: [
-    {
-      path: './fonts/Manrope-ExtraLight.ttf',
-      weight: '200',
-      style: 'normal',
-    },
-    {
-      path: './fonts/Manrope-Light.ttf',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: './fonts/Manrope-Regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: './fonts/Manrope-Medium.ttf',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: './fonts/Manrope-SemiBold.ttf',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: './fonts/Manrope-Bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: './fonts/Manrope-ExtraBold.ttf',
-      weight: '800',
-      style: 'normal',
-    }
-  ],
-  variable: '--font-manrope'
-})
-
-export const metadata: Metadata = {
-  title: "Pody",
-  description: "",
-};
+const manrope = Manrope({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -55,8 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={manrope.variable}>
-        {children}
+      <body className={manrope.className}>
+        <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}>
+            <RainbowKitProvider modalSize="compact">
+              <main>{children}</main>
+            </RainbowKitProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
       </body>
     </html>
   );
