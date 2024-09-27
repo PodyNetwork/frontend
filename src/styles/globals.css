@@ -42,10 +42,10 @@ body {
     background: linear-gradient(0deg, #97ea6331 0.00%, #07070aa5 100.00%);
 }
 ._features_card_x2 > div {
-    background-color: #0D0E14;
+    @apply bg-pody-dark_secondary;
 }
 ._features_card_x3 > div {
-    background-color: #0D0E14;
+    @apply bg-pody-dark_secondary;
 }
 ._grad_card_main{
     width: 20%;
@@ -66,7 +66,7 @@ body {
     z-index: 1;
     bottom: 0;
     right: 0;
-    background: #96EA63;
+    @apply bg-pody-primary;
     filter: blur(70px);
     border-radius: 60%;
     opacity: 0.15;
@@ -306,4 +306,40 @@ body {
 }
 .__participant_message_container{
     overflow-y: auto;
+}
+.__shadow_pody{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.__dashheader_icon_info > li{
+    position: relative;
+    @apply px-3 flex items-center; 
+}
+.__dashheader_icon_info > li::before{
+    content: "";
+    border-right: 1.5px solid;
+    @apply border-slate-600/50;
+    position: absolute;
+    height: 100%;
+    left: 0;
+}
+._dashgrad_card{
+    width: 30%;
+    height: 150px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background: linear-gradient(90deg, #0D0E14 0.00%, #0D0F13 100.00%); 
+    filter: blur(70px);
+    border-radius: 60%;
+    opacity: 0.125;
+}
+.__card_small_dashboard{
+    width: 85%;
+    position: relative;
+    height: 12px;
+    @apply bg-slate-200;
+    position: absolute;
+    bottom: -6px;
+    border-radius: 10px;
 }

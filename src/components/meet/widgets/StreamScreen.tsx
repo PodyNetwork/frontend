@@ -3,7 +3,7 @@ import Controls from './Controls'
 
 const StreamScreen = () => {
   return (
-    <div className='bg-[#F9FAFB dark:bg-pody-dark md:h-full md:rounded-2xl pt-5 md:pt-5 md:py-5 px-7 flex flex-col gap-4 __main-screen relative float-left'>
+    <div className='bg-[#F9FAFB] dark:bg-pody-dark md:h-full md:rounded-2xl pt-5 md:pt-5 md:py-5 px-7 flex flex-col gap-4 __main-screen relative float-left'>
         <div className='md:hidden text-red-200 flex flex-row items-center text-sm font-semibold justify-between gap-x-2'>
             <p className='text-slate-500'>Mining Hash: 120m/s</p>
             <div className='flex flex-row gap-x-2'>

@@ -8,7 +8,7 @@ import StreamScreen from './widgets/StreamScreen'
 
 const MeetLayout = () => {
     return (
-        <section className='w-full flex flex-col bg-[#111114]'>
+        <section className='w-full flex flex-col bg-white  dark:bg-[#111114]'>
             <div className='md:p-4 flex flex-col md:flex-row gap-x-4 h-screen max-h-screen md:justify-between relative'>
                 <StreamSidebar />
                 <StreamScreen />
