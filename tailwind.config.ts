@@ -16,7 +16,8 @@ const config: Config = {
   				primary: '#96EA63',
   				gray: '#A6A7AD',
   				border: '#CFD3DA',
-  				danger: '#F1414F'
+  				danger: '#F1414F',
+				success: '#2AD38D'
   			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
