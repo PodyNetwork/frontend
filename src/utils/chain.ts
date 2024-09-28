@@ -5,7 +5,7 @@ export const OpenCampusCodexSepolia = defineChain({
   name: "Open Campus Codex Sepolia",
   nativeCurrency: { name: "EDU", symbol: "EDU", decimals: 18 },
   rpcUrls: {
-    default: { http: ["https://open-campus-codex-sepolia.drpc.org"] },
+    default: { http: ["https://rpc.open-campus-codex.gelato.digital"] },
   },
   blockExplorers: {
     default: {

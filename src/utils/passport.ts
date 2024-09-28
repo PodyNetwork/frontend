@@ -4,53 +4,42 @@ import { config } from "@/utils/wagmi";
 import { Address } from "@/types/address";
 
 interface MintPassportArgs {
-    account: Address;
+    walletAddress: Address;
 }
 
 interface GetUserArgs {
-    account: Address;
+    walletAddress: Address;
 }
 
-interface User {
-    hashRate: bigint;
-    points: bigint;
-    level: bigint;
-}
 
-const mintPassport = async (args: MintPassportArgs): Promise<string> => {
-  const { request, result } = await simulateContract(config, {
-    abi: podyPassportAbi,
-    address: process.env.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS as Address,
-    functionName: "mint",
-    args: [args.account, "0x"],
-  });
+const mintPassport = async (args: MintPassportArgs): Promise<void> => {
+    const { request } = await simulateContract(config, {
+        abi: podyPassportAbi,
+        address: process.env.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS as Address,
+        functionName: "mint",
+        args: [args.walletAddress, args.walletAddress],
+    });
 
-  await writeContract(config, request);
-
-  return result;
+    await writeContract(config, request);
 };
 
 
-interface User {
-  hashRate: bigint;
-  points: bigint;
-  level: bigint;
-}
+const getUser = async (args: GetUserArgs): Promise<Array<bigint>> => {
 
-const getUser = async (args: GetUserArgs): Promise<User> => {
   const result = await readContract(config, {
     abi: podyPassportAbi,
     address: process.env.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS as Address,
     functionName: "users",
-    args: [args.account],
-  }) as User;
+    args: [args.walletAddress],
+  }) as Array<bigint>;
 
   return result;
 };
 
 const getUserLevel = async (args: GetUserArgs): Promise<bigint> => {
   const user = await getUser(args);
-  return user.level;
+  console.log(user)
+  return user[2];
 };
 
 export  { mintPassport, getUserLevel, getUser };
