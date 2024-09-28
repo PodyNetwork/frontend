@@ -6,21 +6,22 @@ import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
 import handleCreatePassport from '../utils/handleCreatePassport';
+import { useRouter } from 'next/navigation';
 
 const useSignup = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
-
+  const router = useRouter();
   const signupHandler = useCallback(async ( { username }: { username: string }): Promise<SignupResponse> => {
     const credentials = await handleCreatePassport({username});
     const response = await axios.post<SignupResponse>('/auth/signup', credentials);
     return response.data;
   }, []);
 
-
   const signup = useMutation({
     mutationFn: signupHandler,
     onSuccess: () => {
       clearErrorMessage();
+      router.push('/login');
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {

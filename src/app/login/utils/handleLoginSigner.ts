@@ -1,9 +1,9 @@
-import type { SignupCredentials } from "@/types/signup";
 import { getUserLevel, mintPassport } from "@/utils/passport";
 import { signMessage } from "@/utils/signature";
 import { getUserAddress } from "@/utils/address";
+import type { LoginCredentials } from "@/types/login";
 
-const handleCreatePassport = async ({ username }:  { username: string }): Promise<SignupCredentials> => {
+const handleCreatePassport = async (): Promise<LoginCredentials> => {
     const walletAddress = getUserAddress();
 
     if (!walletAddress) {
@@ -13,11 +13,7 @@ const handleCreatePassport = async ({ username }:  { username: string }): Promis
     const userLevel = await getUserLevel({ walletAddress });
 
     if (userLevel < BigInt(1)) {
-      try {
-         await mintPassport({ walletAddress });
-      } catch (error) {
-         throw new Error("Failed to mint passport");
-      }
+        throw new Error("You do not have a passport, sign up to mint for free");
     }
 
     const timestamp = Date.now() + (30 * 1000);
@@ -30,7 +26,6 @@ const handleCreatePassport = async ({ username }:  { username: string }): Promis
     }
 
     return {
-      username,
       walletAddress,
       signature,
       timestamp,

@@ -38,7 +38,6 @@ const getUser = async (args: GetUserArgs): Promise<Array<bigint>> => {
 
 const getUserLevel = async (args: GetUserArgs): Promise<bigint> => {
   const user = await getUser(args);
-  console.log(user)
   return user[2];
 };
 
