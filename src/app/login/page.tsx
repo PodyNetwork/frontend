@@ -3,7 +3,7 @@ import AuthLayout from '@/layouts/auth'
 import Heading2 from '@/components/global/heading2'
 import Paragraph from '@/components/global/paragraph'
 
-const Login = () => {
+const Signup = () => {
   return (
     <main className="relative float-left w-full h-full overflow-hidden" aria-label="Homepage">
       <AuthLayout>
@@ -44,4 +44,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup
