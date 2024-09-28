@@ -1,24 +1,16 @@
-
+import type { Response } from './globals';
 interface LoginCredentials {
     walletAddress: string;
     signature: string;
     timestamp: number;
 }
 
-interface LoginErrorResponse {
+interface LoginResponseError {
     message: string;
 }
 
-interface LoginResponseData {
-    message: string,
-    data: {
-        accessToken: string,
-        refreshToken: string,
-    }
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface LoginResponse extends Response {}
 
-interface LoginErrorResponse {
-    message: string;
-}
 
-export { LoginCredentials, LoginErrorResponse, LoginResponseData }
+export { LoginCredentials, LoginResponseError, LoginResponse }
