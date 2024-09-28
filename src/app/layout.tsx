@@ -1,5 +1,4 @@
 "use client"
-
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Manrope } from "next/font/google";

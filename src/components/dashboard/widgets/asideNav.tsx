@@ -5,9 +5,9 @@ import Image from "next/image";
 
 const AsideNav = () => {
   return (
-    <aside className="w-60 bg-pody-dark_secondary h-[calc(100vh-1.25rem)] fixed px-6 py-4 rounded-2xl">
-      <Image src={logo} className="w-20 object-contain mt-2 mb-4" alt="Pody" />
-      <ul className="text-xs flex flex-col gap-y-1.5">
+    <aside className="w-60 bg-pody-dark_secondary h-screen fixed px-6 py-4">
+      <Image src={logo} className="w-20 object-contain mt-2 mb-6" alt="Pody" />
+      <ul className="text-sm flex flex-col gap-y-2">
         {dashlink.map((data, index) => (
           <li key={index}
             className="py-2 hover:text-slate-500 hover:transition-all rounded-full text-slate-300">
