@@ -6,7 +6,7 @@ export default function DashboardLayout({
     children: React.ReactNode
   }) {
     return (
-      <section className="flex flex-row relative">
+      <section className="flex flex-col relative">
         <AsideNav />
         {children}
       </section>

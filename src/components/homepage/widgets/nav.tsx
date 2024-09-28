@@ -7,9 +7,9 @@ import Button from '../../global/button'
 
 const Nav = () => {
   return (
-    <div className='w-full flex flex-row items-center text-sm justify-between py6 px-8 md:px-16 bg-pody-dark text-slate-500' aria-label='Navigation Menu'>
+    <div className='w-full flex flex-row items-center text-sm justify-between py-6 px-8 md:px-16 bg-pody-dark text-slate-500' aria-label='Navigation Menu'>
         <ul className='flex flex-row gap-3 items-center' aria-label='Menu'>
-            <Link href="/"><Image src={logo} alt='Pody Logo' className='w-20' /></Link>
+            <Link href="/"><Image src={logo} alt='Pody' className='w-20' /></Link>
             {navlink.mainLink.map((link, index) => (
                 <li key={index} className='hidden md:block hover:text-pody-primary hover:transition-all duration-100'>
                     <Link href={link.url}>{link.title}</Link>
