@@ -1,7 +1,7 @@
 import { getUserLevel, mintPassport } from "@/utils/passport";
 import { signMessage } from "@/utils/signature";
 import { getUserAddress } from "@/utils/address";
-import type { LoginCredentials } from "@/types/login";
+import { LoginCredentials } from "../types";
 
 const handleCreatePassport = async (): Promise<LoginCredentials> => {
     const walletAddress = getUserAddress();

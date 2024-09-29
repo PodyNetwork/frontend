@@ -1,27 +1,30 @@
 "use client"
 import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
-import type { Response, ResponseError } from '@/types/globals';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import handleCreatePassport from '../utils/handleCreatePassport';
-import { useRouter } from 'next/navigation';
+import { ResponseError } from '@/types/globals';
+import { ActionResponse } from '../types';
 
-const useSignup = () => {
+interface SubscribeToTracksArgs {
+  callId: string;
+  trackSids: string[];
+  subscribe: boolean;
+}
+
+const useSubscribeToTracks = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
-  const router = useRouter();
-  const signupHandler = useCallback(async ( { username }: { username: string }): Promise<Response> => {
-    const credentials = await handleCreatePassport({username});
-    const response = await axios.post<Response>('/auth/signup', credentials);
+
+  const subscribeToTracksHandler = useCallback(async (args: SubscribeToTracksArgs): Promise<ActionResponse> => {
+    const response = await axios.post<ActionResponse>('/call/participant/track', args);
     return response.data;
   }, []);
 
-  const signup = useMutation({
-    mutationFn: signupHandler,
+  const subscribeToTracks = useMutation({
+    mutationFn: subscribeToTracksHandler,
     onSuccess: () => {
       clearErrorMessage();
-      router.push('/login');
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
@@ -33,7 +36,7 @@ const useSignup = () => {
     },
   });
 
-  return { signup, errorMessage };
+  return { subscribeToTracks, errorMessage };
 }
 
-export default useSignup
+export default useSubscribeToTracks

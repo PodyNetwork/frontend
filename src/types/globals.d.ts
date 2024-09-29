@@ -4,4 +4,8 @@ interface Response {
     refreshToken: string;
 }
 
-export { Response }
+interface ResponseError {
+    message: string;
+}
+
+export type { Response, ResponseError }

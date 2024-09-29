@@ -1,27 +1,31 @@
 "use client"
 import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
-import type { Response, ResponseError } from '@/types/globals';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import handleCreatePassport from '../utils/handleCreatePassport';
-import { useRouter } from 'next/navigation';
+import { ResponseError } from '@/types/globals';
+import { ActionResponse } from '../types';
 
-const useSignup = () => {
+interface TrackMuteArgs {
+  callId: string;
+  username: string;
+  trackSid: string;
+  mute: boolean;
+}
+
+const useTrackMute = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
-  const router = useRouter();
-  const signupHandler = useCallback(async ( { username }: { username: string }): Promise<Response> => {
-    const credentials = await handleCreatePassport({username});
-    const response = await axios.post<Response>('/auth/signup', credentials);
+
+  const trackMuteHandler = useCallback(async (args: TrackMuteArgs): Promise<ActionResponse> => {
+    const response = await axios.post<ActionResponse>('/call/mute-track', args);
     return response.data;
   }, []);
 
-  const signup = useMutation({
-    mutationFn: signupHandler,
+  const muteTrack = useMutation({
+    mutationFn: trackMuteHandler,
     onSuccess: () => {
       clearErrorMessage();
-      router.push('/login');
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
@@ -33,7 +37,7 @@ const useSignup = () => {
     },
   });
 
-  return { signup, errorMessage };
+  return { muteTrack, errorMessage };
 }
 
-export default useSignup
+export default useTrackMute

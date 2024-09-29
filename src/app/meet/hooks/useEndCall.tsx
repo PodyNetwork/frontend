@@ -1,27 +1,25 @@
 "use client"
 import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
-import type { Response, ResponseError } from '@/types/globals';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import handleCreatePassport from '../utils/handleCreatePassport';
-import { useRouter } from 'next/navigation';
+import { ResponseError } from '@/types/globals';
+import type { ActionResponse } from '../types';
+interface EndCallArgs { callId: string }
 
-const useSignup = () => {
+const useEndCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
-  const router = useRouter();
-  const signupHandler = useCallback(async ( { username }: { username: string }): Promise<Response> => {
-    const credentials = await handleCreatePassport({username});
-    const response = await axios.post<Response>('/auth/signup', credentials);
+
+  const endCallHandler = useCallback(async (args: EndCallArgs): Promise<ActionResponse> => {
+    const response = await axios.post<ActionResponse>(`/call/${args.callId}/end`);
     return response.data;
   }, []);
 
-  const signup = useMutation({
-    mutationFn: signupHandler,
+  const endCall = useMutation({
+    mutationFn: endCallHandler,
     onSuccess: () => {
       clearErrorMessage();
-      router.push('/login');
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
@@ -33,7 +31,7 @@ const useSignup = () => {
     },
   });
 
-  return { signup, errorMessage };
+  return { endCall, errorMessage };
 }
 
-export default useSignup
+export default useEndCall
