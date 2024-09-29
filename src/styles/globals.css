@@ -439,3 +439,9 @@ body {
     background-color: #a0aec0;
     /*outline: 1px solid slategrey;*/
 }
+.__card_link::before{
+    content: "";
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
