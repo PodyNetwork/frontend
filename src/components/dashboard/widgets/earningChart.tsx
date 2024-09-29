@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, ResponsiveContainer } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -31,24 +31,28 @@ const EarningChart = () => {
   return (
     <div className="w-10/12">
       <div className="text-base mb-2">Average Earning</div>
-      <ChartContainer config={chartConfig}>
-        <BarChart accessibilityLayer data={chartData}>
-          <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="month"
-            tickLine={false}
-            tickMargin={10}
-            axisLine={false}
-            tickFormatter={(value) => value.slice(0, 3)}
-          />
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent indicator="dashed" />}
-          />
-          <Bar dataKey="earning" fill="var(--color-earning)" radius={4} />
-          <Bar dataKey="hash" fill="var(--color-hash)" radius={4} />
-        </BarChart>
-      </ChartContainer>
+      <div className="mt-3 h-[280px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <ChartContainer config={chartConfig}>
+            <BarChart accessibilityLayer data={chartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="dashed" />}
+              />
+              <Bar dataKey="earning" fill="var(--color-earning)" radius={4} />
+              <Bar dataKey="hash" fill="var(--color-hash)" radius={4} />
+            </BarChart>
+          </ChartContainer>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
