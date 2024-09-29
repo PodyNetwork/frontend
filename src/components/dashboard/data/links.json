@@ -5,14 +5,18 @@
     },
     {
         "title": "Meeting",
-        "url": "/dashboard/link"
+        "url": "/dashboard/meeting"
     },
     {
         "title": "NFT",
-        "url": "/dashboard/nft"
+        "url": "/dashboard/NFT"
     },
     {
         "title": "Point",
         "url": "/dashboard/points"
+    },
+    {
+        "title": "Leaderboard",
+        "url": "/dashboard/leaderboard"
     }
 ]

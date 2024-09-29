@@ -1,15 +1,19 @@
 import React from "react";
+import { usePathname } from 'next/navigation'
 
 const MeetingLinkTable = () => {
+  const pathname = usePathname();
+
+
   return (
     <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody">
       <div className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-6 pb-[20px] pt-4 shadow-2xl shadow-slate-100">
         <h4 className="text-lg font-medium text-slate-700 dark:text-white">
-          Meeting Link
+          Meeting
         </h4>
-        <button className="text-xs bg-pody-primary/40 px-3.5 py-1.5 rounded-full">
+        {pathname !== '/dashboard/meeting' && <button className="text-xs bg-pody-primary/40 px-3.5 py-1.5 rounded-full">
           Show All
-        </button>
+        </button>}
       </div>
       <div
         id="__meeting_tbl"
@@ -48,6 +52,16 @@ const MeetingLinkTable = () => {
                 style={{ cursor: "pointer" }}
               >
                 <div className="flex items-center justify-between pb-2 px-4 pt-4 text-start uppercase tracking-wide text-slate-700 text-xs">
+                  Participant Access
+                </div>
+              </th>
+              <th
+                colSpan={1}
+                role="columnheader"
+                title="status"
+                style={{ cursor: "pointer" }}
+              >
+                <div className="flex items-center justify-between pb-2 px-4 pt-4 text-start uppercase tracking-wide text-slate-700 text-xs">
                   Status
                 </div>
               </th>
@@ -72,6 +86,9 @@ const MeetingLinkTable = () => {
                 <p className="text-md font-medium text-slate-600">
                   https://pody.network
                 </p>
+              </td>
+              <td className="py-3 px-4 text-sm" role="cell">
+                <p className="text-md font-medium text-slate-600">Yes</p>
               </td>
               <td className="py-3 px-4 text-sm" role="cell">
                 <p className="text-md font-medium text-slate-600">Active</p>

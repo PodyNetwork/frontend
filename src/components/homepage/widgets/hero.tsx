@@ -1,7 +1,7 @@
 import React from 'react'
 import Heading1 from '../../global/heading1'
 import Paragraph from '../../global/paragraph'
-import Button from '../../global/button'
+import ButtonPody from '../../global/button'
 import ButtonBorder from '../../global/buttonborder'
 import herocard from '../data/herocard.json'
 
@@ -13,7 +13,7 @@ const Hero = () => {
                 <Heading1 className="text-center font-extrabold">Connect web3 <br /> meeting for everyone</Heading1>
                 <Paragraph className="text-center text-slate-400">Connect, interact, and learn from any anywhere with EduVR - The Future of Education on Chain</Paragraph>
                 <div className='flex flex-row justify-center gap-3 mt-4 text-sm'>
-                    <Button><span className='text-sm'>Create Meeting</span></Button>
+                    <ButtonPody><span className='text-sm'>Create Meeting</span></ButtonPody>
                     <ButtonBorder>Join Meeting</ButtonBorder>
                 </div>
             </div>

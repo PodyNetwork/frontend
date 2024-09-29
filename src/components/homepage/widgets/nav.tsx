@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import navlink from "../data/link.json"
 import logo from "/public/logo/logo_white.svg"
-import Button from '../../global/button'
+import ButtonPody from '../../global/button'
 
 const Nav = () => {
   return (
@@ -20,7 +20,7 @@ const Nav = () => {
             <li className='px-2 hover:text-pody-primary hover:transition-all duration-100'>
                 <Link href="/login">Login</Link>
             </li>
-            <li><Link href="/"><Button>Connect Wallet</Button></Link></li>
+            <li><Link href="/"><ButtonPody>Connect Wallet</ButtonPody></Link></li>
         </ul>
     </div>
   )

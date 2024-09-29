@@ -1,6 +1,6 @@
 "use client";
 import LinkStatistics from "@/components/dashboard/widgets/linkStatistics";
-import MeetingLinkTableFull from "@/components/dashboard/widgets/meetingLinkTableFull";
+import MeetingLinkTable from "@/components/dashboard/widgets/meetingLinkTable";
 import React from "react";
 
 const page = () => {
@@ -11,7 +11,7 @@ const page = () => {
       </div>
       <div className="p-12">
         <div className="relative max-w-2xl mx-auto">
-          <MeetingLinkTableFull />
+          <MeetingLinkTable />
         </div>
       </div>
     </main>

@@ -10,7 +10,7 @@ const LinkStatistics = () => {
         <div className="relative flex flex-row gap-x-6">
           <div className="w-48 mt-auto">
             <div className="flex flex-row text-slate-200 items-center gap-x-3.5 py-4">
-              <div className="text-4xl">64%</div>
+              <div className="text-5xl font-bold tracking-tighter">64%</div>
               <div className="text-xs text-slate-400">
                 Total <br /> Link Usage
               </div>
@@ -53,7 +53,7 @@ const LinkStatistics = () => {
                   </svg>
                 </div>
                 <div className="pt-5 text-center">
-                  <h2 className="text-2xl text-slate-200">33</h2>
+                  <h2 className="text-2xl text-slate-200">11</h2>
                   <p className="text-sm text-slate-300 pt-1">Inactive Link</p>
                 </div>
               </div>
@@ -70,7 +70,7 @@ const LinkStatistics = () => {
                   </svg>
                 </div>
                 <div className="pt-5 text-center">
-                  <h2 className="text-2xl text-slate-200">33</h2>
+                  <h2 className="text-2xl text-slate-200">44</h2>
                   <p className="text-sm text-slate-300 pt-1">Total Link</p>
                 </div>
               </div>

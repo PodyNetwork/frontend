@@ -423,22 +423,36 @@ body {
     /*outline: 1px solid slategrey;*/
 }
 
+/* Webkit Browsers (Chrome, Safari, Edge) */
 #__meeting_tbl::-webkit-scrollbar {
     width: 4px;
+    height: 6px; /* For the horizontal scrollbar height */
     cursor: pointer;
-    /*background-color: rgba(229, 231, 235, var(--bg-opacity));*/
-
 }
+
 #__meeting_tbl::-webkit-scrollbar-track {
     background-color: rgba(229, 231, 235, var(--bg-opacity));
     cursor: pointer;
-    /*background: red;*/
 }
+
 #__meeting_tbl::-webkit-scrollbar-thumb {
-    cursor: pointer;
     background-color: #a0aec0;
-    /*outline: 1px solid slategrey;*/
+    cursor: pointer;
 }
+
+/* Firefox */
+#__meeting_tbl {
+    scrollbar-width: thin; /* Makes the scrollbar smaller */
+    scrollbar-color: #a0aec0 rgba(229, 231, 235, var(--bg-opacity)); /* Thumb and track color */
+}
+
+/* Safari */
+#__meeting_tbl {
+    scrollbar-width: thin;
+    scrollbar-color: #a0aec0 rgba(229, 231, 235, var(--bg-opacity));
+    overflow: overlay; /* Ensures scrollbars overlay content rather than shifting it */
+}
+
 .__card_link::before{
     content: "";
     position: relative;

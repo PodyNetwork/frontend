@@ -1,17 +1,24 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
+import Link from "next/link";
+import { usePathname } from 'next/navigation'
 
 const Schedule = () => {
+  const pathname = usePathname();
+
   return (
     <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody">
       <div className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-6 pb-[20px] pt-4">
         <h4 className="text-lg text-slate-700 dark:text-white font-medium">
           My Schedule
         </h4>
-        <button className="text-xs bg-pody-primary/40 px-3.5 py-1.5 rounded-full">
-          Show All
-        </button>
+        {pathname !== '/dashboard/schedule' && <Link href="/dashboard/schedule">
+          <button className="text-xs bg-pody-primary/40 px-3.5 py-1.5 rounded-full">
+            Show All
+          </button>
+        </Link>}
       </div>
       <div className="grid grid-cols-3 gap-x-4 px-6">
         <div className="p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]">

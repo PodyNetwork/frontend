@@ -2,7 +2,6 @@
 
 import "@rainbow-me/rainbowkit/styles.css";
 import "../styles/globals.css";
-import { Manrope } from "next/font/google";
 import { WagmiProvider } from "wagmi";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";

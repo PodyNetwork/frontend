@@ -2,7 +2,7 @@ import React from "react";
 
 const ScheduleStatistics = () => {
   return (
-    <div className="flex flex-row gap-x-4 max-w-2xl mx-auto">
+    <div className="flex flex-row gap-x-4 max-w-3xl mx-auto">
       <div className="bg-pody-dark p-6 rounded-xl h-full relative flex flex-col w-full">
         <div className="pb-3">
           <h1 className="text-lg text-slate-200">Schedule Statistics</h1>
@@ -10,7 +10,7 @@ const ScheduleStatistics = () => {
         <div className="relative flex flex-row gap-x-6">
           <div className="w-48 mt-auto">
             <div className="flex flex-row text-slate-200 items-center gap-x-3.5 py-4">
-              <div className="text-4xl">33%</div>
+              <div className="text-5xl font-bold tracking-tighter">33%</div>
               <div className="text-xs text-slate-400">
                 Total <br /> Schedule Created
               </div>

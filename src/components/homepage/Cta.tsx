@@ -1,6 +1,6 @@
 import React from 'react'
 import Heading2 from '../global/heading2'
-import Button from '../global/button'
+import ButtonPody from '../global/button'
 import ButtonBorder from '../global/buttonborder'
 
 const Cta = () => {
@@ -16,7 +16,7 @@ const Cta = () => {
                         Sounds very impresive, right? <br /> We know. Join our journey 
                     </Heading2>
                     <div className='flex flex-row justify-center gap-3 mt-8 text-sm'>
-                        <Button><span>Create Meeting</span></Button>
+                        <ButtonPody><span>Create Meeting</span></ButtonPody>
                         <ButtonBorder>Join Meeting</ButtonBorder>
                     </div>
                 </div>  
