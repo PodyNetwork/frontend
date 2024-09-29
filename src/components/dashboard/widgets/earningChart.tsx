@@ -29,9 +29,8 @@ const chartConfig = {
 
 const EarningChart = () => {
   return (
-    <div className="w-10/12">
-      <div className="text-base mb-2">Average Earning</div>
-      <div className="mt-3 h-[280px]">
+    <div className="w-full">
+      <div className="h-[250px]">
         <ResponsiveContainer width="100%" height="100%">
           <ChartContainer config={chartConfig}>
             <BarChart accessibilityLayer data={chartData}>

@@ -5,16 +5,16 @@ import userIcon from "/public/avatar/user5.jpeg";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
 
-const Schedule = () => {
+const CallHistory = () => {
   const pathname = usePathname();
 
   return (
     <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody">
       <div className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-6 pb-[20px] pt-4">
         <h4 className="text-lg text-slate-700 dark:text-white font-medium">
-          My Schedule
+          Meeting
         </h4>
-        {pathname !== '/dashboard/schedule' && <Link href="/dashboard/schedule">
+        {pathname !== '/dashboard/schedule' && <Link href="/dashboard/call">
           <button className="text-xs bg-pody-primary/40 px-3.5 py-1.5 rounded-full">
             Show All
           </button>
@@ -110,4 +110,4 @@ const Schedule = () => {
   );
 };
 
-export default Schedule;
+export default CallHistory;
