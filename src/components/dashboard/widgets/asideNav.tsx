@@ -1,6 +1,6 @@
 import dashlink from "../data/links.json";
 import Link from "next/link";
-import logo from "/public/logo/logo_black.svg";
+import logo from "/public/logo/pody logo dark.png";
 import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
 
@@ -8,8 +8,8 @@ const AsideNav = () => {
   return (
     <aside className="w-full bg-pody-primary/20 flex flex-row items-center justify-between py-6 px-12 gap-x-4">
       <div className="flex flex-row">
-        <Image src={logo} className="w-24 object-contain me-8" alt="Pody" />
-        <ul className="text-[0.8rem] flex flex-row gap-x-5">
+        <Image src={logo} className="w-16 object-contain me-6" alt="Pody" />
+        <ul className="text-sm flex flex-row gap-x-6">
           {dashlink.map((data, index) => (
             <li
               key={index}
