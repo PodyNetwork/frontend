@@ -4,15 +4,14 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import { ResponseError } from '@/types/globals';
-import type { ActionResponse } from '../types';
+import { BaseResponse, ResponseError } from '@/types/globals';
 interface EndCallArgs { callId: string }
 
 const useEndCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const endCallHandler = useCallback(async (args: EndCallArgs): Promise<ActionResponse> => {
-    const response = await axios.post<ActionResponse>(`/call/${args.callId}/end`);
+  const endCallHandler = useCallback(async (args: EndCallArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>(`/call/${args.callId}/end`);
     return response.data;
   }, []);
 

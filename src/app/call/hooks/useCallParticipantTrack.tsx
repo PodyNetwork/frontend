@@ -4,21 +4,25 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import type { Call } from '../types';
-import { ResponseError } from '@/types/globals';
+import { BaseResponse, ResponseError } from '@/types/globals';
 
-interface CreateCallArgs{ scheduledTime: string, participantsCanPublish: boolean, title: string }
+interface TrackMuteArgs {
+  callId: string;
+  username: string;
+  trackSid: string;
+  mute: boolean;
+}
 
-const useCreateCall = () => {
+const useTrackMute = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const createCallHandler = useCallback(async (args: CreateCallArgs): Promise<Call> => {
-    const response = await axios.post<Call>('/call', args);
+  const trackMuteHandler = useCallback(async (args: TrackMuteArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>('/call/mute-track', args);
     return response.data;
   }, []);
 
-  const createCall = useMutation({
-    mutationFn: createCallHandler,
+  const muteTrack = useMutation({
+    mutationFn: trackMuteHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -32,7 +36,7 @@ const useCreateCall = () => {
     },
   });
 
-  return { createCall, errorMessage };
+  return { muteTrack, errorMessage };
 }
 
-export default useCreateCall
+export default useTrackMute

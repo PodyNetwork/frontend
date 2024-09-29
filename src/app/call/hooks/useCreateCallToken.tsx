@@ -4,14 +4,14 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import { ResponseError } from '@/types/globals';
-import type { Call, ActionResponse } from '../types';
+import { BaseResponse, ResponseError } from '@/types/globals';
+import type { Call } from '../types';
 
 interface CreateCallTokenArgs {
   callId: string;
 }
 
-interface CallTokenResponse extends ActionResponse {
+interface CallTokenResponse extends BaseResponse {
  data: {
     token: string;
     call: Call;

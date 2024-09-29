@@ -4,26 +4,24 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import { ResponseError } from '@/types/globals';
-import { ActionResponse } from '../types';
+import { BaseResponse, ResponseError } from '@/types/globals';
 
-interface TrackMuteArgs {
+interface SubscribeToTracksArgs {
   callId: string;
-  username: string;
-  trackSid: string;
-  mute: boolean;
+  trackSids: string[];
+  subscribe: boolean;
 }
 
-const useTrackMute = () => {
+const useSubscribeToTracks = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const trackMuteHandler = useCallback(async (args: TrackMuteArgs): Promise<ActionResponse> => {
-    const response = await axios.post<ActionResponse>('/call/mute-track', args);
+  const subscribeToTracksHandler = useCallback(async (args: SubscribeToTracksArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>('/call/participant/track', args);
     return response.data;
   }, []);
 
-  const muteTrack = useMutation({
-    mutationFn: trackMuteHandler,
+  const subscribeToTracks = useMutation({
+    mutationFn: subscribeToTracksHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -37,7 +35,7 @@ const useTrackMute = () => {
     },
   });
 
-  return { muteTrack, errorMessage };
+  return { subscribeToTracks, errorMessage };
 }
 
-export default useTrackMute
+export default useSubscribeToTracks

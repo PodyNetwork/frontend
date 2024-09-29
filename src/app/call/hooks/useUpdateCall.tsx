@@ -4,25 +4,22 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
+import type { CallResponse } from '../types';
 import { ResponseError } from '@/types/globals';
-import { ActionResponse } from '../types';
 
-interface SubscribeToTracksArgs {
-  callId: string;
-  trackSids: string[];
-  subscribe: boolean;
-}
+interface CreateMeetingArgs{ scheduledTime: string, participantsCanPublish: boolean, title: string }
 
-const useSubscribeToTracks = () => {
+
+const useUpdateCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const subscribeToTracksHandler = useCallback(async (args: SubscribeToTracksArgs): Promise<ActionResponse> => {
-    const response = await axios.post<ActionResponse>('/call/participant/track', args);
+  const updateCallHandler = useCallback(async (args: CreateMeetingArgs): Promise<CallResponse> => {
+    const response = await axios.put<CallResponse>('/call', args);
     return response.data;
   }, []);
 
-  const subscribeToTracks = useMutation({
-    mutationFn: subscribeToTracksHandler,
+  const updateCall = useMutation({
+    mutationFn: updateCallHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -36,7 +33,7 @@ const useSubscribeToTracks = () => {
     },
   });
 
-  return { subscribeToTracks, errorMessage };
+  return { updateCall, errorMessage };
 }
 
-export default useSubscribeToTracks
+export default useUpdateCall

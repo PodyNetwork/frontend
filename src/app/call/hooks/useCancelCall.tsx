@@ -4,23 +4,20 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import type { CallResponse } from '../types';
-import { ResponseError } from '@/types/globals';
+import { BaseResponse, ResponseError } from '@/types/globals';
 
-interface CreateMeetingArgs{ scheduledTime: string, participantsCanPublish: boolean, title: string }
+interface CreateMeetingArgs{ callId: string }
 
-
-
-const useUpdateCall = () => {
+const useCancelCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const updateCallHandler = useCallback(async (args: CreateMeetingArgs): Promise<CallResponse> => {
-    const response = await axios.put<CallResponse>('/call', args);
+  const cancelCallHandler = useCallback(async (args: CreateMeetingArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>(`/call/${args.callId}/cancel`);
     return response.data;
   }, []);
 
-  const updateCall = useMutation({
-    mutationFn: updateCallHandler,
+  const cancelCall = useMutation({
+    mutationFn: cancelCallHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -34,7 +31,7 @@ const useUpdateCall = () => {
     },
   });
 
-  return { updateCall, errorMessage };
+  return { cancelCall, errorMessage };
 }
 
-export default useUpdateCall
+export default useCancelCall

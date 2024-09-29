@@ -1,3 +1,5 @@
+import { BaseResponse } from "@/types/globals"
+
 interface Call {
     id: string,
     userId: string,
@@ -9,12 +11,8 @@ interface Call {
     updatedAt: string
 }
 
-interface ActionResponse {
-    message: string;
-  }
-
-interface CallResponse extends ActionResponse {
+interface CallResponse extends BaseResponse {
     data: Call
 }
 
-export type {Call, CallResponse, ActionResponse}
+export type {Call, CallResponse }

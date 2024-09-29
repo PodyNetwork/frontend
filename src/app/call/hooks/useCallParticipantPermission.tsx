@@ -4,8 +4,7 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import { ResponseError } from '@/types/globals';
-import type { ActionResponse } from '../types';
+import { BaseResponse, ResponseError } from '@/types/globals';
 
 interface BanParticipantArgs {
   participantId: string;
@@ -16,8 +15,8 @@ interface BanParticipantArgs {
 const useParticipantBan = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const banParticipantHandler = useCallback(async (args: BanParticipantArgs): Promise<ActionResponse> => {
-    const response = await axios.post<ActionResponse>(`/call/participant/permission`, args);
+  const banParticipantHandler = useCallback(async (args: BanParticipantArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>(`/call/participant/permission`, args);
     return response.data;
   }, []);
 

@@ -2,9 +2,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import axios from "@/network/axios"
-import type { ActionResponse, Call } from '../types';
+import type { Call } from '../types';
+import { BaseResponse } from '@/types/globals';
 
-interface CallsResponse extends ActionResponse {
+interface CallsResponse extends BaseResponse {
   data: Call[];
 }
 
