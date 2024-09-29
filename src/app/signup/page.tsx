@@ -61,6 +61,7 @@ const Login = () => {
                                         return undefined;
                                     }
                                 }}
+                                // eslint-disable-next-line react/no-children-prop
                                 children={(field) => (
                                     <>
                                         <input

@@ -11,7 +11,7 @@ import ConnectOrComponent from '@/components/global/ConnectOrComponent'
 const Login = () => {
 
   const { login, errorMessage } = useLogin();
-  const form = useForm<{}>({
+  const form = useForm<"">({
     onSubmit: async () => {
       await login.mutateAsync();
     }

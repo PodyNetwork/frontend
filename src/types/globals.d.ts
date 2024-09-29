@@ -1,7 +1,16 @@
 interface Response {
     message: string;
-    accessToken: string;
-    refreshToken: string;
+    data: object
 }
 
-export { Response }
+interface BaseResponse {
+    message: string;
+  }
+
+interface ResponseError {
+    message: string;
+}
+
+
+
+export type { Response, ResponseError, BaseResponse }

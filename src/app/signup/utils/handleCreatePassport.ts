@@ -1,7 +1,7 @@
-import type { SignupCredentials } from "@/types/signup";
 import { getUserLevel, mintPassport } from "@/utils/passport";
 import { signMessage } from "@/utils/signature";
 import { getUserAddress } from "@/utils/address";
+import { SignupCredentials } from "../types";
 
 const handleCreatePassport = async ({ username }:  { username: string }): Promise<SignupCredentials> => {
     const walletAddress = getUserAddress();
@@ -16,6 +16,7 @@ const handleCreatePassport = async ({ username }:  { username: string }): Promis
       try {
          await mintPassport({ walletAddress });
       } catch (error) {
+        console.error(error)
          throw new Error("Failed to mint passport");
       }
     }
@@ -25,7 +26,8 @@ const handleCreatePassport = async ({ username }:  { username: string }): Promis
 
     try {
       signature = await signMessage(`${walletAddress.toLowerCase()}:${timestamp}`);
-    } catch (error) {
+    } catch (error) {        
+      console.error(error)
       throw new Error("Failed to sign message");
     }
 

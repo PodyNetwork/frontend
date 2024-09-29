@@ -1,27 +1,35 @@
 "use client"
 import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
-import type { Response, ResponseError } from '@/types/globals';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
-import handleCreatePassport from '../utils/handleCreatePassport';
-import { useRouter } from 'next/navigation';
+import { BaseResponse, ResponseError } from '@/types/globals';
+import type { Call } from '../types';
 
-const useSignup = () => {
+interface CreateCallTokenArgs {
+  callId: string;
+}
+
+interface CallTokenResponse extends BaseResponse {
+ data: {
+    token: string;
+    call: Call;
+ }
+}
+
+const useCreateCallToken = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
-  const router = useRouter();
-  const signupHandler = useCallback(async ( { username }: { username: string }): Promise<Response> => {
-    const credentials = await handleCreatePassport({username});
-    const response = await axios.post<Response>('/auth/signup', credentials);
+
+  const createCallTokenHandler = useCallback(async (args: CreateCallTokenArgs): Promise<CallTokenResponse> => {
+    const response = await axios.post<CallTokenResponse>(`/call/${args.callId}/token`);
     return response.data;
   }, []);
 
-  const signup = useMutation({
-    mutationFn: signupHandler,
+  const createCallToken = useMutation({
+    mutationFn: createCallTokenHandler,
     onSuccess: () => {
       clearErrorMessage();
-      router.push('/login');
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
@@ -33,7 +41,7 @@ const useSignup = () => {
     },
   });
 
-  return { signup, errorMessage };
+  return { createCallToken, errorMessage };
 }
 
-export default useSignup
+export default useCreateCallToken
