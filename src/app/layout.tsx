@@ -8,8 +8,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { config } from "@/utils/wagmi";
 import queryClient from "@/utils/queryClient";
-
-const manrope = Manrope({ subsets: ["latin"] });
+import manrope from "@/fonts/Manrope/localFont";
 
 export default function RootLayout({
   children,
@@ -18,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={manrope.className}>
+      <body className={manrope.variable}>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider modalSize="compact">

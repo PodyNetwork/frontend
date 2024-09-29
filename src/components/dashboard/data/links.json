@@ -1,18 +1,18 @@
 [
     {
         "title": "Overview",
-        "url": "/"
+        "url": "/dashboard"
     },
     {
-        "title": "Meeting Link",
-        "url": "/meeting"
+        "title": "Meeting",
+        "url": "/dashboard/link"
     },
     {
         "title": "NFT",
-        "url": "/meeting"
+        "url": "/dashboard/nft"
     },
     {
         "title": "Point",
-        "url": "/points"
+        "url": "/dashboard/points"
     }
 ]
