@@ -14,8 +14,8 @@ const MeetLayout = () => {
                 <StreamScreen />
                 <div className='bg-[#F9FAFB] dark:bg-pody-dark pb-[100px] md:pb-5 overflow-y-auto md:overflow-hidden p-5 __participant_and_chat relative flex flex-col gap-y-2 md:rounded-2xl'>
                     <Participant />
-                    <ChatRoom /> 
                 </div>
+                <ChatRoom /> 
             </div>
             <ControlsMobile />
         </section>

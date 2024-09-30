@@ -1,43 +1,55 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import userLogo from '/public/avatar/user.png'
-const ChatRoom = () => {
-    const [getChat, setChat] = useState(false);
 
-    const openChat = () => {
-        setChat(!getChat);
-    }
+interface Message {
+  id: string;
+  sender: string;
+  content: string;
+  timestamp: Date;
+}
 
+const ChatRoom: React.FC = () => {
+    const [isOpen, setIsOpen] = useState(true);
+    const [messages, setMessages] = useState<Message[]>([
+      { id: '1', sender: 'User1', content: 'Can you hear my voice?', timestamp: new Date() },
+      { id: '2', sender: 'User2', content: 'Yes, I can hear you clearly.', timestamp: new Date() },
+    ]);
+
+    // ... existing code ...
 
     return (
-        <div className={`fixed hidden md:block bottom-0 z-50 left-0 md:relative w-full h-[70%] md:max-h-[350px] md:min-h-[350px] bg-white dark:bg-[#131316] shadow-xl shadow-pody-primary/10 rounded-xl ${getChat ? 'hidden md:block' : ''}`}>
-            <div className='px-7 p-5'>
-                <div className='flex flex-row justify-between items-center mb-5 text-slate-800'>
-                    <h2 className='font-bold text-base'>Chat room</h2>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className='w-7 h-7 text-slate-600'
-                        viewBox="0 0 24 24"
-                        style={{ msFilter: "" }}
-                        fill="currentColor"
-                        onClick={openChat}
+        <div className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[70vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-xl transition-all duration-300 ease-in-out ${isOpen ? 'translate-y-0' : 'translate-y-full md:translate-y-[calc(100%-55px)]'}`}>
+            <div className='flex flex-col h-full'>
+                <div className='px-4 py-3 border-b dark:border-gray-700 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
+                    <div className='flex justify-between items-center'>
+                        <h2 className='font-bold text-lg text-gray-800 dark:text-white'>Chat Room</h2>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className={`w-6 h-6 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
                         >
-                        <path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
-                    </svg>
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
+                        </svg>
+                    </div>
                 </div>
-                <div className='flex flex-col gap-y-3.5'>
-                    <div className='gap-x-3 __sender_chat'>
-                        <Image src={userLogo} alt='user icon' className='w-7 h-7 object-contain self-end' />
-                        <div className='text-sm bg-slate-100 w-9/12 md:w-full p-3.5 __message_chat flex items-center text-slate-700'>
-                            Can you hear my voice Eax
+                <div className='flex-grow overflow-y-auto px-4 py-3'>
+                    {messages.map((message) => (
+                        <div key={message.id} className={`flex mb-4 ${message.sender === 'User1' ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`max-w-[70%] rounded-lg p-3 ${message.sender === 'User1' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white'}`}>
+                                <p className='text-sm'>{message.content}</p>
+                                <span className='text-xs opacity-75 mt-1 block'>{message.timestamp.toLocaleTimeString()}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className='gap-x-3 __receiver_chat'>
-                        <Image src={userLogo} alt='user icon' className='w-7 h-7 object-contain self-end' />
-                        <div className='text-sm bg-slate-100 w-9/12 md:w-full p-3.5 __message_chat_sender flex items-center text-slate-700'>
-                            Yeah i can hear you asshole ORx proceed with caution to the meeting
-                        </div>
-                    </div>
+                    ))}
+                </div>
+                <div className='px-4 py-3 border-t dark:border-gray-700'>
+                    <input
+                        type="text"
+                        placeholder="Type a message..."
+                        className='w-full px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
                 </div>
             </div>
         </div>
