@@ -13,7 +13,7 @@ const config: Config = {
   			pody: {
   				dark: '#07070A',
   				dark_secondary: '#0D0E14',
-  				primary: '#96EA63',
+  				primary: '#FFBE6A',
   				gray: '#A6A7AD',
   				border: '#CFD3DA',
   				danger: '#F1414F',

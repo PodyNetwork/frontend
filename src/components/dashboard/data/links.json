@@ -1,7 +1,7 @@
 [
     {
         "title": "Overview",
-        "url": "/dashboard"
+        "url": "/dashboard/"
     },
     {
         "title": "Meeting",
@@ -12,7 +12,11 @@
         "url": "/dashboard/NFT"
     },
     {
-        "title": "Leaderboard & Reward",
+        "title": "Leaderboard",
         "url": "/dashboard/leaderboard"
+    },
+    {
+        "title": "Reward",
+        "url": "/dashboard/reward"
     }
 ]

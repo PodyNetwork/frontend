@@ -35,7 +35,7 @@ const LeaderboardItem = ({ rank, username, points, avatar }: LeaderboardItemProp
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3, delay: rank * 0.1 }}
-    className="flex flex-row items-center justify-between bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl px-6 py-3 mb-4 shadow-lg hover:shadow-xl transition-shadow duration-300"
+    className="flex flex-row items-center justify-between bg-gradient-to-r from-slate-900 to-pody-dark_secondary rounded-xl px-6 py-3 mb-4 shadow-lg hover:shadow-xl transition-shadow duration-300"
   >
     <div className="flex items-center gap-x-2">
       <div className="text-lg font-bold text-slate-300 w-6">{rank}</div>
@@ -45,13 +45,13 @@ const LeaderboardItem = ({ rank, username, points, avatar }: LeaderboardItemProp
           width={56}
           height={56}
           alt={username}
-          className="rounded-full w-10 h-10 object-cover border-2 border-amber-400 shadow-md"
+          className="rounded-full w-10 h-10 object-cover border-2 border-pody-ptext-pody-primary shadow-md"
         />
         <h3 className="text-sm text-white">{username}</h3>
       </div>
     </div>
     <div>
-      <p className="text-sm font-bold text-amber-400">
+      <p className="text-sm font-bold text-pody-primary">
         {points.toLocaleString()} pts
       </p>
     </div>
@@ -82,12 +82,12 @@ const TopThree = ({ data }: { data: LeaderboardItemProps[] }) => (
                 className="w-full h-full object-cover rounded-full border-2 border-white"
               />
             </div>
-            <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center shadow-lg">
-              <span className="text-lg font-bold text-white">{item.rank}</span>
+            <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-pody-primary flex items-center justify-center shadow-lg">
+              <span className="text-base font-bold text-white">{item.rank}</span>
             </div>
           </div>
           <h2 className="font-bold text-base mt-4 text-white">{item.username}</h2>
-          <p className="text-sm text-amber-400 font-semibold">
+          <p className="text-sm text-pody-primary font-semibold">
             {item.points.toLocaleString()} pts
           </p>
         </motion.div>
