@@ -32,10 +32,18 @@ const Login = () => {
           }}>
             <ConnectOrComponent>
               <button
-              className='p-3 bg-pody-dark_secondary w-full rounded-lg text-slate-200 text-sm mt-3 hover:bg-pody-dark_secondary/90'
-            >
-              Login
-            </button>
+                className='p-3 bg-pody-dark_secondary w-full rounded-lg text-slate-200 text-sm mt-3 hover:bg-pody-dark_secondary/90'
+                disabled={login.isPending}
+              >
+                {login.isPending ? (
+                  <div className="flex items-center justify-center">
+                    <div className="w-5 h-5 border-t-2 border-b-2 border-slate-200 rounded-full animate-spin"></div>
+                    <span className="ml-2">Logging in...</span>
+                  </div>
+                ) : (
+                  'Login'
+                )}
+              </button>
             </ConnectOrComponent>
             {errorMessage && <div className="text-red-500 text-sm mt-2">{errorMessage.message}</div>}
           </form>

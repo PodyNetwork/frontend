@@ -1,11 +1,11 @@
 "use client"
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
 import type { Call } from "@/app/call/types";
-import { useState, useCallback, useEffect } from "react";
+import { useState } from "react";
 
 
 interface Calls {
@@ -15,7 +15,8 @@ interface CallHistoryProps extends Calls {
   isLoading: boolean,
   isError: boolean,
   hasNextPage?: boolean,
-  fetchNextPage?: () => void
+  fetchNextPage?: () => void,
+  isFetchingNextPage?: boolean
 }
 
 const CallSkeleton = () => {
@@ -80,22 +81,28 @@ const CallInfo = ({message}: {message: string}) => {
   );
 }
 
-const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage }: CallHistoryProps) => {
+const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage }: CallHistoryProps) => {
   const pathname = usePathname();
-  const [isFetchingMore, setIsFetchingMore] = useState<boolean>(false);
 
-  const handleScroll = useCallback(() => {
-    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isFetchingMore) return;
+  const handleFetchMore = useCallback(() => {
     if (hasNextPage && fetchNextPage) {
-      setIsFetchingMore(true);
-      fetchNextPage()
+      fetchNextPage();
     }
-  }, [hasNextPage, fetchNextPage, isFetchingMore]);
+  }, [hasNextPage, fetchNextPage]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  const renderCalls = () => {
+    if (isLoading || isFetchingNextPage) {
+      return Array.from({ length: 3 }, (_, index) => <CallSkeleton key={index} />);
+    }
+    if (isError) {
+      return <CallInfo message="Error fetching calls" />;
+    }
+    if (calls.length > 0) {
+      return <CallsCard calls={calls} />;
+    }
+    return <CallInfo message="No calls found" />;
+  };
+
 
   return (
     <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody">
@@ -110,26 +117,13 @@ const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage }: 
         </Link>}
       </div>
       <div className="grid grid-cols-3 gap-x-4 px-6">
-        {isLoading ? (
-          <>
-            {[...Array(3)].map((_, index) => (
-              <CallSkeleton key={index} />
-            ))}
-          </>
-        ) : (isError ?
-          <div className="flex items-center justify-center h-[270px] col-span-3 text-center text-pody-danger bg-slate-50 rounded-2xl">
-            <p>Error fetching calls</p>
-          </div>
-          :
-          (calls.length > 0 ? <CallsCard calls={calls}  /> : 
-          <div className="flex items-center justify-center h-[270px] col-span-3 text-center text-pody-danger bg-slate-50 rounded-2xl">
-            <p>No calls found</p>
-          </div>)
-        )}
+        {renderCalls()}
       </div>
-      {isFetchingMore && (
+      {hasNextPage && (
         <div className="col-span-3 mt-4 text-center">
-          <p>Loading more...</p>
+          <button onClick={handleFetchMore} disabled={isFetchingNextPage}>
+            {isFetchingNextPage ? 'Loading more...' : 'Fetch More'}
+          </button>
         </div>
       )}
     </div>

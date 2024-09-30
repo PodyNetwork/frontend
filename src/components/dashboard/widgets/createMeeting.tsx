@@ -14,8 +14,7 @@ const CreateMeeting = () => {
         </h2>
         <div className="text-sm mt-2 flex flex-row gap-x-2">
           <ButtonPody onClick={() =>{
-            const res = createCall.mutate({})
-            console.log(res)
+             createCall.mutate({})
           }}>Create Meeting</ButtonPody>
           <ScheduleDrawer />
         </div>

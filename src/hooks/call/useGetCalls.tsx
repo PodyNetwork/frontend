@@ -1,5 +1,4 @@
 "use client"
-import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import axios from "@/network/axios"
 import type { Call } from '../../app/call/types';
@@ -18,7 +17,8 @@ interface GetCallsArgs {
   page?: number, 
   limit?: number, 
   type?: "instant"| "scheduled", 
-  status?: 'pending' | 'ongoing' | 'ended' | 'cancelled'
+  status?: 'pending' | 'ongoing' | 'ended' | 'cancelled',
+  sortDirection?: "asc" | "desc";
 }
 
 const useGetCalls = (args: GetCallsArgs = {}) => {
@@ -46,14 +46,15 @@ const useGetCalls = (args: GetCallsArgs = {}) => {
     },
     initialPageParam: 1,
     retry: 2,
-    staleTime: 10
+    staleTime: 0,
+    refetchInterval: 5000
   });
 
   const calls = data?.pages?.flatMap((page: CallsResponse) => page.data.calls) || [];
 
   return { 
     calls, 
-    fetchNextPage, 
+    fetchNextPage,
     hasNextPage, 
     isFetchingNextPage, 
     isLoading, 
