@@ -19,7 +19,7 @@ const ChatRoom: React.FC = () => {
     // ... existing code ...
 
     return (
-        <div className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[70vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-xl transition-all duration-300 ease-in-out ${isOpen ? 'translate-y-0' : 'translate-y-full md:translate-y-[calc(100%-55px)]'}`}>
+        <div className={`fixed bottom-0 md:right-4 right-0 z-50 w-full md:w-[20rem] h-[70vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-xl transition-all duration-300 ease-in-out ${isOpen ? 'translate-y-0' : 'translate-y-full md:translate-y-[calc(100%-55px)]'}`}>
             <div className='flex flex-col h-full'>
                 <div className='px-4 py-3 border-b dark:border-gray-700 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
                     <div className='flex justify-between items-center'>
