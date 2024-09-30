@@ -7,7 +7,7 @@ import useErrorMessage from '../useErrorMessage';
 import type { CallResponse } from '../../app/call/types';
 import { ResponseError } from '@/types/globals';
 
-interface CreateCallArgs{ scheduledTime?: string, participantsCanPublish?: boolean, title?: string }
+interface CreateCallArgs{ scheduledTime?: number, participantsCanPublish?: boolean, title?: string }
 
 const useCreateCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();

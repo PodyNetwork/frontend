@@ -23,6 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import ButtonPody from "@/components/global/button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import useCreateCall from "@/hooks/call/useCreateCall";
 import { addHours, startOfHour, addMinutes, setMinutes } from "date-fns";
 import { formOptions, useForm } from "@tanstack/react-form";
@@ -43,6 +44,7 @@ const formOpts = formOptions<{ title: string }>({
 });
 
 const ScheduleDrawer = () => {
+<<<<<<< HEAD
   const [scheduleTime, setScheduleTime] = useState<Date>(
     roundToNearestTimeSlot(new Date())
   );
@@ -57,6 +59,23 @@ const ScheduleDrawer = () => {
       });
     },
   });
+=======
+    const [scheduleTime, setScheduleTime] = useState<Date>(roundToNearestTimeSlot(new Date()));
+    const { createCall } = useCreateCall();
+    const router = useRouter();
+
+    const form = useForm<{ title: string }>({
+        ...formOpts,
+        onSubmit: async ({ value }) => {
+            await createCall.mutateAsync({
+                title: value.title,
+                scheduledTime: scheduleTime.getTime()
+            });
+            form.reset();
+            router.push('/dashboard/call');
+        }
+    });
+>>>>>>> 07209bb091379c1ce8c2a7cafe32f66b50a96a01
 
   return (
     <Drawer>
