@@ -14,7 +14,7 @@ const CallHistory = () => {
         <h4 className="text-lg text-slate-700 dark:text-white font-medium">
           Meeting
         </h4>
-        {pathname !== '/dashboard/schedule' && <Link href="/dashboard/call">
+        {pathname !== '/dashboard/call' && <Link href="/dashboard/call">
           <button className="text-xs bg-pody-primary/40 px-3.5 py-1.5 rounded-full">
             Show All
           </button>

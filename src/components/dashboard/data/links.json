@@ -12,11 +12,7 @@
         "url": "/dashboard/NFT"
     },
     {
-        "title": "Point",
-        "url": "/dashboard/points"
-    },
-    {
-        "title": "Leaderboard",
+        "title": "Leaderboard & Reward",
         "url": "/dashboard/leaderboard"
     }
 ]
