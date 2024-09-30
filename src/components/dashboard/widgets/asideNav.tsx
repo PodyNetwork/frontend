@@ -1,3 +1,5 @@
+"use client"
+import { useState } from 'react';
 import dashlink from "../data/links.json";
 import Link from "next/link";
 import logo from "/public/logo/pody logo dark.png";
@@ -5,73 +7,123 @@ import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
 
 const AsideNav = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <aside className="w-full bg-pody-primary/20 flex flex-row items-center justify-between py-6 px-12 gap-x-4">
-      <div className="flex flex-row">
-        <Image src={logo} className="w-16 object-contain me-6" alt="Pody" />
-        <ul className="text-sm flex flex-row gap-x-6">
-          {dashlink.map((data, index) => (
-            <li
-              key={index}
-              className="py-2 hover:text-slate-500 hover:transition-all rounded-full text-slate-700"
-            >
-              <Link href={data.url}>{data.title}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <header className="flex flex-row justify-between gap-x-4 items-center">
-        <div className="flex flex-row items-center gap-x-2">
-          <div className="w-9 h-9 rounded-full bg-black/20">
-            <Image
-              src={userIcon}
-              width={100}
-              height={100}
-              className="w-full h-full object-cover rounded-full"
-              alt="user"
-            />
-          </div>
-          <h3 className="text-base text-slate-700">Hello, 0x3ax.</h3>
+    <>
+      {/* Desktop menu */}
+      <aside className="hidden md:flex w-full bg-pody-primary/20 items-center justify-between py-6 px-12 gap-x-4">
+        <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
+          <Image src={logo} className="w-16 object-contain mb-4 sm:mb-0 sm:me-6" alt="Pody" />
+          <ul className="text-sm flex flex-wrap justify-center sm:flex-row gap-4 sm:gap-x-6">
+            {dashlink.map((data, index) => (
+              <li
+                key={index}
+                className="py-2 hover:text-slate-500 hover:transition-all rounded-full text-slate-700"
+              >
+                <Link href={data.url}>{data.title}</Link>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="flex flex-row items-s items-stretch text-sm text-slate-700 __dashheader_icon_info">
-          <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4"
-              viewBox="0 0 24 24"
-              style={{ msFilter: "" }}
-              fill="currentColor"
-            >
-              <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+        <header className="flex flex-col sm:flex-row justify-between gap-4 items-center mt-4 sm:mt-0">
+          <div className="flex flex-row items-center gap-x-2">
+            <div className="w-9 h-9 rounded-full bg-black/20">
+              <Image
+                src={userIcon}
+                width={100}
+                height={100}
+                className="w-full h-full object-cover rounded-full"
+                alt="user"
+              />
+            </div>
+            <h3 className="text-base text-slate-700">Hello, 0x3ax.</h3>
+          </div>
+          <ul className="flex flex-row items-center gap-4 text-sm text-slate-700 __dashheader_icon_info">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+              </svg>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 2H8C4.691 2 2 4.691 2 8v12a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 13c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v7z"></path>
+                <circle cx="9.5" cy="11.5" r="1.5"></circle>
+                <circle cx="14.5" cy="11.5" r="1.5"></circle>
+              </svg>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.742 13.045a8.088 8.088 0 0 1-2.077.271c-2.135 0-4.14-.83-5.646-2.336a8.025 8.025 0 0 1-2.064-7.723A1 1 0 0 0 9.73 2.034a10.014 10.014 0 0 0-4.489 2.582c-3.898 3.898-3.898 10.243 0 14.143a9.937 9.937 0 0 0 7.072 2.93 9.93 9.93 0 0 0 7.07-2.929 10.007 10.007 0 0 0 2.583-4.491 1.001 1.001 0 0 0-1.224-1.224zm-2.772 4.301a7.947 7.947 0 0 1-5.656 2.343 7.953 7.953 0 0 1-5.658-2.344c-3.118-3.119-3.118-8.195 0-11.314a7.923 7.923 0 0 1 2.06-1.483 10.027 10.027 0 0 0 2.89 7.848 9.972 9.972 0 0 0 7.848 2.891 8.036 8.036 0 0 1-1.484 2.059z"></path>
+              </svg>
+            </li>
+          </ul>
+        </header>
+      </aside>
+
+      {/* Mobile menu button */}
+      <div className="md:hidden fixed top-4 right-4 z-50">
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="p-2 bg-indigo-600 rounded-full shadow-lg shadow-indigo-500/50"
+        >
+          {mobileMenuOpen ? (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
-          </li>
-          <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4"
-              viewBox="0 0 24 24"
-              style={{ msFilter: "" }}
-              fill="currentColor"
-            >
-              <path d="M16 2H8C4.691 2 2 4.691 2 8v12a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 13c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v7z"></path>
-              <circle cx="9.5" cy="11.5" r="1.5"></circle>
-              <circle cx="14.5" cy="11.5" r="1.5"></circle>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
-          </li>
-          <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4"
-              viewBox="0 0 24 24"
-              style={{ msFilter: "" }}
-              fill="currentColor"
-            >
-              <path d="M20.742 13.045a8.088 8.088 0 0 1-2.077.271c-2.135 0-4.14-.83-5.646-2.336a8.025 8.025 0 0 1-2.064-7.723A1 1 0 0 0 9.73 2.034a10.014 10.014 0 0 0-4.489 2.582c-3.898 3.898-3.898 10.243 0 14.143a9.937 9.937 0 0 0 7.072 2.93 9.93 9.93 0 0 0 7.07-2.929 10.007 10.007 0 0 0 2.583-4.491 1.001 1.001 0 0 0-1.224-1.224zm-2.772 4.301a7.947 7.947 0 0 1-5.656 2.343 7.953 7.953 0 0 1-5.658-2.344c-3.118-3.119-3.118-8.195 0-11.314a7.923 7.923 0 0 1 2.06-1.483 10.027 10.027 0 0 0 2.89 7.848 9.972 9.972 0 0 0 7.848 2.891 8.036 8.036 0 0 1-1.484 2.059z"></path>
-            </svg>
-          </li>
-        </ul>
-      </header>
-    </aside>
+          )}
+        </button>
+      </div>
+
+      {/* Web3 Mobile menu */}
+      <div className={`md:hidden fixed inset-0 bg-gradient-to-br from-pody-dark to-pody-dark_secondary z-40 transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className="flex flex-col items-center justify-center h-full relative overflow-hidden">
+          {/* Blockchain-inspired background animation */}
+          <div className="absolute inset-0 opacity-10">
+            {[...Array(20)].map((_, i) => (
+              <div key={i} className="absolute bg-white w-1 h-1 rounded-full animate-float" style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+              }}></div>
+            ))}
+          </div>
+
+          <Image src={logo} className="w-24 object-contain mb-8" alt="Pody" />
+          <ul className="text-lg flex flex-col items-center gap-y-4">
+            {dashlink.map((data, index) => (
+              <li
+                key={index}
+                className="py-2 hover:text-indigo-300 transition-all rounded-full text-white"
+              >
+                <Link href={data.url} onClick={() => setMobileMenuOpen(false)}>{data.title}</Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-col items-center gap-y-4">
+            <div className="flex items-center gap-x-2 bg-indigo-800/50 p-2 rounded-full">
+              <div className="w-9 h-9 rounded-full bg-indigo-600 overflow-hidden">
+                <Image
+                  src={userIcon}
+                  width={100}
+                  height={100}
+                  className="w-full h-full object-cover"
+                  alt="user"
+                />
+              </div>
+              <h3 className="text-base text-white">Hello, 0x3ax.</h3>
+            </div>
+            <ul className="flex gap-x-4 text-sm text-white">
+              {/* ... (include the SVG icons here with text-white class) ... */}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

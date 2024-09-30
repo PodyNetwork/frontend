@@ -8,7 +8,7 @@ const MeetingLinkTable = () => {
   return (
     <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody">
       <div className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-6 pb-[20px] pt-4 shadow-2xl shadow-slate-100">
-        <h4 className="text-lg font-medium text-slate-700 dark:text-white">
+        <h4 className="text-lg font-medium text-slate-700 dark:text-slate-800">
           Meeting
         </h4>
         {pathname !== '/dashboard/meeting' && <button className="text-xs bg-pody-primary/40 px-3.5 py-1.5 rounded-full">

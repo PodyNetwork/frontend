@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation'
 import type { Call } from "@/app/call/types";
 import { useState } from "react";
 
-
 interface Calls {
   calls: Array<Call>
 }
@@ -20,7 +19,7 @@ interface CallHistoryProps extends Calls {
 }
 
 const CallSkeleton = () => {
-  return <div className="p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]">
+  return <div className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]">
     <div className="flex flex-col gap-y-1.5">
       <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
       <div className="h-6 w-40 bg-gray-200 rounded animate-pulse"></div>
@@ -40,21 +39,21 @@ const CallSkeleton = () => {
 
 const CallsCard = ({ calls }: Calls) => {
   return <>
-    {calls.map((call: Call) => {
-      return <><div className="p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]">
+    {calls.map((call: Call, index: number) => (
+      <div key={index} className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]">
         <div className="flex flex-col gap-y-1.5">
           <p className="text-xs text-slate-700">{call.scheduledTime}</p>
-          <h3 className="text-lg font-medium text-slate-800">
+          <h3 className="text-base sm:text-lg font-medium text-slate-800">
             {call.title}
           </h3>
           <div>
-            <button className="text-xs text-pody-danger bg-pody-danger/10 px-3 py-1 font-medium rounded-sm">
+            <button className="text-xs text-pody-danger bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm">
               {call.status}
             </button>
           </div>
         </div>
-        <div className="flex flex-row gap-x-3 mt-auto">
-          <div className="w-9 h-9 rounded-full bg-black/20">
+        <div className="flex flex-row gap-x-2 sm:gap-x-3 mt-auto">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/20">
             <Image
               src={userIcon}
               width={100}
@@ -63,20 +62,20 @@ const CallsCard = ({ calls }: Calls) => {
               alt="user"
             />
           </div>
-          <div className="text-sm">
+          <div className="text-xs sm:text-sm">
             <h3 className="font-medium">0x3ax</h3>
             <p>Host</p>
           </div>
         </div>
-      </div></>
-    })}
+      </div>
+    ))}
   </>
 }
 
 const CallInfo = ({message}: {message: string}) => {
   return (
     <div className="flex items-center justify-center h-[270px] w-full text-center text-pody-danger bg-slate-50 rounded-2xl">
-      <p className="px-4 break-words">{message}</p>
+      <p className="px-4 break-words text-sm sm:text-base">{message}</p>
     </div>
   );
 }
@@ -103,25 +102,30 @@ const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage, is
     return <CallInfo message="No calls found" />;
   };
 
-
   return (
     <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody">
-      <div className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-6 pb-[20px] pt-4">
-        <h4 className="text-lg text-slate-700 dark:text-white font-medium">
+      <div className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-4 sm:px-6 pb-[20px] pt-4">
+        <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
           Meeting
         </h4>
-        {pathname !== '/dashboard/call' && <Link href="/dashboard/call">
-          <button className="text-xs bg-pody-primary/40 px-3.5 py-1.5 rounded-full">
-            Show All
-          </button>
-        </Link>}
+        {pathname !== '/dashboard/call' && (
+          <Link href="/dashboard/call">
+            <button className="text-xs bg-pody-primary/40 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
+              Show All
+            </button>
+          </Link>
+        )}
       </div>
-      <div className="grid grid-cols-3 gap-x-4 px-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-6">
         {renderCalls()}
       </div>
       {hasNextPage && (
-        <div className="col-span-3 mt-4 text-center">
-          <button onClick={handleFetchMore} disabled={isFetchingNextPage}>
+        <div className="col-span-full mt-4 text-center">
+          <button 
+            onClick={handleFetchMore} 
+            disabled={isFetchingNextPage}
+            className="text-sm bg-pody-primary/40 px-3 py-1.5 rounded-full"
+          >
             {isFetchingNextPage ? 'Loading more...' : 'Fetch More'}
           </button>
         </div>
