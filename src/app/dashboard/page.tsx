@@ -21,7 +21,7 @@ export default function Page() {
       <div className="p-12">
         <div className="w-full relative flex flex-row gap-x-6">
           <div className="max-w-4xl mx-auto">
-            <CallHistory />
+            <CallHistory calls={[]} isLoading={false} isError={false}/>
           </div>
         </div>
       </div>

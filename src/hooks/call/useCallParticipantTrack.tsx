@@ -3,23 +3,26 @@ import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
-import useErrorMessage from '../../../hooks/useErrorMessage';
-import type { CallResponse } from '../types';
-import { ResponseError } from '@/types/globals';
+import useErrorMessage from '../useErrorMessage';
+import { BaseResponse, ResponseError } from '@/types/globals';
 
-interface CreateMeetingArgs{ scheduledTime: string, participantsCanPublish: boolean, title: string }
+interface TrackMuteArgs {
+  callId: string;
+  username: string;
+  trackSid: string;
+  mute: boolean;
+}
 
-
-const useUpdateCall = () => {
+const useTrackMute = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const updateCallHandler = useCallback(async (args: CreateMeetingArgs): Promise<CallResponse> => {
-    const response = await axios.put<CallResponse>('/call', args);
+  const trackMuteHandler = useCallback(async (args: TrackMuteArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>('/call/mute-track', args);
     return response.data;
   }, []);
 
-  const updateCall = useMutation({
-    mutationFn: updateCallHandler,
+  const muteTrack = useMutation({
+    mutationFn: trackMuteHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -33,7 +36,7 @@ const useUpdateCall = () => {
     },
   });
 
-  return { updateCall, errorMessage };
+  return { muteTrack, errorMessage };
 }
 
-export default useUpdateCall
+export default useTrackMute

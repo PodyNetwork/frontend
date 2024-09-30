@@ -3,26 +3,25 @@ import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
-import useErrorMessage from '../../../hooks/useErrorMessage';
+import useErrorMessage from '../useErrorMessage';
 import { BaseResponse, ResponseError } from '@/types/globals';
 
-interface TrackMuteArgs {
+interface BanParticipantArgs {
+  participantId: string;
   callId: string;
   username: string;
-  trackSid: string;
-  mute: boolean;
 }
 
-const useTrackMute = () => {
+const useParticipantBan = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const trackMuteHandler = useCallback(async (args: TrackMuteArgs): Promise<BaseResponse> => {
-    const response = await axios.post<BaseResponse>('/call/mute-track', args);
+  const banParticipantHandler = useCallback(async (args: BanParticipantArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>(`/call/participant/permission`, args);
     return response.data;
   }, []);
 
-  const muteTrack = useMutation({
-    mutationFn: trackMuteHandler,
+  const banParticipant = useMutation({
+    mutationFn: banParticipantHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -36,7 +35,7 @@ const useTrackMute = () => {
     },
   });
 
-  return { muteTrack, errorMessage };
+  return { banParticipant, errorMessage };
 }
 
-export default useTrackMute
+export default useParticipantBan
