@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const Participant = () => {
   return (
-    <div className='w-full md:h-[calc(100%-300px)] md:overflow-y-auto'>
+    <div className='w-full md:h-full md:overflow-y-auto'>
         <div className='hidden md:flex flex-row justify-between mb-3.5'>
             <h3 className='text-base'><span className='font-semibold text-slate-600 dark:text-slate-400'>Participant</span> {" "} <span className='text-slate-500'>(3)</span></h3>
             <svg
@@ -17,7 +17,7 @@ const Participant = () => {
                 <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
             </svg>
         </div>
-        <div className='grid grid-cols-4 gap-2.5 md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list'>
+        <div className='grid grid-cols-4 gap-2.5 md:mb-[20px] md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list'>
             {participantList.map((data, index) => (
                 <div className='md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm text-slate-500' key={index}>
                     <div className='flex md:flex-row flex-col items-center'>
