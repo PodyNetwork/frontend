@@ -3,7 +3,7 @@ import userLogo from '/public/avatar/user.png'
 
 const StreamSidebar = () => {
   return (
-        <div className='min-w-16 max-w-16 hidden md:block py-5 bg-[#F9FAFB] dark:bg-pody-dark h-full rounded-2xl relative float-left'>
+        <div className='min-w-16 max-w-16 hidden md:block py-5 bg-pody-primary/10 dark:bg-pody-dark h-full rounded-2xl relative float-left'>
             <div className='h-full flex flex-col justify-between items-center gap-3 text-slate-600 dark:text-slate-400'>
                 <div>
                     <svg
