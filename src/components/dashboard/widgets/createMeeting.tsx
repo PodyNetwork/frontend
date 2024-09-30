@@ -1,7 +1,11 @@
 import ButtonPody from "@/components/global/button";
 import ScheduleDrawer from "./scheduleDrawer";
+import useCreateCall from "@/hooks/call/useCreateCall";
 
 const CreateMeeting = () => {
+
+  const { createCall } = useCreateCall()
+
   return (
     <>
       <div className="flex flex-col gap-y-4">
@@ -9,7 +13,10 @@ const CreateMeeting = () => {
           Create <span className="text-slate-500">Meeting</span> for Now or Later
         </h2>
         <div className="text-sm mt-2 flex flex-row gap-x-2">
-          <ButtonPody>Create Meeting</ButtonPody>
+          <ButtonPody onClick={() =>{
+            const res = createCall.mutate({})
+            console.log(res)
+          }}>Create Meeting</ButtonPody>
           <ScheduleDrawer />
         </div>
         <div className="text-sm">Last meeting: 24th september 2021</div>

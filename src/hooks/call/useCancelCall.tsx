@@ -3,25 +3,21 @@ import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
-import useErrorMessage from '../../../hooks/useErrorMessage';
+import useErrorMessage from '../useErrorMessage';
 import { BaseResponse, ResponseError } from '@/types/globals';
 
-interface SubscribeToTracksArgs {
-  callId: string;
-  trackSids: string[];
-  subscribe: boolean;
-}
+interface CreateMeetingArgs{ callId: string }
 
-const useSubscribeToTracks = () => {
+const useCancelCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const subscribeToTracksHandler = useCallback(async (args: SubscribeToTracksArgs): Promise<BaseResponse> => {
-    const response = await axios.post<BaseResponse>('/call/participant/track', args);
+  const cancelCallHandler = useCallback(async (args: CreateMeetingArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>(`/call/${args.callId}/cancel`);
     return response.data;
   }, []);
 
-  const subscribeToTracks = useMutation({
-    mutationFn: subscribeToTracksHandler,
+  const cancelCall = useMutation({
+    mutationFn: cancelCallHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -35,7 +31,7 @@ const useSubscribeToTracks = () => {
     },
   });
 
-  return { subscribeToTracks, errorMessage };
+  return { cancelCall, errorMessage };
 }
 
-export default useSubscribeToTracks
+export default useCancelCall

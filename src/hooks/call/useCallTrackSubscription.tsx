@@ -3,31 +3,25 @@ import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
-import useErrorMessage from '../../../hooks/useErrorMessage';
+import useErrorMessage from '../useErrorMessage';
 import { BaseResponse, ResponseError } from '@/types/globals';
-import type { Call } from '../types';
 
-interface CreateCallTokenArgs {
+interface SubscribeToTracksArgs {
   callId: string;
+  trackSids: string[];
+  subscribe: boolean;
 }
 
-interface CallTokenResponse extends BaseResponse {
- data: {
-    token: string;
-    call: Call;
- }
-}
-
-const useCreateCallToken = () => {
+const useSubscribeToTracks = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const createCallTokenHandler = useCallback(async (args: CreateCallTokenArgs): Promise<CallTokenResponse> => {
-    const response = await axios.post<CallTokenResponse>(`/call/${args.callId}/token`);
+  const subscribeToTracksHandler = useCallback(async (args: SubscribeToTracksArgs): Promise<BaseResponse> => {
+    const response = await axios.post<BaseResponse>('/call/participant/track', args);
     return response.data;
   }, []);
 
-  const createCallToken = useMutation({
-    mutationFn: createCallTokenHandler,
+  const subscribeToTracks = useMutation({
+    mutationFn: subscribeToTracksHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -41,7 +35,7 @@ const useCreateCallToken = () => {
     },
   });
 
-  return { createCallToken, errorMessage };
+  return { subscribeToTracks, errorMessage };
 }
 
-export default useCreateCallToken
+export default useSubscribeToTracks

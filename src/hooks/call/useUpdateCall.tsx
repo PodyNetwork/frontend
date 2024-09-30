@@ -3,25 +3,23 @@ import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
-import useErrorMessage from '../../../hooks/useErrorMessage';
-import { BaseResponse, ResponseError } from '@/types/globals';
+import useErrorMessage from '../useErrorMessage';
+import type { CallResponse } from '../../app/call/types';
+import { ResponseError } from '@/types/globals';
 
-interface BanParticipantArgs {
-  callId: string;
-  username: string;
-}
+interface CreateMeetingArgs{ scheduledTime: string, participantsCanPublish: boolean, title: string }
 
 
-const useBanCallParticipant = () => {
+const useUpdateCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const banParticipantHandler = useCallback(async (args: BanParticipantArgs): Promise<BaseResponse> => {
-    const response = await axios.post<BaseResponse>(`/call/participant/ban`, args);
+  const updateCallHandler = useCallback(async (args: CreateMeetingArgs): Promise<CallResponse> => {
+    const response = await axios.put<CallResponse>('/call', args);
     return response.data;
   }, []);
 
-  const banParticipant = useMutation({
-    mutationFn: banParticipantHandler,
+  const updateCall = useMutation({
+    mutationFn: updateCallHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -35,7 +33,7 @@ const useBanCallParticipant = () => {
     },
   });
 
-  return { banParticipant, errorMessage };
+  return { updateCall, errorMessage };
 }
 
-export default useBanCallParticipant
+export default useUpdateCall
