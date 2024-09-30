@@ -21,7 +21,7 @@ const Login = () => {
     <main className="relative float-left w-full h-full overflow-hidden" aria-label="Homepage">
       <AuthLayout>
         <div className='max-w-72 flex-1'>
-          <div className='pb-8'>
+          <div className='pb-6'>
             <Heading2 className="font-bold text-slate-800">Hello!</Heading2>
             <Paragraph className="text-slate-400 mt-2">Login to Get Started</Paragraph>
           </div>
