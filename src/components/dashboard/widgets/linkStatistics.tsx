@@ -1,13 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
+import useCallStats from "@/hooks/call/useCallStats";
 
 const LinkStatistics = () => {
+  const { stats, isLoading, isError } = useCallStats();
+
   const statItems = [
-    { title: "Active Link", value: 33, color: "bg-pody-primary" },
-    { title: "Inactive Link", value: 11, color: "bg-[#50c889]" },
-    { title: "Total Link", value: 44, color: "bg-[#ff802e]" },
-    { title: "Schedule", value: 2, color: "bg-[#f06db5]" },
+    { title: "Active Link", value: stats?.activeCalls ?? 0, color: "bg-pody-primary" },
+    { title: "Inactive Link", value: stats?.inactiveLinks ?? 0, color: "bg-[#50c889]" },
+    { title: "Total Link", value: stats?.totalLinks ?? 0, color: "bg-[#ff802e]" },
+    { title: "Schedule", value: stats?.scheduledCalls ?? 0, color: "bg-[#f06db5]" },
   ];
+
+  const calculateTotalLinkUsage = () => {
+    if (!stats || stats.totalLinks === 0) return 0;
+    return Math.round((stats.activeCalls / stats.totalLinks) * 100);
+  };
+
+  const totalLinkUsage = calculateTotalLinkUsage();
 
   return (
     <motion.div
@@ -31,7 +41,7 @@ const LinkStatistics = () => {
           className="lg:w-48"
         >
           <div className="flex items-center gap-x-3.5 mb-4">
-            <div className="text-5xl font-bold text-slate-200 tracking-tighter">64%</div>
+            <div className="text-5xl font-bold text-slate-200 tracking-tighter">{totalLinkUsage}%</div>
             <div className="text-xs text-slate-400">
               Total <br /> Link Usage
             </div>
@@ -41,7 +51,7 @@ const LinkStatistics = () => {
               <motion.div
                 key={index}
                 initial={{ width: 0 }}
-                animate={{ width: `${item.value * 100 / 44}%` }}
+                animate={{ width: `${(item.value / (stats?.totalLinks || 1)) * 100}%` }}
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 className={`h-full ${item.color}`}
               />

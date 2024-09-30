@@ -73,7 +73,7 @@ const CallsCard = ({ calls }: Calls) => {
   </>
 }
 
-const CallInfo = ({message}: {message: string}) => {
+const CallMessageDisplay = ({message}: {message: string}) => {
   return (
     <div className="flex items-center justify-center h-[270px] w-full text-center text-pody-danger bg-slate-50 rounded-2xl">
       <p className="px-4 break-words">{message}</p>
@@ -95,12 +95,12 @@ const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage, is
       return Array.from({ length: 3 }, (_, index) => <CallSkeleton key={index} />);
     }
     if (isError) {
-      return <CallInfo message="Error fetching calls" />;
+      return <CallMessageDisplay message="Error fetching calls" />;
     }
     if (calls.length > 0) {
       return <CallsCard calls={calls} />;
     }
-    return <CallInfo message="No calls found" />;
+    return <CallMessageDisplay message="No calls found" />;
   };
 
 
