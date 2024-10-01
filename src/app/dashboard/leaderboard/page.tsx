@@ -2,40 +2,32 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import useLeaderboard from "./hooks/useLeaderboard";
+import { LeaderboardEntry } from "./types";
 
-const leaderboardData = [
-  {
-    rank: 1,
-    username: "John Philly",
-    points: 6500,
-    avatar: "/avatar/user6.png",
-  },
-  {
-    rank: 2,
-    username: "Henry Mike",
-    points: 20000,
-    avatar: "/avatar/user5.jpeg",
-  },
-  {
-    rank: 3,
-    username: "Marker Smith",
-    points: 1500,
-    avatar: "/avatar/user1.webp",
-  },
-  {
-    rank: 4,
-    username: "Marshal Fish",
-    points: 10000,
-    avatar: "/avatar/user4.jpg",
-  },
-];
+const SkeletonLeaderboardItem = () => (
+  <motion.li
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.3 }}
+    className="flex flex-row items-center justify-between bg-gradient-to-r from-slate-900 to-pody-dark_secondary rounded-xl px-6 py-3 mb-2 shadow-lg"
+  >
+    <div className="flex items-center gap-x-2">
+      <div className="w-6 h-6 bg-gray-300 rounded animate-pulse"></div>
+      <div className="flex items-center gap-x-3">
+        <div className="w-8 h-8 bg-gray-300 rounded-full animate-pulse"></div>
+        <div className="w-20 h-4 bg-gray-300 rounded animate-pulse"></div>
+      </div>
+    </div>
+    <div className="w-16 h-4 bg-gray-300 rounded animate-pulse"></div>
+  </motion.li>
+);
 
 const LeaderboardItem = ({
   rank,
   username,
   points,
-  avatar,
-}: LeaderboardItemProps) => (
+}: LeaderboardEntry) => (
   <motion.li
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -46,7 +38,7 @@ const LeaderboardItem = ({
       <div className="text-lg font-bold text-slate-300 w-6">{rank}</div>
       <div className="flex items-center gap-x-3">
         <Image
-          src={avatar}
+          src={"/avatar/user6.png"}
           width={56}
           height={56}
           alt={username}
@@ -72,49 +64,83 @@ const LeaderboardItem = ({
   </motion.li>
 );
 
-const TopThree = ({ data }: { data: LeaderboardItemProps[] }) => (
+const SkeletonTopThree = () => (
   <div className="flex flex-row gap-x-1 justify-center mb-12">
-    {[1, 0, 2].map((index) => {
-      const item = data[index];
-      return (
-        <motion.div
-          key={item.rank}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.2 }}
-          className={`w-28 relative flex flex-col items-center ${
-            index === 0 ? "mt-0 scale-110" : "mt-10"
-          }`}
-        >
-          <div className="relative">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 shadow-lg">
-              <Image
-                src={item.avatar}
-                alt={`Top ${item.rank}`}
-                width={192}
-                height={192}
-                className="w-full h-full object-cover rounded-full border-2 border-white"
-              />
-            </div>
-            <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-pody-primary flex items-center justify-center shadow-lg">
-              <span className="text-base font-bold text-white">
-                {item.rank}
-              </span>
-            </div>
-          </div>
-          <h2 className="font-medium text-base mt-4 text-slate-800">
-            {item.username}
-          </h2>
-          <p className="text-sm text-pody-primary font-semibold">
-            {item.points.toLocaleString()} pts
-          </p>
-        </motion.div>
-      );
-    })}
+    {[1, 2, 3].map((index) => (
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.2 }}
+        className={`w-28 relative flex flex-col items-center ${
+          index === 2 ? "mt-0 scale-110" : "mt-10"
+        }`}
+      >
+        <div className="relative">
+          <div className="w-20 h-20 rounded-full bg-gray-300 shadow-lg animate-pulse"></div>
+          <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gray-400 animate-pulse"></div>
+        </div>
+        <div className="h-4 w-20 bg-gray-300 rounded mt-4 animate-pulse"></div>
+        <div className="h-3 w-16 bg-gray-300 rounded mt-2 animate-pulse"></div>
+      </motion.div>
+    ))}
   </div>
 );
 
+const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
+  if (data.length === 0) {
+    return <SkeletonTopThree />;
+  }
+
+  return (
+    <div className="flex flex-row gap-x-1 justify-center mb-12">
+      {data.map((item, index) => {
+        return (
+          <motion.div
+            key={item.rank}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            className={`w-28 relative flex flex-col items-center ${
+              index === 0 ? "mt-0 scale-110" : "mt-10"
+            }`}
+          >
+            <div className="relative">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 shadow-lg">
+                <Image
+                  src={"/avatar/user6.png"}
+                  alt={`Top ${item.rank}`}
+                  width={192}
+                  height={192}
+                  className="w-full h-full object-cover rounded-full border-2 border-white"
+                />
+              </div>
+              <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-pody-primary flex items-center justify-center shadow-lg">
+                <span className="text-base font-bold text-white">
+                  {item.rank}
+                </span>
+              </div>
+            </div>
+            <h2 className="font-medium text-base mt-4 text-slate-800">
+              {item.username}
+            </h2>
+            <p className="text-sm text-pody-primary font-semibold">
+              {item.points.toLocaleString()} pts
+            </p>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
+
 const Page = () => {
+  const { leaderboard, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = useLeaderboard();
+
+  const handleLoadMore = () => {
+    fetchNextPage();
+  };
+
   return (
     <main className="w-full">
       <div className="w-full bg-pody-primary/20 px-8 py-16">
@@ -131,17 +157,37 @@ const Page = () => {
             </motion.div>
           </div>
           <div className="w-6/12 flex justify-center">
-            <TopThree data={leaderboardData} />
+            {isLoading ? <SkeletonTopThree /> : <TopThree data={leaderboard.slice(0, 3)} />}
           </div>
         </div>
       </div>
       <div className="max-w-lg mx-auto py-8">
         <div>
-          <ul>
-            {leaderboardData.map((item) => (
-              <LeaderboardItem key={item.rank} {...item} />
-            ))}
-          </ul>
+          {isLoading && !isFetchingNextPage ? (
+            Array(5).fill(0).map((_, index) => <SkeletonLeaderboardItem key={index} />)
+          ) : leaderboard.length === 0 ? (
+            <p className="text-center text-gray-500 py-4">No leaderboard data available.</p>
+          ) : (
+            <ul>
+              {leaderboard.map((item) => (
+                <LeaderboardItem key={item.rank} {...item} />
+              ))}
+            </ul>
+          )}
+          {isFetchingNextPage && 
+            Array(5).fill(0).map((_, index) => <SkeletonLeaderboardItem key={`loading-${index}`} />)
+          }
+          {hasNextPage && (
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={handleLoadMore}
+                disabled={isFetchingNextPage}
+                className="bg-pody-primary text-white px-4 py-2 rounded-md hover:bg-pody-primary/80 transition-colors duration-300"
+              >
+                {isFetchingNextPage ? 'Loading...' : 'Load More'}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </main>
@@ -149,10 +195,3 @@ const Page = () => {
 };
 
 export default Page;
-
-type LeaderboardItemProps = {
-  rank: number;
-  username: string;
-  points: number;
-  avatar: string;
-};
