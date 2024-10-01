@@ -6,12 +6,12 @@ import React from "react";
 const page = () => {
   return (
     <main className="w-full">
-      <div className="w-full bg-pody-primary/20 px-12 pt-6 pb-24">
+      <div className="w-full bg-pody-primary/20 px-8 sm:px-8 md:px-12 pt-12 pb-24">
         <div className="flex flex-row gap-x-4 max-w-4xl mx-auto">
           <NftStatistics />
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full px-8 sm:px-8 md:px-12">
         <div className="rounded-xl relative -top-16 flex flex-col max-w-4xl mx-auto">
           <NftList />
         </div>

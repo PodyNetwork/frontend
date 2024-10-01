@@ -23,26 +23,26 @@ const RewardClaim = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-6 pb-[20px] pt-4"
+        className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white pb-[20px] pt-4"
       >
-        <h4 className="text-lg text-slate-700 dark:text-white font-medium">
+        <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
           Rewards
         </h4>
       </motion.div>
-      <div className="gap-4 px-6">
-        <ul className="space-y-4">
+      <div className="gap-4">
+        <ul className="space-y-3 sm:space-y-4">
           {rewards.map((reward, index) => (
             <motion.li
               key={reward.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-              className="flex items-center justify-between bg-white p-4 rounded-lg __shadow_pody"
+              className="flex items-center justify-between bg-white p-3 sm:p-4 rounded-lg __shadow_pody"
             >
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 <motion.svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-7 h-7 text-pody-primary"
+                  className="w-5 h-5 sm:w-7 sm:h-7 text-pody-primary"
                   viewBox="0 -960 960 960"
                   style={{ msFilter: "" }}
                   fill="currentColor"
@@ -57,7 +57,7 @@ const RewardClaim = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
-                    className="font-medium text-slate-800"
+                    className="font-medium text-sm sm:text-base text-slate-800"
                   >
                     {reward.name}
                   </motion.h5>
@@ -65,11 +65,11 @@ const RewardClaim = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7 + index * 0.1, duration: 0.3 }}
-                    className="text-sm text-slate-400 flex items-center"
+                    className="text-xs sm:text-sm text-slate-400 flex items-center"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 text-pody-primary"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-pody-primary"
                       viewBox="0 -960 960 960"
                       style={{ msFilter: "" }}
                       fill="currentColor"
@@ -84,7 +84,7 @@ const RewardClaim = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.8 + index * 0.1, duration: 0.3 }}
-                className={`px-4 py-1.5 rounded-lg text-sm font-medium ${
+                className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium ${
                   reward.claimed
                     ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                     : "bg-pody-primary text-white hover:bg-pody-primary/80"

@@ -5,25 +5,25 @@ import RewardHeader from "@/components/dashboard/widgets/rewardHeader";
 import RewardStatistic from "@/components/dashboard/widgets/rewardStatistic";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <main className="w-full">
-      <div className="flex flex-row bg-pody-primary/20 p-12">
-        <div className="max-w-5xl mx-auto flex flex-1 justify-between items-start gap-6">
-          <div className="w-5/12">
+      <div className="bg-pody-primary/20 p-8 sm:p-8 md:p-12">
+        <div className="w0full md:max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6">
+          <div className="w-full md:w-5/12">
             <RewardHeader />
-            <div className="mt-12 h-[120px] w-full">
+            <div className="mt-6 md:mt-12 h-[120px] w-full">
               <RewardChart />
             </div>
           </div>
-          <div className="w-6/12 flex justify-center">
+          <div className="w-full md:w-6/12 flex justify-center mt-6 md:mt-0">
             <RewardStatistic />
           </div>
         </div>
       </div>
-      <div className="p-12">
-        <div className="w-full relative flex flex-row gap-x-6">
-          <div className="max-w-4xl mx-auto flex-1">
+      <div className="p-8 sm:p-8 md:p-6">
+        <div className="w-full relative flex flex-col md:flex-row gap-6">
+          <div className="w-full md:max-w-4xl mx-auto">
             <RewardClaim />
           </div>
         </div>
@@ -32,4 +32,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

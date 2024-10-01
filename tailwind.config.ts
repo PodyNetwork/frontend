@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		screens: {
+			'xs': '350px',
+		},
   		colors: {
   			pody: {
   				dark: '#07070A',

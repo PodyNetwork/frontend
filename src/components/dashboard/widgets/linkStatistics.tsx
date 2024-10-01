@@ -46,14 +46,14 @@ const LinkStatistics = () => {
               Total <br /> Link Usage
             </div>
           </div>
-          <div className="h-2 w-full flex gap-x-1 rounded-full overflow-hidden">
+          <div className="h-2 w-full flex gap-x-1 overflow-hidden">
             {statItems.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ width: 0 }}
                 animate={{ width: `${(item.value / (stats?.totalLinks || 1)) * 100}%` }}
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className={`h-full ${item.color}`}
+                className={`h-full ${item.color} rounded-full`}
               />
             ))}
           </div>
