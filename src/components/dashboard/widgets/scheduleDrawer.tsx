@@ -99,21 +99,25 @@ const ScheduleDrawer = () => {
   const { createCall } = useCreateCall();
   const router = useRouter();
 
+  const [canSpeak, setCanSpeak] = useState(false);
+
+  const handleParticipantSpeakChange = (participantCanSpeak: boolean) => {
+    setCanSpeak(participantCanSpeak);
+  };
+
   const form = useForm<{ title: string }>({
     ...formOpts,
     onSubmit: async ({ value }) => {
       await createCall.mutateAsync({
         title: value.title,
         scheduledTime: scheduleTime.getTime(),
+        participantsCanPublish: canSpeak,
       });
       form.reset();
       router.push("/dashboard/call");
     },
   });
 
-  const handleParticipantSpeakChange = (canSpeak: boolean) => {
-    console.log("Participant can speak:", canSpeak);
-  };
 
   return (
     <Drawer>
