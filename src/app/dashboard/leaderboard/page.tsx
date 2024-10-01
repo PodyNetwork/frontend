@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import useLeaderboard from "./hooks/useLeaderboard";
 import { LeaderboardEntry } from "./types";
+import noLeaderboardError from "/public/illustration/wormies noleaderboard.svg"
 
 const SkeletonLeaderboardItem = () => (
   <motion.li
@@ -161,12 +162,19 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-sm sm:max-w-md lg:max-w-lg mx-auto py-6 sm:py-8 px-4 sm:px-0">
+      <div className="max-w-sm sm:max-w-md lg:max-w-3xl mx-auto py-6 sm:py-8 px-4 sm:px-0">
         <div>
           {isLoading && !isFetchingNextPage ? (
             Array(5).fill(0).map((_, index) => <SkeletonLeaderboardItem key={index} />)
           ) : leaderboard.length === 0 ? (
-            <p className="text-center text-gray-500 py-4">No leaderboard data available.</p>
+            <div className="flex items-center justify-between w-full">
+              <div className="w-4/12">
+                <p className="break-words text-xl sm:text-2xl">No leaderboard data available, create meeting to start earning points</p>
+              </div>
+              <div className="w-7/12">
+                <Image src={noLeaderboardError} className="w-full h-64 object-contain" width={300} height={300} alt="user" />
+              </div>
+            </div>
           ) : (
             <ul>
               {leaderboard.map((item) => (

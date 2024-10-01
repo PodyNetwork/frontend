@@ -5,6 +5,7 @@ import userIcon from "/public/avatar/user5.jpeg";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
 import type { Call } from "@/app/call/types";
+import meetingImageError from "/public/illustration/wormies nocall.svg"
 
 interface Calls {
   calls: Array<Call>
@@ -73,8 +74,13 @@ const CallsCard = ({ calls }: Calls) => {
 
 const CallMessageDisplay = ({message}: {message: string}) => {
   return (
-    <div className="flex items-center justify-center h-[270px] w-full text-center text-pody-danger bg-slate-50 rounded-2xl">
-      <p className="px-4 break-words text-sm sm:text-base">{message}</p>
+    <div className="flex items-center justify-between w-full">
+      <div className="w-4/12">
+        <p className="break-words text-xl sm:text-2xl">{message}</p>
+      </div>
+      <div className="w-7/12">
+        <Image src={meetingImageError} className="w-full h-64 object-contain" width={300} height={300} alt="user" />
+      </div>
     </div>
   );
 }
@@ -95,7 +101,7 @@ const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage, is
     if (calls.length > 0) {
       return <CallsCard calls={calls} />;
     }
-    return <CallMessageDisplay message="No calls found" />;
+    return <CallMessageDisplay message="Opps no meeting found. Click the 'Create Meeting' button to start one." />;
   };
 
   return (
@@ -112,8 +118,10 @@ const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage, is
           </Link>
         )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-6">
+      <div className="gap-4 px-4 sm:px-6">
         {renderCalls()}
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-6">
         {isLoading || isFetchingNextPage && (
           Array.from({ length: 3 }, (_, index) => <CallSkeleton key={index} />)
         ) }
