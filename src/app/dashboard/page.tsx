@@ -3,9 +3,12 @@ import React from "react";
 import CallHistory from "@/components/dashboard/widgets/callHistory";
 import EarningChart from "@/components/dashboard/widgets/earningChart";
 import CreateMeeting from "@/components/dashboard/widgets/createMeeting";
-
+import useGetCalls from "@/hooks/call/useGetCalls";
 
 export default function Page() {
+  const { calls, isLoading, isError } = useGetCalls({
+    limit: 3
+  })
   return (
     <main className="w-full">
       <div className="bg-pody-primary/20 p-8 sm:p-8 md:p-12">
@@ -20,7 +23,7 @@ export default function Page() {
       </div>
       <div className="p-8 sm:p-8 md:p-12">
         <div className="max-w-4xl mx-auto">
-          <CallHistory calls={[]} isLoading={false} isError={false}/>
+          <CallHistory calls={calls} isLoading={isLoading} isError={isError}/>
         </div>
       </div>
     </main>

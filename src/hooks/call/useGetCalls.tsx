@@ -24,7 +24,7 @@ interface GetCallsArgs {
 const useGetCalls = (args: GetCallsArgs = {}) => {
   const fetchCalls = useCallback(async ({ pageParam = 1 }): Promise<CallsResponse> => {
     const response = await axios.get<CallsResponse>('/call', { 
-      params: { ...args, page: pageParam, limit: 9 } 
+      params: { ...args, page: pageParam } 
     });
     return response.data;
   }, [args]);

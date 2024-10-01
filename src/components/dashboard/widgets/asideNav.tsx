@@ -5,9 +5,13 @@ import Link from "next/link";
 import logo from "/public/logo/pody logo dark.png";
 import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
+import useProfile from "@/hooks/user/useProfile";
 
 const AsideNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const {profile, isLoading, isError} = useProfile()
+
+  console.log(profile)
 
   return (
     <>
@@ -41,7 +45,11 @@ const AsideNav = () => {
                 alt="user"
               />
             </div>
-            <h3 className="text-base text-slate-700">Hello, 0x3ax.</h3>
+            {isLoading || isError? (
+              <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>
+            ) :(
+              <h3 className="text-base text-slate-700">Hello, {profile?.username }.</h3>
+            )}
           </div>
           <ul className="flex flex-row items-center gap-4 text-sm text-slate-700 __dashheader_icon_info">
             <li>
@@ -154,7 +162,11 @@ const AsideNav = () => {
                   alt="user"
                 />
               </div>
-              <h3 className="text-base text-white">Hello, 0x3ax.</h3>
+              {isLoading || isError ? (
+                <div className="w-24 h-6 bg-indigo-600/50 rounded animate-pulse"></div>
+              ) : (
+                <h3 className="text-base text-white">Hello, {profile?.username ?? "..."}.</h3>
+              )}
             </div>
             <ul className="flex gap-x-4 text-sm text-white">
               {/* ... (include the SVG icons here with text-white class) ... */}
