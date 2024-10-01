@@ -90,9 +90,6 @@ const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage, is
   }, [hasNextPage, fetchNextPage]);
 
   const renderCalls = () => {
-    if (isLoading || isFetchingNextPage) {
-      return Array.from({ length: 3 }, (_, index) => <CallSkeleton key={index} />);
-    }
     if (isError) {
       return <CallMessageDisplay message="Error fetching calls" />;
     }
@@ -118,6 +115,9 @@ const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage, is
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-6">
         {renderCalls()}
+        {isLoading || isFetchingNextPage && (
+          Array.from({ length: 3 }, (_, index) => <CallSkeleton key={index} />)
+        ) }
       </div>
       {hasNextPage && (
         <div className="col-span-full mt-4 text-center">
