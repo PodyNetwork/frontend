@@ -43,22 +43,76 @@ const formOpts = formOptions<{ title: string }>({
   },
 });
 
-const ScheduleDrawer = () => {
-    const [scheduleTime, setScheduleTime] = useState<Date>(roundToNearestTimeSlot(new Date()));
-    const { createCall } = useCreateCall();
-    const router = useRouter();
+interface ToggleSwitchProps {
+  label: string;
+  initialState?: boolean;
+  onChange?: (isChecked: boolean) => void;
+}
 
-    const form = useForm<{ title: string }>({
-        ...formOpts,
-        onSubmit: async ({ value }) => {
-            await createCall.mutateAsync({
-                title: value.title,
-                scheduledTime: scheduleTime.getTime()
-            });
-            form.reset();
-            router.push('/dashboard/call');
-        }
-    });
+const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
+  label,
+  initialState = false,
+  onChange,
+}) => {
+  const [isChecked, setIsChecked] = useState(initialState);
+
+  const handleToggle = () => {
+    const newState = !isChecked;
+    setIsChecked(newState);
+    onChange?.(newState);
+  };
+
+  return (
+    <div className="flex items-center justify-between py-2">
+      <label
+        htmlFor={`toggle-${label}`}
+        className="mr-3 text-sm font-medium text-gray-700"
+      >
+        {label}
+      </label>
+      <button
+        id={`toggle-${label}`}
+        role="switch"
+        aria-checked={isChecked}
+        onClick={handleToggle}
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+          isChecked ? "bg-pody-primary" : "bg-gray-200"
+        }`}
+      >
+        <span className="sr-only">{label}</span>
+        <span
+          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+            isChecked ? "translate-x-6" : "translate-x-1"
+          }`}
+        />
+      </button>
+    </div>
+  );
+};
+
+const ScheduleDrawer = () => {
+  const [scheduleTime, setScheduleTime] = useState<Date>(
+    roundToNearestTimeSlot(new Date())
+  );
+  const { createCall } = useCreateCall();
+  const router = useRouter();
+
+  const form = useForm<{ title: string }>({
+    ...formOpts,
+    onSubmit: async ({ value }) => {
+      await createCall.mutateAsync({
+        title: value.title,
+        scheduledTime: scheduleTime.getTime(),
+      });
+      form.reset();
+      router.push("/dashboard/call");
+    },
+  });
+
+  const handleParticipantSpeakChange = (canSpeak: boolean) => {
+    console.log("Participant can speak:", canSpeak);
+    // Add your logic here to handle the state change
+  };
 
   return (
     <Drawer>
@@ -84,7 +138,7 @@ const ScheduleDrawer = () => {
               }}
               className="flex items-center justify-center space-x-2"
             >
-              <div className="flex-1 flex flex-col gap-y-1 pb-10">
+              <div className="flex-1 flex flex-col gap-y-2 pb-10">
                 <form.Field
                   name="title"
                   validators={{
@@ -104,7 +158,7 @@ const ScheduleDrawer = () => {
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
                       {field.state.meta.errors && (
-                        <div className="text-red-500 text-sm mt-1">
+                        <div className="text-red-400 text-sm mb-1">
                           {field.state.meta.errors[0]}
                         </div>
                       )}
@@ -137,6 +191,15 @@ const ScheduleDrawer = () => {
                       />
                     </PopoverContent>
                   </Popover>
+                </div>
+                <div>
+                  {/* Other components */}
+                  <ToggleSwitch
+                    label="Participant Can Speak"
+                    initialState={false}
+                    onChange={handleParticipantSpeakChange}
+                  />
+                  {/* Other components */}
                 </div>
                 <div className="text-sm mt-2">
                   <ButtonPody type="submit" disabled={form.state.isSubmitting}>
