@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import Image from 'next/image'
-import userLogo from '/public/avatar/user.png'
 
 interface Message {
   id: string;
@@ -11,12 +9,12 @@ interface Message {
 
 const ChatRoom: React.FC = () => {
     const [isOpen, setIsOpen] = useState(true);
-    const [messages, setMessages] = useState<Message[]>([
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [messages, _] = useState<Message[]>([
       { id: '1', sender: 'User1', content: 'Can you hear my voice?', timestamp: new Date() },
       { id: '2', sender: 'User2', content: 'Yes, I can hear you clearly.', timestamp: new Date() },
     ]);
 
-    // ... existing code ...
 
     return (
         <div className={`fixed bottom-0 md:right-4 right-0 z-50 w-full md:w-[20rem] h-[70vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-xl transition-all duration-300 ease-in-out ${isOpen ? 'translate-y-0' : 'translate-y-full md:translate-y-[calc(100%-55px)]'}`}>

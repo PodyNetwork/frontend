@@ -177,6 +177,9 @@ const Page = () => {
           {isFetchingNextPage && 
             Array(5).fill(0).map((_, index) => <SkeletonLeaderboardItem key={`loading-${index}`} />)
           }
+          {isError && (
+            <p className="text-center text-red-500 py-4">An error occurred while fetching more data. Please try again.</p>
+          )}
           {hasNextPage && (
             <div className="flex justify-center mt-4">
               <button

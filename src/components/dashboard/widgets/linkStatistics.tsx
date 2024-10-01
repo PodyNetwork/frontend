@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import useCallStats from "@/hooks/call/useCallStats";
 
 const LinkStatistics = () => {
-  const { stats, isLoading, isError } = useCallStats();
+  const { stats } = useCallStats();
 
   const statItems = [
     { title: "Active Link", value: stats?.activeCalls ?? 0, color: "bg-pody-primary" },

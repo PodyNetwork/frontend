@@ -4,7 +4,7 @@ import CallHistory from "@/components/dashboard/widgets/callHistory";
 import React from "react";
 import useGetCalls from "@/hooks/call/useGetCalls";
 
-const page = () => {
+const Page = () => {
   const {calls, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetCalls()
   return (
     <main className="w-full">
@@ -22,4 +22,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

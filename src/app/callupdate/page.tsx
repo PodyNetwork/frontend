@@ -1,5 +1,4 @@
 "use client";
-import Button from "@/components/global/button";
 import React from "react";
 import { motion } from "framer-motion";
 

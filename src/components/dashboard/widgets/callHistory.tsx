@@ -1,11 +1,10 @@
 "use client"
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
 import type { Call } from "@/app/call/types";
-import { useState } from "react";
 
 interface Calls {
   calls: Array<Call>

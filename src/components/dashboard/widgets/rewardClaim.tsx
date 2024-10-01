@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 const RewardClaim = () => {
-  const pathname = usePathname();
   const rewards = [
     { id: 1, name: "Daily Login Bonus", points: 100, claimed: false },
     { id: 2, name: "Weekly Challenge Completion", points: 500, claimed: false },
