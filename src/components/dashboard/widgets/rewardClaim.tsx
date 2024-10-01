@@ -23,13 +23,13 @@ const RewardClaim = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-4 sm:px-6 pb-[20px] pt-4"
+        className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white pb-[20px] pt-4"
       >
         <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
           Rewards
         </h4>
       </motion.div>
-      <div className="gap-4 md:px-4 sm:px-6">
+      <div className="gap-4">
         <ul className="space-y-3 sm:space-y-4">
           {rewards.map((reward, index) => (
             <motion.li

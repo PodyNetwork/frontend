@@ -117,7 +117,7 @@ const TopThree = ({ data }: { data: LeaderboardItemProps[] }) => (
 const Page = () => {
   return (
     <main className="w-full">
-      <div className="w-full bg-pody-primary/20 px-4 sm:px-8 py-8 sm:py-16">
+      <div className="w-full bg-pody-primary/20 p-8 sm:p-8 md:p-12">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6">
           <div className="w-full sm:w-5/12 mb-6 sm:mb-0">
             <motion.div
@@ -125,8 +125,8 @@ const Page = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-2xl sm:text-4xl text-slate-800 text-center sm:text-left">
-                Check out the leaderboard Top performer of the week
+              <h2 className="text-3xl sm:text-4xl text-slate-800 text-center sm:text-left">
+                Leaderboard Top performer of the week
               </h2>
             </motion.div>
           </div>

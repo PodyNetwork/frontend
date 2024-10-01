@@ -44,22 +44,6 @@ const formOpts = formOptions<{ title: string }>({
 });
 
 const ScheduleDrawer = () => {
-<<<<<<< HEAD
-  const [scheduleTime, setScheduleTime] = useState<Date>(
-    roundToNearestTimeSlot(new Date())
-  );
-  const { createCall } = useCreateCall();
-
-  const form = useForm<{ title: string }>({
-    ...formOpts,
-    onSubmit: async ({ value }) => {
-      await createCall.mutateAsync({
-        title: value.title,
-        scheduledTime: scheduleTime.getTime(),
-      });
-    },
-  });
-=======
     const [scheduleTime, setScheduleTime] = useState<Date>(roundToNearestTimeSlot(new Date()));
     const { createCall } = useCreateCall();
     const router = useRouter();
@@ -75,7 +59,6 @@ const ScheduleDrawer = () => {
             router.push('/dashboard/call');
         }
     });
->>>>>>> 07209bb091379c1ce8c2a7cafe32f66b50a96a01
 
   return (
     <Drawer>

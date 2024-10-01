@@ -1,5 +1,5 @@
-"use client"
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 import dashlink from "../data/links.json";
 import Link from "next/link";
 import logo from "/public/logo/pody logo dark.png";
@@ -14,7 +14,11 @@ const AsideNav = () => {
       {/* Desktop menu */}
       <aside className="hidden md:flex w-full bg-pody-primary/20 items-center justify-between py-6 px-12 gap-x-4">
         <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
-          <Image src={logo} className="w-16 object-contain mb-4 sm:mb-0 sm:me-6" alt="Pody" />
+          <Image
+            src={logo}
+            className="w-16 object-contain mb-4 sm:mb-0 sm:me-6"
+            alt="Pody"
+          />
           <ul className="text-sm flex flex-wrap justify-center sm:flex-row gap-4 sm:gap-x-6">
             {dashlink.map((data, index) => (
               <li
@@ -41,19 +45,34 @@ const AsideNav = () => {
           </div>
           <ul className="flex flex-row items-center gap-4 text-sm text-slate-700 __dashheader_icon_info">
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
               </svg>
             </li>
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <path d="M16 2H8C4.691 2 2 4.691 2 8v12a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 13c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v7z"></path>
                 <circle cx="9.5" cy="11.5" r="1.5"></circle>
                 <circle cx="14.5" cy="11.5" r="1.5"></circle>
               </svg>
             </li>
             <li>
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <path d="M20.742 13.045a8.088 8.088 0 0 1-2.077.271c-2.135 0-4.14-.83-5.646-2.336a8.025 8.025 0 0 1-2.064-7.723A1 1 0 0 0 9.73 2.034a10.014 10.014 0 0 0-4.489 2.582c-3.898 3.898-3.898 10.243 0 14.143a9.937 9.937 0 0 0 7.072 2.93 9.93 9.93 0 0 0 7.07-2.929 10.007 10.007 0 0 0 2.583-4.491 1.001 1.001 0 0 0-1.224-1.224zm-2.772 4.301a7.947 7.947 0 0 1-5.656 2.343 7.953 7.953 0 0 1-5.658-2.344c-3.118-3.119-3.118-8.195 0-11.314a7.923 7.923 0 0 1 2.06-1.483 10.027 10.027 0 0 0 2.89 7.848 9.972 9.972 0 0 0 7.848 2.891 8.036 8.036 0 0 1-1.484 2.059z"></path>
               </svg>
             </li>
@@ -62,34 +81,52 @@ const AsideNav = () => {
       </aside>
 
       {/* Mobile menu button */}
-      <div className="md:hidden fixed top-4 right-4 z-50">
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 bg-indigo-600 rounded-full shadow-lg shadow-indigo-500/50"
-        >
-          {mobileMenuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      <div className="md:hidden bg-pody-primary/20 w-full py-6 px-8 gap-x-4 relative">
+        <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
+          <Image
+            src={logo}
+            className="w-20 object-contain sm:mb-0 sm:me-6"
+            alt="Pody"
+          />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className={`${mobileMenuOpen && 'fixed z-50 right-8'}`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-9 h-9"
+              viewBox="0 -960 960 960"
+              fill="currentColor"
+            >
+              {mobileMenuOpen ? (
+                <path d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z" />
+              ) : (
+                <path d="M160-269.23v-40h640v40H160ZM160-460v-40h640v40H160Zm0-190.77v-40h640v40H160Z" />
+              )}
             </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
-        </button>
+          </button>
+        </div>
       </div>
 
       {/* Web3 Mobile menu */}
-      <div className={`md:hidden fixed inset-0 bg-gradient-to-br from-pody-dark to-pody-dark_secondary z-40 transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div
+        className={`md:hidden fixed inset-0 bg-pody-primary z-40 transition-all duration-300 ease-in-out ${
+          mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
         <div className="flex flex-col items-center justify-center h-full relative overflow-hidden">
           {/* Blockchain-inspired background animation */}
-          <div className="absolute inset-0 opacity-10">
-            {[...Array(20)].map((_, i) => (
-              <div key={i} className="absolute bg-white w-1 h-1 rounded-full animate-float" style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-              }}></div>
+          <div className="absolute inset-0 opacity-20">
+            {[...Array(30)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute bg-pody-dark w-1 h-1 rounded-full animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                }}
+              ></div>
             ))}
           </div>
 
@@ -98,9 +135,11 @@ const AsideNav = () => {
             {dashlink.map((data, index) => (
               <li
                 key={index}
-                className="py-2 hover:text-indigo-300 transition-all rounded-full text-white"
+                className="py-2 hover:text-indigo-300 transition-all rounded-full text-pody-dark"
               >
-                <Link href={data.url} onClick={() => setMobileMenuOpen(false)}>{data.title}</Link>
+                <Link href={data.url} onClick={() => setMobileMenuOpen(false)}>
+                  {data.title}
+                </Link>
               </li>
             ))}
           </ul>
