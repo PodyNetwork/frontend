@@ -251,10 +251,7 @@ body {
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
 }
-.__login_side{
-    width: 38rem;
-    background-color: #fff;
-}
+
 .__main-screen{
     width: calc(100vw - 28rem);
 }

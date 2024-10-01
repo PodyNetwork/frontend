@@ -18,7 +18,7 @@ const Login = () => {
   })
 
   return (
-    <main className="relative float-left w-full h-full overflow-hidden" aria-label="Homepage">
+    <main className="relative float-left w-full h-full overflow-hidden" aria-label="Login">
       <AuthLayout>
         <div className='max-w-72 flex-1'>
           <div className='pb-6'>
