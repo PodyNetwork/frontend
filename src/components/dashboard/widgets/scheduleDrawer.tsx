@@ -56,7 +56,8 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
 }) => {
   const [isChecked, setIsChecked] = useState(initialState);
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent form submission
     const newState = !isChecked;
     setIsChecked(newState);
     onChange?.(newState);
@@ -71,6 +72,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
         {label}
       </label>
       <button
+        type="button" // Explicitly set button type to "button"
         id={`toggle-${label}`}
         role="switch"
         aria-checked={isChecked}
@@ -111,7 +113,6 @@ const ScheduleDrawer = () => {
 
   const handleParticipantSpeakChange = (canSpeak: boolean) => {
     console.log("Participant can speak:", canSpeak);
-    // Add your logic here to handle the state change
   };
 
   return (

@@ -118,10 +118,8 @@ const CallHistory = ({ calls, isError, isLoading, hasNextPage, fetchNextPage, is
           </Link>
         )}
       </div>
-      <div className="gap-4 px-4 sm:px-6">
+      <div className={` gap-4 px-4 sm:px-6 ${calls.length < 1 ? 'w-full' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
         {renderCalls()}
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-6">
         {isLoading || isFetchingNextPage && (
           Array.from({ length: 3 }, (_, index) => <CallSkeleton key={index} />)
         ) }
