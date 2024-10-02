@@ -7,6 +7,12 @@ import { usePathname } from "next/navigation";
 import type { Call } from "@/app/call/types";
 import meetingImageError from "/public/illustration/wormies nocall.svg";
 import EditDrawer from "@/components/dashboard/widgets/editDrawer";
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
+
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
 
 interface Calls {
   calls: Array<Call>;
@@ -40,6 +46,9 @@ const CallSkeleton = () => {
   );
 };
 
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
+
 const CallsCard = ({ calls }: Calls) => {
   return (
     <>
@@ -49,7 +58,18 @@ const CallsCard = ({ calls }: Calls) => {
           className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]"
         >
           <div className="flex flex-col gap-y-1.5">
-            <p className="text-xs text-slate-700">{call.scheduledTime}</p>
+            <p className="text-xs text-slate-700 capitalize">
+              {
+                (() => {
+                  const scheduledDate = dayjs(call.scheduledTime);
+                  if (scheduledDate.isSame(dayjs(), 'minute')) return 'Now';
+                  if (scheduledDate.isToday()) return 'Today - ' + scheduledDate.format('HH:mm');
+                  if (scheduledDate.isTomorrow()) return 'Tomorrow - ' + scheduledDate.format('HH:mm');
+                  if (scheduledDate.isSame(dayjs().subtract(1, 'day'), 'day')) return 'Yesterday - ' + scheduledDate.format('HH:mm');
+                  return scheduledDate.format('MMM D, YYYY HH:mm');
+                })()
+              }
+            </p>
             <h3 className="text-base sm:text-lg font-medium text-slate-800">
               {call.title}
             </h3>
