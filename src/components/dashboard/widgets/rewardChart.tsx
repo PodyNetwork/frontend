@@ -15,21 +15,21 @@ import {
 export const description = "A line chart with dots";
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "January", points: 186, sessions: 80 },
+  { month: "February", points: 305, sessions: 200 },
+  { month: "March", points: 237, sessions: 120 },
+  { month: "April", points: 73, sessions: 190 },
+  { month: "May", points: 209, sessions: 130 },
+  { month: "June", points: 214, sessions: 140 },
 ];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  points: {
+    label: "Points",
     color: "hsl(var(--chart-1))",
   },
-  mobile: {
-    label: "Mobile",
+  sessions: {
+    label: "Sessions",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
@@ -59,12 +59,12 @@ const RewardChart = () => {
             content={<ChartTooltipContent hideLabel />}
           />
           <Line
-            dataKey="desktop"
+            dataKey="points"
             type="natural"
-            stroke="var(--color-desktop)"
+            stroke="var(--color-points)"
             strokeWidth={2}
             dot={{
-              fill: "var(--color-desktop)",
+              fill: "var(--color-points)",
             }}
             activeDot={{
               r: 6,
