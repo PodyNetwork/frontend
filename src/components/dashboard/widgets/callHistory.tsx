@@ -7,6 +7,12 @@ import { usePathname } from "next/navigation";
 import type { Call } from "@/app/call/types";
 import meetingImageError from "/public/illustration/wormies nocall.svg";
 import EditDrawer from "@/components/dashboard/widgets/editDrawer";
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
+
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
 
 interface Calls {
   calls: Array<Call>;
@@ -39,6 +45,9 @@ const CallSkeleton = () => {
     </div>
   );
 };
+
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
 
 const CallsCard = ({ calls }: Calls) => {
   return (
