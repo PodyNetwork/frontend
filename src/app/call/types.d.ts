@@ -14,7 +14,8 @@ interface Call {
     },
     createdAt: string,
     updatedAt: string,
-    url: string
+    url: string,
+    participantsCanPublish?: boolean
 }
 
 interface CallResponse extends BaseResponse {

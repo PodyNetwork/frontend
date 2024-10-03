@@ -1,14 +1,30 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import MeetLayout from '@/components/meet/meetLayout'
 import { useParams } from 'next/navigation';
-import  useGetCallByURL from '@/hooks/call/useGetCallByURL';
-
+import useGetCallByURL from '@/hooks/call/useGetCallByURL';
+import useCreateCallToken from '@/hooks/call/useCreateCallToken';
 
 const Meet = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
-  console.log(url, call);
+  
+  const { createCallToken, errorMessage, accessToken } = useCreateCallToken(); // Destructure accessToken
+
+  useEffect(() => {
+    if (call?.url) { 
+      createCallToken.mutate({ callId: call.url });
+    } else {
+      console.log("url is undefined");
+    }
+  }, [call]);
+
+  useEffect(() => {
+    if (accessToken) {
+      console.log("Access Token:", accessToken); 
+    }
+  }, [accessToken]); 
+
   return (
     <main className="relative float-left w-full h-full overflow-hidden" aria-label="Meeting">
         <MeetLayout />
@@ -16,4 +32,4 @@ const Meet = () => {
   )
 }
 
-export default Meet
+export default Meet;

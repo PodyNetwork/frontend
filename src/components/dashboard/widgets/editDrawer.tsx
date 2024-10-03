@@ -20,6 +20,7 @@ import ButtonPody from "@/components/global/button";
 import { useRouter } from "next/navigation";
 import useUpdateCall from "@/hooks/call/useUpdateCall";
 import { formOptions, useForm } from "@tanstack/react-form";
+import { Call } from "@/app/call/types";
 // import { useAuth } from "@/hooks/useAuth";
 
 interface ToggleSwitchProps {
@@ -72,17 +73,11 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
 };
 
 interface EditDrawerProps {
-  call: {
-    id: string;
-    title: string;
-    scheduledTime: number;
-    participantsCanPublish: boolean;
-    type: "instant" | "scheduled";
-  };
+  call: Call
 }
 
 const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
-  const [scheduledTime, setScheduledTime] = useState<Date|null>(call.scheduledTime ? new Date(call.scheduledTime) : null);
+  const [scheduledTime, setScheduledTime] = useState<Date>(call.scheduledTime ? new Date(call.scheduledTime) : new Date());
   const [canSpeak, setCanSpeak] = useState(call.participantsCanPublish);
   const { updateCall, errorMessage } = useUpdateCall();
   const router = useRouter();
@@ -96,7 +91,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
         _id: call._id,
         title: value.title,
         scheduledTime: call.type === "scheduled" ? scheduledTime?.getTime() : undefined,
-        participantsCanPublish: canSpeak,
+        participantsCanPublish: canSpeak ?? false,
       });
       router.refresh();
     },
@@ -107,7 +102,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
       <DrawerTrigger asChild>
         <div className="flex ml-auto cursor-pointer">
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="http://www.w3.org/2000/svg" 
             className="w-7 h-7 text-pody-dark"
             viewBox="0 -960 960 960"
             fill="currentColor"
@@ -161,7 +156,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
                   )}
                 </form.Field>
                 {
-                 call.type === "scheduled" && <div className="w-full">
+                call.type === "scheduled" && <div className="w-full">
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
