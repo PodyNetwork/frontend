@@ -1,13 +1,17 @@
 import { BaseResponse } from "@/types/globals"
 
 interface Call {
-    id: string,
+    _id: string,
     userId: string,
-    scheduledTime: number,
+    scheduledTime?: number,
     type: "instant" | "scheduled",
     status:"pending" | "ongoing"| 'ended' | "cancelled", 
     title: string,
-    permissions: string,
+    permissions: {
+        canPublish: boolean,
+        canSubscribe: boolean,
+        roomJoin: boolean,
+    },
     createdAt: string,
     updatedAt: string
 }

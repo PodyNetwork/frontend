@@ -7,14 +7,18 @@ import useErrorMessage from '../useErrorMessage';
 import type { CallResponse } from '../../app/call/types';
 import { ResponseError } from '@/types/globals';
 
-interface CreateMeetingArgs{ scheduledTime: string, participantsCanPublish: boolean, title: string }
+interface CreateMeetingArgs{ scheduledTime: number, participantsCanPublish: boolean, title: string, _id: string }
 
 
 const useUpdateCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
   const updateCallHandler = useCallback(async (args: CreateMeetingArgs): Promise<CallResponse> => {
-    const response = await axios.put<CallResponse>('/call', args);
+      const response = await axios.put<CallResponse>(`/call/${args._id}`, {
+        scheduledTime: args.scheduledTime,
+        participantsCanPublish: args.participantsCanPublish,
+        title: args.title
+      });
     return response.data;
   }, []);
 

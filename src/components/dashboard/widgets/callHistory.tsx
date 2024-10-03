@@ -43,40 +43,40 @@ const CallSkeleton = () => {
 const CallsCard = ({ calls }: Calls) => {
   return (
     <>
-      {calls.map((call: Call, index: number) => (
-        <div
-          key={index}
-          className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]"
-        >
-          <div className="flex flex-col gap-y-1.5">
-            <p className="text-xs text-slate-700">{call.scheduledTime}</p>
-            <h3 className="text-base sm:text-lg font-medium text-slate-800">
-              {call.title}
-            </h3>
-            <div>
-              <button className="text-xs text-pody-danger bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm">
-                {call.status}
-              </button>
-            </div>
-          </div>
-          <div className="flex flex-row items-center gap-x-2 sm:gap-x-3 mt-auto">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/20">
-              <Image
-                src={userIcon}
-                width={100}
-                height={100}
-                className="w-full h-full object-cover rounded-full"
-                alt="user"
-              />
-            </div>
-            <div className="text-xs sm:text-sm">
-              <h3 className="font-medium">0x3ax</h3>
-              <p>Host</p>
-            </div>
-            <EditDrawer call={{...call, participantsCanPublish: true}} />
+      {calls.map((call: Call, index: number) => {
+        return  <div
+        key={index}
+        className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]"
+      >
+        <div className="flex flex-col gap-y-1.5">
+          <p className="text-xs text-slate-700">{call.scheduledTime}</p>
+          <h3 className="text-base sm:text-lg font-medium text-slate-800">
+            {call.title}
+          </h3>
+          <div>
+            <button className="text-xs text-pody-danger bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm">
+              {call.status}
+            </button>
           </div>
         </div>
-      ))}
+        <div className="flex flex-row items-center gap-x-2 sm:gap-x-3 mt-auto">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/20">
+            <Image
+              src={userIcon}
+              width={100}
+              height={100}
+              className="w-full h-full object-cover rounded-full"
+              alt="user"
+            />
+          </div>
+          <div className="text-xs sm:text-sm">
+            <h3 className="font-medium">0x3ax</h3>
+            <p>Host</p>
+          </div>
+          <EditDrawer call={{...call, participantsCanPublish: call.permissions.canPublish}} />
+        </div>
+      </div>
+      })}
     </>
   );
 };
