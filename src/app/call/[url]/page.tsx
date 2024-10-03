@@ -17,13 +17,13 @@ const Meet = () => {
     } else {
       console.log("url is undefined");
     }
-  }, [call]);
+  }, []);
 
   useEffect(() => {
     if (accessToken) {
       console.log("Access Token:", accessToken); 
     }
-  }, [accessToken]); 
+  }, []); 
 
   return (
     <main className="relative float-left w-full h-full overflow-hidden" aria-label="Meeting">
