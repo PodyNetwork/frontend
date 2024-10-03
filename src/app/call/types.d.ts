@@ -9,7 +9,8 @@ interface Call {
     title: string,
     permissions: string,
     createdAt: string,
-    updatedAt: string
+    updatedAt: string,
+    url: string
 }
 
 interface CallResponse extends BaseResponse {

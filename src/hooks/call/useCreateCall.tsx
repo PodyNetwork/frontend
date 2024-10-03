@@ -6,10 +6,13 @@ import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../useErrorMessage';
 import type { CallResponse } from '../../app/call/types';
 import { ResponseError } from '@/types/globals';
+import { useRouter } from 'next/navigation';
 
 interface CreateCallArgs{ scheduledTime?: number, participantsCanPublish?: boolean, title?: string }
 
+
 const useCreateCall = () => {
+  const router = useRouter(); 
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
   const createCallHandler = useCallback(async (args: CreateCallArgs = {}): Promise<CallResponse> => {
@@ -19,8 +22,9 @@ const useCreateCall = () => {
 
   const createCall = useMutation({
     mutationFn: createCallHandler,
-    onSuccess: () => {
+    onSuccess: (data) => {
       clearErrorMessage();
+      router.push(`/call/${data.data.url}`);
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
