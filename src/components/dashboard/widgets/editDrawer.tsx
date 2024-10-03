@@ -51,7 +51,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
         {label}
       </label>
       <button
-        type="button" // Explicitly set button type to "button"
+        type="button" 
         id={`toggle-${label}`}
         role="switch"
         aria-checked={isChecked}
@@ -77,15 +77,15 @@ interface EditDrawerProps {
     title: string;
     scheduledTime: number;
     participantsCanPublish: boolean;
+    type: "instant" | "scheduled";
   };
 }
 
 const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
-  const [scheduleTime, setScheduleTime] = useState<Date>(new Date(call.scheduledTime));
+  const [scheduledTime, setScheduledTime] = useState<Date|null>(call.scheduledTime ? new Date(call.scheduledTime) : null);
   const [canSpeak, setCanSpeak] = useState(call.participantsCanPublish);
-  const { updateCall } = useUpdateCall();
+  const { updateCall, errorMessage } = useUpdateCall();
   const router = useRouter();
-//   const { accessToken } = useAuth(); // Get the accessToken
 
   const form = useForm<{ title: string }>({
     ...formOptions({
@@ -93,10 +93,9 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
     }),
     onSubmit: async ({ value }) => {
       await updateCall.mutateAsync({
-        // accessToken,s
-        // callId: call.id,
+        _id: call._id,
         title: value.title,
-        scheduledTime: scheduleTime.getTime().toString(),
+        scheduledTime: call.type === "scheduled" ? scheduledTime?.getTime() : undefined,
         participantsCanPublish: canSpeak,
       });
       router.refresh();
@@ -161,33 +160,35 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
                     </>
                   )}
                 </form.Field>
-                <div className="w-full">
+                {
+                 call.type === "scheduled" && <div className="w-full">
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={"outline"}
                         className={cn(
                           "w-full justify-start text-left font-normal",
-                          !scheduleTime && "text-muted-foreground"
+                          !scheduledTime && "text-muted-foreground"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {scheduleTime ? (
-                          format(scheduleTime, "PPP hh:mm a")
+                        {scheduledTime ? (
+                          format(scheduledTime, "PPP hh:mm a")
                         ) : (
                           <span>Pick a date</span>
                         )}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-4">
-                      <DatetimePicker
-                        selected={scheduleTime}
-                        setDate={setScheduleTime}
+                    <DatetimePicker
+                        selected={scheduledTime}
+                        setDate={setScheduledTime}
                         initialFocus
                       />
                     </PopoverContent>
                   </Popover>
                 </div>
+                }
                 <div>
                   <ToggleSwitch
                     label="Participant Can Speak"
@@ -200,6 +201,11 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
                     {form.state.isSubmitting ? "Updating..." : "Update Meeting"}
                   </ButtonPody>
                 </div>
+                {errorMessage && (
+                  <div className="text-red-400 text-sm mt-2">
+                    {errorMessage.message}
+                  </div>
+                )}
               </div>
             </form>
           </div>
