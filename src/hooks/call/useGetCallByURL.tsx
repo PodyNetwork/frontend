@@ -13,7 +13,7 @@ interface CallResponse extends BaseResponse {
 
 const useGetCallByURL = (url: string) => {
   const fetchCall = useCallback(async (): Promise<CallResponse> => {
-    const response = await axios.get<CallResponse>(`/call/${url}`);
+    const response = await axios.get<CallResponse>(`/call/url/${url}`);
     return response.data;
   }, [url]);
 
@@ -30,7 +30,7 @@ const useGetCallByURL = (url: string) => {
     refetchInterval: 5000
   });
 
-  const call = data?.data.call;
+  const call = data?.data;
 
   return { 
     call, 
