@@ -9,13 +9,11 @@ const Meet = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   
-  const { createCallToken, errorMessage, accessToken } = useCreateCallToken(); // Destructure accessToken
+  const { createCallToken, accessToken } = useCreateCallToken();
 
   useEffect(() => {
-    if (call?.url) { 
-      createCallToken.mutate({ callId: call.url });
-    } else {
-      console.log("url is undefined");
+    if (call) { 
+      createCallToken.mutate({ callId: call._id });
     }
   }, [call]);
 

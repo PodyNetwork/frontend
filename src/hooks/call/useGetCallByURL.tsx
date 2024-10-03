@@ -6,9 +6,7 @@ import { BaseResponse } from '@/types/globals';
 import { useQuery } from '@tanstack/react-query';
 
 interface CallResponse extends BaseResponse {
-  data: {
-    call: Call;
-  };
+  data: Call;
 }
 
 const useGetCallByURL = (url: string) => {
@@ -27,7 +25,6 @@ const useGetCallByURL = (url: string) => {
     queryFn: fetchCall,
     retry: 2,
     staleTime: 0,
-    refetchInterval: 5000
   });
 
   const call = data?.data;

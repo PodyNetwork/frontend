@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import participantList from "../../meet/data/participant.json"
 import Image from 'next/image'
