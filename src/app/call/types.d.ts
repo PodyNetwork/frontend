@@ -7,6 +7,7 @@ interface Call {
     type: "instant" | "scheduled",
     status:"pending" | "ongoing"| 'ended' | "cancelled", 
     title: string,
+    key: string,
     permissions: {
         canPublish: boolean,
         canSubscribe: boolean,
