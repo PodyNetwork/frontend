@@ -15,7 +15,7 @@ const Meet = () => {
     if (call) { 
       createCallToken.mutate({ callId: call._id });
     }
-  }, [call]);
+  }, [call, createCallToken]);
 
   useEffect(() => {
     if (accessToken) {
