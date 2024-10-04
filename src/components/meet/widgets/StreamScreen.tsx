@@ -6,16 +6,15 @@ import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 
 import {
-  ControlBar,
-  GridLayout,
-  LiveKitRoom,
-  ParticipantTile,
-  RoomAudioRenderer,
-  RoomName,
-  useTracks,
-} from "@livekit/components-react";
-import "@livekit/components-styles";
-import { Track } from "livekit-client";
+    ControlBar,
+    GridLayout,
+    LiveKitRoom,
+    ParticipantTile,
+    RoomAudioRenderer,
+    useTracks
+  } from "@livekit/components-react";
+  import "@livekit/components-styles";
+  import { Track } from "livekit-client";
 
 const StreamScreen = () => {
   const { url } = useParams();
