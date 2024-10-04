@@ -6,15 +6,16 @@ import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 
 import {
-    ControlBar,
-    GridLayout,
-    LiveKitRoom,
-    ParticipantTile,
-    RoomAudioRenderer,
-    useTracks,
-  } from "@livekit/components-react";
-  import "@livekit/components-styles";
-  import { Track } from "livekit-client";
+  ControlBar,
+  GridLayout,
+  LiveKitRoom,
+  ParticipantTile,
+  RoomAudioRenderer,
+  RoomName,
+  useTracks,
+} from "@livekit/components-react";
+import "@livekit/components-styles";
+import { Track } from "livekit-client";
 
 const StreamScreen = () => {
   const { url } = useParams();
@@ -77,6 +78,7 @@ const StreamScreen = () => {
               <MyVideoConference />
               <RoomAudioRenderer />
               <ControlBar />
+              <RoomName />
             </LiveKitRoom>
           </div>
         </div>
@@ -90,16 +92,19 @@ const StreamScreen = () => {
 export default StreamScreen;
 
 function MyVideoConference() {
-    const tracks = useTracks(
-      [
-        { source: Track.Source.Camera, withPlaceholder: true },
-        { source: Track.Source.ScreenShare, withPlaceholder: false },
-      ],
-      { onlySubscribed: false },
-    );
-    return (
-      <GridLayout tracks={tracks} style={{ height: 'calc(100vh - var(--lk-control-bar-height))' }}>
-        <ParticipantTile />
-      </GridLayout>
-    );
-  }
+  const tracks = useTracks(
+    [
+      { source: Track.Source.Camera, withPlaceholder: true },
+      { source: Track.Source.ScreenShare, withPlaceholder: false },
+    ],
+    { onlySubscribed: false }
+  );
+  return (
+    <GridLayout
+      tracks={tracks}
+      style={{ height: "calc(100vh - var(--lk-control-bar-height))" }}
+    >
+      <ParticipantTile />
+    </GridLayout>
+  );
+}

@@ -2,7 +2,7 @@ import React from 'react'
 
 const ControlsMobile = () => {
   return (
-    <div className='md:hidden block absolute bottom-0 bg-[#F9FAFB] dark:bg-pody-dark shadow-2xl shadow-slate-900 dark:shadow-slate-600 border-t border-pody-gray/20 w-full py-2 px-7 text-sm'>
+    <div className='md:hidden block absolute z-50 bottom-0 bg-[#F9FAFB] dark:bg-pody-dark shadow-2xl shadow-slate-900 dark:shadow-slate-600 border-t border-pody-gray/20 w-full py-2 px-7 text-sm'>
         <div className='text-slate-500 flex flex-row items-center gap-x-6 justify-center'>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
