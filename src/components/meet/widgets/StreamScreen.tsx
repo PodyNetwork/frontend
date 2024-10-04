@@ -11,6 +11,7 @@ import {
     LiveKitRoom,
     ParticipantTile,
     RoomAudioRenderer,
+    RoomName,
     useTracks
   } from "@livekit/components-react";
   import "@livekit/components-styles";
