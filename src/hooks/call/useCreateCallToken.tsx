@@ -29,9 +29,9 @@ const useCreateCallToken = () => {
 
   const createCallToken = useMutation({
     mutationFn: createCallTokenHandler,
-    onSuccess: (data) => { // Access the data here
+    onSuccess: (data) => { 
       clearErrorMessage();
-      setAccessToken(data.data.token); // Store the token in state
+      setAccessToken(data.data.token);
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
