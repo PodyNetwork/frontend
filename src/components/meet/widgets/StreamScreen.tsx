@@ -28,7 +28,7 @@ const StreamScreen = () => {
       createCallToken.mutate({ callId: call._id });
       setIsTokenFetched(true);
     }
-  }, [, isTokenFetched, createCallToken]);
+  }, [call, isTokenFetched, createCallToken]); // Corrected dependency array
 
   const serverUrl = process.env.NEXT_PUBLIC_LIVEKIT_URL;
 
