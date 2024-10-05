@@ -9,9 +9,6 @@ import {
   GridLayout,
   LiveKitRoom,
   useTracks,
-  VideoConference,
-  useParticipantPermissions,
-  useEnsureTrackRef,
   ControlBar,
 } from "@livekit/components-react";
 import "@livekit/components-styles";
