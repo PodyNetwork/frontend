@@ -6,16 +6,17 @@ import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 
 import {
-    ControlBar,
-    GridLayout,
-    LiveKitRoom,
-    ParticipantTile,
-    RoomAudioRenderer,
-    RoomName,
-    useTracks
-  } from "@livekit/components-react";
-  import "@livekit/components-styles";
-  import { Track } from "livekit-client";
+  GridLayout,
+  LiveKitRoom,
+  useTracks,
+  VideoConference,
+  useParticipantPermissions,
+  useEnsureTrackRef,
+  ControlBar,
+} from "@livekit/components-react";
+import "@livekit/components-styles";
+import { Track } from "livekit-client";
+import { ParticipantCustomTile } from "../livekitcustom/ParticipantCustomTile";
 
 const StreamScreen = () => {
   const { url } = useParams();
@@ -66,23 +67,18 @@ const StreamScreen = () => {
           </div>
         </div>
         <div className="w-full flex flex-wrap gap-3">
-          <div className="__video_box">
-            <LiveKitRoom
-              video={true}
-              audio={true}
-              token={token}
-              serverUrl={serverUrl}
-              data-lk-theme="default"
-              style={{ height: "100%" }}
-            >
-              <MyVideoConference />
-              <RoomAudioRenderer />
-              <ControlBar />
-              <RoomName />
-            </LiveKitRoom>
-          </div>
+          <LiveKitRoom
+            video={true}
+            audio={true}
+            token={token}
+            serverUrl={serverUrl}
+            data-lk-theme="default"
+            style={{ width: "100%", aspectRatio: 16 / 9, height: "auto" }}
+          >
+            <MyVideoConference />
+            <ControlBar />
+          </LiveKitRoom>
         </div>
-        {/* controls */}
         <Controls />
       </div>
     )
@@ -98,13 +94,14 @@ function MyVideoConference() {
       { source: Track.Source.ScreenShare, withPlaceholder: false },
     ],
     { onlySubscribed: false }
-  );
+  ).filter(track => track.participant.permissions?.canPublish);
+
   return (
     <GridLayout
       tracks={tracks}
       style={{ height: "calc(100vh - var(--lk-control-bar-height))" }}
     >
-      <ParticipantTile />
+      <ParticipantCustomTile />
     </GridLayout>
   );
 }
