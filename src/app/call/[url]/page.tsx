@@ -1,6 +1,6 @@
 'use client'
+import MeetLayout from '@/components/call/meetLayout';
 import React from 'react'
-import MeetLayout from '@/components/meet/meetLayout'
 
 const Meet = () => {
   return (
