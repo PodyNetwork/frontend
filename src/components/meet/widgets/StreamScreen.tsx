@@ -119,9 +119,6 @@ const StreamScreen = () => {
           <h2 className="font-bold text-lg md:text-xl text-slate-600 dark:text-slate-400">
             0x3ax on social impact of Nigeria Education
           </h2>
-          <LiveKitRoom token={token} serverUrl={serverUrl}>
-            <Participant />
-          </LiveKitRoom>
           <div className="text-sm flex flex-row flex-wrap justify-between gap-x-3 items-center">
             <p className="text-slate-500">25 Sep 2024</p>
             <button className="px-2 md:px-4 py-1 md:py-1.5 text-xs md:text-sm whitespace-nowrap bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all hidden md:block">
@@ -142,6 +139,7 @@ const StreamScreen = () => {
               <MyVideoConference />
               <RoomAudioRenderer />
               {/* <ControlBar /> */}
+              <Participant />
             </LiveKitRoom>
           </div>
         </div>
