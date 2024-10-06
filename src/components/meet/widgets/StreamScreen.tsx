@@ -13,7 +13,7 @@ import {
   useParticipants,
 } from "@livekit/components-react";
 import "@livekit/components-styles";
-import { Track } from "livekit-client";
+import { Room, Track } from "livekit-client";
 import { ParticipantCustomTile } from "../livekitcustom/ParticipantCustomTile";
 
 const StreamScreen = () => {
@@ -33,7 +33,7 @@ const StreamScreen = () => {
   const serverUrl = process.env.NEXT_PUBLIC_LIVEKIT_URL;
   const token = accessToken;
 
-  // const [room, setRoom] = useState<Room | null>(null);
+  const [room, setRoom] = useState<Room | null>(null);
   
   const Participant = () => {
     const participants = useParticipants(); 
@@ -59,43 +59,43 @@ const StreamScreen = () => {
   };
   
 
-  // useEffect(() => {
-  //   if (token && serverUrl) {
-  //     const newRoom = new Room();
-  //     newRoom.connect(serverUrl, token).then(() => {
-  //       setRoom(newRoom);
-  //     });
+  useEffect(() => {
+    if (token && serverUrl) {
+      const newRoom = new Room();
+      newRoom.connect(serverUrl, token).then(() => {
+        setRoom(newRoom);
+      });
 
-  //     return () => {
-  //       newRoom.disconnect();
-  //     };
-  //   }
-  // }, [token, serverUrl]);
+      return () => {
+        newRoom.disconnect();
+      };
+    }
+  }, [token, serverUrl]);
 
-  // if (!room) {
-  //   return (
-  //     <div className="bg-pody-primary/10 dark:bg-pody-dark md:h-full md:rounded-2xl pt-5 md:pt-5 md:py-5 px-7 flex flex-col gap-4 __main-screen relative float-left">
-  //       <div className="animate-pulse">
-  //           <div className="md:hidden h-6 bg-slate-300 rounded mb-2"></div>
-  //           <div className="h-6 bg-slate-200 rounded mb-2"></div> 
-  //           <div className="text-sm flex flex-row flex-wrap justify-between gap-x-3 items-center">
-  //             <div className="h-4 bg-slate-200 rounded w-1/4"></div>
-  //             <div className="h-8 bg-slate-200 rounded w-1/2"></div>
-  //           </div>
-  //           <div className="w-full flex flex-wrap gap-3 mt-4 mb-2">
-  //             <div className="__videobox min-h-[65vh] bg-slate-200 rounded w-full"></div>
-  //           </div>
-  //           <div className='hidden mt-auto h-10 md:flex flex-wrap justify-center items-center gap-x-4 text-sm' aria-label='controls'>
-  //             <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div>
-  //               <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div> 
-  //               <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div>
-  //               <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div>
-  //               <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div>
-  //           </div>
-  //         </div>
-  //     </div>
-  //   );
-  // }
+  if (!room) {
+    return (
+      <div className="bg-pody-primary/10 dark:bg-pody-dark md:h-full md:rounded-2xl pt-5 md:pt-5 md:py-5 px-7 flex flex-col gap-4 __main-screen relative float-left">
+        <div className="animate-pulse">
+            <div className="md:hidden h-6 bg-slate-300 rounded mb-2"></div>
+            <div className="h-6 bg-slate-200 rounded mb-2"></div> 
+            <div className="text-sm flex flex-row flex-wrap justify-between gap-x-3 items-center">
+              <div className="h-4 bg-slate-200 rounded w-1/4"></div>
+              <div className="h-8 bg-slate-200 rounded w-1/2"></div>
+            </div>
+            <div className="w-full flex flex-wrap gap-3 mt-4 mb-2">
+              <div className="__videobox min-h-[65vh] bg-slate-200 rounded w-full"></div>
+            </div>
+            <div className='hidden mt-auto h-10 md:flex flex-wrap justify-center items-center gap-x-4 text-sm' aria-label='controls'>
+              <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div>
+                <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div> 
+                <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div>
+                <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div>
+                <div className='bg-slate-200 h-10 w-10 rounded-full flex justify-center items-center animate-pulse'></div>
+            </div>
+          </div>
+      </div>
+    );
+  }
 
   return (
     token && (
