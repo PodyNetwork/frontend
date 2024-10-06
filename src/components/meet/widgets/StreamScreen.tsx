@@ -13,7 +13,7 @@ import {
   useParticipants,
 } from "@livekit/components-react";
 import "@livekit/components-styles";
-import { Track, Room } from "livekit-client";
+import { Track } from "livekit-client";
 import { ParticipantCustomTile } from "../livekitcustom/ParticipantCustomTile";
 
 const StreamScreen = () => {
