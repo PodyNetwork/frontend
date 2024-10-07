@@ -89,7 +89,7 @@ export default function Chat({
     ) {
       widget.dispatch?.({ msg: "unread_msg", count: unreadMessageCount });
     }
-  }, [chatMessages, layoutContext?.widget, layoutContext]);
+  }, [chatMessages, layoutContext?.widget]);
 
   const [isOpen, setIsOpen] = useState(false);
 
