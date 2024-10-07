@@ -258,7 +258,7 @@ body {
 .__video_box {
     display: inline-block;
     --ratio: calc( 3 / 2);
-    --h: min(calc(100vw / var(--ratio)), 50vh);
+    --h: min(calc(100vw / var(--ratio)), 65vh);
     height: var(--h);
     width: calc(var(--h) * var(--ratio));
 }
