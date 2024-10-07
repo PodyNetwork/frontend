@@ -1,76 +1,78 @@
-'use client'
-import Image from "next/image"
-import userLogo from '/public/avatar/user.png'
+"use client";
+import Image from "next/image";
+import userLogo from "/public/avatar/user.png";
 
 const StreamSidebar = () => {
   return (
-        <div className='min-w-16 max-w-16 hidden md:block py-5 bg-pody-primary/10 dark:bg-pody-dark h-full rounded-2xl relative float-left'>
-            <div className='h-full flex flex-col justify-between items-center gap-3 text-slate-600 dark:text-slate-400'>
-                <div>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className='w-7 h-7'
-                        viewBox="0 0 24 24"
-                        style={{ msFilter: "" }}
-                        fill="currentColor"
-                        >
-                        <path d="M6 3h2v2H6zm2 16h3v2H8zm8-16h2v2h-2zm-3 16h3v2h-3zm7-8V9h-2V7h-2V5h-2v2h-4V5H8v2H6v2H4v2H2v8h2v-4h2v4h2v-3h8v3h2v-4h2v4h2v-8zm-10 1H8V9h2zm6 0h-2V9h2z"></path>
-                    </svg>
-                </div>
-                <div className='w-full'>
-                    <ul className='flex flex-col items-center justify-center gap-y-6'>
-                        <li className='w-full justify-center flex py-1'>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className='w-6 h-6'
-                                viewBox="0 0 24 24"
-                                style={{ msFilter: "" }}
-                                fill="currentColor"
-                                >
-                                <path d="M5 22h14a2 2 0 0 0 2-2v-9a1 1 0 0 0-.29-.71l-8-8a1 1 0 0 0-1.41 0l-8 8A1 1 0 0 0 3 11v9a2 2 0 0 0 2 2zm5-2v-5h4v5zm-5-8.59 7-7 7 7V20h-3v-5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v5H5z"></path>
-                            </svg>
-                        </li>
-                        <li className='w-full justify-center flex py-1'>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className='w-6 h-6'
-                                viewBox="0 0 24 24"
-                                style={{ msFilter: "" }}
-                                fill="currentColor"
-                                >
-                                <path d="M18 7c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-3.333L22 17V7l-4 3.333V7zm-1.998 10H4V7h12l.001 4.999L16 12l.001.001.001 4.999z"></path>
-                            </svg>
-                        </li>
-                        <li className='w-full justify-center flex py-1'>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className='w-6 h-6'
-                                viewBox="0 0 24 24"
-                                style={{ msFilter: "" }}
-                                fill="currentColor"
-                                >
-                                <circle cx="12.01" cy="12" r="2"></circle><path d="M11.01 22h2l.5-7h-3l.5 7z"></path><path d="M12 2a10 10 0 0 0-2.45 19.68l-.15-2.12a8 8 0 1 1 5.21 0l-.15 2.12A10 10 0 0 0 12 2z"></path><path d="M15.32 9.61a3.44 3.44 0 0 1 .37.68 3.83 3.83 0 0 1 .23.75 3.57 3.57 0 0 1 .09.8 3.66 3.66 0 0 1-.09.81 3.83 3.83 0 0 1-.23.75 3.44 3.44 0 0 1-.37.68 4.7 4.7 0 0 1-.35.43l-.19 2.62a5.33 5.33 0 0 0 .58-.31A5.86 5.86 0 0 0 17 15.2a5.57 5.57 0 0 0 .55-1 5.89 5.89 0 0 0 .35-1.13 6.06 6.06 0 0 0 .1-1.23 6.22 6.22 0 0 0-.13-1.21A6.09 6.09 0 0 0 17 8.49a6.29 6.29 0 0 0-.73-.89 5.67 5.67 0 0 0-.89-.73 6.3 6.3 0 0 0-1-.56A6.17 6.17 0 0 0 13.21 6a6.11 6.11 0 0 0-2.41 0 5.51 5.51 0 0 0-1.13.36 5.57 5.57 0 0 0-1 .55 5.67 5.67 0 0 0-.89.73 6.29 6.29 0 0 0-.78.85 6.09 6.09 0 0 0-.9 2.14 6.21 6.21 0 0 0-.1 1.21 6.06 6.06 0 0 0 .12 1.21 5.89 5.89 0 0 0 .35 1.13 5.57 5.57 0 0 0 .55 1 6.24 6.24 0 0 0 1.62 1.62 5.33 5.33 0 0 0 .58.31L9 14.51a4.7 4.7 0 0 1-.35-.43 3.44 3.44 0 0 1-.37-.68 3.83 3.83 0 0 1-.23-.75 3.65 3.65 0 0 1-.05-.81 3.56 3.56 0 0 1 .08-.8 3.83 3.83 0 0 1 .23-.75 3.44 3.44 0 0 1 .37-.68 4 4 0 0 1 .5-.61 3.87 3.87 0 0 1 .59-.48 3.44 3.44 0 0 1 .68-.37 3.86 3.86 0 0 1 .75-.24 4.36 4.36 0 0 1 1.61 0 3.86 3.86 0 0 1 .75.24 3.58 3.58 0 0 1 1.27.85 3.49 3.49 0 0 1 .49.61z"></path>
-                            </svg>
-                        </li>
-                        <li className='w-full justify-center flex py-1'>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className='w-6 h-6'
-                                viewBox="0 0 24 24"
-                                style={{ msFilter: "" }}
-                                fill="currentColor"
-                                >
-                                <path d="M20 3H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h4l-1.8 2.4 1.6 1.2 2.7-3.6h3l2.7 3.6 1.6-1.2L16 18h4c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 16V5h16l.001 11H4z"></path><path d="M6 12h4v2H6z"></path>
-                            </svg>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <Image src={userLogo} alt='user icon' className='w-8 h-8 object-contain' />
-                </div>
-            </div>
-        </div>
-  )
-}
+    <div className="h-full flex flex-col justify-between items-center gap-3 text-slate-600 dark:text-slate-400">
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-7 h-7"
+          viewBox="0 0 24 24"
+          style={{ msFilter: "" }}
+          fill="currentColor"
+        >
+          <path d="M6 3h2v2H6zm2 16h3v2H8zm8-16h2v2h-2zm-3 16h3v2h-3zm7-8V9h-2V7h-2V5h-2v2h-4V5H8v2H6v2H4v2H2v8h2v-4h2v4h2v-3h8v3h2v-4h2v4h2v-8zm-10 1H8V9h2zm6 0h-2V9h2z"></path>
+        </svg>
+      </div>
+      <div className="w-full">
+        <ul className="flex flex-col items-center justify-center gap-y-6">
+          <li className="w-full justify-center flex py-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-7 h-7"
+              viewBox="0 -960 960 960"
+              style={{ msFilter: "" }}
+              fill="currentColor"
+            >
+              <path d="M240-200h133.85v-237.69h212.3V-200H720v-360L480-740.77 240-560v360Zm-60 60v-450l300-225.77L780-590v450H526.15v-237.69h-92.3V-140H180Zm300-330.38Z" />
+            </svg>
+          </li>
+          <li className="w-full justify-center flex py-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6"
+              viewBox="0 -960 960 960"
+              style={{ msFilter: "" }}
+              fill="currentColor"
+            >
+              <path d="M181.92-180q-30.3 0-51.3-21-21-21-21-51.31v-455.38q0-30.31 21-51.31 21-21 51.3-21h455.39q30.3 0 51.3 21 21 21 21 51.31v183.08l140.77-140.77v370.76L709.61-435.39v183.08q0 30.31-21 51.31-21 21-51.3 21H181.92Zm0-60h455.39q5.38 0 8.84-3.46 3.47-3.46 3.47-8.85v-455.38q0-5.39-3.47-8.85-3.46-3.46-8.84-3.46H181.92q-5.38 0-8.84 3.46t-3.46 8.85v455.38q0 5.39 3.46 8.85t8.84 3.46Zm-12.3 0v-480 480Z"/>
+            </svg>
+          </li>
+          <li className="w-full justify-center flex py-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6"
+              viewBox="0 -960 960 960"
+              style={{ msFilter: "" }}
+              fill="currentColor"
+            >
+              <path d="M450-100v-328.31q-14.15-8.69-22.08-21.68-7.92-12.99-7.92-30.06 0-24.49 17.73-42.22T480-540q24.54 0 42.27 17.73Q540-504.54 540-480.09q0 17.04-7.92 30.37-7.93 13.33-22.08 21.41V-100h-60ZM218.23-204.23q-54.69-52.31-86.46-123.11Q100-398.15 100-479.89q0-78.88 29.92-148.25t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.93t120.68 81.24q51.31 51.31 81.25 120.67Q860-558.8 860-479.94q0 81.71-31.77 152.86-31.77 71.16-86.46 122.85L700-246.38q46-43.93 73-104.33T800-480q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 69 27 129t74 104l-42.77 42.77Zm113-113q-32.69-30.31-51.96-72.16Q260-431.25 260-480q0-91.67 64.14-155.83Q388.28-700 479.91-700q91.63 0 155.86 64.21Q700-571.58 700-479.85q0 48.62-19.27 90.77-19.27 42.16-51.96 71.85L586-360q25-23 39.5-54t14.5-66q0-66-47-113t-113-47q-66 0-113 47t-47 113q0 36 14.5 66.5T374-360l-42.77 42.77Z"/>
+            </svg>
+          </li>
+          <li className="w-full justify-center flex py-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6"
+              viewBox="0 -960 960 960"
+              style={{ msFilter: "" }}
+              fill="currentColor"
+            >
+              <path d="M305.77-260q-60.13 0-102.95-42.19Q160-344.39 160-404.23v-154.92q0-45.49 29.12-79.82 29.11-34.34 74.11-42.57 54.68-10.36 108.39-14.6 53.72-4.24 108.4-4.24 54.67 0 108.86 4.11 54.2 4.12 107.89 14.73 45 8.85 74.11 42.82Q800-604.75 800-559.15v154.92Q800-344 757.07-302q-42.94 42-103.22 42H615q-11.72 0-23.44-1.69-11.71-1.7-22.94-5.93l-61.7-20.46q-13.15-5-26.92-5-13.77 0-26.92 5L391-267.62q-11.23 4.23-22.95 5.93-11.72 1.69-23.43 1.69h-38.85Zm0-60h38.85q7.4 0 14.27-1.19 6.88-1.19 13.65-3.19 27.08-8.62 53.1-17.85 26.03-9.23 54.43-9.23 28.39 0 54.72 8.87 26.34 8.87 52.67 18.21 6.77 2 13.52 3.19T615-320h38.85q35.3 0 60.73-24.74Q740-369.49 740-404.23v-154.92q0-24.04-15.54-41.52-15.54-17.48-38.85-22.48-50.72-10.53-101.93-13.88-51.22-3.35-103.68-3.35-52.62 0-103.29 3.82-50.68 3.83-102.32 13.41-23.31 4.34-38.85 22.23Q220-583.02 220-559.15v154.92q0 34.74 25.19 59.49Q270.39-320 305.77-320ZM60-404.23v-153.08h47.31v153.08H60Zm792.69 0v-153.08H900v153.08h-47.31ZM480-480.38Z"/>
+            </svg>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <Image
+          src={userLogo}
+          alt="user icon"
+          className="w-8 h-8 object-contain"
+        />
+      </div>
+    </div>
+  );
+};
 
-export default StreamSidebar
+export default StreamSidebar;
