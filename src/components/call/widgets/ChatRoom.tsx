@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef } from "react";
 import { useChat } from "@livekit/components-react";
+import Image from "next/image";
 
 const ChatRoom: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +46,7 @@ const ChatRoom: React.FC = () => {
         <div className="flex-grow overflow-y-auto px-4 py-3">
           {chatMessages.map((message) => (
             <div key={message.id} className={`flex mb-4`}>
-              <img src="/avatar/user1.webp" alt={`${message.from}'s icon`} className="w-6 h-6 object-cover rounded-full mr-2" />
+              <Image src="/avatar/user1.webp" alt={`${message.from}'s icon`} className="w-6 h-6 object-cover rounded-full mr-2" />
               <div className={`w-full rounded-lg p-3 bg-blue-500 text-white`}>
                 <p className="text-xs">{typeof message.from === 'string' ? message.from : 'Unknown'}</p> 
                 <p className="text-sm">{message.message}</p>

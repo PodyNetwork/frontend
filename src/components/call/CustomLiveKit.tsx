@@ -1,5 +1,4 @@
 import {
-  Chat,
   LiveKitRoom,
   RoomAudioRenderer,
 } from "@livekit/components-react";
