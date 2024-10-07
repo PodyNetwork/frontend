@@ -84,7 +84,5 @@ const ChatRoom: React.FC = () => {
 };
 
 export default ChatRoom;
-function oseRef() {
-    throw new Error("Function not implemented.");
-}
+
 
