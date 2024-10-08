@@ -7,6 +7,7 @@ import useErrorMessage from '../useErrorMessage';
 import type { CallResponse } from '../../app/call/types';
 import { ResponseError } from '@/types/globals';
 import { useRouter } from 'next/navigation';
+import useLoading from '../useLoading';
 
 interface CreateCallArgs{ scheduledTime?: number, participantsCanPublish?: boolean, title?: string }
 
@@ -14,11 +15,17 @@ interface CreateCallArgs{ scheduledTime?: number, participantsCanPublish?: boole
 const useCreateCall = () => {
   const router = useRouter(); 
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
+  const { startLoading, stopLoading, loading } = useLoading();
 
   const createCallHandler = useCallback(async (args: CreateCallArgs = {}): Promise<CallResponse> => {
-    const response = await axios.post<CallResponse>('/call', args);
-    return response.data;
-  }, []);
+    startLoading();
+    try {
+      const response = await axios.post<CallResponse>('/call', args);
+      return response.data;
+    } finally {
+      stopLoading(); 
+    }
+  }, [startLoading, stopLoading]);
 
   const createCall = useMutation({
     mutationFn: createCallHandler,
@@ -36,7 +43,7 @@ const useCreateCall = () => {
     },
   });
 
-  return { createCall, errorMessage };
+  return { createCall, errorMessage, loading };
 }
 
 export default useCreateCall

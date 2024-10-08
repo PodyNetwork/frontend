@@ -13,10 +13,10 @@ const MeetLayout = () => {
         <div className="w-16 max-w-16 hidden md:block py-5 bg-pody-primary/10 dark:bg-pody-dark h-full relative float-left">
           <StreamSidebar />
         </div>
-        <div className="bg-pody-primary/10 dark:bg-pody-dark md:h-full pt-5 md:pt-5 md:py-5 px-7 flex flex-col gap-4 __main-screen relative float-left w-full md:w-[calc(100vw-25rem)]">
+        <div className="bg-pody-primary/10 dark:bg-pody-dark md:h-full pt-5 md:pt-5 md:py-5 px-3.5 flex flex-col gap-4 __main-screen relative float-left w-full md:w-[calc(100vw-25rem)]">
           <StreamScreen />
         </div>
-        <div className="bg-pody-primary/10 z-20 dark:bg-pody-dark pb-[100px] md:pb-5 overflow-y-auto md:overflow-hidden p-8 md:p-5 w-full md:w-[20rem] relative flex flex-col gap-y-2 flex-1 md:flex-auto">
+        <div className="bg-pody-primary/10 z-20 dark:bg-pody-dark pb-[100px] md:pb-5 overflow-y-auto md:overflow-hidden p-3.5 md:p-5 w-full md:w-[20rem] relative flex flex-col gap-y-2 flex-1 md:flex-auto">
           <Participant />
         </div>
         <ChatRoom />

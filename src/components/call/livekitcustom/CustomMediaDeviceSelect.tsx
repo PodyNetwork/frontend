@@ -83,7 +83,7 @@ export const CustomMediaDeviceSelect: (
       if (initialSelection !== undefined) {
         setActiveMediaDevice(initialSelection);
       }
-    }, [setActiveMediaDevice]);
+    }, [setActiveMediaDevice, initialSelection]);
 
     React.useEffect(() => {
       if (typeof onDeviceListChange === 'function') {

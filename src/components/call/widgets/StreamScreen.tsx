@@ -1,15 +1,15 @@
 "use client";
 import Controls from "./Controls";
 import {
-  GridLayout,
   useTracks,
   RoomAudioRenderer
 } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { Track } from "livekit-client";
-import { ParticipantCustomTile } from "../livekitcustom/ParticipantCustomTile";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useParams } from "next/navigation";
+import { EnhancedFocusLayout } from "../livekitcustom/FocusLayoutTile";
+import { useState } from "react";
 
 const MyVideoConference = () => {
   const tracks = useTracks(
@@ -20,13 +20,24 @@ const MyVideoConference = () => {
     { onlySubscribed: false }
   ).filter((track) => track.participant.permissions?.canPublish);
 
+
+  const [focusedIndex, setFocusedIndex] = useState(0); // Manage focused participant state
+
+  const handleParticipantClick = (index: number) => {
+    setFocusedIndex(index); // Update focused index on click
+  };
+
   return (
-    <GridLayout
-      tracks={tracks}
-      style={{ height: "calc(100vh - var(--lk-control-bar-height))" }}
-    >
-      <ParticipantCustomTile />
-    </GridLayout>
+    // <GridLayout
+    //   tracks={tracks}
+    // >
+    //   <ParticipantCustomTile />
+    // </GridLayout>
+    <EnhancedFocusLayout
+    tracks={tracks}
+    focusedIndex={focusedIndex}
+    onParticipantClick={handleParticipantClick}
+    />
   );
 };
 
@@ -63,7 +74,7 @@ const StreamScreen = () => {
         </div>
       </div>
       <div className="w-full flex flex-wrap gap-3 my-auto">
-        <div className="__video_box">
+        <div>
           <MyVideoConference />
           <RoomAudioRenderer />
         </div>

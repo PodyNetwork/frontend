@@ -89,16 +89,16 @@ export default function Chat({
     ) {
       widget.dispatch?.({ msg: "unread_msg", count: unreadMessageCount });
     }
-  }, [chatMessages, layoutContext?.widget]);
+  }, [chatMessages, layoutContext]);
 
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div
-      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[70vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-xl transition-all duration-300 ease-in-out ${
+      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[70vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-lg transition-all duration-300 ease-in-out ${
         isOpen
           ? "translate-y-0"
-          : "translate-y-full md:translate-y-[calc(100%-55px)]"
+          : "translate-y-full md:translate-y-[calc(100%-50px)]"
       }`}
     >
       <div className="flex flex-col h-full">
@@ -107,7 +107,7 @@ export default function Chat({
           onClick={() => setIsOpen(!isOpen)}
         >
           <div className="flex justify-between items-center">
-            <h2 className="font-bold text-lg text-gray-800 dark:text-white">
+            <h2 className="font-medium text-base text-gray-800 dark:text-white">
               Chat Room
             </h2>
             <svg
@@ -141,12 +141,12 @@ export default function Chat({
                   className="w-6 h-6 object-cover rounded-full mr-2"
                 />
                 <div
-                  className={`w-[70%] rounded-xl p-3 bg-blue-500 text-white`}
+                  className={`w-[75%] rounded-lg p-2 bg-pody-primary text-slate-700`}
                 >
                   <p className="text-sm">{msg.message}</p>
                 </div>
                 </div>
-                <div className="text-[0.7rem] ms-8 mt-1 gap-x-1 flex flex-row items-center">
+                <div className="text-[0.7rem] dark:text-slate-300 ms-8 mt-1 gap-x-1 flex flex-row items-center">
                   <p>
                     {!hideName && (
                       <h3>
@@ -169,19 +169,19 @@ export default function Chat({
           })}
         </ul>
         <div className="px-4 py-3 border-t dark:border-gray-700">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="relative"> 
             <div className="flex items-center">
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="w-full px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white outline-none"
+                className="w-full px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white outline-none text-sm pr-10"
                 disabled={isSending}
                 ref={inputRef}
                 onInput={(ev) => ev.stopPropagation()}
                 onKeyDown={(ev) => ev.stopPropagation()}
                 onKeyUp={(ev) => ev.stopPropagation()}
               />
-              <button type="submit" disabled={isSending}>
+              <button type="submit" disabled={isSending} className="absolute right-2"> 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className={`h-6 w-6 text-blue-500 ${
