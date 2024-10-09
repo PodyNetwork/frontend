@@ -28,23 +28,21 @@ const Participant = () => {
                 alt="user icon"
                 width={200}
                 height={200}
-                className="w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full"
+                className="w-[50px] h-[50px] md:w-7 md:h-7 object-cover rounded-full"
               />
               <div className="md:ms-2.5 flex flex-col items-center text-sm">
-                <p>
+                <p className="text-sm">
                   <span className="leading-none font-semibold truncate">
                     {participant.name}
                   </span>
                 </p>
-                {participant.permissions?.canPublish ? (
-                  <p className="block md:hidden text-xs text-slate-300 leading-none">
+                <p className="block md:hidden text-xs text-slate-300 leading-none">
+                  {participant.permissions?.canPublish ? (
                     <span>Speaker</span>
-                  </p>
-                ) : (
-                  <p className="block md:hidden text-xs text-slate-300 leading-none">
+                  ) : (
                     <span>Listener</span>
-                  </p>
-                )}
+                  )}
+                </p>
               </div>
             </div>
             <div className="hidden md:flex flex-row items-center gap-x-2.5">

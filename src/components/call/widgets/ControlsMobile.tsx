@@ -86,8 +86,8 @@ const ControlsMobile = ({
   );
 
   return (
-    <div className="md:hidden block absolute z-30 bottom-0 mb-2 dark:bg-pody-dark border-pody-gray/20 w-full px-3.5 text-sm mx-auto">
-      <div className="text-slate-500 flex flex-row items-center gap-x-6 justify-center glass-effect_menu rounded-md py-1">
+    <div className="md:hidden block absolute z-30 bottom-0 bg-white dark:bg-black border-pody-gray/20 border-t w-full px-3.5 __shadow_pody text-sm">
+      <div className="text-slate-600 dark:text-slate-300 mx-auto relative flex flex-row items-center justify-between max-w-sm rounded-md py-2">
         {/* video source */}
         {visibleControls.camera && (
           <SourceToggle
@@ -100,7 +100,7 @@ const ControlsMobile = ({
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
+              className="w-7 h-7"
               viewBox="0 -960 960 960"
               style={{ msFilter: "" }}
               fill="currentColor"
@@ -110,7 +110,7 @@ const ControlsMobile = ({
           </SourceToggle>
         )}
         {/* screen share */}
-        {visibleControls.screenShare && browserSupportsScreenSharing && (
+        {visibleControls.screenShare && (
           <SourceToggle
             source={Track.Source.ScreenShare}
             captureOptions={{ audio: false, selfBrowserSurface: "include" }}
@@ -122,7 +122,7 @@ const ControlsMobile = ({
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
+              className="w-7 h-7"
               viewBox="0 -960 960 960"
               style={{ msFilter: "" }}
               fill="currentColor"
@@ -144,7 +144,7 @@ const ControlsMobile = ({
             <div className="w-10 h-10 rounded-full flex justify-center items-center text-white bg-pody-primary relative">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
+                className="w-7 h-7"
                 viewBox="0 -960 960 960"
                 style={{ msFilter: "" }}
                 fill="currentColor"
@@ -157,7 +157,7 @@ const ControlsMobile = ({
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6"
+          className="w-7 h-7"
           viewBox="0 -960 960 960"
           style={{ msFilter: "" }}
           fill="currentColor"
@@ -168,7 +168,7 @@ const ControlsMobile = ({
         {visibleControls.leave && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
+            className="w-7 h-7"
             viewBox="0 -960 960 960"
             style={{ msFilter: "" }}
             fill="currentColor"

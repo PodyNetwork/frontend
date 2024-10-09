@@ -284,7 +284,7 @@ body {
 }
 @media(max-width: 370px) {
     .__participant_list{
-        grid-template-columns: repeat(auto-fit,minmax(70px,1fr));
+        grid-template-columns: repeat(auto-fit,minmax(50px,1fr));
     }
 }
 .__participant_message_container{
@@ -485,6 +485,7 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
 }
 /* FocusLayoutTile.css */
+
 .enhanced-focus-layout {
     display: flex;
     flex-direction: column;
@@ -494,12 +495,10 @@ body {
     max-width: 1200px;
     margin: auto;
 }
-@media (min-width: 768px) {
-    .enhanced-focus-layout {
-        flex-direction: row; 
-    }
-}
+
 .focused-participant-container {
+    /* flex: 1;  */ 
+    @apply border-2 border-pody-primary;
     border-radius: 10px;
     overflow: hidden; 
     width: 100%; 
@@ -511,29 +510,21 @@ body {
 }
 .participant-carousel {
     display: flex;
-    flex-direction: row; 
-    overflow-x: auto; 
-    overflow-y: hidden; 
+    flex-direction: row; /* Change to row for horizontal scrolling */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical overflow */
     max-height: 400px; 
-    width: 100%;
+    width: 100%; /* Full width on small screens */
     padding: 0px;
     gap: 5px;
     margin-top: 5px;
 }
 @media (min-width: 768px) {
     .participant-carousel {
-        width: 250px;
+        width: 250px; /* Fixed width on larger screens */
         flex-direction: column;
         padding: 10px;
         gap: 10px;
-    }
-}
-@media (max-width: 480px) {
-    .participant-carousel {
-        max-height: 300px; 
-    }
-    .enhanced-focus-layout {
-        max-width: 100px;
     }
 }
 .participant-carousel::-webkit-scrollbar {
@@ -555,11 +546,29 @@ body {
 .ParticipantCustomTile:hover {
     transform: scale(1.05);
 }
-@media (max-width: 480px) {
+@media (min-width: 400px) {
     .enhanced-focus-layout {
-        padding: 5px; /* Reduce padding on small screens */
+        flex-direction: row; 
+    }
+}
+@media (max-width: 767px) {
+    .enhanced-focus-layout {
+        max-width: 600px;
+        gap: 5px;
     }
     .participant-carousel {
-        max-height: 300px; 
+        width: 110px;
+        
+    }
+}
+@media (max-width: 480px) {
+    .enhanced-focus-layout {
+        padding: 5px;
+    }
+}
+@media (min-width: 550px) and (max-width: 767px) {
+    .participant-carousel {
+        width: 150px;
+        
     }
 }
