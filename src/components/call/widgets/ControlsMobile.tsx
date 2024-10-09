@@ -54,6 +54,8 @@ const ControlsMobile = ({
     visibleControls.chat ??= localPermissions.canPublishData && controls?.chat;
   }
 
+  visibleControls.screenShare = true;
+
   const browserSupportsScreenSharing = supportsScreenSharing();
 
   const [isScreenShareEnabled, setIsScreenShareEnabled] = React.useState(false);
@@ -84,9 +86,10 @@ const ControlsMobile = ({
     [saveVideoInputEnabled]
   );
 
-//   function leaveCall() {
-//     const { buttonProps } = useDisconnectButton(leaveCall);
-//   }
+  const screenShareOptions = {
+    audio: false, // Disable audio for screen sharing
+    selfBrowserSurface: "include", // Include the current browser tab in screen sharing options
+  };
 
   return (
     <div className="md:hidden block absolute z-30 bottom-0 mb-2 dark:bg-pody-dark border-pody-gray/20 w-full px-3.5 text-sm mx-auto">
@@ -116,7 +119,7 @@ const ControlsMobile = ({
         {visibleControls.screenShare && browserSupportsScreenSharing && (
           <SourceToggle
             source={Track.Source.ScreenShare}
-            captureOptions={{ audio: true, selfBrowserSurface: "include" }}
+            captureOptions={{ audio: false, selfBrowserSurface: "include" }}
             showIcon={false}
             onChange={onScreenShareChange}
             onDeviceError={(error) =>
