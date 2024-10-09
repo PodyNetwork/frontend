@@ -86,11 +86,6 @@ const ControlsMobile = ({
     [saveVideoInputEnabled]
   );
 
-  const screenShareOptions = {
-    audio: false, // Disable audio for screen sharing
-    selfBrowserSurface: "include", // Include the current browser tab in screen sharing options
-  };
-
   return (
     <div className="md:hidden block absolute z-30 bottom-0 mb-2 dark:bg-pody-dark border-pody-gray/20 w-full px-3.5 text-sm mx-auto">
       <div className="text-slate-500 flex flex-row items-center gap-x-6 justify-center glass-effect_menu rounded-md py-1">
