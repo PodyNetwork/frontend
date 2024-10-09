@@ -17,10 +17,8 @@ import {
   useFeatureContext,
   useMaybeLayoutContext,
   useMaybeParticipantContext,
-  useMaybeTrackRefContext,
+  useMaybeTrackRefContext
 } from "@livekit/components-react";
-import { FocusToggle } from "@livekit/components-react";
-import { ParticipantPlaceholder } from "@livekit/components-react";
 import { LockLockedIcon } from "@livekit/components-react";
 import { VideoTrack } from "@livekit/components-react";
 import { AudioTrack } from "@livekit/components-react";
@@ -28,17 +26,9 @@ import { useParticipantTile } from "@livekit/components-react";
 import { useIsEncrypted } from "@livekit/components-react";
 import { CustomParticipantName } from "./CustomParticipantName";
 import Image from "next/image";
-/**
- * The `ParticipantContextIfNeeded` component only creates a `ParticipantContext`
- * if there is no `ParticipantContext` already.
- * @example
- * ```tsx
- * <ParticipantContextIfNeeded participant={trackReference.participant}>
- *  ...
- * </ParticipantContextIfNeeded>
- * ```
- * @public
- */
+import CustomParticipantPlaceholder from "./CustomPlaceHolder";
+
+
 export function ParticipantContextIfNeeded(
   props: React.PropsWithChildren<{
     participant?: Participant;
@@ -53,10 +43,7 @@ export function ParticipantContextIfNeeded(
     <>{props.children}</>
   );
 }
-/**
- * Only create a `TrackRefContext` if there is no `TrackRefContext` already.
- * @internal
- */
+
 export function TrackRefContextIfNeeded(
   props: React.PropsWithChildren<{
     trackRef?: TrackReferenceOrPlaceholder;
@@ -72,32 +59,13 @@ export function TrackRefContextIfNeeded(
   );
 }
 
-/** @public */
 export interface ParticipantTileProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  /** The track reference to display. */
   trackRef?: TrackReferenceOrPlaceholder;
   disableSpeakingIndicator?: boolean;
 
   onParticipantClick?: (event: ParticipantClickEvent) => void;
 }
-
-/**
- * The `ParticipantTile` component is the base utility wrapper for displaying a visual representation of a participant.
- * This component can be used as a child of the `TrackLoop` component or by passing a track reference as property.
- *
- * @example Using the `ParticipantTile` component with a track reference:
- * ```tsx
- * <ParticipantTile trackRef={trackRef} />
- * ```
- * @example Using the `ParticipantTile` component as a child of the `TrackLoop` component:
- * ```tsx
- * <TrackLoop>
- *  <ParticipantTile />
- * </TrackLoop>
- * ```
- * @public
- */
 
 export const ParticipantCustomTile: (
   props: ParticipantTileProps & React.RefAttributes<HTMLDivElement>
@@ -142,69 +110,89 @@ export const ParticipantCustomTile: (
     [trackReference, layoutContext]
   );
 
+  const isCameraDisabled =
+    trackReference?.source === Track.Source.Camera &&
+    !trackReference?.publication?.isSubscribed;
+
   return (
     <div ref={ref} style={{ position: "relative" }} {...elementProps}>
       <TrackRefContextIfNeeded trackRef={trackReference}>
         <ParticipantContextIfNeeded participant={trackReference.participant}>
           {children ?? (
             <>
-              {isTrackReference(trackReference) &&
-              (trackReference.publication?.kind === "video" ||
-                trackReference.source === Track.Source.Camera ||
-                trackReference.source === Track.Source.ScreenShare) ? (
-                <VideoTrack
-                  trackRef={trackReference}
-                  onSubscriptionStatusChanged={handleSubscribe}
-                  manageSubscription={autoManageSubscription}
-                />
+              {/* Render placeholder if camera is disabled */}
+              {isCameraDisabled ? (
+                <>
+                  <VideoTrack manageSubscription={autoManageSubscription} className="aspect-video w-full h-full" />
+                  <div className="lk-participant-placeholder">
+                    <CustomParticipantPlaceholder />
+                  </div>
+                </>
               ) : (
-                isTrackReference(trackReference) && (
-                  <AudioTrack
-                    trackRef={trackReference}
-                    onSubscriptionStatusChanged={handleSubscribe}
-                  />
-                )
-              )}
-              <div className="lk-participant-placeholder">
-                <ParticipantPlaceholder />
-              </div>
-              <div className="lk-participant-metadata">
-                <div>
-                  {trackReference.source === Track.Source.Camera ? (
-                    <>
-                      {isEncrypted && (
-                        <LockLockedIcon style={{ marginRight: "0.25rem" }} />
-                      )}
-                      <div className="glass-effect flex flex-row items-center gap-x-1 text-sm">
-                        <Image
-                          src="/avatar/user1.webp"
-                          alt="user icon"
-                          width={200}
-                          height={200}
-                          className="w-4 h-4 md:w-6 md:h-6 object-cover rounded-full"
-                        />
-                        <CustomParticipantName />
-                      </div>
-                    </>
+                <>
+                  {isTrackReference(trackReference) &&
+                  (trackReference.publication?.kind === "video" ||
+                    trackReference.source === Track.Source.Camera ||
+                    trackReference.source === Track.Source.ScreenShare) ? (
+                    <VideoTrack
+                      trackRef={trackReference}
+                      onSubscriptionStatusChanged={handleSubscribe}
+                      manageSubscription={autoManageSubscription}
+                      style={{ width: "100%", height: "100%" }}
+                    />
                   ) : (
-                    <>
-                      <div className="glass-effect flex flex-row items-center gap-x-1 text-sm">
-                        <Image
-                          src="/avatar/user1.webp"
-                          alt="user icon"
-                          width={200}
-                          height={200}
-                          className="w-4 h-4 md:w-6 md:h-6 object-cover rounded-full"
-                        />
-                        <CustomParticipantName>&apos;s screen</CustomParticipantName>
-                      </div>
-                    </>
+                    isTrackReference(trackReference) && (
+                      <AudioTrack
+                        trackRef={trackReference}
+                        onSubscriptionStatusChanged={handleSubscribe}
+                      />
+                    )
                   )}
-                </div>
-              </div>
+                  <div className="lk-participant-placeholder">
+                    <CustomParticipantPlaceholder />
+                  </div>
+                  <div className="lk-participant-metadata">
+                    <div>
+                      {trackReference.source === Track.Source.Camera ? (
+                        <>
+                          {isEncrypted && (
+                            <LockLockedIcon
+                              style={{ marginRight: "0.25rem" }}
+                            />
+                          )}
+                          <div className="glass-effect flex flex-row items-center gap-x-1 text-sm">
+                            <Image
+                              src="/avatar/user1.webp"
+                              alt="user icon"
+                              width={200}
+                              height={200}
+                              className="w-3 h-3 md:w-6 md:h-6 object-cover rounded-full"
+                            />
+                            <CustomParticipantName />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="glass-effect flex flex-row items-center gap-x-1 text-sm">
+                            <Image
+                              src="/avatar/user1.webp"
+                              alt="user icon"
+                              width={200}
+                              height={200}
+                              className="w-3 h-3 md:w-6 md:h-6 object-cover rounded-full"
+                            />
+                            <CustomParticipantName>
+                              &apos;s screen
+                            </CustomParticipantName>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
-          <FocusToggle trackRef={trackReference} />
         </ParticipantContextIfNeeded>
       </TrackRefContextIfNeeded>
     </div>

@@ -14,7 +14,7 @@ export const CustomParticipantName: (
     const p = useEnsureParticipant(participant);
 
     return (
-      <span ref={ref} className='truncate text-xs xs:text-sm'>
+      <span ref={ref} className='truncate text-xs'>
         {p.name !== '' ? p.name : p.identity}
         {props.children}
       </span>

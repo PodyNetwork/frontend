@@ -21,7 +21,6 @@ import { useRouter } from "next/navigation";
 import useUpdateCall from "@/hooks/call/useUpdateCall";
 import { formOptions, useForm } from "@tanstack/react-form";
 import { Call } from "@/app/call/types";
-// import { useAuth } from "@/hooks/useAuth";
 
 interface ToggleSwitchProps {
   label: string;
@@ -78,6 +77,9 @@ interface EditDrawerProps {
 
 const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
   const [scheduledTime, setScheduledTime] = useState<Date>(call.scheduledTime ? new Date(call.scheduledTime) : new Date());
+  
+  console.log(call.participantsCanPublish);
+
   const [canSpeak, setCanSpeak] = useState(call.participantsCanPublish);
   const { updateCall, errorMessage } = useUpdateCall();
   const router = useRouter();

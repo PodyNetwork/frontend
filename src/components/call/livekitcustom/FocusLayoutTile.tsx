@@ -23,7 +23,16 @@ export interface EnhancedFocusLayoutProps extends React.HTMLAttributes<HTMLDivEl
  * @public
  */
 export function EnhancedFocusLayout({ tracks, focusedIndex, onParticipantClick, ...props }: EnhancedFocusLayoutProps) {
-  const pagination = usePagination(tracks.length, tracks); // Handle pagination
+  // Filter out the focused track from the pagination tracks and keep original index
+  const filteredTracks = tracks
+    .map((track, index) => ({ track, originalIndex: index })) // Map to keep track of original index
+    .filter(({ originalIndex }) => originalIndex !== focusedIndex);
+
+  // Extract only the tracks for pagination
+  const paginatedTracks = filteredTracks.map(({ track }) => track);
+
+  const pagination = usePagination(paginatedTracks.length, paginatedTracks); // Handle pagination
+  
   const focusRef = React.createRef<HTMLDivElement>();
 
   useSwipe(focusRef, {
@@ -32,8 +41,9 @@ export function EnhancedFocusLayout({ tracks, focusedIndex, onParticipantClick, 
   });
 
   const handleParticipantClick = (index: number) => {
+    const originalIndex = filteredTracks[index].originalIndex; // Get the original index of the clicked participant
     if (onParticipantClick) {
-      onParticipantClick(index);
+      onParticipantClick(originalIndex); // Pass the original index back
     }
   };
 
@@ -54,28 +64,28 @@ export function EnhancedFocusLayout({ tracks, focusedIndex, onParticipantClick, 
   }, [focusedIndex, tracks, onParticipantClick]);
 
   // Determine if there are other participants to display
-  const hasOtherParticipants = tracks.length > 1;
+  const hasOtherParticipants = filteredTracks.length > 0;
 
   return (
     <div className="enhanced-focus-layout" ref={focusRef}>
       <div className="focused-participant-container">
         {/* Display the focused participant */}
-        {tracks[focusedIndex] && ( // Check if the focusedIndex is valid
+        {tracks[focusedIndex] && (
           <CustomFocusLayout
-            trackRef={tracks[focusedIndex]} // Pass the trackRef explicitly
+            trackRef={tracks[focusedIndex]}
             onParticipantClick={() => handleParticipantClick(focusedIndex)}
           />
         )}
       </div>
-        
-      {/* Display other participants in a carousel only if there are more than one */}
+
+      {/* Display other participants in a carousel only if there are any */}
       {hasOtherParticipants && (
         <div className="participant-carousel">
-          {pagination.tracks.map((track, index) => (
+          {pagination.tracks.map((trackItem, index) => (
             <ParticipantCustomTile 
               key={index} 
-              trackRef={track} 
-              onClick={() => handleParticipantClick(index)} // Click handler for participant tiles
+              trackRef={trackItem} 
+              onClick={() => handleParticipantClick(index)} 
             />
           ))}
         </div>

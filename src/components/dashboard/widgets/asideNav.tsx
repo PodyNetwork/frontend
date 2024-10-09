@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dashlink from "../data/links.json";
 import Link from "next/link";
 import logo from "/public/logo/pody logo dark.png";
@@ -7,11 +7,28 @@ import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
 import useProfile from "@/hooks/user/useProfile";
 
+
+type FloatingElement = {
+    id: number;
+    left: string;
+    top: string;
+    animationDelay: string;
+};
+
 const AsideNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
   const {profile, isLoading, isError} = useProfile()
 
-  console.log(profile)
+  useEffect(() => {
+    const elements = Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 5}s`,
+    }));
+    setFloatingElements(elements);
+  }, []);
 
   return (
     <>
@@ -123,16 +140,15 @@ const AsideNav = () => {
         }`}
       >
         <div className="flex flex-col items-center justify-center h-full relative overflow-hidden">
-          {/* Blockchain-inspired background animation */}
           <div className="absolute inset-0 opacity-20">
-            {[...Array(30)].map((_, i) => (
+            {floatingElements.map(({ id, left, top, animationDelay }) => (
               <div
-                key={i}
+                key={id}
                 className="absolute bg-pody-dark w-1 h-1 rounded-full animate-float"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 5}s`,
+                  left: left,
+                  top: top,
+                  animationDelay: animationDelay,
                 }}
               ></div>
             ))}

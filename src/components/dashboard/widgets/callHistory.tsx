@@ -1,15 +1,15 @@
 "use client";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import Image from "next/image";
-import userIcon from "/public/avatar/user5.jpeg";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { Call } from "@/app/call/types";
 import meetingImageError from "/public/illustration/wormies nocall.svg";
 import EditDrawer from "@/components/dashboard/widgets/editDrawer";
-import dayjs from 'dayjs';
-import isToday from 'dayjs/plugin/isToday';
-import isTomorrow from 'dayjs/plugin/isTomorrow';
+import dayjs from "dayjs";
+import isToday from "dayjs/plugin/isToday";
+import isTomorrow from "dayjs/plugin/isTomorrow";
+import BlockiesSvg from "blockies-react-svg";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
@@ -50,41 +50,64 @@ dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
 const CallsCard = ({ calls }: Calls) => {
+  const router = useRouter();
+
+  function goToMeeting(callUrl: string) {
+    const fullUrl = `/call/${callUrl}`;
+    router.push(fullUrl);
+  }
+
   return (
     <>
       {calls.map((call: Call, index: number) => {
-        return  <div
-        key={index}
-        className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]"
-      >
-        <div className="flex flex-col gap-y-1.5">
-          <p className="text-xs text-slate-700">{call.scheduledTime}</p>
-          <h3 className="text-base sm:text-lg font-medium text-slate-800">
-            {call.title}
-          </h3>
-          <div>
-            <button className="text-xs text-pody-danger bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm">
-              {call.status}
-            </button>
+        return (
+          <div
+            key={index}
+            className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]"
+          >
+            <div className="flex flex-col gap-y-1.5">
+              <p className="text-xs text-slate-700 capitalize">
+                {(() => {
+                  const scheduledDate = dayjs(call.scheduledTime);
+                  if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
+                  if (scheduledDate.isToday())
+                    return "Today - " + scheduledDate.format("HH:mm");
+                  if (scheduledDate.isTomorrow())
+                    return "Tomorrow - " + scheduledDate.format("HH:mm");
+                  if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
+                    return "Yesterday - " + scheduledDate.format("HH:mm");
+                  return scheduledDate.format("MMM D, YYYY HH:mm");
+                })()}
+              </p>
+              <h3 className="text-base sm:text-lg font-medium text-slate-800">
+                {call.title}
+              </h3>
+              <div>
+                <button onClick={() => goToMeeting(call.url)} className="text-xs text-pody-danger bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm">
+                  {call.status}
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-row items-center gap-x-2 sm:gap-x-3 mt-auto">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full relative bg-black/20">
+                <BlockiesSvg
+                  address={call.url}
+                  className="w-full h-full rounded-full"
+                />
+              </div>
+              <div className="text-xs sm:text-sm flex-1">
+                <h3 className="font-medium">{call.url}</h3>
+                <p className="text-xs">Meeting ID</p>
+              </div>
+              <EditDrawer
+                call={{
+                  ...call,
+                  participantsCanPublish: call.permissions.canPublish,
+                }}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-row items-center gap-x-2 sm:gap-x-3 mt-auto">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/20">
-            <Image
-              src={userIcon}
-              width={100}
-              height={100}
-              className="w-full h-full object-cover rounded-full"
-              alt="user"
-            />
-          </div>
-          <div className="text-xs sm:text-sm">
-            <h3 className="font-medium">0x3ax</h3>
-            <p>Host</p>
-          </div>
-          <EditDrawer call={{...call, participantsCanPublish: call.permissions.canPublish}} />
-        </div>
-      </div>
+        );
       })}
     </>
   );
@@ -138,7 +161,7 @@ const CallHistory = ({
   };
 
   return (
-    <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody">
+    <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody cursor-pointer">
       <div className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-4 sm:px-6 pb-[20px] pt-4">
         <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
           Meeting

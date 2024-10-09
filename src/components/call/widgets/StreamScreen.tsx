@@ -74,10 +74,8 @@ const StreamScreen = () => {
         </div>
       </div>
       <div className="w-full flex flex-wrap gap-3 my-auto">
-        <div>
-          <MyVideoConference />
-          <RoomAudioRenderer />
-        </div>
+        <MyVideoConference />
+        <RoomAudioRenderer />
       </div>
       <Controls />
     </>

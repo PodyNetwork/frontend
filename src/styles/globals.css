@@ -485,7 +485,6 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
 }
 /* FocusLayoutTile.css */
-
 .enhanced-focus-layout {
     display: flex;
     flex-direction: column;
@@ -501,8 +500,6 @@ body {
     }
 }
 .focused-participant-container {
-    /* flex: 1;  */ 
-    @apply border-2 border-pody-primary;
     border-radius: 10px;
     overflow: hidden; 
     width: 100%; 
@@ -514,21 +511,29 @@ body {
 }
 .participant-carousel {
     display: flex;
-    flex-direction: row; /* Change to row for horizontal scrolling */
-    overflow-x: auto; /* Allow horizontal scrolling */
-    overflow-y: hidden; /* Hide vertical overflow */
+    flex-direction: row; 
+    overflow-x: auto; 
+    overflow-y: hidden; 
     max-height: 400px; 
-    width: 100%; /* Full width on small screens */
+    width: 100%;
     padding: 0px;
     gap: 5px;
     margin-top: 5px;
 }
 @media (min-width: 768px) {
     .participant-carousel {
-        width: 250px; /* Fixed width on larger screens */
+        width: 250px;
         flex-direction: column;
         padding: 10px;
         gap: 10px;
+    }
+}
+@media (max-width: 480px) {
+    .participant-carousel {
+        max-height: 300px; 
+    }
+    .focused-participant-container {
+        max-height: 20vh;
     }
 }
 .participant-carousel::-webkit-scrollbar {
@@ -550,13 +555,11 @@ body {
 .ParticipantCustomTile:hover {
     transform: scale(1.05);
 }
-/* Additional responsive styles for smaller screens */
 @media (max-width: 480px) {
     .enhanced-focus-layout {
         padding: 5px; /* Reduce padding on small screens */
     }
-
     .participant-carousel {
-        max-height: 300px; /* Adjust height for smaller screens */
+        max-height: 300px; 
     }
 }
