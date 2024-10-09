@@ -553,7 +553,7 @@ body {
 }
 @media (max-width: 767px) {
     .enhanced-focus-layout {
-        max-width: 600px;
+        max-width: 100px;
         gap: 5px;
     }
     .participant-carousel {
