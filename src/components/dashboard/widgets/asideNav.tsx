@@ -6,13 +6,14 @@ import logo from "/public/logo/pody logo dark.png";
 import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
 import useProfile from "@/hooks/user/useProfile";
+import { motion } from "framer-motion"; // Import motion from framer-motion
 
 type FloatingElement = {
   id: number;
   left: string;
   top: string;
-  animationDelay: string;
 };
+
 
 const AsideNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -30,6 +31,11 @@ const AsideNav = () => {
     }));
     setFloatingElements(elements);
   }, []);
+
+  const randomPosition = () => ({
+    left: `${Math.random() * 100}%`,
+    top: `${Math.random() * 100}%`,
+  });
 
   return (
     <>
@@ -122,16 +128,19 @@ const AsideNav = () => {
       >
         <div className="flex flex-col items-center justify-center h-full relative overflow-hidden">
           <div className="absolute inset-0 opacity-20">
-            {floatingElements.map(({ id, left, top, animationDelay }) => (
-              <div
+          {floatingElements.map(({ id, left, top }) => (
+              <motion.div
                 key={id}
-                className="absolute bg-pody-dark w-1 h-1 rounded-full animate-float"
-                style={{
-                  left: left,
-                  top: top,
-                  animationDelay: animationDelay,
+                className="absolute bg-pody-dark w-1 h-1 rounded-full"
+                style={{ left, top }}
+                animate={randomPosition()}
+                transition={{
+                  duration: Math.random() * 30 + 2, // Random duration between 2 and 7 seconds
+                  repeat: Infinity,
+                  repeatType: "mirror",
+                  ease: "easeInOut",
                 }}
-              ></div>
+              />
             ))}
           </div>
 
