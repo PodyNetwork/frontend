@@ -43,8 +43,8 @@ const StreamScreen = () => {
 
   return (
     <>
-      <div className="md:hidden text-red-200 flex flex-row items-center text-sm font-semibold justify-between gap-x-2">
-        <p className="text-slate-500 text-sm flex flex-row gap-x-1">
+      <div className="md:hidden text-red-200 flex flex-row items-center text-xs xs:text-sm font-semibold justify-between gap-x-2">
+        <p className="text-slate-500 text-sm flex flex-row gap-x-1 truncate">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-6 h-6 text-slate-600"
@@ -56,7 +56,7 @@ const StreamScreen = () => {
           </svg>
           120,000XP
         </p>
-        <div className="flex flex-row gap-x-2">
+        <div className="flex flex-row gap-x-2 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-6 h-6 text-slate-600"

@@ -27,7 +27,6 @@ import { useIsEncrypted } from "@livekit/components-react";
 import { CustomParticipantName } from "./CustomParticipantName";
 import Image from "next/image";
 import CustomParticipantPlaceholder from "./CustomPlaceHolder";
-import { useEffect, useState } from "react";
 
 export function ParticipantContextIfNeeded(
   props: React.PropsWithChildren<{

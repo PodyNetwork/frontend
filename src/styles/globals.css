@@ -557,12 +557,16 @@ body {
         width: 110px;
     }
     .focus_portrait{
-        max-width: calc((45vh * 9) / 16);
+        max-width: calc((40vh * 9) / 16);
+        overflow: hidden;
     }
 }
 @media (max-width: 480px) {
     .enhanced-focus-layout {
         padding: 5px;
+    }
+    .focus_portrait{
+        max-width: calc((38vh * 9) / 16);
     }
 }
 @media (min-width: 550px) and (max-width: 767px) {
