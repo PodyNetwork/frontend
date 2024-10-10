@@ -4,22 +4,25 @@ import { useParams } from "next/navigation";
 import React from "react";
 import { shareOnMobile } from "react-mobile-share";
 
-
 const StreamShare = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   const { profile, isLoading, isError } = useProfile();
 
+  console.log(profile);
+
   return (
     <div>
-      {!isLoading ||
-        (!isError && (
+      {isLoading ||
+        (isError ? (
+          <></>
+        ) : (
           <button
             onClick={() =>
               shareOnMobile({
                 text: `"Hey ${profile?.username} invited you to their call"`,
                 url: `"https://pody.network/${call?.url}"`,
-                title: "Pody Meeting"
+                title: "Pody Meeting",
               })
             }
           >
