@@ -565,9 +565,6 @@ body {
     .enhanced-focus-layout {
         padding: 5px;
     }
-    .focus_portrait{
-        max-width: calc((38vh * 9) / 16);
-    }
 }
 @media (min-width: 550px) and (max-width: 767px) {
     .participant-carousel {

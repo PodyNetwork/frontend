@@ -3,7 +3,7 @@ import type { TrackReferenceOrPlaceholder } from '@livekit/components-core';
 import { ParticipantCustomTile } from './ParticipantCustomTile';
 import { useSwipe, usePagination } from '@livekit/components-react';
 import { CustomFocusLayout } from './CustomFocusLayout';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-unused-expressions */
 
@@ -17,7 +17,7 @@ export interface EnhancedFocusLayoutProps extends React.HTMLAttributes<HTMLDivEl
   onParticipantClick?: (index: number) => void;
 }
 
-/**
+/**a
  * The `EnhancedFocusLayout` component displays a focused participant
  * and a carousel of other participants who are not in focus.
  * It supports pagination and swipe navigation for easy participant management.
@@ -34,8 +34,8 @@ export function EnhancedFocusLayout({ tracks, focusedIndex, onParticipantClick, 
 
   const pagination = usePagination(paginatedTracks.length, paginatedTracks); // Handle pagination
   
-  const focusRef = React.createRef<HTMLDivElement>();
-
+  const focusRef = useRef<HTMLDivElement>(null);
+  
   useSwipe(focusRef, {
     onLeftSwipe: pagination.nextPage,
     onRightSwipe: pagination.prevPage,
@@ -64,34 +64,32 @@ export function EnhancedFocusLayout({ tracks, focusedIndex, onParticipantClick, 
     checkFocusedTrack();
   }, [focusedIndex, tracks, onParticipantClick]);
 
-  // Determine if there are other participants to display
-  const hasOtherParticipants = filteredTracks.length > 0;
-
+  // State to manage orientation
   const [isLandscape, setIsLandscape] = useState(true); // Default orientation
 
+  // ResizeObserver to check orientation
   useEffect(() => {
-    const videoElement = document.querySelector<HTMLVideoElement>(
-      ".lk-participant-media-video"
-    );
-
-    const checkOrientation = () => {
-      if (videoElement && videoElement.videoWidth > videoElement.videoHeight) {
-        setIsLandscape(true);
-      } else {
-        setIsLandscape(false);
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        setIsLandscape(width >= height); 
       }
-    };
+    });
 
+    const videoElement = focusRef.current;
     if (videoElement) {
-      videoElement.addEventListener("loadedmetadata", checkOrientation);
+      observer.observe(videoElement);
     }
 
     return () => {
       if (videoElement) {
-        videoElement.removeEventListener("loadedmetadata", checkOrientation);
+        observer.unobserve(videoElement);
       }
     };
-  }, []);
+  }, [focusRef]);
+
+  // Determine if there are other participants to display
+  const hasOtherParticipants = filteredTracks.length > 0;
 
   return (
     <div className={`enhanced-focus-layout ${isLandscape ? 'focus_landscape' : 'focus_portrait'}`} ref={focusRef}>
