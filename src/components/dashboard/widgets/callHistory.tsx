@@ -83,8 +83,23 @@ const CallsCard = ({ calls }: Calls) => {
                 {call.title}
               </h3>
               <div>
-                <button onClick={() => goToMeeting(call.url)} className="text-xs text-pody-danger bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm">
+                <button
+                  onClick={() => goToMeeting(call.url)}
+                  className={`text-xs bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm 
+                    ${
+                      call.status === "ended"
+                        ? "text-pody-danger bg-pody-danger/10"
+                        : call.status === "ongoing"
+                        ? "text-pody-success bg-pody-success/10"
+                        : call.status === "pending"
+                        ? "text-pody-primary bg-pody-primary/10"
+                        : "text-white bg-slate-600"
+                    }`}
+                >
                   {call.status}
+                  {/* ongoing */}
+                  {/* pending */}
+                  {/* cancelled */}
                 </button>
               </div>
             </div>
@@ -99,12 +114,14 @@ const CallsCard = ({ calls }: Calls) => {
                 <h3 className="font-medium">{call.url}</h3>
                 <p className="text-xs">Meeting ID</p>
               </div>
-              <EditDrawer
-                call={{
-                  ...call,
-                  participantsCanPublish: call.permissions.canPublish,
-                }}
-              />
+              {call.type === "scheduled" && (
+                <EditDrawer
+                  call={{
+                    ...call,
+                    participantsCanPublish: call.permissions.canPublish,
+                  }}
+                />
+              )}
             </div>
           </div>
         );

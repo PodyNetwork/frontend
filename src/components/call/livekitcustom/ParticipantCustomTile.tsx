@@ -17,7 +17,7 @@ import {
   useFeatureContext,
   useMaybeLayoutContext,
   useMaybeParticipantContext,
-  useMaybeTrackRefContext
+  useMaybeTrackRefContext,
 } from "@livekit/components-react";
 import { LockLockedIcon } from "@livekit/components-react";
 import { VideoTrack } from "@livekit/components-react";
@@ -27,7 +27,7 @@ import { useIsEncrypted } from "@livekit/components-react";
 import { CustomParticipantName } from "./CustomParticipantName";
 import Image from "next/image";
 import CustomParticipantPlaceholder from "./CustomPlaceHolder";
-
+import { useEffect, useState } from "react";
 
 export function ParticipantContextIfNeeded(
   props: React.PropsWithChildren<{
@@ -123,7 +123,10 @@ export const ParticipantCustomTile: (
               {/* Render placeholder if camera is disabled */}
               {isCameraDisabled ? (
                 <>
-                  <VideoTrack manageSubscription={autoManageSubscription} className="aspect-video w-full h-full" />
+                  <VideoTrack
+                    manageSubscription={autoManageSubscription}
+                    className="aspect-video w-full h-full"
+                  />
                   <div className="lk-participant-placeholder">
                     <CustomParticipantPlaceholder />
                   </div>

@@ -3,6 +3,7 @@ import type { TrackReferenceOrPlaceholder } from '@livekit/components-core';
 import { ParticipantCustomTile } from './ParticipantCustomTile';
 import { useSwipe, usePagination } from '@livekit/components-react';
 import { CustomFocusLayout } from './CustomFocusLayout';
+import { useEffect, useState } from 'react';
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-unused-expressions */
 
@@ -66,8 +67,34 @@ export function EnhancedFocusLayout({ tracks, focusedIndex, onParticipantClick, 
   // Determine if there are other participants to display
   const hasOtherParticipants = filteredTracks.length > 0;
 
+  const [isLandscape, setIsLandscape] = useState(true); // Default orientation
+
+  useEffect(() => {
+    const videoElement = document.querySelector<HTMLVideoElement>(
+      ".lk-participant-media-video"
+    );
+
+    const checkOrientation = () => {
+      if (videoElement && videoElement.videoWidth > videoElement.videoHeight) {
+        setIsLandscape(true);
+      } else {
+        setIsLandscape(false);
+      }
+    };
+
+    if (videoElement) {
+      videoElement.addEventListener("loadedmetadata", checkOrientation);
+    }
+
+    return () => {
+      if (videoElement) {
+        videoElement.removeEventListener("loadedmetadata", checkOrientation);
+      }
+    };
+  }, []);
+
   return (
-    <div className="enhanced-focus-layout" ref={focusRef}>
+    <div className={`enhanced-focus-layout ${isLandscape ? 'focus_landscape' : 'focus_portrait'}`} ref={focusRef}>
       <div className="focused-participant-container">
         {/* Display the focused participant */}
         {tracks[focusedIndex] && (

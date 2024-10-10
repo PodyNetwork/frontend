@@ -28,7 +28,7 @@ const Participant = () => {
                 alt="user icon"
                 width={200}
                 height={200}
-                className="w-[50px] h-[50px] md:w-7 md:h-7 object-cover rounded-full"
+                className="w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full"
               />
               <div className="md:ms-2.5 flex flex-col items-center text-sm">
                 <p className="text-sm">
