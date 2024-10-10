@@ -13,7 +13,7 @@ const LoginLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
         <section className='bg-pody-dark_secondary w-full min-h-screen'>
             <div className='flex flex-col md:flex-row relative'>
-                <div className='flex-1 flex justify-center items-center relative p-6 md:p-10'>
+                <div className='flex-1 md:w-1/2 flex justify-center items-center relative p-6 md:p-10'>
                     <div className='_grad_card_main_login hidden md:block'></div>
                     <div className='w-full max-w-lg bg--200 flex-1'>
                         <Image src={logo} alt='Pody Logo' className='w-16 sm:w-16 md:w-20 object-contain mb-6 sm:mb-8 md:mb-14' />
@@ -40,7 +40,7 @@ const LoginLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                         </div>
                     </div>
                 </div>
-                <div className='w-full order-1 md:w-[38rem] bg-white min-h-screen md:h-screen flex items-center justify-center p-6 md:p-10'>
+                <div className='w-full order-1 md:w-1/2 lg:w-[38rem] bg-white min-h-screen md:h-screen flex items-center justify-center p-6 md:p-10'>
                     {children}
                 </div>
             </div>

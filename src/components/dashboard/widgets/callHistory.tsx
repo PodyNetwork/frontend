@@ -97,9 +97,6 @@ const CallsCard = ({ calls }: Calls) => {
                     }`}
                 >
                   {call.status}
-                  {/* ongoing */}
-                  {/* pending */}
-                  {/* cancelled */}
                 </button>
               </div>
             </div>
@@ -112,7 +109,7 @@ const CallsCard = ({ calls }: Calls) => {
               </div>
               <div className="text-xs sm:text-sm flex-1">
                 <h3 className="font-medium">{call.url}</h3>
-                <p className="text-xs">Meeting ID</p>
+                <p className="text-xs">Call ID</p>
               </div>
               {call.type === "scheduled" && (
                 <EditDrawer

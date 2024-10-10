@@ -68,29 +68,7 @@ const AsideNav = () => {
               <h3 className="text-base text-slate-700">Hello, {profile?.username }.</h3>
             )}
           </div>
-          <ul className="flex flex-row items-center gap-4 text-sm text-slate-700 __dashheader_icon_info">
-            <li>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
-              </svg>
-            </li>
-            <li>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M16 2H8C4.691 2 2 4.691 2 8v12a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 13c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v7z"></path>
-                <circle cx="9.5" cy="11.5" r="1.5"></circle>
-                <circle cx="14.5" cy="11.5" r="1.5"></circle>
-              </svg>
-            </li>
+          <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
             <li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

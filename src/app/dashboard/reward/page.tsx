@@ -16,7 +16,7 @@ const Page = () => {
               <RewardChart />
             </div>
           </div>
-          <div className="w-full md:w-6/12 flex justify-center mt-6 md:mt-0">
+          <div className="w-full md:w-7/12 flex justify-center mt-6 md:mt-0">
             <RewardStatistic />
           </div>
         </div>
