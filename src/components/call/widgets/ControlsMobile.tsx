@@ -86,8 +86,8 @@ const ControlsMobile = ({
   );
 
   return (
-    <div className="md:hidden block absolute pb-3 z-30 bottom-0 bg-white dark:bg-black w-full px-3.5 __shadow_pody text-[0.7rem]">
-      <div className="text-slate-600 dark:text-slate-400 mx-auto relative flex flex-row items-center justify-between max-w-xs rounded-md py-2">
+    <div className="md:hidden block absolute p-4 z-30 bottom-0 bg-white dark:bg-black w-full __shadow_pody text-[0.7rem]">
+      <div className="text-slate-600 dark:text-slate-400 mx-auto relative flex flex-row items-center justify-between max-w-sm">
         {/* Home */}
         <div className="flex items-center flex-col truncate">
           <svg

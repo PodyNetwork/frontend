@@ -496,7 +496,6 @@ body {
 }
 .focused-participant-container {
     /* flex: 1;  */ 
-    @apply border-2 border-pody-primary;
     border-radius: 10px;
     overflow: hidden; 
     width: 100%; 
@@ -561,11 +560,6 @@ body {
     .enhanced-focus-layout {
         max-width: 600px;
         gap: 5px;
-    }
-}
-@media (max-width: 480px) {
-    .enhanced-focus-layout {
-        padding: 5px;
     }
 }
 @media (min-width: 550px) and (max-width: 767px) {

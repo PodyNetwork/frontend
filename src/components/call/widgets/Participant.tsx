@@ -31,12 +31,12 @@ const Participant = () => {
                 className="w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full"
               />
               <div className="md:ms-2.5 flex flex-col items-center text-sm">
-                <p className="text-sm">
+                <p className="text-sm mt-1 md:mt-0 text-slate-300">
                   <span className="leading-none font-semibold truncate">
                     {participant.name}
                   </span>
                 </p>
-                <p className="block md:hidden text-xs text-slate-300 leading-none">
+                <p className="block md:hidden text-xs leading-none">
                   {participant.permissions?.canPublish ? (
                     <span>Speaker</span>
                   ) : (

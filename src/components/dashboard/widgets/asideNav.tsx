@@ -147,9 +147,8 @@ const AsideNav = () => {
           <Image src={logo} className="w-24 object-contain mb-8" alt="Pody" />
           <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
             {dashlink.map((data, index) => (
-              <Link href={data.url} onClick={() => setMobileMenuOpen(false)}>
+              <Link key={index} href={data.url} onClick={() => setMobileMenuOpen(false)}>
                 <li
-                  key={index}
                   className="py-2 hover:text-indigo-300 transition-all rounded-full text-pody-dark"
                 >
                   {data.title}
