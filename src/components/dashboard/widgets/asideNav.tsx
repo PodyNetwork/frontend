@@ -7,18 +7,19 @@ import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
 import useProfile from "@/hooks/user/useProfile";
 
-
 type FloatingElement = {
-    id: number;
-    left: string;
-    top: string;
-    animationDelay: string;
+  id: number;
+  left: string;
+  top: string;
+  animationDelay: string;
 };
 
 const AsideNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>([]);
-  const {profile, isLoading, isError} = useProfile()
+  const [floatingElements, setFloatingElements] = useState<FloatingElement[]>(
+    []
+  );
+  const { profile, isLoading, isError } = useProfile();
 
   useEffect(() => {
     const elements = Array.from({ length: 30 }, (_, i) => ({
@@ -62,10 +63,12 @@ const AsideNav = () => {
                 alt="user"
               />
             </div>
-            {isLoading || isError? (
+            {isLoading || isError ? (
               <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>
-            ) :(
-              <h3 className="text-base text-slate-700">Hello, {profile?.username }.</h3>
+            ) : (
+              <h3 className="text-base text-slate-700">
+                Hello, {profile?.username}.
+              </h3>
             )}
           </div>
           <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
@@ -84,7 +87,7 @@ const AsideNav = () => {
       </aside>
 
       {/* Mobile menu button */}
-      <div className="md:hidden bg-pody-primary/20 w-full py-6 px-8 gap-x-4 relative">
+      <div className="md:hidden bg-pody-primary/20 w-full py-6 px-6 gap-x-4 relative">
         <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
           <Image
             src={logo}
@@ -93,7 +96,7 @@ const AsideNav = () => {
           />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`${mobileMenuOpen && 'fixed z-50 right-8'}`}
+            className={`${mobileMenuOpen && "fixed z-50 right-8"}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -133,16 +136,16 @@ const AsideNav = () => {
           </div>
 
           <Image src={logo} className="w-24 object-contain mb-8" alt="Pody" />
-          <ul className="text-lg flex flex-col items-center gap-y-4">
+          <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
             {dashlink.map((data, index) => (
-              <li
-                key={index}
-                className="py-2 hover:text-indigo-300 transition-all rounded-full text-pody-dark"
-              >
-                <Link href={data.url} onClick={() => setMobileMenuOpen(false)}>
+              <Link href={data.url} onClick={() => setMobileMenuOpen(false)}>
+                <li
+                  key={index}
+                  className="py-2 hover:text-indigo-300 transition-all rounded-full text-pody-dark"
+                >
                   {data.title}
-                </Link>
-              </li>
+                </li>
+              </Link>
             ))}
           </ul>
           <div className="mt-8 flex flex-col items-center gap-y-4">
@@ -159,7 +162,9 @@ const AsideNav = () => {
               {isLoading || isError ? (
                 <div className="w-24 h-6 bg-indigo-600/50 rounded animate-pulse"></div>
               ) : (
-                <h3 className="text-base text-white">Hello, {profile?.username ?? "..."}.</h3>
+                <h3 className="text-base text-white">
+                  Hello, {profile?.username ?? "..."}.
+                </h3>
               )}
             </div>
             <ul className="flex gap-x-4 text-sm text-white">

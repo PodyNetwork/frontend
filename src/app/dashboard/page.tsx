@@ -11,7 +11,7 @@ export default function Page() {
   })
   return (
     <main className="w-full">
-      <div className="bg-pody-primary/20 p-8 sm:p-8 md:p-12">
+      <div className="bg-pody-primary/20 p-8 px-6 md:p-12">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="w-full md:w-5/12 lg:w-4/12">
             <CreateMeeting />
@@ -21,7 +21,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="p-8 sm:p-8 md:p-12">
+      <div className="p-8 sm:p-8 px-6 md:p-12">
         <div className="max-w-4xl mx-auto">
           <CallHistory calls={calls} isLoading={isLoading} isError={isError}/>
         </div>

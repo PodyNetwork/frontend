@@ -129,11 +129,11 @@ const CallsCard = ({ calls }: Calls) => {
 
 const CallMessageDisplay = ({ message }: { message: string }) => {
   return (
-    <div className="flex items-center justify-between w-full">
-      <div className="w-4/12">
-        <p className="break-words text-xl sm:text-2xl">{message}</p>
+    <div className="flex flex-col gap-4 md:flex-row items-center justify-between w-full">
+      <div className="w-full md:w-4/12">
+        <p className="break-words text-lg sm:text-xl">{message}</p>
       </div>
-      <div className="w-7/12">
+      <div className="w-full md:w-7/12">
         <Image
           src={meetingImageError}
           className="w-full h-64 object-contain"

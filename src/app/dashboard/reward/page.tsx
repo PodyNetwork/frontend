@@ -8,7 +8,7 @@ import React from "react";
 const Page = () => {
   return (
     <main className="w-full">
-      <div className="bg-pody-primary/20 p-8 sm:p-8 md:p-12">
+      <div className="bg-pody-primary/20 p-6 md:p-12">
         <div className="w0full md:max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="w-full md:w-5/12">
             <RewardHeader />
@@ -21,7 +21,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="p-8 sm:p-8 md:p-6">
+      <div className="p-6 md:p-6">
         <div className="w-full relative flex flex-col md:flex-row gap-6">
           <div className="w-full md:max-w-4xl mx-auto">
             <RewardClaim />
