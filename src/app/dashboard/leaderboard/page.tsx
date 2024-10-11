@@ -34,10 +34,10 @@ const LeaderboardItem = ({
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3, delay: rank * 0.1 }}
-    className="flex flex-row items-center justify-between bg-gradient-to-r from-slate-900 to-pody-dark_secondary rounded-xl px-3 sm:px-6 py-3 mb-2 shadow-lg hover:shadow-xl transition-shadow duration-300"
+    className="flex flex-row items-center justify-between bg-white rounded-xl px-3 sm:px-6 py-3 mb-2 __shadow_pody transition-shadow duration-300"
   >
     <div className="flex items-center gap-x-2 flex-grow min-w-0">
-      <div className="text-base sm:text-lg font-bold text-slate-300 w-6 flex-shrink-0">{rank}</div>
+      <div className="text-base text-slate-500 w-6 flex-shrink-0">{rank}</div>
       <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
         <Image
           src={"/avatar/user6.png"}
@@ -46,7 +46,7 @@ const LeaderboardItem = ({
           alt={username}
           className="rounded-full w-6 h-6 sm:w-8 sm:h-8 object-cover border-2 border-pody-ptext-pody-primary shadow-md flex-shrink-0"
         />
-        <h3 className="text-xs sm:text-sm text-white truncate">{username}</h3>
+        <h3 className="text-xs sm:text-sm text-slate-500 truncate">{username}</h3>
       </div>
     </div>
     <div className="flex-shrink-0 ml-2">
@@ -93,22 +93,22 @@ const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
   if (data.length === 0) {
     return <SkeletonTopThree />;
   }
-
   return (
     <div className="flex flex-row gap-x-1 justify-center mb-12">
-      {data.map((item, index) => {
+      {[1, 0, 2].map((index) => {
+        const item = data[index];
         return (
           <motion.div
             key={item.rank}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            className={`w-28 relative flex flex-col items-center ${
+            className={`w-24 relative flex flex-col items-center ${
               index === 0 ? "mt-0 scale-110" : "mt-10"
             }`}
           >
             <div className="relative">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 shadow-lg">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 shadow-lg">
                 <Image
                   src={"/avatar/user6.png"}
                   alt={`Top ${item.rank}`}
@@ -123,7 +123,7 @@ const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
                 </span>
               </div>
             </div>
-            <h2 className="font-medium text-base mt-4 text-slate-800">
+            <h2 className="font-medium text-sm mt-2 text-slate-800">
               {item.username}
             </h2>
             <p className="text-sm text-pody-primary font-semibold">
@@ -146,7 +146,7 @@ const Page = () => {
   return (
     <main className="w-full">
       <div className="w-full bg-pody-primary/20 p-6 md:p-12">
-        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6">
+        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6">
           <div className="w-full sm:w-5/12 mb-6 sm:mb-0">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -163,7 +163,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-sm sm:max-w-md lg:max-w-3xl mx-auto py-6 sm:py-8 px-4 sm:px-0">
+      <div className="max-w-sm sm:max-w-md lg:max-w-2xl mx-auto py-6 sm:py-8 px-4 sm:px-0">
         <div>
           {isLoading && !isFetchingNextPage ? (
             Array(5).fill(0).map((_, index) => <SkeletonLeaderboardItem key={index} />)
