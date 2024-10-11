@@ -14,7 +14,7 @@ interface ProfileResponse extends BaseResponse {
   data: Profile;
 }
 
-const useProfile = (id: number) => {
+const useProfileById = (id: number) => {
   const fetchProfile = useCallback(async (): Promise<ProfileResponse> => {
     const response = await axios.get<ProfileResponse>(`/user/profile/${id}`);
     return response.data;
@@ -40,4 +40,4 @@ const useProfile = (id: number) => {
   };
 }
 
-export default useProfile;
+export default useProfileById;
