@@ -20,12 +20,11 @@ const Participant : React.FC<Props> = ({ participantBarToggle, participantBarTog
 
   return (
     <div className="w-full md:h-full md:overflow-y-auto">
-      <div className="hidden md:flex flex-row justify-between mb-3.5 text-slate-600 dark:text-slate-400">
-        <h3 className="text-base">
-          <span className={`font-medium ${!participantBarToggleExpanded && 'md:hidden'}`}>
-            Participant
+      <div className={`hidden md:flex flex-row justify-between mb-3.5 text-slate-600 dark:text-slate-400 ${!participantBarToggleExpanded && 'md:justify-center'}`}>
+        <h3 className={`font-medium text-base ${!participantBarToggleExpanded && 'md:hidden'}`}>
+          <span>
+            {participants.length > 1 ? "Participants" : "Participant"}
           </span>{" "}
-          <span>{participants.length}</span>
         </h3>
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -52,8 +51,8 @@ const Participant : React.FC<Props> = ({ participantBarToggle, participantBarTog
                 className={`w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full ${!participantBarToggleExpanded && 'md:w-[2.7rem] md:h-[2.7rem]'}`}
               />
               <div className={`md:ms-2.5 flex flex-col items-center text-sm ${!participantBarToggleExpanded && 'md:hidden'}`}>
-                <p className="text-sm mt-1 md:mt-0 text-slate-300">
-                  <span className="leading-none font-semibold truncate">
+                <p className="text-sm mt-1 md:mt-0 text-slate-600 dark:text-slate-400">
+                  <span className="leading-none font-medium truncate">
                     {participant.name}
                   </span>
                 </p>
@@ -69,7 +68,9 @@ const Participant : React.FC<Props> = ({ participantBarToggle, participantBarTog
             </div>
             <div className={`hidden md:flex flex-row items-center gap-x-2.5 ${!participantBarToggleExpanded && 'md:hidden'}`}>
               {!participant.permissions?.canPublish && (
-                <button className="text-xs text-blue-500">Add to speak</button>
+                profile?.id === call?.userId && (
+                  <button className="text-xs text-blue-500">Add to speak</button>
+                )     
               )}
               {participant.permissions?.canPublish ? (
                 profile?.id === call?.userId ? (

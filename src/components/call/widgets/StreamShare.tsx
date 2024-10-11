@@ -25,7 +25,7 @@ const StreamShare = () => {
               })
             }
           >
-            <p className="w-7 h-7 flex items-center justify-center bg-slate-800 rounded-full">
+            <p className="w-7 h-7 flex items-center justify-center bg-slate-200 rounded-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-5 h-5 text-slate-600"
