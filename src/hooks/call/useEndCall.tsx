@@ -11,7 +11,7 @@ const useEndCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
   const endCallHandler = useCallback(async (args: EndCallArgs): Promise<BaseResponse> => {
-    const response = await axios.post<BaseResponse>(`/call/${args.callId}/end`);
+    const response = await axios.delete<BaseResponse>(`/call/${args.callId}/end`);
     return response.data;
   }, []);
 

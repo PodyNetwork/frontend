@@ -5,6 +5,7 @@ import StreamVideo from "./StreamVideo";
 import StreamInfo from "./StreamInfo";
 
 const StreamScreen = () => {
+
   return (
     <>
       <StreamInfo />

@@ -139,7 +139,7 @@ export default function Chat({
                   className="w-6 h-6 object-cover rounded-full mr-2"
                 />
                 <div
-                  className={`w-[75%] rounded-lg p-2 bg-pody-primary text-slate-700`}
+                  className={`w-[75%] rounded-lg p-2 bg-[#f8fafd] text-slate-700`}
                 >
                   <p className="text-sm">{msg.message}</p>
                 </div>

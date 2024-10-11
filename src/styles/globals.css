@@ -491,7 +491,7 @@ body {
     align-items: center; 
     @apply bg-white dark:bg-slate-800;
     border-radius: 10px;
-    max-width: 1200px;
+    max-width: calc((77vh * 16) / 9);
     margin: auto;
 }
 .focused-participant-container {
@@ -575,4 +575,7 @@ body {
     .participant-carousel {
         width: 150px;   
     }
+}
+.__pd_bg_gradient{
+    background: linear-gradient(0deg, rgba(105, 145, 214, .08), rgb(248 250 253)), #fff;
 }
