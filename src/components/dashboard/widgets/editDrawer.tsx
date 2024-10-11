@@ -92,6 +92,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
         title: value.title,
         scheduledTime: call.type === "scheduled" ? scheduledTime?.getTime() : undefined,
         participantsCanPublish: canSpeak ?? false,
+        participantsCanPublishData: true
       });
       router.refresh();
     },

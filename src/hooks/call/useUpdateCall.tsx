@@ -7,7 +7,7 @@ import useErrorMessage from '../useErrorMessage';
 import type { CallResponse } from '../../app/call/types';
 import { ResponseError } from '@/types/globals';
 
-interface CreateMeetingArgs{ scheduledTime?: number, participantsCanPublish: boolean, title: string, _id: string }
+interface CreateMeetingArgs{ scheduledTime?: number, participantsCanPublish: boolean, title: string, _id: string, participantsCanPublishData?: boolean }
 
 
 const useUpdateCall = () => {
