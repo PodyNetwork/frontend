@@ -102,6 +102,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
         scheduledTime:
           call.type === "scheduled" ? scheduledTime?.getTime() : undefined,
         participantsCanPublish: canSpeak ?? false,
+        participantsCanPublishData: true
       });
       router.refresh();
       if (!errorMessage) {

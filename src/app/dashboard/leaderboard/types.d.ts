@@ -1,7 +1,7 @@
 interface LeaderboardEntry {
     _id: string;
     username: string;
-    points: number;
+    totalPoints: number;
     rank: number;
 }
 
