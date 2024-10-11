@@ -7,9 +7,10 @@ import { useParams } from "next/navigation";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 
 interface Props {
-  participantBarToggle: any,
-  participantBarToggleExpanded: any;
+  participantBarToggle: () => void;
+  participantBarToggleExpanded: boolean;
 }
+
 
 const Participant : React.FC<Props> = ({ participantBarToggle, participantBarToggleExpanded }) => {
   const participants = useParticipants();

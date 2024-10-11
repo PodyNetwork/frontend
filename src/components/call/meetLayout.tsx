@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import ControlsMobile from "./widgets/ControlsMobile";
 import ChatRoom from "./widgets/ChatRoom";
 import Participant from "./widgets/Participant";

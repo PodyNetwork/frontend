@@ -6,9 +6,11 @@ interface CameraToggleProps {
   visibleControls: {
     camera: boolean;
   };
-  localParticipant: any; // Replace 'any' with the appropriate type
+  localParticipant: {
+    isCameraEnabled: boolean;
+  }; 
   cameraOnChange: () => void;
-  onDeviceError: (error: any) => void;
+  onDeviceError: (error: { source: Track.Source; error: Error }) => void; // More specific error type
   saveVideoInputDeviceId: (deviceId: string) => void;
 }
 
@@ -36,7 +38,8 @@ export function CameraToggle({
           saveVideoInputDeviceId(videoDevices[0].deviceId);
         }
       } catch (error) {
-        onDeviceError?.({ source: Track.Source.Camera, error });
+        const err = error instanceof Error ? error : new Error(String(error));
+        onDeviceError({ source: Track.Source.Camera, error: err });
       }
     };
 
@@ -63,9 +66,7 @@ export function CameraToggle({
             source={Track.Source.Camera}
             showIcon={false}
             onChange={cameraOnChange}
-            onDeviceError={(error) =>
-              onDeviceError?.({ source: Track.Source.Camera, error })
-            }
+            onDeviceError={(error) => onDeviceError({ source: Track.Source.Camera, error })}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
