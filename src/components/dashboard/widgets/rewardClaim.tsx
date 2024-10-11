@@ -21,7 +21,7 @@ const RewardClaim = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white pb-[20px] pt-4"
+        className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white __shadow_pody pb-[20px] pt-4"
       >
         <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
           Rewards

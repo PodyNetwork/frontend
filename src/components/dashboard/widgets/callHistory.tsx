@@ -84,7 +84,6 @@ const CallsCard = ({ calls }: Calls) => {
               </h3>
               <div>
                 <button
-                  onClick={() => goToMeeting(call.url)}
                   className={`text-xs bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm 
                     ${
                       call.status === "ended"
@@ -107,7 +106,7 @@ const CallsCard = ({ calls }: Calls) => {
                   className="w-full h-full rounded-full"
                 />
               </div>
-              <div className="text-xs sm:text-sm flex-1">
+              <div className={`text-xs sm:text-sm flex-1 ${call.status === "ended" && "opacity-50"}`} onClick={() => goToMeeting(call.url)}>
                 <h3 className="font-medium">{call.url}</h3>
                 <p className="text-xs">Call ID</p>
               </div>
