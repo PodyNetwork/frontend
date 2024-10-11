@@ -1,11 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
+import useGetPointsBalance from "@/hooks/point/useGetPointsBalance";
 
 const RewardStatistic = () => {
+
+  const {pointsBalance} = useGetPointsBalance()
+
+  const totalPoints = pointsBalance?.points && pointsBalance?.claimedPoints ?  pointsBalance?.points && pointsBalance?.claimedPoints: 0
+
   const rewardData = [
-    { title: "Total", value: 1000, icon: "trophy", color: "from-emerald-400 to-emerald-600" },
-    { title: "Claimed", value: 2000, icon: "star", color: "from-amber-400 to-amber-600" },
-    { title: "Unclaimed", value: 500, icon: "gift", color: "from-purple-400 to-purple-600" },
+    { title: "Total", value: totalPoints, icon: "trophy", color: "from-emerald-400 to-emerald-600" },
+    { title: "Claimed", value: pointsBalance?.claimedPoints ?? 0, icon: "star", color: "from-amber-400 to-amber-600" },
+    { title: "Unclaimed", value:  pointsBalance?.points ?? 0, icon: "gift", color: "from-purple-400 to-purple-600" },
   ];
 
   return (
