@@ -23,7 +23,7 @@ const Page = () => {
       </div>
       <div className="p-6 md:p-6">
         <div className="w-full relative flex flex-col md:flex-row gap-6">
-          <div className="w-full md:max-w-4xl mx-auto">
+          <div className="w-full md:max-w-2xl mx-auto">
             <RewardClaim />
           </div>
         </div>

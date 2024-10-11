@@ -21,7 +21,7 @@ const RewardClaim = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white __shadow_pody pb-[20px] pt-4"
+        className="flex h-fit w-full items-center justify-between rounded-t-2xl pb-[20px] pt-4"
       >
         <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
           Rewards
@@ -78,21 +78,6 @@ const RewardClaim = () => {
                   </motion.p>
                 </div>
               </div>
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 + index * 0.1, duration: 0.3 }}
-                className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium ${
-                  reward.claimed
-                    ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                    : "bg-pody-primary text-white hover:bg-pody-primary/80"
-                }`}
-                disabled={reward.claimed}
-                whileHover={!reward.claimed ? { scale: 1.05 } : {}}
-                whileTap={!reward.claimed ? { scale: 0.95 } : {}}
-              >
-                {reward.claimed ? "Claimed" : "Claim"}
-              </motion.button>
             </motion.li>
           ))}
         </ul>

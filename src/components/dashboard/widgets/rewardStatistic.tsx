@@ -57,10 +57,10 @@ const RewardStatistic = () => {
               </svg>
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-2xl font-bold text-slate-100">
+              <h2 className="text-xl font-bold text-slate-100">
                 {item.value.toLocaleString()}
               </h2>
-              <p className="text-sm text-slate-300 mt-1 truncate">
+              <p className="text-xs text-slate-300 mt-1 truncate">
                 {item.title}
               </p>
             </div>
