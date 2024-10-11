@@ -70,7 +70,10 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		background: {
+			'pd-bg-gradient': 'linear-gradient(0deg, rgba(105, 145, 214, 0.08), rgb(248 250 253)), #fff',
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

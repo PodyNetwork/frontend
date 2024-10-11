@@ -4,13 +4,17 @@ import "@livekit/components-styles";
 import StreamVideo from "./StreamVideo";
 import StreamInfo from "./StreamInfo";
 
-const StreamScreen = () => {
+interface Props {
+  ToggleChat: () => void;
+}
+
+const StreamScreen = ({ToggleChat} : Props) => {
 
   return (
     <>
       <StreamInfo />
       <StreamVideo />
-      <Controls />
+      <Controls handleChatClick={ToggleChat} />
     </>
   );
 };

@@ -37,6 +37,7 @@ export interface ControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
    * @alpha
    */
   saveUserChoices?: boolean;
+  handleChatClick: () => void;
 }
 
 const Controls = ({
@@ -44,6 +45,7 @@ const Controls = ({
   controls,
   saveUserChoices = true,
   onDeviceError,
+  handleChatClick,
   ...props
 }: ControlBarProps) => {
   const visibleControls = { leave: true, ...controls };
@@ -261,6 +263,7 @@ const Controls = ({
           viewBox="0 -960 960 960"
           style={{ msFilter: "" }}
           fill="currentColor"
+          onClick={handleChatClick}
         >
           <path d="M250-410h300v-60H250v60Zm0-120h460v-60H250v60Zm0-120h460v-60H250v60ZM100-118.46v-669.23Q100-818 121-839q21-21 51.31-21h615.38Q818-860 839-839q21 21 21 51.31v455.38Q860-302 839-281q-21 21-51.31 21H241.54L100-118.46ZM216-320h571.69q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-455.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H172.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v523.08L216-320Zm-56 0v-480 480Z" />
         </svg>

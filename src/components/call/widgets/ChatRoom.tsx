@@ -1,11 +1,15 @@
 "use client";
 import ChatTile  from "../livekitcustom/ChatTile";
 
-const ChatRoom: React.FC = () => {
+interface props {
+  chatToggleState: boolean;
+}
+
+const ChatRoom: React.FC<props> = ({chatToggleState}) => {
 
   return (
     <>
-        <ChatTile />
+        <ChatTile ChatToggleSet={chatToggleState} />
     </>
   );
 };
