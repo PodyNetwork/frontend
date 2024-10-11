@@ -18,8 +18,6 @@ const Participant : React.FC<Props> = ({ participantBarToggle, participantBarTog
   const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();
 
-  console.log(call, profile, participants)
-
   return (
     <div className="w-full md:h-full md:overflow-y-auto">
       <div className={`hidden md:flex flex-row justify-between mb-3.5 text-slate-600 dark:text-slate-400 ${!participantBarToggleExpanded && 'md:justify-center'}`}>

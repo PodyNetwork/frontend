@@ -14,15 +14,13 @@ body {
     @apply flex justify-center;
 }
 ._radial_bg{
-    width: 30%;
-    padding-top: 10%;
+    width: 100%;
     border-radius: 100%;
     top: 0;
-    /* opacity: 0.4; */
     @apply rounded-full absolute;
-    filter: blur(100px);
-    transform: translateX(0%) translateY(-50%);
-    background: linear-gradient(132deg, #96EA63 0.00%, #96EA63 100.00%);
+    background-image: radial-gradient(56.1514% 56.1514% at 49.972% 38.959%, rgb(37, 28, 15) 0%, rgb(7, 7, 10) 100%);
+    min-height: 700px;
+    top: -350px;
 }
 ._radial_bg_cta{
     width: 350px;
@@ -33,7 +31,7 @@ body {
     z-index: 1;
     background: linear-gradient(to bottom, #0D0F13 0.00%, #0D0F13 10.00%, #96EA63 100.00%); 
     filter: blur(100px);
-    opacity: 0.45;
+    opacity: 0.15;
 }
 ._hero_wrapper{
     margin-top: 8rem;
@@ -60,14 +58,14 @@ body {
     opacity: 0.75;
 }
 ._grad_card_main_2{
-    width: 100px;
+    width: 200px;
     height: 250px;
     position: absolute;
     z-index: 1;
     bottom: 0;
     right: 0;
     @apply bg-pody-primary;
-    filter: blur(70px);
+    filter: blur(40px);
     border-radius: 60%;
     opacity: 0.15;
 }
@@ -494,8 +492,12 @@ body {
     max-width: calc((77vh * 16) / 9);
     margin: auto;
 }
+.focus_portrait{
+    max-width: calc((70vh * 9) / 16);
+    overflow: hidden;
+    position: relative;
+}
 .focused-participant-container {
-    /* flex: 1;  */ 
     border-radius: 10px;
     overflow: hidden; 
     width: 100%; 
@@ -521,7 +523,6 @@ body {
 .participant-carousel::-webkit-scrollbar-track {
     background: #e0e0e0; 
 }
-
 .ParticipantCustomTile {
     border-radius: 8px;
     transition: transform 0.2s; 
