@@ -1,14 +1,11 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import useGetPointsHistory from "@/hooks/point/useGetPointsHistory";
 
 const RewardClaim = () => {
-  const rewards = [
-    { id: 1, name: "Daily Login Bonus", points: 100, claimed: false },
-    { id: 2, name: "Weekly Challenge Completion", points: 500, claimed: false },
-    { id: 3, name: "Referral Reward", points: 250, claimed: true },
-    { id: 4, name: "Achievement Unlocked", points: 1000, claimed: false },
-  ];
+
+  const { pointsHistory } = useGetPointsHistory({  })
 
   return (
     <motion.div
@@ -29,9 +26,9 @@ const RewardClaim = () => {
       </motion.div>
       <div className="gap-4">
         <ul className="space-y-3 sm:space-y-4">
-          {rewards.map((reward, index) => (
+          {pointsHistory.map((item, index) => (
             <motion.li
-              key={reward.id}
+              key={item._id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
@@ -57,7 +54,7 @@ const RewardClaim = () => {
                     transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
                     className="font-medium text-sm sm:text-base text-slate-800"
                   >
-                    {reward.name}
+                    {item.timeCreated.toString()}
                   </motion.h5>
                   <motion.p
                     initial={{ opacity: 0 }}
@@ -74,25 +71,10 @@ const RewardClaim = () => {
                     >
                       <path d="M480-160q-140.23 0-230.12-35.73Q160-231.46 160-287.69V-680q0-49.85 93.58-84.92Q347.15-800 480-800t226.42 35.08Q800-729.85 800-680v392.31q0 56.23-89.88 91.96Q620.23-160 480-160Zm0-444.38q85.92 0 173.23-23.97 87.31-23.96 104.46-52.19-16.38-29.77-102.81-54.61Q568.46-760 480-760q-87.15 0-174.65 23.96t-104.58 52.42q16.31 30 103.04 54.62 86.73 24.62 176.19 24.62Zm0 201.3q41.23 0 81-4t76.04-11.88q36.27-7.89 67.38-19.66 31.12-11.76 55.58-26.53V-629q-24.46 14.77-55.58 26.54-31.11 11.77-67.38 19.65-36.27 7.89-76.04 11.89-39.77 4-81 4-42.77 0-83.15-4.39-40.39-4.38-76.27-12.27-35.89-7.88-66.5-19.27Q223.46-614.23 200-629v163.85q23.46 14.77 54.08 26.15 30.61 11.38 66.5 19.27 35.88 7.88 76.27 12.27 40.38 4.38 83.15 4.38ZM480-200q51.38 0 97.73-5.85 46.35-5.84 83.27-16.57 36.92-10.73 62.77-25.62 25.85-14.88 36.23-32.19v-144.92q-24.46 14.77-55.58 26.53-31.11 11.77-67.38 19.66-36.27 7.88-76.04 11.88-39.77 4-81 4-42.77 0-83.15-4.38-40.39-4.39-76.27-12.27-35.89-7.89-66.5-19.27-30.62-11.38-54.08-26.15V-280q10.38 18.08 36.12 32.46 25.73 14.39 62.65 25.12t83.38 16.57Q428.62-200 480-200Z" />
                     </svg>{" "}
-                    {reward.points} points
+                    {item.points} points
                   </motion.p>
                 </div>
               </div>
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 + index * 0.1, duration: 0.3 }}
-                className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium ${
-                  reward.claimed
-                    ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                    : "bg-pody-primary text-white hover:bg-pody-primary/80"
-                }`}
-                disabled={reward.claimed}
-                whileHover={!reward.claimed ? { scale: 1.05 } : {}}
-                whileTap={!reward.claimed ? { scale: 0.95 } : {}}
-              >
-                {reward.claimed ? "Claimed" : "Claim"}
-              </motion.button>
             </motion.li>
           ))}
         </ul>
