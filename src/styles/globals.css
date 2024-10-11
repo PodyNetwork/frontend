@@ -562,11 +562,14 @@ body {
         max-width: 600px;
         gap: 5px;
     }
-}
-@media (min-width: 550px) and (max-width: 767px) {
     .participant-carousel {
         width: 150px;
         
+    }
+    .focus_portrait{
+        max-width: calc((45vh * 9) / 16);
+        overflow: hidden;
+        position: relative;
     }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
