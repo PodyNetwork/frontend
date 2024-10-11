@@ -68,8 +68,8 @@ const CallsCard = ({ calls }: Calls) => {
             <div className="flex flex-col gap-y-1.5">
               <p className="text-xs text-slate-700 capitalize">
                 {(() => {
-                  if(!call.scheduledTime) {
-                    return ""
+                  if (!call || !call?.scheduledTime) {
+                    return "";
                   }
                   const scheduledDate = dayjs(call.scheduledTime);
                   if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
