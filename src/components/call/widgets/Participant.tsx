@@ -2,24 +2,44 @@
 import React from "react";
 import { useParticipants } from "@livekit/components-react";
 import Image from "next/image";
+import useProfile from "@/hooks/user/useProfile";
+import { useParams } from "next/navigation";
+import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 
-const Participant = () => {
+interface Props {
+  participantBarToggle: any,
+  participantBarToggleExpanded: any;
+}
+
+const Participant : React.FC<Props> = ({ participantBarToggle, participantBarToggleExpanded }) => {
   const participants = useParticipants();
+  const { url } = useParams();
+  const { call } = useGetCallByURL(url as string);
+  const { profile } = useProfile();
 
   return (
     <div className="w-full md:h-full md:overflow-y-auto">
-      <div className="hidden md:flex flex-row justify-between mb-3.5">
+      <div className="hidden md:flex flex-row justify-between mb-3.5 text-slate-600 dark:text-slate-400">
         <h3 className="text-base">
-          <span className="font-semibold text-slate-600 dark:text-slate-400">
+          <span className={`font-medium ${!participantBarToggleExpanded && 'md:hidden'}`}>
             Participant
           </span>{" "}
-          <span className="text-slate-500">({participants.length})</span>
+          <span>{participants.length}</span>
         </h3>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            viewBox="0 -960 960 960"
+            fill="currentColor"
+            onClick={participantBarToggle}
+          >
+            <path d="M480-189.23q-24.75 0-42.37-17.63Q420-224.48 420-249.23q0-24.75 17.63-42.38 17.62-17.62 42.37-17.62 24.75 0 42.37 17.62Q540-273.98 540-249.23q0 24.75-17.63 42.37-17.62 17.63-42.37 17.63ZM480-420q-24.75 0-42.37-17.63Q420-455.25 420-480q0-24.75 17.63-42.37Q455.25-540 480-540q24.75 0 42.37 17.63Q540-504.75 540-480q0 24.75-17.63 42.37Q504.75-420 480-420Zm0-230.77q-24.75 0-42.37-17.62Q420-686.02 420-710.77q0-24.75 17.63-42.37 17.62-17.63 42.37-17.63 24.75 0 42.37 17.63Q540-735.52 540-710.77q0 24.75-17.63 42.38-17.62 17.62-42.37 17.62Z"/>
+          </svg>
       </div>
       <div className="grid grid-cols-4 gap-2.5 md:mb-[20px] md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list">
         {participants.map((participant, index) => (
           <div
-            className="md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm text-slate-500"
+            className={`md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm text-slate-500 ${!participantBarToggleExpanded && 'md:justify-center'}`}
             key={index}
           >
             <div className="flex md:flex-row flex-col items-center">
@@ -28,31 +48,38 @@ const Participant = () => {
                 alt="user icon"
                 width={200}
                 height={200}
-                className="w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full"
+                className={`w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full ${!participantBarToggleExpanded && 'md:w-[2.7rem] md:h-[2.7rem]'}`}
               />
-              <div className="md:ms-2.5 flex flex-col items-center text-sm">
+              <div className={`md:ms-2.5 flex flex-col items-center text-sm ${!participantBarToggleExpanded && 'md:hidden'}`}>
                 <p className="text-sm mt-1 md:mt-0 text-slate-300">
                   <span className="leading-none font-semibold truncate">
                     {participant.name}
                   </span>
                 </p>
                 <p className="block md:hidden text-xs leading-none">
-                  {participant.permissions?.canPublish ? (
-                    <span>Speaker</span>
+                  {participant.permissions?.canPublish &&
+                  profile?.id === call?.userId ? (
+                    <span>Host</span>
                   ) : (
                     <span>Listener</span>
                   )}
                 </p>
               </div>
             </div>
-            <div className="hidden md:flex flex-row items-center gap-x-2.5">
+            <div className={`hidden md:flex flex-row items-center gap-x-2.5 ${!participantBarToggleExpanded && 'md:hidden'}`}>
               {!participant.permissions?.canPublish && (
                 <button className="text-xs text-blue-500">Add to speak</button>
               )}
               {participant.permissions?.canPublish ? (
-                <p className="hidden md:block text-xs">
-                  <span>Host</span>
-                </p>
+                profile?.id === call?.userId ? (
+                  <p className="hidden md:block text-xs">
+                    <span>Host</span>
+                  </p>
+                ) : (
+                  <p className="hidden md:block text-xs">
+                    <span>Speaker</span>
+                  </p>
+                )
               ) : (
                 <p className="hidden md:block text-xs">
                   <span>Listener</span>

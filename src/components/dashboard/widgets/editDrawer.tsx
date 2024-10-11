@@ -77,8 +77,6 @@ interface EditDrawerProps {
 
 const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
   const [scheduledTime, setScheduledTime] = useState<Date>(call.scheduledTime ? new Date(call.scheduledTime) : new Date());
-  
-  console.log(call.participantsCanPublish);
 
   const [canSpeak, setCanSpeak] = useState(call.participantsCanPublish);
   const { updateCall, errorMessage } = useUpdateCall();

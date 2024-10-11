@@ -91,12 +91,12 @@ const Controls = ({
 
   return (
     <div
-      className="hidden h-10 md:flex flex-wrap justify-center items-center gap-x-3 text-sm"
+      className="hidden h-10 md:flex flex-wrap justify-center items-center gap-x-3 text-sm "
       aria-label="controls"
     >
       {/* video source */}
       {visibleControls.camera && (
-        <div className="bg-white p-1 rounded-full flex justify-center items-center text-slate-400">
+        <div className="bg-white p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
           <div className="bg-slate-100 w-8 h-8 flex items-center justify-center rounded-full">
             <SourceToggle
               source={Track.Source.Camera}
@@ -134,7 +134,7 @@ const Controls = ({
       )}
       {/* Microphone */}
       {visibleControls.microphone && (
-        <div className="bg-white p-1 rounded-full flex justify-center items-center text-slate-400">
+        <div className="bg-white p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
           <div className="bg-slate-100 w-8 h-8 flex items-center justify-center rounded-full">
             <SourceToggle
               source={Track.Source.Microphone}
@@ -167,13 +167,13 @@ const Controls = ({
       )}
       {/* leave button */}
       {visibleControls.leave && (
-        <div className="bg-pody-danger h-10 px-3.5 rounded-full flex justify-center items-center text-slate-100 text-sm">
+        <div className="bg-pody-danger h-10 px-3.5 rounded-full flex justify-center items-center text-slate-100 text-sm cursor-pointer">
           <span>Leave meeting</span>
         </div>
       )}
       {/* share screen */}
       {visibleControls.screenShare && browserSupportsScreenSharing && (
-        <div className="bg-white p-1 rounded-full flex justify-center items-center text-slate-400">
+        <div className="bg-white p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
           <div className="w-8 h-8 flex items-center justify-center rounded-full">
             <SourceToggle
               source={Track.Source.ScreenShare}
@@ -196,7 +196,7 @@ const Controls = ({
         </div>
       )}
       {/* chat */}
-      <div className="bg-white h-10 w-10 rounded-full flex justify-center items-center text-slate-400">
+      <div className="bg-white h-10 w-10 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-5 h-5"

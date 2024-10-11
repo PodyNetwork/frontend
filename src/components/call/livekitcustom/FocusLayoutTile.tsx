@@ -42,11 +42,16 @@ export function EnhancedFocusLayout({ tracks, focusedIndex, onParticipantClick, 
   });
 
   const handleParticipantClick = (index: number) => {
-    const originalIndex = filteredTracks[index].originalIndex; // Get the original index of the clicked participant
-    if (onParticipantClick) {
-      onParticipantClick(originalIndex); // Pass the original index back
+    if (filteredTracks[index]) {
+      const originalIndex = filteredTracks[index].originalIndex; 
+      if (onParticipantClick) {
+        onParticipantClick(originalIndex); 
+      }
+    } else {
+      console.error(`Index ${index} is out of bounds for filteredTracks.`);
     }
   };
+  
 
   // Effect to handle switching back to an available track if the focused track is not available
   React.useEffect(() => {

@@ -22,8 +22,8 @@ const Page = () => {
         </svg>
       </motion.div>
 
-      <h2 className="text-3xl font-medium mb-2">Call Has Not Started</h2>
-      <p className="text-lg mb-8">Ready to begin your session?</p>
+      <h2 className="text-2xl font-medium mb-2">Call Has Not Started</h2>
+      <p className="text-base mb-8">Ready to begin your session?</p>
 
       <div className="space-y-4 w-full max-w-xs">
         <button className="w-full bg-pody-primary hover:bg-pody-primary/30 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">

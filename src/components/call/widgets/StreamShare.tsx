@@ -9,7 +9,6 @@ const StreamShare = () => {
   const { call } = useGetCallByURL(url as string);
   const { profile, isLoading, isError } = useProfile();
 
-  console.log(profile);
 
   return (
     <div>
@@ -20,7 +19,7 @@ const StreamShare = () => {
           <button
             onClick={() =>
               shareOnMobile({
-                text: `"Hey ${profile?.username} invited you to their call"`,
+                text: `"Hey, ${profile?.username} has invited you to their call on Pody"`,
                 url: `"https://pody.network/${call?.url}"`,
                 title: "Pody Meeting",
               })

@@ -8,14 +8,12 @@ import { useState } from "react";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-
 /** @public */
 export interface ChatProps
   extends React.HTMLAttributes<HTMLDivElement>,
     ChatOptions {
   messageFormatter?: MessageFormatter;
 }
-
 /**
  * The Chat component adds a basis chat functionality to the LiveKit room. The messages are distributed to all participants
  * in the room. Only users who are in the room at the time of dispatch will receive the message.
