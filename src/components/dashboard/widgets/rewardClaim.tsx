@@ -76,7 +76,7 @@ const RewardClaim = () => {
               transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
               className="font-medium text-sm sm:text-base text-slate-800"
             >
-              {item.timeCreated.toString()}
+              {item?.timeCreated.toString()}
             </motion.h5>
             <motion.p
               initial={{ opacity: 0 }}
