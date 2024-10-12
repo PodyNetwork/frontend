@@ -3,6 +3,7 @@ import { useParticipants } from "@livekit/components-react";
 import { useParams } from "next/navigation";
 import React from "react";
 import StreamShare from "./StreamShare";
+import { CameraToggle } from "./MobileCamerToggle";
 
 const StreamInfo = () => {
   const { url } = useParams();
@@ -37,6 +38,9 @@ const StreamInfo = () => {
             </svg>
           </p>
           <StreamShare />
+          <p>
+            <CameraToggle  />
+          </p>
         </div>
       </div>
       <div className="relative flex flex-col gap-y-1">

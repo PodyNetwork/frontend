@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Track } from 'livekit-client';
 import { SourceToggle } from "../livekitcustom/SourceToggle";
+import { usePersistentUserChoices } from '@livekit/components-react';
 
 interface CameraToggleProps {
   visibleControls: {
@@ -8,23 +9,27 @@ interface CameraToggleProps {
   };
   localParticipant: {
     isCameraEnabled: boolean;
-  }; 
-  cameraOnChange: () => void;
-  onDeviceError: (error: { source: Track.Source; error: Error }) => void; // More specific error type
-  saveVideoInputDeviceId: (deviceId: string) => void;
+  };
+  onDeviceError: (error: { source: Track.Source; error: Error }) => void;
 }
 
 export function CameraToggle({
-  visibleControls,
-  localParticipant,
-  cameraOnChange,
-  onDeviceError,
-  saveVideoInputDeviceId,
-}: CameraToggleProps) {
+  visibleControls = { camera: true },  // Default value
+  localParticipant = { isCameraEnabled: false },  // Default value
+  onDeviceError = (error) => console.error('Device error:', error),  // Default handler
+}: Partial<CameraToggleProps>) {
   const [availableDevices, setAvailableDevices] = useState<MediaDeviceInfo[]>([]);
   const [currentDeviceId, setCurrentDeviceId] = useState<string | null>(null);
 
-  // Fetch available video input devices
+  const { saveVideoInputEnabled, saveVideoInputDeviceId } = usePersistentUserChoices({ preventSave: false });
+
+  const cameraOnChange = useCallback(
+    (enabled: boolean, isUserInitiated: boolean) => {
+      if (isUserInitiated) saveVideoInputEnabled(enabled);
+    },
+    [saveVideoInputEnabled]
+  );
+
   useEffect(() => {
     const fetchVideoDevices = async () => {
       try {
@@ -32,10 +37,10 @@ export function CameraToggle({
         const videoDevices = devices.filter((device) => device.kind === 'videoinput');
         setAvailableDevices(videoDevices);
 
-        // Set the initial device to the first camera (front) if none is selected
         if (videoDevices.length > 0 && !currentDeviceId) {
-          setCurrentDeviceId(videoDevices[0].deviceId);
-          saveVideoInputDeviceId(videoDevices[0].deviceId);
+          const initialDevice = videoDevices[0].deviceId;
+          setCurrentDeviceId(initialDevice);
+          saveVideoInputDeviceId(initialDevice); // Save the video input device ID internally
         }
       } catch (error) {
         const err = error instanceof Error ? error : new Error(String(error));
@@ -46,17 +51,16 @@ export function CameraToggle({
     fetchVideoDevices();
   }, [currentDeviceId, onDeviceError, saveVideoInputDeviceId]);
 
-  // Switch between available cameras
-  const toggleCamera = () => {
+  const toggleCamera = useCallback(() => {
     if (availableDevices.length > 1) {
       const currentIndex = availableDevices.findIndex((device) => device.deviceId === currentDeviceId);
       const nextDeviceIndex = (currentIndex + 1) % availableDevices.length;
       const newDeviceId = availableDevices[nextDeviceIndex].deviceId;
-      
+
       setCurrentDeviceId(newDeviceId);
-      saveVideoInputDeviceId(newDeviceId);
+      saveVideoInputDeviceId(newDeviceId); // Save the new device ID internally
     }
-  };
+  }, [availableDevices, currentDeviceId, saveVideoInputDeviceId]);
 
   return (
     visibleControls.camera && (
