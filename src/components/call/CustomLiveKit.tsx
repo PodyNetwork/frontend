@@ -5,13 +5,7 @@ import {
 import { LayoutContextProvider } from "@livekit/components-react";
 import type { ReactNode } from "react";
 
-const CustomLiveKit = ({
-  children,
-  token,
-}: {
-  children: ReactNode;
-  token: string;
-}) => {
+const CustomLiveKit = ({ children, token }: { children: ReactNode; token: string; }) => {
   const serverUrl = process.env.NEXT_PUBLIC_LIVEKIT_URL;
 
   return (

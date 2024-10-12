@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
-const Page = () => {
+const CallEndPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-pody-dark_secondary text-white p-4">
       {/* Subtle animated icon */}
@@ -26,12 +27,12 @@ const Page = () => {
       <p className="xs:text-sm text-base mb-8">Ready to begin your session?</p>
 
       <div className="space-y-4 w-full max-w-xs">
-        <button className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out">
+        <Link href="/dashboard"><button className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out">
           Go to Dashboard
-        </button>
+        </button></Link>
       </div>
     </div>
   );
 };
 
-export default Page;
+export default CallEndPage;
