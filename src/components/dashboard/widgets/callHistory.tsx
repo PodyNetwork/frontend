@@ -83,37 +83,37 @@ const CallsCard = ({ calls }: Calls) => {
                 })()}
               </p>
               <h3 className="text-base sm:text-lg font-medium text-slate-800">
-                {call.title}
+                {call?.title}
               </h3>
               <div>
                 <button
                   className={`text-xs bg-pody-danger/10 px-2 sm:px-3 py-1 font-medium rounded-sm 
                     ${
-                      call.status === "ended"
+                      call?.status === "ended"
                         ? "text-pody-danger bg-pody-danger/10"
-                        : call.status === "ongoing"
+                        : call?.status === "ongoing"
                         ? "text-pody-success bg-pody-success/10"
-                        : call.status === "pending"
+                        : call?.status === "pending"
                         ? "text-pody-primary bg-pody-primary/10"
                         : "text-white bg-slate-600"
                     }`}
                 >
-                  {call.status}
+                  {call?.status}
                 </button>
               </div>
             </div>
             <div className="flex flex-row items-center gap-x-2 sm:gap-x-3 mt-auto">
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full relative bg-black/20">
                 <BlockiesSvg
-                  address={call.url}
+                  address={call?.url}
                   className="w-full h-full rounded-full"
                 />
               </div>
-              <div className={`text-xs sm:text-sm flex-1 ${call.status === "ended" && "opacity-50"}`} onClick={() => goToMeeting(call.url)}>
-                <h3 className="font-medium">{call.url}</h3>
+              <div className={`text-xs sm:text-sm flex-1 ${call?.status === "ended" && "opacity-50"}`} onClick={() => goToMeeting(call.url)}>
+                <h3 className="font-medium">{call?.url}</h3>
                 <p className="text-xs">Call ID</p>
               </div>
-              {call.type === "scheduled" && (
+              {call?.type === "scheduled" && (
                 <EditDrawer
                   call={{
                     ...call,

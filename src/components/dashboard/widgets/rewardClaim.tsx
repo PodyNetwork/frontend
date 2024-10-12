@@ -3,23 +3,63 @@ import React from "react";
 import { motion } from "framer-motion";
 import useGetPointsHistory from "@/hooks/point/useGetPointsHistory";
 import { formatUnits } from "viem";
+import rewardImageError from "/public/illustration/wormies nocall.svg";
+import Image from "next/image";
+
+interface props {
+  message: string;
+}
 
 const RewardClaimSkeleton = () => {
+  const index = 0;
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <motion.li
+      key={index}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+      className="flex flex-row items-center justify-between bg-gray-200 rounded-xl px-3 sm:px-6 py-3 mb-2 animate-pulse"
+    >
+      <motion.div
+        className="flex items-center gap-x-2 flex-grow min-w-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
+      >
+        <div className="w-6 h-4 bg-gray-300 rounded"></div>
+        <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
+          <div className="h-4 w-20 bg-gray-300 rounded"></div>
+        </div>
+      </motion.div>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="flex flex-col items-center justify-center gap-4"
+        transition={{ delay: 0.7 + index * 0.1, duration: 0.3 }}
       >
-        <div className="w-6 h-6 bg-gray-300 rounded animate-pulse"></div>
-        <div className="w-6 h-6 bg-gray-300 rounded animate-pulse"></div>
-        <div className="w-6 h-6 bg-gray-300 rounded animate-pulse"></div>
+        <div className="h-4 w-24 bg-gray-300 rounded"></div>
       </motion.div>
-    </div>
+    </motion.li>
   );
 };
+
+const EmptyMessage = ({ message } : props) => {
+  return(
+    <div className="flex flex-col gap-4 md:flex-row items-center justify-between w-full">
+      <div className="w-full md:w-4/12">
+        <p className="break-words text-lg sm:text-xl">{message}</p>
+      </div>
+      <div className="w-full md:w-7/12">
+        <Image
+          src={rewardImageError}
+          className="w-full h-64 object-contain"
+          width={300}
+          height={300}
+          alt="user"
+        />
+      </div>
+    </div>
+  );
+}
 
 const RewardClaim = () => {
   const {
@@ -57,11 +97,13 @@ const RewardClaim = () => {
       <div className="gap-4">
         <ul className="space-y-3 sm:space-y-4">
           {isLoading ? (
-            <RewardClaimSkeleton />
+            Array.from({ length: 6 }, (_, index) => (
+              <RewardClaimSkeleton key={index} />
+            ))
           ) : pointsHistory.length > 0 ? (
             pointsHistory.map((item, index) => (
               <motion.li
-                key={item._id}
+                key={item?._id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
@@ -78,7 +120,7 @@ const RewardClaim = () => {
                   </div>
                   <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
                     <h3 className="text-xs sm:text-sm text-slate-800 truncate">
-                    {formatUnits(item.points, 18)} points
+                      {item?.points !== undefined ? `${formatUnits(item.points, 18)} points` : 'No points available'}
                     </h3>
                   </div>
                 </motion.div>
@@ -89,23 +131,24 @@ const RewardClaim = () => {
                     transition={{ delay: 0.7 + index * 0.1, duration: 0.3 }}
                     className="font-medium text-sm text-slate-500"
                   >
-                    {item.timeCreated.toString()}
+                    {item?.timeCreated?.toString() ?? "N/A"}
                   </motion.h5>
                 </div>
               </motion.li>
             ))
           ) : (
-            <>Empty Record</>
+            <EmptyMessage message="You don't have any rewards yet. Create a meeting to start earning points." />
           )}
+
+          {isFetchingNextPage && <RewardClaimSkeleton />}
         </ul>
       </div>
-      {isFetchingNextPage && <RewardClaimSkeleton />}
       {hasNextPage && (
         <div className="flex justify-center mt-4">
           <button
             onClick={handleLoadMore}
             disabled={isFetchingNextPage}
-            className="bg-pody-primary text-white px-4 py-2 rounded-md hover:bg-pody-primary/80 transition-colors duration-300"
+            className="text-sm px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto"
           >
             {isFetchingNextPage ? "Loading..." : "Load More"}
           </button>
