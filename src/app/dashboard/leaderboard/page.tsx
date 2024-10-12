@@ -60,7 +60,7 @@ const LeaderboardItem = ({
         >
           <path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-61 83.92 49.62-212.54-164.93-142.84 217.23-18.85L480-777.69l85.08 200.38 217.23 18.85-164.93 142.84L667-203.08 480-315.92 293-203.08ZM480-470Z"/>
         </svg>{" "}
-        {formatUnits(BigInt(totalPoints), 18)}
+        {Math.round(Number(formatUnits(BigInt(totalPoints), 18)))}
       </p>
     </div>
   </motion.li>
@@ -127,7 +127,7 @@ const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
               {item.username}
             </h2>
             <p className="text-sm text-pody-primary font-semibold">
-              {formatUnits(BigInt(item.totalPoints?? 0), 18)} 
+              {Math.round(Number(formatUnits(BigInt(item.totalPoints?? 0), 18)))} 
             </p>
           </motion.div>
         );
