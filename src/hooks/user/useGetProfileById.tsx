@@ -18,7 +18,7 @@ const useProfileById = (id: number) => {
   const fetchProfile = useCallback(async (): Promise<ProfileResponse> => {
     const response = await axios.get<ProfileResponse>(`/user/profile/${id}`);
     return response.data;
-  }, []);
+  }, [id]);
 
   const {
     data,
