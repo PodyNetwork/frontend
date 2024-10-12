@@ -20,6 +20,7 @@ export function CameraToggle({
 }: Partial<CameraToggleProps>) {
   const [availableDevices, setAvailableDevices] = useState<MediaDeviceInfo[]>([]);
   const [currentDeviceId, setCurrentDeviceId] = useState<string | null>(null);
+  const [isFrontCamera, setIsFrontCamera] = useState<boolean>(true); // Track if front or back camera is active
 
   const { saveVideoInputEnabled, saveVideoInputDeviceId } = usePersistentUserChoices({ preventSave: false });
 
@@ -37,10 +38,12 @@ export function CameraToggle({
         const videoDevices = devices.filter((device) => device.kind === 'videoinput');
         setAvailableDevices(videoDevices);
 
-        if (videoDevices.length > 0 && !currentDeviceId) {
-          const initialDevice = videoDevices[0].deviceId;
-          setCurrentDeviceId(initialDevice);
-          saveVideoInputDeviceId(initialDevice); // Save the video input device ID internally
+        // Try to set the initial device based on the front camera
+        const initialDevice = videoDevices.find(device => device.label.toLowerCase().includes('front')) || videoDevices[0];
+        if (initialDevice) {
+          setCurrentDeviceId(initialDevice.deviceId);
+          setIsFrontCamera(true);
+          saveVideoInputDeviceId(initialDevice.deviceId); // Save the video input device ID internally
         }
       } catch (error) {
         const err = error instanceof Error ? error : new Error(String(error));
@@ -51,16 +54,22 @@ export function CameraToggle({
     fetchVideoDevices();
   }, [currentDeviceId, onDeviceError, saveVideoInputDeviceId]);
 
+  // Function to toggle between front and back camera
   const toggleCamera = useCallback(() => {
     if (availableDevices.length > 1) {
-      const currentIndex = availableDevices.findIndex((device) => device.deviceId === currentDeviceId);
-      const nextDeviceIndex = (currentIndex + 1) % availableDevices.length;
-      const newDeviceId = availableDevices[nextDeviceIndex].deviceId;
+      const nextDevice = availableDevices.find((device) =>
+        isFrontCamera
+          ? device.label.toLowerCase().includes('back')
+          : device.label.toLowerCase().includes('front')
+      );
 
-      setCurrentDeviceId(newDeviceId);
-      saveVideoInputDeviceId(newDeviceId); // Save the new device ID internally
+      if (nextDevice) {
+        setCurrentDeviceId(nextDevice.deviceId);
+        setIsFrontCamera(!isFrontCamera);
+        saveVideoInputDeviceId(nextDevice.deviceId); // Save the new device ID internally
+      }
     }
-  }, [availableDevices, currentDeviceId, saveVideoInputDeviceId]);
+  }, [availableDevices, isFrontCamera, saveVideoInputDeviceId]);
 
   return (
     visibleControls.camera && (
