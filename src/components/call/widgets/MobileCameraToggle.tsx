@@ -6,7 +6,6 @@ import {
   usePersistentUserChoices,
 } from "@livekit/components-react";
 
-// Import custom components
 import { SourceToggle } from "../livekitcustom/SourceToggle";
 import { CustomMediaDeviceMenu } from "../livekitcustom/CustomMediaMenu";
 
@@ -60,7 +59,6 @@ const MobileCameraToggle = ({
       className="hidden h-10 md:flex flex-wrap justify-center items-center gap-x-3 text-sm"
       aria-label="controls"
     >
-      {/* Video source toggle */}
       {visibleControls.camera && (
         <div className="bg-white p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
           <div className="bg-slate-100 w-8 h-8 flex items-center justify-center rounded-full">
