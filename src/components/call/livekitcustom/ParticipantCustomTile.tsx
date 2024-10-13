@@ -23,7 +23,6 @@ import { LockLockedIcon } from "@livekit/components-react";
 import { VideoTrack, AudioTrack } from "@livekit/components-react";
 import { useParticipantTile, useIsEncrypted } from "@livekit/components-react";
 import Image from "next/image";
-import CustomParticipantPlaceholder from "./CustomPlaceHolder";
 import { CustomParticipantName } from "./CustomParticipantName";
 
 export function ParticipantContextIfNeeded(

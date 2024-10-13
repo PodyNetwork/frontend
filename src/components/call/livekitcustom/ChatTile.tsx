@@ -2,7 +2,7 @@ import type { ChatMessage, ChatOptions } from "@livekit/components-core";
 import * as React from "react";
 import { useMaybeLayoutContext } from "@livekit/components-react";
 import type { MessageFormatter } from "@livekit/components-react";
-import { useChat, useLocalParticipant } from "@livekit/components-react";
+import { useChat } from "@livekit/components-react";
 import Image from "next/image";
 import { useMyContext } from "../widgets/MyContext";
 
