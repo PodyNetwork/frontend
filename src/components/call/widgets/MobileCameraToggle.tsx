@@ -25,7 +25,7 @@ export interface ControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
   saveUserChoices?: boolean;
 }
 
-const Controls = ({
+const MobileCameraToggle = ({
   controls,
   saveUserChoices = true,
   onDeviceError,
@@ -98,12 +98,9 @@ const Controls = ({
             />
           </div>
         </div>
-      )}
-
-      {/* Add other controls here, e.g., microphone toggle, chat button */}
-      
+      )}      
     </div>
   );
 };
 
-export default Controls;
+export default MobileCameraToggle;
