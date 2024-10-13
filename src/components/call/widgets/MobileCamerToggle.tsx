@@ -21,19 +21,15 @@ export type ControlBarControls = {
 
 export interface ControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
   onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
-  variation?: "minimal" | "verbose" | "textOnly";
   controls?: ControlBarControls;
   saveUserChoices?: boolean;
   handleChatClick: () => void;
 }
 
 const Controls = ({
-  variation,
   controls,
   saveUserChoices = true,
   onDeviceError,
-  handleChatClick,
-  ...props
 }: ControlBarProps) => {
   const visibleControls = { leave: true, ...controls };
   const localPermissions = useLocalParticipantPermissions();
@@ -51,7 +47,7 @@ const Controls = ({
     visibleControls.chat ??= localPermissions.canPublishData && controls?.chat;
   }
 
-  const { saveAudioInputEnabled, saveVideoInputEnabled, saveVideoInputDeviceId } =
+  const { saveVideoInputEnabled, saveVideoInputDeviceId } =
     usePersistentUserChoices({ preventSave: !saveUserChoices });
 
   const cameraOnChange = React.useCallback(
@@ -83,7 +79,6 @@ const Controls = ({
                   !localParticipant.isCameraEnabled && "text-red-500"
                 }`}
                 viewBox="0 -960 960 960"
-                style={{ msFilter: "" }}
                 fill="currentColor"
               >
                 {localParticipant.isCameraEnabled ? (
