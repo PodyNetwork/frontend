@@ -1,14 +1,62 @@
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useParticipants } from "@livekit/components-react";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import StreamShare from "./StreamShare";
+import { getHashRate } from "@/utils/passport";
+import useProfile from "@/hooks/user/useProfile";
+import { Address } from "@/types/address";
+import { formatUnits } from "viem";
 
 const StreamInfo = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   const participants = useParticipants();
   const [participantPublishNumber, setParticipantPublishNumber] = useState(0);
+  const [hashRate, setHashRate] = useState<number>(0)
+  const [accumulatedPoints, setAccumulatedPoints] = useState<number>(0)
+  const { profile } = useProfile()
+
+  const isHost = useMemo(() => {
+    if(call?.userId  && profile?.id) return call?.userId == profile?.id
+    return false
+  }, [call, profile])
+
+  useEffect(() => {
+   const interval = setInterval(() => {
+    if(!profile || !profile?.walletAddress) return
+    const walletAddress = profile.walletAddress as Address
+
+    const _getHashRate = async () => {
+      setHashRate(Number(await getHashRate({walletAddress}))) 
+    }
+    _getHashRate()
+
+    return () => {
+      clearInterval(interval)
+    }
+   }, 5000)
+  }, [profile])
+
+
+  useEffect(() => {
+    if (!navigator.onLine) return;
+    const interval = setInterval(() => {
+      if(hashRate) {
+        setAccumulatedPoints(accumulatedPoints => {
+          const points =  accumulatedPoints + (hashRate)
+          if(!isHost || !participants ) return points
+          
+          return points
+        })
+      }
+    }, 1000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [hashRate, participants, isHost])
+
 
   useEffect(() => {
     if (participants && participants.length > 0) {
@@ -19,8 +67,10 @@ const StreamInfo = () => {
     }
   }, [participants]);
 
+
   return (
     <>
+    <p className="text-white">{formatUnits(BigInt(accumulatedPoints), 18)}</p>
       <div className="md:hidden text-red-200 flex flex-row items-center text-xs xs:text-sm font-semibold justify-between gap-x-2">
         <p className="text-slate-600 dark:text-slate-200 items-center text-sm flex flex-row gap-x-1 truncate">
           <svg

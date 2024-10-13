@@ -36,9 +36,14 @@ const getUser = async (args: GetUserArgs): Promise<Array<bigint>> => {
   return result;
 };
 
+const getHashRate = async (args: GetUserArgs): Promise<bigint> => {
+  const user = await getUser(args);
+  return user[0];
+};
+
 const getUserLevel = async (args: GetUserArgs): Promise<bigint> => {
   const user = await getUser(args);
   return user[2];
 };
 
-export  { mintPassport, getUserLevel, getUser };
+export  { mintPassport, getUserLevel, getUser, getHashRate };
