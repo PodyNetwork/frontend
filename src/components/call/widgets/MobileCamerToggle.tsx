@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const CameraToggle = () => {
-    const videoRef = useRef(null);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
     const [isFrontCamera, setIsFrontCamera] = useState(true);
-    const [stream, setStream] = useState(null);
+    const [stream, setStream] = useState<MediaStream | null>(null);
 
     useEffect(() => {
         const getMediaStream = async () => {
+            // Stop the current stream if it exists
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+
             try {
                 const newStream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: isFrontCamera ? 'user' : 'environment' },
@@ -28,7 +33,7 @@ const CameraToggle = () => {
                 stream.getTracks().forEach(track => track.stop());
             }
         };
-    }, [isFrontCamera]);
+    }, [isFrontCamera, stream]); // Added stream as a dependency
 
     const toggleCamera = () => {
         setIsFrontCamera(prev => !prev);
