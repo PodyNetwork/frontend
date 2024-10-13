@@ -4,7 +4,7 @@ import { useMaybeLayoutContext } from "@livekit/components-react";
 import type { MessageFormatter } from "@livekit/components-react";
 import { useChat } from "@livekit/components-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useMyContext } from "../widgets/MyContext";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -13,7 +13,6 @@ export interface ChatProps
   extends React.HTMLAttributes<HTMLDivElement>,
     ChatOptions {
   messageFormatter?: MessageFormatter;
-  ChatToggleSet: boolean;
 }
 /**
  * The Chat component adds a basis chat functionality to the LiveKit room. The messages are distributed to all participants
@@ -32,7 +31,6 @@ export default function ChatTile({
   messageDecoder,
   messageEncoder,
   channelTopic,
-  ChatToggleSet,
   ...props
 }: ChatProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -91,13 +89,13 @@ export default function ChatTile({
     }
   }, [chatMessages, layoutContext]);
 
-  const [isOpen, setIsOpen] = useState(false);
 
+  const { isChatOpen, setIsChatOpen } = useMyContext();
 
   return (
     <div
       className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[70vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-lg transition-all duration-300 ease-in-out ${
-        isOpen || ChatToggleSet
+        isChatOpen
           ? "translate-y-0"
           : "translate-y-full md:translate-y-[calc(100%-50px)]"
       }`}
@@ -105,7 +103,7 @@ export default function ChatTile({
       <div className="flex flex-col h-full">
         <div
           className="px-4 py-3 border-b dark:border-gray-700 cursor-pointer"
-          onClick={() => setIsOpen(ref => (!ref))}
+          onClick={() => setIsChatOpen(ref => (!ref))}
         >
           <div className="flex justify-between items-center">
             <h2 className="font-medium text-base text-gray-800 dark:text-white">
@@ -114,7 +112,7 @@ export default function ChatTile({
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className={`w-6 h-6 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${
-                isOpen || ChatToggleSet ? "rotate-180" : ""
+                isChatOpen ? "rotate-180" : ""
               }`}
               viewBox="0 0 24 24"
               fill="currentColor"
