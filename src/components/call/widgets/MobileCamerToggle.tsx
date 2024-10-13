@@ -23,7 +23,6 @@ export interface ControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
   onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
   controls?: ControlBarControls;
   saveUserChoices?: boolean;
-  handleChatClick: () => void;
 }
 
 const Controls = ({
@@ -79,6 +78,7 @@ const Controls = ({
                   !localParticipant.isCameraEnabled && "text-red-500"
                 }`}
                 viewBox="0 -960 960 960"
+                style={{ msFilter: "" }}
                 fill="currentColor"
               >
                 {localParticipant.isCameraEnabled ? (
