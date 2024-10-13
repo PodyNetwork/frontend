@@ -68,6 +68,7 @@ export function CameraToggle({
       if (nextDevice) {
         const videoTrackPublication = localParticipant.videoTracks[0];
         const videoTrack = videoTrackPublication?.track;
+        
         if (videoTrack) {
           localParticipant.unpublishTrack(videoTrackPublication);
           videoTrack.stop();
@@ -78,7 +79,7 @@ export function CameraToggle({
         saveVideoInputDeviceId(nextDevice.deviceId);
 
         try {
-          // Use createLocalVideoTrack to create the new video track
+          // Wait for the track to be stopped and then create and publish the new one
           const newTrack = await createLocalVideoTrack({ deviceId: nextDevice.deviceId });
           await localParticipant.publishTrack(newTrack);
         } catch (error) {
