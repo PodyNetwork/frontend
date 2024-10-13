@@ -20,13 +20,11 @@ import {
   useMaybeTrackRefContext,
 } from "@livekit/components-react";
 import { LockLockedIcon } from "@livekit/components-react";
-import { VideoTrack } from "@livekit/components-react";
-import { AudioTrack } from "@livekit/components-react";
-import { useParticipantTile } from "@livekit/components-react";
-import { useIsEncrypted } from "@livekit/components-react";
-import { CustomParticipantName } from "./CustomParticipantName";
+import { VideoTrack, AudioTrack } from "@livekit/components-react";
+import { useParticipantTile, useIsEncrypted } from "@livekit/components-react";
 import Image from "next/image";
 import CustomParticipantPlaceholder from "./CustomPlaceHolder";
+import { CustomParticipantName } from "./CustomParticipantName";
 
 export function ParticipantContextIfNeeded(
   props: React.PropsWithChildren<{
@@ -62,7 +60,6 @@ export interface ParticipantTileProps
   extends React.HTMLAttributes<HTMLDivElement> {
   trackRef?: TrackReferenceOrPlaceholder;
   disableSpeakingIndicator?: boolean;
-
   onParticipantClick?: (event: ParticipantClickEvent) => void;
 }
 
@@ -91,7 +88,6 @@ export const ParticipantCustomTile: (
   });
   const isEncrypted = useIsEncrypted(trackReference.participant);
   const layoutContext = useMaybeLayoutContext();
-
   const autoManageSubscription = useFeatureContext()?.autoSubscription;
 
   const handleSubscribe = React.useCallback(
@@ -109,9 +105,11 @@ export const ParticipantCustomTile: (
     [trackReference, layoutContext]
   );
 
-  const isCameraDisabled =
+  // Check if the camera is disabled or muted
+  const isCameraOff =
     trackReference?.source === Track.Source.Camera &&
-    !trackReference?.publication?.isSubscribed;
+    (!trackReference?.publication?.isSubscribed ||
+      trackReference.publication?.isMuted);
 
   return (
     <div ref={ref} style={{ position: "relative" }} {...elementProps}>
@@ -119,17 +117,33 @@ export const ParticipantCustomTile: (
         <ParticipantContextIfNeeded participant={trackReference.participant}>
           {children ?? (
             <>
-              {/* Render placeholder if camera is disabled */}
-              {isCameraDisabled ? (
-                <>
-                  <VideoTrack
-                    manageSubscription={autoManageSubscription}
-                    className="aspect-video w-full h-full"
-                  />
-                  <div className="lk-participant-placeholder">
-                    <CustomParticipantPlaceholder />
+              {/* Render placeholder if the camera is off */}
+              {isCameraOff ? (
+                <div className="camera-off-placeholder relative">
+                  <div className="w-full h-full bg-slate-400 absolute top-0 left-0 flex items-center justify-center">
+                    <div className="w-[15%]">
+                      <Image
+                        src="/avatar/user1.webp"
+                        alt="user icon"
+                        width={200}
+                        height={200}
+                        className="w-full h-full aspect-square object-cover rounded-full"
+                      />
+                    </div>
                   </div>
-                </>
+                  <div className="lk-participant-metadata">
+                    <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
+                      <Image
+                        src="/avatar/user1.webp"
+                        alt="user icon"
+                        width={200}
+                        height={200}
+                        className="w-2.5 h-2.5 md:w-6 md:h-6 object-cover rounded-full"
+                      />
+                      <CustomParticipantName />
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <>
                   {isTrackReference(trackReference) &&
@@ -150,9 +164,6 @@ export const ParticipantCustomTile: (
                       />
                     )
                   )}
-                  <div className="lk-participant-placeholder">
-                    <CustomParticipantPlaceholder />
-                  </div>
                   <div className="lk-participant-metadata">
                     <div>
                       {trackReference.source === Track.Source.Camera ? (
@@ -162,7 +173,7 @@ export const ParticipantCustomTile: (
                               style={{ marginRight: "0.25rem" }}
                             />
                           )}
-                          <div className="glass-effect flex flex-row items-center gap-x-1 text-sm">
+                          <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
                             <Image
                               src="/avatar/user1.webp"
                               alt="user icon"
@@ -174,20 +185,18 @@ export const ParticipantCustomTile: (
                           </div>
                         </>
                       ) : (
-                        <>
-                          <div className="glass-effect flex flex-row items-center gap-x-1 text-sm">
-                            <Image
-                              src="/avatar/user1.webp"
-                              alt="user icon"
-                              width={200}
-                              height={200}
-                              className="w-3 h-3 md:w-6 md:h-6 object-cover rounded-full"
-                            />
-                            <CustomParticipantName>
-                              &apos;s screen
-                            </CustomParticipantName>
-                          </div>
-                        </>
+                        <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
+                          <Image
+                            src="/avatar/user1.webp"
+                            alt="user icon"
+                            width={200}
+                            height={200}
+                            className="w-3 h-3 md:w-6 md:h-6 object-cover rounded-full"
+                          />
+                          <CustomParticipantName>
+                            &apos;s screen
+                          </CustomParticipantName>
+                        </div>
                       )}
                     </div>
                   </div>
