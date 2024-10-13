@@ -18,7 +18,7 @@ const useClaimPoint = () => {
   const claimHandler = useCallback(async (): Promise<CallResponse> => {
     startLoading();
     try {
-      const response = await axios.post<CallResponse>('/point/withdraw');
+      const response = await axios.get<CallResponse>('/point/withdraw');
       return response.data;
     } finally {
       stopLoading(); 

@@ -5,6 +5,7 @@ import useGetPointsHistory from "@/hooks/point/useGetPointsHistory";
 import { formatUnits } from "viem";
 import rewardImageError from "/public/illustration/wormies nocall.svg";
 import Image from "next/image";
+import useClaimPoint from "@/hooks/point/useClaimPoints";
 
 interface props {
   message: string;
@@ -74,6 +75,8 @@ const RewardClaim = () => {
     fetchNextPage();
   };
 
+  const {claimPoint, loading} = useClaimPoint()
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -90,8 +93,10 @@ const RewardClaim = () => {
         <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
           Rewards
         </h4>
-        <button className="text-sm px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto">
-          Claim Points
+        <button onClick={() => {
+          claimPoint.mutate()
+        }} disabled={loading} className={`text-sm px-4 py-1.5 ${loading ? 'bg-pody-primary/50' : 'bg-pody-primary'} text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto ${loading ? 'cursor-not-allowed' : ''}`}>
+          {loading ? 'Claiming...' : 'Claim Points'}
         </button>
       </motion.div>
       <div className="gap-4">
