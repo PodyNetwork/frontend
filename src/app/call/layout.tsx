@@ -1,6 +1,7 @@
 "use client";
 import CustomLiveKit from "@/components/call/CustomLiveKit";
 import CallEndPage from "@/components/call/widgets/Callend";
+import LoaderStatus from "@/components/call/widgets/LoaderStatus";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useParams } from "next/navigation";
@@ -20,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   if(call?.status === 'ended') return <CallEndPage />
 
-  if(!accessToken) return <p>loading....</p>
+  if(!accessToken) return <LoaderStatus status="loading..."/>
 
   return (
     <CustomLiveKit token={accessToken}>{children}</CustomLiveKit>
