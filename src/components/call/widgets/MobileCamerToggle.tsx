@@ -27,7 +27,6 @@ const CameraToggle = () => {
 
         getMediaStream();
 
-        // Cleanup function to stop the stream when the component unmounts
         return () => {
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
