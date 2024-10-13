@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   if(call?.status === 'ended') return <CallEndPage />
 
-  if(!accessToken) return <LoaderStatus status="loading..."/>
+  if(!accessToken) return <LoaderStatus status="Loading..."/>
 
   return (
     <CustomLiveKit token={accessToken}>{children}</CustomLiveKit>

@@ -107,8 +107,9 @@ export default function ChatTile({
         >
           <div className="flex justify-between items-center">
             <h2 className="font-medium text-base text-gray-800 dark:text-white">
-              Chat Room
+              Chat Room 
             </h2>
+            <p>uread message here</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className={`w-6 h-6 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${
