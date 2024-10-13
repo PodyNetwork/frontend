@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { call } = useGetCallByURL(url as string);
   const { createCallToken, accessToken } = useCreateCallToken();
 
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (call && !accessToken) {
       createCallToken.mutate({ callId: call._id });

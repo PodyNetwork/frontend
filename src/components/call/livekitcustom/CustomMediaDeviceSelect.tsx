@@ -90,7 +90,7 @@ export const CustomMediaDeviceSelect: (
       }
     }, [onDeviceListChange, devices]);
 
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    /* eslint-disable react-hooks/exhaustive-deps */
     React.useEffect(() => {
       if (activeDeviceId && activeDeviceId !== '') {
         onActiveDeviceChange?.(activeDeviceId);
