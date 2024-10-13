@@ -1,8 +1,8 @@
 "use client";
-import RewardChart from "@/components/dashboard/widgets/rewardChart";
-import RewardClaim from "@/components/dashboard/widgets/rewardClaim";
-import RewardHeader from "@/components/dashboard/widgets/rewardHeader";
-import RewardStatistic from "@/components/dashboard/widgets/rewardStatistic";
+import RewardChart from "@/components/dashboard/widgets/Reward/rewardChart";
+import RewardClaim from "@/components/dashboard/widgets/Reward/rewardClaim";
+import RewardHeader from "@/components/dashboard/widgets/Reward/rewardHeader";
+import RewardStatistic from "@/components/dashboard/widgets/Reward/rewardStatistic";
 import React from "react";
 
 const Page = () => {
