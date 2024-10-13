@@ -19,11 +19,6 @@ const MyVideoConference = () => {
     };
   
     return (
-      // <GridLayout
-      //   tracks={tracks}
-      // >
-      //   <ParticipantCustomTile />
-      // </GridLayout>
       <EnhancedFocusLayout
         tracks={tracks}
         focusedIndex={focusedIndex}

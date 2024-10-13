@@ -1,51 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import useFacingMode from '../livekitcustom/hook/UseFacingMode';
 
 const CameraToggle = () => {
-    const videoRef = useRef<HTMLVideoElement | null>(null);
-    const [isFrontCamera, setIsFrontCamera] = useState(true);
-    const [stream, setStream] = useState<MediaStream | null>(null);
+  const [facingMode, setFacingMode] = useFacingMode(); // hook to manage camera facing mode
+  const isFront = facingMode === 'user'; // 'user' is typically the front camera, 'environment' is the back camera
 
-    useEffect(() => {
-        const getMediaStream = async () => {
-            // Stop the current stream if it exists
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
+  const toggleCamera = async () => {
+    const newFacingMode = isFront ? 'environment' : 'user'; // toggle between front and back
+    await setFacingMode(newFacingMode); // set the new facing mode
+    console.log(`Switched to ${newFacingMode} camera`);
+  };
 
-            try {
-                const newStream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: isFrontCamera ? 'user' : 'environment' },
-                });
-                setStream(newStream);
-                if (videoRef.current) {
-                    videoRef.current.srcObject = newStream;
-                }
-            } catch (error) {
-                console.error('Error accessing the camera', error);
-            }
-        };
-
-        getMediaStream();
-
-        return () => {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-        };
-    }, [isFrontCamera, stream]); // Added stream as a dependency
-
-    const toggleCamera = () => {
-        setIsFrontCamera(prev => !prev);
-    };
-
-    return (
-        <div>
-            <video ref={videoRef} autoPlay style={{ width: '100%', height: 'auto' }} />
-            <button onClick={toggleCamera}>
-                Switch to {isFrontCamera ? 'Back' : 'Front'} Camera
-            </button>
-        </div>
-    );
+  return (
+    <div>
+      <button onClick={toggleCamera}>
+        Switch to {isFront ? 'Back' : 'Front'} Camera
+      </button>
+    </div>
+  );
 };
 
 export default CameraToggle;
