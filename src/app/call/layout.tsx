@@ -4,26 +4,25 @@ import CallEndPage from "@/components/call/widgets/Callend";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
-  const [ isTokenFetched, setIsTokenFetched ] = useState<boolean>(false);
   const { createCallToken, accessToken } = useCreateCallToken();
 
-  console.log(call)
-  
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (call && !isTokenFetched) {
+    if (call && !accessToken) {
       createCallToken.mutate({ callId: call._id });
-      setIsTokenFetched(true);
     }
-  }, [call, isTokenFetched, createCallToken]);
+  }, [call, accessToken]);
 
   if(call?.status === 'ended') return <CallEndPage />
 
+  if(!accessToken) return <p>loading....</p>
+
   return (
-    accessToken && <CustomLiveKit token={accessToken}>{children}</CustomLiveKit>
+    <CustomLiveKit token={accessToken}>{children}</CustomLiveKit>
   );
 }

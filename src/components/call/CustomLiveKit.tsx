@@ -1,16 +1,17 @@
 import {
-  LiveKitRoom,
   RoomAudioRenderer,
 } from "@livekit/components-react";
 import { LayoutContextProvider } from "@livekit/components-react";
-import type { ReactNode } from "react";
+import { CustomLiveKitRoom } from "./livekitcustom/CustomLivekitRoom";
+import { type ReactNode } from "react";
+
 
 const CustomLiveKit = ({ children, token }: { children: ReactNode; token: string; }) => {
   const serverUrl = process.env.NEXT_PUBLIC_LIVEKIT_URL;
-
+ 
   return (
     <LayoutContextProvider>
-      <LiveKitRoom
+      <CustomLiveKitRoom
         video={true}
         audio={true}
         token={token}
@@ -18,7 +19,7 @@ const CustomLiveKit = ({ children, token }: { children: ReactNode; token: string
       >
         <RoomAudioRenderer />
         {children}
-      </LiveKitRoom>
+      </CustomLiveKitRoom>
     </LayoutContextProvider>
   );
 };

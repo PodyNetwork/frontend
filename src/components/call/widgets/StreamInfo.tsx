@@ -3,7 +3,6 @@ import { useParticipants } from "@livekit/components-react";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import StreamShare from "./StreamShare";
-import CameraToggle  from "./MobileCameraToggle";
 
 const StreamInfo = () => {
   const { url } = useParams();
@@ -48,9 +47,6 @@ const StreamInfo = () => {
             </svg>
           </p>
           <StreamShare />
-          <p>
-            <CameraToggle />
-          </p>
         </div>
       </div>
       <div className="relative flex flex-col gap-y-1">
@@ -59,7 +55,7 @@ const StreamInfo = () => {
         </h2>
         <div className="text-xs md:text-sm flex flex-row flex-wrap gap-x-2 items-center text-slate-400">
           <p className="capitalize">{call?.type}{" "}Call</p>
-          <p className="flex items-center flex-row gap-x-1.5">
+          <div className="flex items-center flex-row gap-x-1.5">
             <div className="flex items-center flex-row">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +80,7 @@ const StreamInfo = () => {
               </svg>
               <span>{participants.length}</span>
             </div>
-          </p>
+          </div>
         </div>
       </div>
     </>

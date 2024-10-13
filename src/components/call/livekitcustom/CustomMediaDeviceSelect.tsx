@@ -4,7 +4,6 @@ import { RoomEvent, type LocalAudioTrack, type LocalVideoTrack } from 'livekit-c
 import { useMediaDeviceSelect } from '@livekit/components-react';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 /** @public */
 export interface MediaDeviceSelectProps
   extends Omit<React.HTMLAttributes<HTMLUListElement>, 'onError'> {
@@ -91,6 +90,7 @@ export const CustomMediaDeviceSelect: (
       }
     }, [onDeviceListChange, devices]);
 
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
     React.useEffect(() => {
       if (activeDeviceId && activeDeviceId !== '') {
         onActiveDeviceChange?.(activeDeviceId);
