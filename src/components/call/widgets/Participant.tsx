@@ -11,8 +11,10 @@ interface Props {
   participantBarToggleExpanded: boolean;
 }
 
-
-const Participant : React.FC<Props> = ({ participantBarToggle, participantBarToggleExpanded }) => {
+const Participant: React.FC<Props> = ({
+  participantBarToggle,
+  participantBarToggleExpanded,
+}) => {
   const participants = useParticipants();
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
@@ -20,58 +22,102 @@ const Participant : React.FC<Props> = ({ participantBarToggle, participantBarTog
 
   return (
     <div className="w-full md:h-full md:overflow-y-auto">
-      <div className={`hidden md:flex flex-row justify-between mb-3.5 text-slate-600 dark:text-slate-400 ${!participantBarToggleExpanded && 'md:justify-center'}`}>
-        <h3 className={`font-medium text-base ${!participantBarToggleExpanded && 'md:hidden'}`}>
+      <div
+        className={`hidden md:flex flex-row justify-between mb-3.5 text-slate-600 dark:text-slate-400 ${
+          !participantBarToggleExpanded && "md:justify-center"
+        }`}
+      >
+        <h3
+          className={`font-medium text-base ${
+            !participantBarToggleExpanded && "md:hidden"
+          }`}
+        >
           <span>
             {participants.length > 1 ? "Participants" : "Participant"}
           </span>{" "}
         </h3>
         <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            viewBox="0 -960 960 960"
-            fill="currentColor"
-            onClick={participantBarToggle}
-          >
-            <path d="M480-189.23q-24.75 0-42.37-17.63Q420-224.48 420-249.23q0-24.75 17.63-42.38 17.62-17.62 42.37-17.62 24.75 0 42.37 17.62Q540-273.98 540-249.23q0 24.75-17.63 42.37-17.62 17.63-42.37 17.63ZM480-420q-24.75 0-42.37-17.63Q420-455.25 420-480q0-24.75 17.63-42.37Q455.25-540 480-540q24.75 0 42.37 17.63Q540-504.75 540-480q0 24.75-17.63 42.37Q504.75-420 480-420Zm0-230.77q-24.75 0-42.37-17.62Q420-686.02 420-710.77q0-24.75 17.63-42.37 17.62-17.63 42.37-17.63 24.75 0 42.37 17.63Q540-735.52 540-710.77q0 24.75-17.63 42.38-17.62 17.62-42.37 17.62Z"/>
-          </svg>
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          viewBox="0 -960 960 960"
+          fill="currentColor"
+          onClick={participantBarToggle}
+        >
+          <path d="M480-189.23q-24.75 0-42.37-17.63Q420-224.48 420-249.23q0-24.75 17.63-42.38 17.62-17.62 42.37-17.62 24.75 0 42.37 17.62Q540-273.98 540-249.23q0 24.75-17.63 42.37-17.62 17.63-42.37 17.63ZM480-420q-24.75 0-42.37-17.63Q420-455.25 420-480q0-24.75 17.63-42.37Q455.25-540 480-540q24.75 0 42.37 17.63Q540-504.75 540-480q0 24.75-17.63 42.37Q504.75-420 480-420Zm0-230.77q-24.75 0-42.37-17.62Q420-686.02 420-710.77q0-24.75 17.63-42.37 17.62-17.63 42.37-17.63 24.75 0 42.37 17.63Q540-735.52 540-710.77q0 24.75-17.63 42.38-17.62 17.62-42.37 17.62Z" />
+        </svg>
       </div>
-      <div className="grid grid-cols-4 gap-2.5 md:mb-[20px] md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list">
+      <div className="grid grid-cols-3 xs:grid-cols-4 gap-2.5 md:mb-[20px] md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list">
         {participants.map((participant, index) => (
           <div
-            className={`md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm text-slate-500 ${!participantBarToggleExpanded && 'md:justify-center'}`}
+            className={`md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm text-slate-500 ${
+              !participantBarToggleExpanded && "md:justify-center"
+            }`}
             key={index}
           >
-            <div className="flex md:flex-row flex-col items-center">
+            <div className="flex md:flex-row flex-col items-center truncate relative">
               <Image
                 src="/avatar/user1.webp"
                 alt="user icon"
                 width={200}
                 height={200}
-                className={`w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full ${!participantBarToggleExpanded && 'md:w-[2.7rem] md:h-[2.7rem]'}`}
+                className={`w-[70px] h-[70px] md:w-7 md:h-7 object-cover rounded-full ${
+                  !participantBarToggleExpanded && "md:w-[2.7rem] md:h-[2.7rem]"
+                }`}
               />
-              <div className={`md:ms-2.5 flex flex-col items-center text-sm ${!participantBarToggleExpanded && 'md:hidden'}`}>
-                <p className="text-sm mt-1 md:mt-0 text-slate-600 dark:text-slate-400">
+              <div
+                className={`md:ms-2.5 flex flex-col items-center justify-center text-sm ${
+                  !participantBarToggleExpanded && "md:hidden"
+                }`}
+              >
+                <p className="text-sm mt-1 md:mt-0 text-slate-600 dark:text-slate-300">
                   <span className="leading-none font-medium truncate">
                     {participant.name}
                   </span>
                 </p>
-                <p className="block md:hidden text-xs leading-none">
-                  {participant.permissions?.canPublish &&
-                  profile?.id === call?.userId ? (
-                    <span>Host</span>
+                <p className="flex flex-row items-center md:hidden text-xs leading-none">
+                  {participant.permissions?.canPublish ? (
+                    <>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`w-4 h-4 ${
+                          participant.isMicrophoneEnabled
+                            ? "opacity-100 text-red-500"
+                            : ""
+                        }`}
+                        viewBox="0 -960 960 960"
+                        style={{ msFilter: "" }}
+                        fill="currentColor"
+                      >
+                        {participant.isMicrophoneEnabled ? (
+                          <path d="M480-420q-41.92 0-70.96-29.04Q380-478.08 380-520v-240q0-41.92 29.04-70.96Q438.08-860 480-860q41.92 0 70.96 29.04Q580-801.92 580-760v240q0 41.92-29.04 70.96Q521.92-420 480-420Zm0-220Zm-30 510v-131.85q-99-11.31-164.5-84.92Q220-420.39 220-520h60q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h60q0 99.61-65.5 173.23Q609-273.16 510-261.85V-130h-60Zm30-350q17 0 28.5-11.5T520-520v-240q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v240q0 17 11.5 28.5T480-480Z" />
+                        ) : (
+                          <path d="m669.23-423.54-30.31-31.84q5.54-11.47 9.08-28.39t3.54-36.23h40q0 30.15-6.08 53.5t-16.23 42.96ZM451.54-642.46Zm78.15 78.92-38.15-38.15V-760q0-17-11.5-28.5t-28.5-11.5q-17 0-28.5 11.5t-11.5 28.5v76.77l-40-40V-760q0-33.85 23.08-56.92Q417.69-840 451.54-840q33.84 0 56.92 23.08 23.08 23.07 23.08 56.92v187.69q0 2.54-.58 4.62-.57 2.08-1.27 4.15ZM431.54-140v-140.69q-94-8.62-157-76.85-63-68.23-63-162.46h40q0 83 58.27 141.5T451.54-320q43.23 0 80.65-17.04 37.43-17.04 64.73-46.81l28.54 28.54q-29 31.46-68.5 51.31t-85.42 23.31V-140h-40Zm365.84 13.23L78.31-845.85l28.31-28.3 719.07 719.07-28.31 28.31Z" />
+                        )}
+                      </svg>
+
+                      {profile?.id === call?.userId ? (
+                        <span>Host</span>
+                      ) : (
+                        <span>Speaker</span>
+                      )}
+                    </>
                   ) : (
                     <span>Listener</span>
                   )}
                 </p>
               </div>
             </div>
-            <div className={`hidden md:flex flex-row items-center gap-x-2.5 ${!participantBarToggleExpanded && 'md:hidden'}`}>
-              {!participant.permissions?.canPublish && (
+            <div
+              className={`hidden md:flex flex-row items-center gap-x-2.5 ${
+                !participantBarToggleExpanded && "md:hidden"
+              }`}
+            >
+              {!participant.permissions?.canPublish &&
                 profile?.id === call?.userId && (
-                  <button className="text-xs text-blue-500">Add to speak</button>
-                )     
-              )}
+                  <button className="text-xs text-blue-500">
+                    Add to speak
+                  </button>
+                )}
               {participant.permissions?.canPublish ? (
                 profile?.id === call?.userId ? (
                   <p className="hidden md:block text-xs">

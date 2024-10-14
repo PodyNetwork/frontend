@@ -24,6 +24,7 @@ import { VideoTrack, AudioTrack } from "@livekit/components-react";
 import { useParticipantTile, useIsEncrypted } from "@livekit/components-react";
 import Image from "next/image";
 import { CustomParticipantName } from "./CustomParticipantName";
+import PlaceHolder from "./PlaceHolder";
 
 export function ParticipantContextIfNeeded(
   props: React.PropsWithChildren<{
@@ -119,19 +120,9 @@ export const ParticipantCustomTile: (
               {/* Render placeholder if the camera is off */}
               {isCameraOff ? (
                 <div className="camera-off-placeholder relative">
-                  <div className="w-full h-full bg-slate-400 absolute top-0 left-0 flex items-center justify-center">
-                    <div className="w-[15%]">
-                      <Image
-                        src="/avatar/user1.webp"
-                        alt="user icon"
-                        width={200}
-                        height={200}
-                        className="w-full h-full aspect-square object-cover rounded-full"
-                      />
-                    </div>
-                  </div>
+                  <PlaceHolder />
                   <div className="lk-participant-metadata">
-                    <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
+                    <div className="glass-effect flex flex-row items-center gap-x-1 text-xs truncate">
                       <Image
                         src="/avatar/user1.webp"
                         alt="user icon"
