@@ -22,6 +22,7 @@ const RewardStatistic = () => {
     { title: "Claimed", value: FormatedclaimedPointsInEther, icon: "star", color: "from-amber-400 to-amber-600" },
     { title: "Unclaimed", value: FormatedunclaimedPointsInEther ?? 0, icon: "gift", color: "from-purple-400 to-purple-600" },
   ];
+  
 
   return (
     <motion.div
