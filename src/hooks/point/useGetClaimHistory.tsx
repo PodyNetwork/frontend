@@ -40,7 +40,7 @@ const useGetClaimHistory = (args: PointHistoryArgs = {}) => {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-    isError,
+    isError, 
     refetch
   } = useInfiniteQuery({
     queryKey: ['calls', args],

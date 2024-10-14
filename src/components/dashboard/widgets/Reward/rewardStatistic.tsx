@@ -9,9 +9,9 @@ const RewardStatistic = () => {
 
   const {points, claimedPoints} = pointsBalance ?? {}
 
-  const claimedPointsInEther =  Math.round(Number(formatUnits(BigInt(claimedPoints ?? 0),18))) 
-  const unclaimedPointsInEther = Math.round(Number(formatUnits(BigInt(points ?? 0),18)))
-  const totalPoints = points && claimedPoints ? unclaimedPointsInEther + unclaimedPointsInEther: 0
+  const claimedPointsInEther =  Math.round(Number(formatUnits(BigInt(claimedPoints ?? 0),18))) ?? 0
+  const unclaimedPointsInEther = Math.round(Number(formatUnits(BigInt(points ?? 0),18))) ?? 0
+  const totalPoints =  unclaimedPointsInEther + claimedPointsInEther
 
   const rewardData = [
     { title: "Total", value: totalPoints, icon: "trophy", color: "from-emerald-400 to-emerald-600" },
