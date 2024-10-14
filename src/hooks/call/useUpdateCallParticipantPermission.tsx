@@ -16,7 +16,7 @@ const useUpdateCallParticipantPermission = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
   const updateCallParticipantPermissionHandler = useCallback(async (args: UpdateCallParticipantPermissionArgs): Promise<BaseResponse> => {
-    const response = await axios.post<BaseResponse>(`/call/participant/permission`, args);
+    const response = await axios.put<BaseResponse>(`/call/participant/permission`, args);
     return response.data;
   }, []);
 

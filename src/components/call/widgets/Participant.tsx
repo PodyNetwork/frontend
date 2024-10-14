@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useParticipants } from "@livekit/components-react";
 import Image from "next/image";
 import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
+import useUpdateCallParticipantPermission from "@/hooks/call/useUpdateCallParticipantPermission";
 
 interface Props {
   participantBarToggle: () => void;
@@ -19,6 +20,18 @@ const Participant: React.FC<Props> = ({
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();
+
+  const { updateCallParticipantPermission, errorMessage } = useUpdateCallParticipantPermission();
+
+  const handleAddToSpeak = (username : string) => {
+    updateCallParticipantPermission.mutate({
+      participantCanPublish: true,  
+      callId: call?._id || '',                      
+      username,                      
+    });
+  };
+
+  console.log(profile, call);
 
   return (
     <div className="w-full md:h-full md:overflow-y-auto">
@@ -114,10 +127,13 @@ const Participant: React.FC<Props> = ({
             >
               {!participant.permissions?.canPublish &&
                 profile?.id === call?.userId && (
-                  <button className="text-xs text-blue-500">
+                  <button className="text-xs text-blue-500"  onClick={() => handleAddToSpeak(participant?.identity)}>
                     Add to speak
                   </button>
                 )}
+                {profile?.id}
+                <br />
+                {call?.userId}
               {participant.permissions?.canPublish ? (
                 profile?.id === call?.userId ? (
                   <p className="hidden md:block text-xs">
