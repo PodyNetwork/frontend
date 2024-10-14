@@ -12,7 +12,7 @@ const RewardStatistic = () => {
 
   const claimedPointsInEther =  Math.round(Number(formatUnits(BigInt(claimedPoints ?? 0),18))) 
   const unclaimedPointsInEther = Math.round(Number(formatUnits(BigInt(points ?? 0),18)))
-  const totalPoints = points && claimedPoints ? unclaimedPointsInEther + unclaimedPointsInEther: 0
+  const totalPoints = points && claimedPoints ? unclaimedPointsInEther + claimedPointsInEther: 0
 
   const FormatedclaimedPointsInEther =  formatNumber(Math.round(Number(formatUnits(BigInt(claimedPoints ?? 0),18)))); 
   const FormatedunclaimedPointsInEther = formatNumber(Math.round(Number(formatUnits(BigInt(points ?? 0),18))));
