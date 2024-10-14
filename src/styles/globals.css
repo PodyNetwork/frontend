@@ -752,3 +752,35 @@ body {
     background-color: orangered;
     border-radius: inherit !important;
 }
+.__active_pd_lk::after{
+    content: "";
+    width: 4px;
+    height: 70%;
+    @apply bg-pody-primary;
+    position: absolute;
+    top: 50%;
+    right: -2px;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+.__pd_lk {
+    position: relative;
+}
+
+.__pd_lk::after {
+    content: "";
+    width: 0; 
+    height: 70%;
+    background-color: transparent; 
+    position: absolute;
+    top: 50%;
+    right: -2px;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    transition: width 0.3s ease, background-color 0.3s ease; 
+}
+
+.__pd_lk:hover::after {
+    width: 4px;
+    background-color: #64748b; 
+}
