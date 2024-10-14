@@ -21,7 +21,7 @@ const NftStatistics = () => {
               initial={{ x: -20 }}
               animate={{ x: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="text-white text-4xl font-bold mb-3"
+              className="text-white text-3xl font-semibold mb-3"
             >
               NFT Collection & Milestones
             </motion.h2>
@@ -29,7 +29,7 @@ const NftStatistics = () => {
               initial={{ x: -20 }}
               animate={{ x: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="text-white text-lg mt-2"
+              className="text-white text-base mt-2"
             >
               Unlock unique NFTs as you achieve your goals
             </motion.p>

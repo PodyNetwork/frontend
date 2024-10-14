@@ -2,8 +2,76 @@ import React from "react";
 import { motion } from "framer-motion";
 import useCallStats from "@/hooks/call/useCallStats";
 
+const LinkStatisticsSkeleton = () => {
+  return(<motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="bg-slate-700 p-6 rounded-xl h-full relative flex flex-col w-full"
+  >
+    <motion.h1
+      initial={{ x: -20 }}
+      animate={{ x: 0 }}
+      className="text-xl font-semibold text-slate-300 mb-4"
+    >
+      Loading Statistics...
+    </motion.h1>
+    <div className="flex flex-col lg:flex-row gap-6">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="lg:w-48"
+      >
+        <div className="flex items-center gap-x-3.5 mb-4">
+          <div className="text-5xl font-bold text-slate-300 tracking-tighter">--%</div>
+          <div className="text-xs text-slate-500">
+            Loading <br /> Link Usage
+          </div>
+        </div>
+        <div className="h-2 w-full flex gap-x-1 overflow-hidden">
+          {[...Array(3)].map((_, index) => (
+            <motion.div
+              key={index}
+              initial={{ width: 0 }}
+              animate={{ width: '30%' }}
+              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              className={`h-full bg-slate-500 rounded-full`}
+            />
+          ))}
+        </div>
+      </motion.div>
+      <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[...Array(4)].map((_, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+            className="bg-slate-600 rounded-xl p-4 flex flex-col items-center"
+          >
+            <div className="w-10 h-10 rounded-full bg-slate-500 flex items-center justify-center mb-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                viewBox="0 -960 960 960"
+                fill="currentColor"
+              >
+                <path d="M424.62-316.92H283.08q-67.68 0-115.38-47.69Q120-412.3 120-479.96t47.7-115.39q47.7-47.73 115.38-47.73h141.54v40H283.08q-50.77 0-86.93 36.16Q160-530.77 160-480t36.15 86.92q36.16 36.16 86.93 36.16h141.54v40ZM340-460v-40h280v40H340Zm195.38 143.08v-40h141.54q50.77 0 86.93-36.16Q800-429.23 800-480t-36.15-86.92q-36.16-36.16-86.93-36.16H535.38v-40h141.54q67.68 0 115.38 47.69Q840-547.7 840-480.04t-47.7 115.39q-47.7 47.73-115.38 47.73H535.38Z" />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold text-slate-300">--</h2>
+            <p className="text-sm text-slate-400 mt-1">Loading...</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </motion.div>
+  );
+}
+
 const LinkStatistics = () => {
-  const { stats } = useCallStats();
+  const { stats, isLoading } = useCallStats();
 
   const statItems = [
     { title: "Active Link", value: stats?.activeCalls ?? 0, color: "bg-pody-primary" },
@@ -18,6 +86,8 @@ const LinkStatistics = () => {
   };
 
   const totalLinkUsage = calculateTotalLinkUsage();
+
+  if (isLoading) return <LinkStatisticsSkeleton />
 
   return (
     <motion.div
@@ -58,7 +128,7 @@ const LinkStatistics = () => {
             ))}
           </div>
         </motion.div>
-        <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="flex-1 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-4 gap-4">
           {statItems.map((item, index) => (
             <motion.div
               key={index}
