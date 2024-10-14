@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 interface CountdownProps {
   targetDate: string;
@@ -15,7 +15,7 @@ interface TimeLeft {
 }
 
 const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
-  const calculateTimeLeft = (): Partial<TimeLeft> => {
+  const calculateTimeLeft = useCallback((): Partial<TimeLeft> => {
     const targetTime = new Date(targetDate).getTime(); // Parse target date as timestamp
     const currentTime = new Date().getTime(); // Current time as timestamp
     const difference = targetTime - currentTime;
@@ -39,7 +39,7 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
     }
 
     return timeLeft;
-  };
+  }, [targetDate]); // Add targetDate as a dependency
 
   const [timeLeft, setTimeLeft] = useState<Partial<TimeLeft>>(
     calculateTimeLeft()
@@ -59,7 +59,7 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
 
     // Clear interval when component is unmounted
     return () => clearInterval(timer);
-  }, [targetDate]); // Depend on targetDate to update correctly
+  }, [calculateTimeLeft]); // Depend on calculateTimeLeft
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-pody-dark_secondary text-white p-4">
@@ -82,7 +82,7 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
 
       <div className="mb-4">
         <h2 className="xs:text-xl md:text-xl font-medium">
-          This Call hasn't started Yet
+            This Call hasn&apos;t started Yet
         </h2>
         <div className="flex flex-col items-center space-y-4">
           <div className="flex space-x-6">
