@@ -1,9 +1,11 @@
 export const formatNumber = (num: number) => {
     const formatWithPrecision = (value: number) => {
-      return value % 1 === 0 ? value.toFixed(0) : value.toPrecision(3);
+      return Math.floor(value*Math.pow(10,2))/(Math.pow(10,2));
     };
-  
-    if (num >= 1_000_000_000) {
+
+    if(num >= 1_000_000_000_000) {
+      return formatWithPrecision(num / 1_000_000_000_000) + "T";
+    } else if (num >= 1_000_000_000) {
       return formatWithPrecision(num / 1_000_000_000) + "B";
     } else if (num >= 1_000_000) {
       return formatWithPrecision(num / 1_000_000) + "M";
