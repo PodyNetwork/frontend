@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import useGetClaimHistory from "@/hooks/point/useGetClaimHistory";
 import { formatUnits } from "viem";
+import dayjs from "dayjs";
 
 const HistorySkeleton = () => {
   return (
@@ -39,7 +40,6 @@ const RewardHistory = () => {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-    isError,
   } = useGetClaimHistory();
 
   const handleLoadMore = () => {
@@ -62,12 +62,12 @@ const RewardHistory = () => {
         <ul className="space-y-3 sm:space-y-4">
           {isLoading
             ? Array.from({ length: 6 }, (_, index) => (
-                <RewardHistory key={index} />
+                <HistorySkeleton key={index} />
               ))
             : claimHistory.length > 0 &&
               claimHistory.map((data, index) => (
                 <motion.li
-                  key={data?._id}
+                  key={index}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
@@ -100,12 +100,14 @@ const RewardHistory = () => {
                       }}
                       className="font-medium text-sm text-slate-500"
                     >
-                      {data?.timeCreated?.toString() ?? "N/A"}
+                      {data?.timeClaimed
+                        ? dayjs(data?.timeClaimed).format("DD MMM YYYY h:mm A")
+                        : "N/A"}
                     </motion.h5>
                   </div>
                 </motion.li>
               ))}
-          {isFetchingNextPage && <RewardHistory />}
+          {isFetchingNextPage && <HistorySkeleton />}
         </ul>
         {hasNextPage && (
           <div className="flex justify-center mt-4">

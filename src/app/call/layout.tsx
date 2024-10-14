@@ -1,6 +1,7 @@
 "use client";
 import CustomLiveKit from "@/components/call/CustomLiveKit";
 import CallEndPage from "@/components/call/widgets/Callend";
+import CallPendingPage from "@/components/call/widgets/CallPending";
 import LoaderStatus from "@/components/call/widgets/LoaderStatus";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
@@ -12,12 +13,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { call } = useGetCallByURL(url as string);
   const { createCallToken, accessToken } = useCreateCallToken();
 
+  console.log(call);
+
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (call && !accessToken) {
       createCallToken.mutate({ callId: call._id });
     }
   }, [call, accessToken]);
+
+  if (call?.type === 'scheduled' && call?.status === 'pending') {
+    return <CallPendingPage targetDate={new Date(call?.scheduledTime ?? Date.now()).toISOString()} />;
+  }
+  
 
   if(call?.status === 'ended') return <CallEndPage />
 

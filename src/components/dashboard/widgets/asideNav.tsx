@@ -72,7 +72,7 @@ const AsideNav = () => {
             {isLoading || isError ? (
               <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>
             ) : (
-              <h3 className="text-base text-slate-700">
+              <h3 className="text-sm text-slate-500">
                 Hello, {profile?.username}.
               </h3>
             )}
@@ -153,7 +153,6 @@ const AsideNav = () => {
               />
             ))}
           </div>
-
           <Image src={logo} className="w-24 object-contain mb-8" alt="Pody" />
           <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
             {dashlink.map((data, index) => (
@@ -178,9 +177,9 @@ const AsideNav = () => {
                 />
               </div>
               {isLoading || isError ? (
-                <div className="w-24 h-6 bg-indigo-600/50 rounded animate-pulse"></div>
+                <div className="w-24 h-6 bg-slate-600/50 rounded animate-pulse"></div>
               ) : (
-                <h3 className="text-base text-white">
+                <h3 className="text-xs text-white">
                   Hello, {profile?.username ?? "..."}.
                 </h3>
               )}
