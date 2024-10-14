@@ -9,7 +9,7 @@ const RewardHeader = () => {
       className="flex flex-col gap-y-4"
     >
       <motion.h2
-        className="text-4xl text-slate-800"
+        className="text-3xl text-slate-800"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}

@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import useGetPointsBalance from "@/hooks/point/useGetPointsBalance";
 import {formatUnits} from 'viem'
+import { formatNumber } from "@/lib/formatNumber";
 
 const RewardStatistic = () => {
 
@@ -9,14 +10,23 @@ const RewardStatistic = () => {
 
   const {points, claimedPoints} = pointsBalance ?? {}
 
+<<<<<<< HEAD
   const claimedPointsInEther =  Math.round(Number(formatUnits(BigInt(claimedPoints ?? 0),18))) ?? 0
   const unclaimedPointsInEther = Math.round(Number(formatUnits(BigInt(points ?? 0),18))) ?? 0
   const totalPoints =  unclaimedPointsInEther + claimedPointsInEther
+=======
+  const claimedPointsInEther =  Math.round(Number(formatUnits(BigInt(claimedPoints ?? 0),18))) 
+  const unclaimedPointsInEther = Math.round(Number(formatUnits(BigInt(points ?? 0),18)))
+  const totalPoints = points && claimedPoints ? unclaimedPointsInEther + claimedPointsInEther: 0
+
+  const FormatedclaimedPointsInEther =  formatNumber(Math.round(Number(formatUnits(BigInt(claimedPoints ?? 0),18)))); 
+  const FormatedunclaimedPointsInEther = formatNumber(Math.round(Number(formatUnits(BigInt(points ?? 0),18))));
+>>>>>>> 7b2a3d4e39b21d24f132426f4100111fd2b5fb78
 
   const rewardData = [
     { title: "Total", value: totalPoints, icon: "trophy", color: "from-emerald-400 to-emerald-600" },
-    { title: "Claimed", value: claimedPointsInEther, icon: "star", color: "from-amber-400 to-amber-600" },
-    { title: "Unclaimed", value: unclaimedPointsInEther ?? 0, icon: "gift", color: "from-purple-400 to-purple-600" },
+    { title: "Claimed", value: FormatedclaimedPointsInEther, icon: "star", color: "from-amber-400 to-amber-600" },
+    { title: "Unclaimed", value: FormatedunclaimedPointsInEther ?? 0, icon: "gift", color: "from-purple-400 to-purple-600" },
   ];
 
   return (

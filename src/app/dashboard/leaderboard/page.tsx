@@ -24,8 +24,8 @@ const Page = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-3xl sm:text-4xl text-slate-800 text-center sm:text-left">
-                Leaderboard Top performer of the week
+              <h2 className="text-3xl sm:text-3xl text-slate-800 text-center sm:text-left">
+                Leaderboard top performer of the week
               </h2>
             </motion.div>
           </div>

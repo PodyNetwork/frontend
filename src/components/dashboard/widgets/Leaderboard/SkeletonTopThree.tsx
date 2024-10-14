@@ -13,11 +13,11 @@ export const SkeletonTopThree = () => (
           }`}
         >
           <div className="relative">
-            <div className="w-20 h-20 rounded-full bg-gray-300 shadow-lg animate-pulse"></div>
-            <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gray-400 animate-pulse"></div>
+            <div className="w-20 h-20 rounded-full bg-slate-700 shadow-lg animate-pulse"></div>
+            <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-slate-500 animate-pulse"></div>
           </div>
-          <div className="h-4 w-20 bg-gray-300 rounded mt-4 animate-pulse"></div>
-          <div className="h-3 w-16 bg-gray-300 rounded mt-2 animate-pulse"></div>
+          <div className="h-4 w-20 bg-slate-500 rounded mt-4 animate-pulse"></div>
+          <div className="h-3 w-16 bg-slate-500 rounded mt-2 animate-pulse"></div>
         </motion.div>
       ))}
     </div>

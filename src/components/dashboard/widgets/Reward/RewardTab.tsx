@@ -5,6 +5,7 @@ import { RewardClaimSkeleton } from "./RewardClaimSkeleton";
 import { EmptyMessage } from "./RewardEmptyMessage";
 import useGetPointsHistory from "@/hooks/point/useGetPointsHistory";
 import { formatUnits } from "viem";
+import dayjs from "dayjs";
 
 const RewardTab = () => {
   const {
@@ -87,7 +88,9 @@ const RewardTab = () => {
                     }}
                     className="font-medium text-sm text-slate-500"
                   >
-                    {item?.timeCreated?.toString() ?? "N/A"}
+                    {item?.timeCreated
+                      ? dayjs(item?.timeCreated).format("DD MMM YYYY h:mm A")
+                      : "N/A"}
                   </motion.h5>
                 </div>
               </motion.li>
@@ -103,7 +106,7 @@ const RewardTab = () => {
           <button
             onClick={handleLoadMore}
             disabled={isFetchingNextPage}
-            className="text-sm px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto"
+            className="text-xs px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto"
           >
             {isFetchingNextPage ? "Loading..." : "Load More"}
           </button>

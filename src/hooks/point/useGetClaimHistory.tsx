@@ -6,12 +6,12 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 interface ClaimHistoryResponse extends BaseResponse {
     data: {
-        claimHistory: {
+      claimPointHistory: {
         _id: string;
         userId: string;
         points: bigint;
         signature: string;
-        timeCreated: Date;
+        timeClaimed: Date;
       },
       totalPages: number,
       currentPage: number
@@ -28,7 +28,7 @@ interface PointHistoryArgs {
 
 const useGetClaimHistory = (args: PointHistoryArgs = {}) => {
   const fetchPointsHistory = useCallback(async ({ pageParam = 1 }): Promise<ClaimHistoryResponse> => {
-    const response = await axios.get<ClaimHistoryResponse>('/claim/history', { 
+    const response = await axios.get<ClaimHistoryResponse>('/point/claim/history', { 
       params: { ...args, page: pageParam } 
     });
     return response.data;
@@ -55,7 +55,7 @@ const useGetClaimHistory = (args: PointHistoryArgs = {}) => {
     refetchInterval: 5000
   });
 
-  const claimHistory = data?.pages?.flatMap((page: ClaimHistoryResponse) => page.data.claimHistory) || [];
+  const claimHistory = data?.pages?.flatMap((page: ClaimHistoryResponse) => page.data.claimPointHistory) || [];
 
   return { 
     claimHistory, 

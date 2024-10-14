@@ -6,22 +6,22 @@ import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../useErrorMessage';
 import { BaseResponse, ResponseError } from '@/types/globals';
 
-interface BanParticipantArgs {
-  participantId: string;
+interface UpdateCallParticipantPermissionArgs {
+  participantCanPublish: boolean;
   callId: string;
   username: string;
 }
 
-const useParticipantBan = () => {
+const useUpdateCallParticipantPermission = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
-  const banParticipantHandler = useCallback(async (args: BanParticipantArgs): Promise<BaseResponse> => {
+  const updateCallParticipantPermissionHandler = useCallback(async (args: UpdateCallParticipantPermissionArgs): Promise<BaseResponse> => {
     const response = await axios.post<BaseResponse>(`/call/participant/permission`, args);
     return response.data;
   }, []);
 
-  const banParticipant = useMutation({
-    mutationFn: banParticipantHandler,
+  const updateCallParticipantPermission= useMutation({
+    mutationFn: updateCallParticipantPermissionHandler,
     onSuccess: () => {
       clearErrorMessage();
     },
@@ -35,7 +35,7 @@ const useParticipantBan = () => {
     },
   });
 
-  return { banParticipant, errorMessage };
+  return { updateCallParticipantPermission, errorMessage };
 }
 
-export default useParticipantBan
+export default useUpdateCallParticipantPermission

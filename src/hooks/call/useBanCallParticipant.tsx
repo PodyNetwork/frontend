@@ -11,7 +11,6 @@ interface BanParticipantArgs {
   username: string;
 }
 
-
 const useBanCallParticipant = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
 
