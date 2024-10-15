@@ -18,8 +18,8 @@ const Participant: React.FC<Props> = ({
 }) => {
   const participants = useParticipants();
   const { url } = useParams();
-  const { call } = useGetCallByURL(url as string);
-  const { profile } = useProfile();
+  const { call , isLoading: callIsLoading} = useGetCallByURL(url as string);
+  const { profile, isLoading: profileIsLoading } = useProfile();
 
   const { updateCallParticipantPermission, errorMessage } = useUpdateCallParticipantPermission();
 
@@ -30,6 +30,17 @@ const Participant: React.FC<Props> = ({
       username,                      
     });
   };
+
+  const isHostWidget = () => {
+
+    if(callIsLoading || profileIsLoading ) return <>Loading...</>
+
+    if(!profile || !call || !profile?.id || !call?._id) return <>Error</>
+
+    if(profile.id == call._id) return <>Host</>
+
+    return <>Listener</>
+  }
 
   console.log(profile, call);
 
