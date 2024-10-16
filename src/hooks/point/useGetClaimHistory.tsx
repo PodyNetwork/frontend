@@ -9,7 +9,7 @@ interface ClaimHistoryResponse extends BaseResponse {
       claimPointHistory: {
         _id: string;
         userId: string;
-        points: bigint;
+        points: number;
         signature: string;
         timeClaimed: Date;
       },

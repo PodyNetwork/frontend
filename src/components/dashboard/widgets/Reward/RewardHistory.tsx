@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import useGetClaimHistory from "@/hooks/point/useGetClaimHistory";
 import { formatUnits } from "viem";
 import dayjs from "dayjs";
+import { claimPoints } from "@/utils/passport";
+import useProfile from "@/hooks/user/useProfile";
+import { Address } from "@/types/address";
 
 const HistorySkeleton = () => {
   return (
@@ -46,6 +49,8 @@ const RewardHistory = () => {
     fetchNextPage();
   };
 
+  const {profile} = useProfile()
+
   return (
     <>
       <motion.div
@@ -85,7 +90,7 @@ const RewardHistory = () => {
                     <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
                       <h3 className="text-xs sm:text-sm text-slate-800 truncate">
                         {data?.points !== undefined
-                          ? `${formatUnits(data?.points, 18)} points`
+                          ? `${formatUnits(BigInt(data?.points), 18)} points`
                           : "No points available"}
                       </h3>
                     </div>
@@ -104,6 +109,14 @@ const RewardHistory = () => {
                         ? dayjs(data?.timeClaimed).format("DD MMM YYYY h:mm A")
                         : "N/A"}
                     </motion.h5>
+                    <button onClick={()=> {
+                      claimPoints({
+                        userAddress: profile?.walletAddress as Address, 
+                        nonce: data?._id, 
+                        points: data?.points.toString(), 
+                        signature: data?.signature
+                      })
+                    }}>Hello</button>
                   </div>
                 </motion.li>
               ))}

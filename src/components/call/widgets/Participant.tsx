@@ -28,6 +28,8 @@ const Participant: React.FC<Props> = ({
   const participants = useParticipants();
   const { updateCallParticipantPermission } = useUpdateCallParticipantPermission();
   const { users } = useUserContext();
+  const { call , isLoading: callIsLoading} = useGetCallByURL(url as string);
+  const { profile, isLoading: profileIsLoading } = useProfile();
 
   const handleAddToSpeak = (username: string) => {
     updateCallParticipantPermission.mutate({
@@ -36,6 +38,17 @@ const Participant: React.FC<Props> = ({
       username,
     });
   };
+
+  const isHostWidget = () => {
+
+    if(callIsLoading || profileIsLoading ) return <>Loading...</>
+
+    if(!profile || !call || !profile?.id || !call?._id) return <>Error</>
+
+    if(profile.id == call._id) return <>Host</>
+
+    return <>Listener</>
+  }
 
   // if (callLoading || profileLoading) {
   //   return <ParticipantListSkeleton expanded={participantBarToggleExpanded} />;

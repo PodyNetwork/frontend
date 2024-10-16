@@ -11,6 +11,13 @@ interface GetUserArgs {
     walletAddress: Address;
 }
 
+interface ClaimPointsArgs {
+   userAddress: string,
+   nonce: string,
+  points: string,
+  signature: string
+}
+
 
 const mintPassport = async (args: MintPassportArgs): Promise<void> => {
     const { request } = await simulateContract(config, {
@@ -21,6 +28,17 @@ const mintPassport = async (args: MintPassportArgs): Promise<void> => {
     });
 
     await writeContract(config, request);
+};
+
+const claimPoints = async (args: ClaimPointsArgs): Promise<void> => {
+  const { request } = await simulateContract(config, {
+      abi: podyPassportAbi,
+      address: process.env.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS as Address,
+      functionName: "claimPoints",
+      args: [args.userAddress, args.nonce, args.points, args.signature],
+    });
+
+  await writeContract(config, request);
 };
 
 
@@ -46,4 +64,4 @@ const getUserLevel = async (args: GetUserArgs): Promise<bigint> => {
   return user[2];
 };
 
-export  { mintPassport, getUserLevel, getUser, getHashRate };
+export  { mintPassport, getUserLevel, getUser, getHashRate, claimPoints };
