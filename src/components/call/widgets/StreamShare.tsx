@@ -9,7 +9,6 @@ const StreamShare = () => {
   const { call } = useGetCallByURL(url as string);
   const { profile, isLoading, isError } = useProfile();
 
-
   return (
     <div>
       {isLoading ||

@@ -6,8 +6,8 @@ import {
   usePersistentUserChoices,
 } from "@livekit/components-react";
 
-import { SourceToggle } from "../livekitcustom/SourceToggle";
-import { CustomMediaDeviceMenu } from "../livekitcustom/CustomMediaMenu";
+import { SourceToggle } from "../../livekitcustom/SourceToggle";
+import { CustomMediaDeviceMenu } from "../../livekitcustom/CustomMediaMenu";
 
 export type ControlBarControls = {
   microphone?: boolean;

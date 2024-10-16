@@ -1,5 +1,5 @@
 "use client";
-import Controls from "./Controls";
+import Controls from "./StreamControl/Controls";
 import "@livekit/components-styles";
 import StreamVideo from "./StreamVideo";
 import StreamInfo from "./StreamInfo";

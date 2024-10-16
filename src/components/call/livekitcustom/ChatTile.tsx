@@ -4,7 +4,7 @@ import { useMaybeLayoutContext } from "@livekit/components-react";
 import type { MessageFormatter } from "@livekit/components-react";
 import { useChat } from "@livekit/components-react";
 import Image from "next/image";
-import { useMyContext } from "../widgets/MyContext";
+import { useMyContext } from "../utils/MyContext";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 

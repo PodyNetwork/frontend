@@ -7,8 +7,8 @@ import {
 } from "@livekit/components-react";
 import { supportsScreenSharing } from "@livekit/components-core";
 
-import { SourceToggle } from "../livekitcustom/SourceToggle";
-import { useMyContext } from "./MyContext";
+import { SourceToggle } from "../../livekitcustom/SourceToggle";
+import { useMyContext } from "../../utils/MyContext";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 

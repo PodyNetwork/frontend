@@ -9,14 +9,14 @@ import { supportsScreenSharing } from "@livekit/components-core";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { SourceToggle } from "../livekitcustom/SourceToggle";
-import { CustomMediaDeviceMenu } from "../livekitcustom/CustomMediaMenu";
+import { SourceToggle } from "../../livekitcustom/SourceToggle";
+import { CustomMediaDeviceMenu } from "../../livekitcustom/CustomMediaMenu";
 import useEndCall from "@/hooks/call/useEndCall";
 import { useParams } from "next/navigation";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useEffect, useState } from "react";
 import useProfile from "@/hooks/user/useProfile";
-import { useMyContext } from "./MyContext";
+import { useMyContext } from "../../utils/MyContext";
 
 export type ControlBarControls = {
   microphone?: boolean;

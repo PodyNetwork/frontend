@@ -324,7 +324,7 @@ body {
 
 @media(max-width: 300px) {
     .__participant_list {
-        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     }
 }
 

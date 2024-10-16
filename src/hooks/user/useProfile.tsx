@@ -28,8 +28,7 @@ const useProfile = () => {
   } = useQuery({
     queryKey: ['profile'],
     queryFn: fetchProfile,
-    retry: 2,
-    staleTime: 300000, 
+    retry: false,
   });
 
   return { 

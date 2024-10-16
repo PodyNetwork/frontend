@@ -1,8 +1,9 @@
 "use client";
+
 import CustomLiveKit from "@/components/call/CustomLiveKit";
-import CallEndPage from "@/components/call/widgets/Callend";
-import CallPendingPage from "@/components/call/widgets/CallPending";
-import LoaderStatus from "@/components/call/widgets/LoaderStatus";
+import CallEndPage from "@/components/call/widgets/Status/Callend";
+import CallPendingPage from "@/components/call/widgets/Status/CallPending";
+import LoaderStatus from "@/components/call/widgets/Status/LoaderStatus";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useParams } from "next/navigation";
@@ -13,8 +14,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { call } = useGetCallByURL(url as string);
   const { createCallToken, accessToken } = useCreateCallToken();
 
-  console.log(call);
-
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (call && !accessToken) {
@@ -22,16 +21,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
   }, [call, accessToken]);
 
-  if (call?.type === 'scheduled' && call?.status === 'pending') {
-    return <CallPendingPage targetDate={new Date(call?.scheduledTime ?? Date.now()).toISOString()} />;
+  if (call?.type === "scheduled" && call?.status === "pending") {
+    return (
+      <CallPendingPage
+        targetDate={new Date(call?.scheduledTime ?? Date.now()).toISOString()}
+      />
+    );
   }
-  
 
-  if(call?.status === 'ended') return <CallEndPage />
+  if (call?.status === "ended") return <CallEndPage />;
 
-  if(!accessToken) return <LoaderStatus status="Loading..."/>
+  if (!accessToken) return <LoaderStatus status="Loading..." />;
 
-  return (
-    <CustomLiveKit token={accessToken}>{children}</CustomLiveKit>
-  );
+  return <CustomLiveKit token={accessToken}>{children}</CustomLiveKit>;
 }

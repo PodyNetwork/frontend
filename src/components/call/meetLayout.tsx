@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import ControlsMobile from "./widgets/ControlsMobile";
+import ControlsMobile from "./widgets/StreamControl/ControlsMobile";
 import ChatRoom from "./widgets/ChatRoom";
 import Participant from "./widgets/Participant";
 import StreamSidebar from "./widgets/StreamSidebar";
 import StreamScreen from "./widgets/StreamScreen";
-import { MyContext } from "./widgets/MyContext";
+import { MyContext } from "./utils/MyContext";
 
 const MeetLayout = () => {
   const [participantBarIsExpanded, setParticipantbarIsExpanded] = useState(false);
@@ -35,6 +35,6 @@ const MeetLayout = () => {
     </section>
     </MyContext.Provider>
   );
-};
+}; 
 
 export default MeetLayout;

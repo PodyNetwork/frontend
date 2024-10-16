@@ -38,11 +38,12 @@ const PlaceHolder = () => {
     <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center" style={{ backgroundColor: bgColor }}>
       <div className="w-[20%] md:w-[12%]">
         <Image
-          src="/avatar/user6.png"
+          src="/avatar/user.png"
           ref={imgRef}
           alt="user icon"
           width={200}
           height={200}
+          priority={false}
           className="w-full h-full aspect-square object-cover rounded-full"
         />
       </div>

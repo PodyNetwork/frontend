@@ -96,6 +96,7 @@ const ScheduleDrawer = () => {
   const [scheduleTime, setScheduleTime] = useState<Date>(
     roundToNearestTimeSlot(new Date())
   );
+
   const { createCall } = useCreateCall();
   const router = useRouter();
 
@@ -161,6 +162,7 @@ const ScheduleDrawer = () => {
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
+                        className="px-4"
                       />
                       {field.state.meta.errors && (
                         <div className="text-red-400 text-sm mb-1">
