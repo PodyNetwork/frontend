@@ -749,7 +749,7 @@ body {
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
-    background-color: orangered;
+    @apply bg-slate-200;
     border-radius: inherit !important;
 }
 .__active_pd_lk::after{

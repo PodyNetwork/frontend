@@ -3,8 +3,8 @@ import * as React from "react";
 import { useMaybeLayoutContext } from "@livekit/components-react";
 import type { MessageFormatter } from "@livekit/components-react";
 import { useChat } from "@livekit/components-react";
-import Image from "next/image";
 import { useMyContext } from "../utils/MyContext";
+import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -127,13 +127,7 @@ export default function ChatTile({
             return (
               <div key={msg.id} className="flex flex-col mb-2">
                 <div className="flex flex-row">
-                  <Image
-                    src="/avatar/user1.webp"
-                    alt={`${msg.from}'s icon`}
-                    width={100}
-                    height={100}
-                    className="w-6 h-6 object-cover rounded-full mr-2"
-                  />
+                  <div className="w-6 h-6"><AvatarParticipant name={msg.from?.identity || "unknown user"} /></div>
                   <div className="w-[75%] rounded-lg p-2 bg-[#f8fafd] text-slate-700">
                     <p className="text-xs">{msg.message}</p>
                   </div>

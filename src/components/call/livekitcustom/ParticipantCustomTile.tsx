@@ -24,7 +24,7 @@ import { LockLockedIcon } from "@livekit/components-react";
 import { VideoTrack, AudioTrack } from "@livekit/components-react";
 import { useParticipantTile, useIsEncrypted } from "@livekit/components-react";
 import { CustomParticipantName } from "./CustomParticipantName";
-import PlaceHolder from "./PlaceHolder";
+import PlaceHolder from "../widgets/Participants/PlaceHolder";
 import { AvatarParticipant } from "../../Avatar/AvatarParticipant";
 
 export function ParticipantContextIfNeeded(
@@ -122,7 +122,7 @@ export const ParticipantCustomTile: (
               {/* Render placeholder if the camera is off */}
               {isCameraOff ? (
                 <div className="camera-off-placeholder relative">
-                  <PlaceHolder name={participant.identity} />
+                  <PlaceHolder participant={participant} name={participant.identity} />
                   <div className="lk-participant-metadata">
                     <div className="glass-effect flex flex-row items-center gap-x-1 text-xs truncate">
                       <div className="w-2.5 h-2.5 md:w-6 md:h-6"><AvatarParticipant name={participant.identity} /></div>

@@ -56,7 +56,6 @@ const Participant: React.FC<Props> = ({
           const isHost = profileScan?.id === call?.userId;
           const isSpeaker = permissions?.canPublish;
           const role = isSpeaker ? (isHost ? "Host" : "Speaker") : "Listener";
-
           return (
             <div
               className={`md:flex flex-row justify-between md:gap-x-2 py-0 md:py-2 text-sm text-slate-500 ${

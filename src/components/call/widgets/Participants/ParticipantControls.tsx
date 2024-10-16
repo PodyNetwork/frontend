@@ -1,8 +1,11 @@
 import { MicrophoneIcon } from "./MicrophoneIcon";
 import { VideoIcon } from "./VideoIcon";
+import { RemoteAudioTrack, LocalAudioTrack } from "livekit-client";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface Participant {
   identity: string;
+  audioTrackPublications: Map<string, any>; 
   permissions?: {
     canPublish?: boolean;
   };
@@ -11,11 +14,11 @@ interface Participant {
 }
 
 interface Profile {
-  id: string; // Add other properties as needed
+  id: string;
 }
 
 interface Call {
-  userId: string; // Add other properties as needed
+  userId: string;
 }
 
 interface ParticipantControlsProps {
@@ -35,6 +38,10 @@ export const ParticipantControls: React.FC<ParticipantControlsProps> = ({
   participantBarToggleExpanded,
   role,
 }) => {
+  // Access the first audio track publication (this could be a remote track)
+  const audioTrackPublication = Array.from(participant.audioTrackPublications.values())[0];
+  const audioTrack = audioTrackPublication?.track;
+
   return (
     <div
       className={`hidden md:flex flex-row items-center gap-x-2.5 ${
@@ -54,7 +61,10 @@ export const ParticipantControls: React.FC<ParticipantControlsProps> = ({
       </p>
       {participant.permissions?.canPublish && (
         <>
-          <MicrophoneIcon enabled={participant.isMicrophoneEnabled ?? false} />
+          <MicrophoneIcon
+            enabled={participant.isMicrophoneEnabled ?? false}
+            audioTrack={audioTrack as LocalAudioTrack | RemoteAudioTrack} // Typecast to handle both local and remote tracks
+          />
           <VideoIcon enabled={participant.isCameraEnabled ?? false} />
         </>
       )}

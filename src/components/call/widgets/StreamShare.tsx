@@ -13,7 +13,7 @@ const StreamShare = () => {
     <div>
       {isLoading ||
         (isError ? (
-          <></>
+          <>hello</>
         ) : (
           <button
             onClick={() =>
