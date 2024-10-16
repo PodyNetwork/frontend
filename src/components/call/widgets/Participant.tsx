@@ -10,7 +10,7 @@ import { useUserContext } from "../utils/UserContext";
 import { ParticipantControls } from "./Participants/ParticipantControls";
 import { HeaderParticipant } from "./Participants/HeaderParticipants";
 import { MobileParticipantInfo } from "./Participants/MobileparticipantInfo";
-import { AvatarParticipant } from "./Participants/AvatarParticipant";
+import { AvatarParticipant } from "../../Avatar/AvatarParticipant";
 import { ParticipantNamePody } from "./Participants/ParticipantName";
 
 interface Props {
@@ -23,10 +23,11 @@ const Participant: React.FC<Props> = ({
   participantBarToggleExpanded,
 }) => {
   const { url } = useParams();
-  const { call} = useGetCallByURL(url as string);
+  const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();
   const participants = useParticipants();
-  const { updateCallParticipantPermission } = useUpdateCallParticipantPermission();
+  const { updateCallParticipantPermission } =
+    useUpdateCallParticipantPermission();
   const { users } = useUserContext();
 
   const handleAddToSpeak = (username: string) => {
@@ -64,7 +65,13 @@ const Participant: React.FC<Props> = ({
               key={index}
             >
               <div className="flex md:flex-row flex-col items-center truncate relative">
-                <AvatarParticipant enabled={participantBarToggleExpanded} />
+                <div
+                  className={`w-[60px] h-[60px] md:w-7 md:h-7 object-cover rounded-full ${
+                    !participantBarToggleExpanded && "md:w-[2.7rem] md:h-[2.7rem]"
+                  }`}
+                >
+                  <AvatarParticipant name={participant.identity} />
+                </div>
                 <div
                   className={`md:ms-2.5 flex flex-col items-center justify-center text-sm ${
                     !participantBarToggleExpanded && "md:hidden"

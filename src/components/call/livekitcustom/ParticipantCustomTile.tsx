@@ -13,6 +13,7 @@ import {
 import {
   ParticipantContext,
   TrackRefContext,
+  useEnsureParticipant,
   useEnsureTrackRef,
   useFeatureContext,
   useMaybeLayoutContext,
@@ -22,9 +23,9 @@ import {
 import { LockLockedIcon } from "@livekit/components-react";
 import { VideoTrack, AudioTrack } from "@livekit/components-react";
 import { useParticipantTile, useIsEncrypted } from "@livekit/components-react";
-import Image from "next/image";
 import { CustomParticipantName } from "./CustomParticipantName";
 import PlaceHolder from "./PlaceHolder";
+import { AvatarParticipant } from "../../Avatar/AvatarParticipant";
 
 export function ParticipantContextIfNeeded(
   props: React.PropsWithChildren<{
@@ -104,8 +105,9 @@ export const ParticipantCustomTile: (
     },
     [trackReference, layoutContext]
   );
+  
+  const participant = useEnsureParticipant(trackReference.participant);
 
-  // Check if the camera is disabled or muted
   const isCameraOff =
     trackReference?.source === Track.Source.Camera &&
     (!trackReference?.publication?.isSubscribed ||
@@ -120,16 +122,10 @@ export const ParticipantCustomTile: (
               {/* Render placeholder if the camera is off */}
               {isCameraOff ? (
                 <div className="camera-off-placeholder relative">
-                  <PlaceHolder />
+                  <PlaceHolder name={participant.identity} />
                   <div className="lk-participant-metadata">
                     <div className="glass-effect flex flex-row items-center gap-x-1 text-xs truncate">
-                      <Image
-                        src="/avatar/user1.webp"
-                        alt="user icon"
-                        width={200}
-                        height={200}
-                        className="w-2.5 h-2.5 md:w-6 md:h-6 object-cover rounded-full"
-                      />
+                      <div className="w-2.5 h-2.5 md:w-6 md:h-6"><AvatarParticipant name={participant.identity} /></div>
                       <CustomParticipantName />
                     </div>
                   </div>
@@ -164,25 +160,13 @@ export const ParticipantCustomTile: (
                             />
                           )}
                           <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                            <Image
-                              src="/avatar/user1.webp"
-                              alt="user icon"
-                              width={200}
-                              height={200}
-                              className="w-3 h-3 md:w-6 md:h-6 object-cover rounded-full"
-                            />
+                            <div className="w-3 h-3 md:w-6 md:h-6"><AvatarParticipant name={participant.identity} /></div>
                             <CustomParticipantName />
                           </div>
                         </>
                       ) : (
                         <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                          <Image
-                            src="/avatar/user1.webp"
-                            alt="user icon"
-                            width={200}
-                            height={200}
-                            className="w-3 h-3 md:w-6 md:h-6 object-cover rounded-full"
-                          />
+                          <div className="w-3 h-3 md:w-6 md:h-6"><AvatarParticipant name={participant.identity} /></div>
                           <CustomParticipantName>
                             &apos;s screen
                           </CustomParticipantName>

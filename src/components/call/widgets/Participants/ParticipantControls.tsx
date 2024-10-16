@@ -49,15 +49,15 @@ export const ParticipantControls: React.FC<ParticipantControlsProps> = ({
           Add to speak
         </button>
       )}
+      <p className="hidden md:block text-xs">
+        <span>{role}</span>
+      </p>
       {participant.permissions?.canPublish && (
         <>
           <MicrophoneIcon enabled={participant.isMicrophoneEnabled ?? false} />
           <VideoIcon enabled={participant.isCameraEnabled ?? false} />
         </>
       )}
-      <p className="hidden md:block text-xs">
-        <span>{role}</span>
-      </p>
     </div>
   );
 };

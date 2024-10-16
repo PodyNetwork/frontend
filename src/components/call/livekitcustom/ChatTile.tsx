@@ -8,7 +8,6 @@ import { useMyContext } from "../utils/MyContext";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-/** @public */
 export interface ChatProps
   extends React.HTMLAttributes<HTMLDivElement>,
     ChatOptions {
@@ -24,63 +23,66 @@ export default function ChatTile({
 }: ChatProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const ulRef = React.useRef<HTMLUListElement>(null);
-
-  const chatOptions: ChatOptions = React.useMemo(() => {
-    return { messageDecoder, messageEncoder, channelTopic };
-  }, [messageDecoder, messageEncoder, channelTopic]);
-
-  const { send, chatMessages, isSending } = useChat(chatOptions);
-
-  const layoutContext = useMaybeLayoutContext();
   const lastReadMsgAt = React.useRef<ChatMessage["timestamp"]>(0);
   const unreadMessageCount = React.useRef(0);
 
+  const chatOptions: ChatOptions = React.useMemo(
+    () => ({ messageDecoder, messageEncoder, channelTopic }),
+    [messageDecoder, messageEncoder, channelTopic]
+  );
+
+  const { send, chatMessages, isSending } = useChat(chatOptions);
+  const layoutContext = useMaybeLayoutContext();
   const { isChatOpen, setIsChatOpen } = useMyContext();
 
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    if (inputRef.current && inputRef.current.value.trim() !== "") {
-      if (send) {
-        await send(inputRef.current.value);
-        inputRef.current.value = "";
-        inputRef.current.focus();
+  // Submit handler for sending a message
+  const handleSubmit = React.useCallback(
+    async (event: React.FormEvent) => {
+      event.preventDefault();
+      const inputValue = inputRef.current?.value.trim();
+      if (inputValue && send) {
+        await send(inputValue);
+        if (inputRef.current) {
+          inputRef.current.value = "";
+          inputRef.current.focus();
+        }
       }
-    }
-  }
+    },
+    [send]
+  );
 
+  // Automatically scroll to the bottom of chat when new messages arrive
   React.useEffect(() => {
-    if (ulRef) {
-      ulRef.current?.scrollTo({ top: ulRef.current.scrollHeight });
-    }
-  }, [ulRef, chatMessages]);
+    ulRef.current?.scrollTo({ top: ulRef.current.scrollHeight });
+  }, [chatMessages]);
 
+  // Handle unread message count when chat state changes
   React.useEffect(() => {
-    if (!layoutContext || chatMessages.length === 0) {
-      return;
-    }
+    if (!layoutContext || chatMessages.length === 0) return;
 
     if (isChatOpen) {
-      // Mark all messages as read when chat is opened
+      // Reset unread message count and mark messages as read
       lastReadMsgAt.current =
         chatMessages[chatMessages.length - 1]?.timestamp || 0;
-      unreadMessageCount.current = 0; // Reset unread message count
+      unreadMessageCount.current = 0;
     } else {
-      // Calculate unread messages when chat is closed
-      unreadMessageCount.current = chatMessages.filter(
-        (msg) => !lastReadMsgAt.current || msg.timestamp > lastReadMsgAt.current
+      // Count unread messages when chat is closed
+      const unreadCount = chatMessages.filter(
+        (msg) => msg.timestamp > lastReadMsgAt.current
       ).length;
 
-      // Dispatch unread message count if it changed
+      // Update unread message count and dispatch changes if necessary
       if (
-        unreadMessageCount.current > 0 &&
-        layoutContext.widget.state?.unreadMessages !==
-          unreadMessageCount.current
+        unreadCount > 0 &&
+        layoutContext.widget.state?.unreadMessages !== unreadCount
       ) {
         layoutContext.widget.dispatch?.({
           msg: "unread_msg",
-          count: unreadMessageCount.current,
+          count: unreadCount,
         });
       }
+
+      unreadMessageCount.current = unreadCount;
     }
   }, [chatMessages, isChatOpen, layoutContext]);
 
@@ -91,11 +93,12 @@ export default function ChatTile({
           ? "translate-y-0"
           : "translate-y-full md:translate-y-[calc(100%-50px)]"
       }`}
+      {...props}
     >
       <div className="flex flex-col h-full">
         <div
           className="px-4 py-3 border-b dark:border-gray-700 cursor-pointer"
-          onClick={() => setIsChatOpen((ref) => !ref)}
+          onClick={() => setIsChatOpen((open) => !open)}
         >
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-x-2">
@@ -108,30 +111,22 @@ export default function ChatTile({
                 </p>
               )}
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`w-6 h-6 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${
-                isChatOpen ? "rotate-180" : ""
-              }`}
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
-            </svg>
+            <ChevronIcon isOpen={isChatOpen} />
           </div>
         </div>
         <ul className="flex-grow overflow-y-auto px-4 py-3" ref={ulRef}>
           {chatMessages.map((msg, idx, allMsg) => {
             const hideName = idx >= 1 && allMsg[idx - 1].from === msg.from;
             const hideTimestamp =
-              idx >= 1 && msg.timestamp - allMsg[idx - 1].timestamp < 60_000;
-            const time = new Date(msg.timestamp);
-            const locale = navigator ? navigator.language : "en-US";
+              idx >= 1 && msg.timestamp - allMsg[idx - 1].timestamp < 60000;
+            const time = new Date(msg.timestamp).toLocaleTimeString(
+              navigator?.language || "en-US",
+              { timeStyle: "short" }
+            );
 
             return (
-              <div key={msg.id} className={`flex flex-col mb-2`}>
+              <div key={msg.id} className="flex flex-col mb-2">
                 <div className="flex flex-row">
-                  {/* Assuming avatar and chat bubble are here */}
                   <Image
                     src="/avatar/user1.webp"
                     alt={`${msg.from}'s icon`}
@@ -139,27 +134,13 @@ export default function ChatTile({
                     height={100}
                     className="w-6 h-6 object-cover rounded-full mr-2"
                   />
-                  <div
-                    className={`w-[75%] rounded-lg p-2 bg-[#f8fafd] text-slate-700`}
-                  >
-                    <p className="text-sm">{msg.message}</p>
+                  <div className="w-[75%] rounded-lg p-2 bg-[#f8fafd] text-slate-700">
+                    <p className="text-xs">{msg.message}</p>
                   </div>
                 </div>
                 <div className="text-[0.68rem] dark:text-slate-300 ms-8 mt-1 gap-x-1 flex flex-row items-center">
-                  <p>
-                    {!hideName && (
-                      <h3>{msg.from?.name ?? msg.from?.identity}</h3>
-                    )}
-                  </p>
-                  <span className="opacity-75 block">
-                    {!hideTimestamp && (
-                      <span>
-                        {time.toLocaleTimeString(locale, {
-                          timeStyle: "short",
-                        })}
-                      </span>
-                    )}
-                  </span>
+                  {!hideName && <h3>{msg.from?.name ?? msg.from?.identity}</h3>}
+                  {!hideTimestamp && <span className="opacity-75">{time}</span>}
                 </div>
               </div>
             );
@@ -175,22 +156,7 @@ export default function ChatTile({
                 disabled={isSending}
                 ref={inputRef}
               />
-              <button
-                type="submit"
-                disabled={isSending}
-                className="absolute right-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`h-6 w-6 text-blue-500 ${
-                    isSending ? "opacity-30" : "opacity-100"
-                  }`}
-                  viewBox="0 -960 960 960"
-                  fill="currentColor"
-                >
-                  <path d="M140-190v-580l688.46 290L140-190Zm60-90 474-200-474-200v147.69L416.92-480 200-427.69V-280Zm0 0v-400 400Z" />
-                </svg>
-              </button>
+              <SendButton isSending={isSending} />
             </div>
           </form>
         </div>
@@ -198,3 +164,31 @@ export default function ChatTile({
     </div>
   );
 }
+
+const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className={`w-6 h-6 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${
+      isOpen ? "rotate-180" : ""
+    }`}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
+  </svg>
+);
+
+const SendButton = ({ isSending }: { isSending: boolean }) => (
+  <button type="submit" disabled={isSending} className="absolute right-2">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className={`h-6 w-6 text-blue-500 ${
+        isSending ? "opacity-30" : "opacity-100"
+      }`}
+      viewBox="0 -960 960 960"
+      fill="currentColor"
+    >
+      <path d="M140-190v-580l688.46 290L140-190Zm60-90 474-200-474-200v147.69L416.92-480 200-427.69V-280Zm0 0v-400 400Z" />
+    </svg>
+  </button>
+);

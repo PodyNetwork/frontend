@@ -3,8 +3,8 @@ import { useMaybeRoomContext } from '@livekit/components-react';
 import { RoomEvent, type LocalAudioTrack, type LocalVideoTrack } from 'livekit-client';
 import { useMediaDeviceSelect } from '@livekit/components-react';
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/** @public */
+/* eslint-disable react-hooks/exhaustive-deps  */
+
 export interface MediaDeviceSelectProps
   extends Omit<React.HTMLAttributes<HTMLUListElement>, 'onError'> {
   kind: MediaDeviceKind;
@@ -12,36 +12,12 @@ export interface MediaDeviceSelectProps
   onDeviceListChange?: (devices: MediaDeviceInfo[]) => void;
   onDeviceSelectError?: (e: Error) => void;
   initialSelection?: string;
-  /** will force the browser to only return the specified device
-   * will call `onDeviceSelectError` with the error in case this fails
-   */
   exactMatch?: boolean;
   track?: LocalAudioTrack | LocalVideoTrack;
-  /**
-   * this will call getUserMedia if the permissions are not yet given to enumerate the devices with device labels.
-   * in some browsers multiple calls to getUserMedia result in multiple permission prompts.
-   * It's generally advised only flip this to true, once a (preview) track has been acquired successfully with the
-   * appropriate permissions.
-   *
-   * @see {@link MediaDeviceMenu}
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices | MDN enumerateDevices}
-   */
   requestPermissions?: boolean;
   onError?: (e: Error) => void;
 }
 
-/**
- * The `MediaDeviceSelect` list all media devices of one kind.
- * Clicking on one of the listed devices make it the active media device.
- *
- * @example
- * ```tsx
- * <LiveKitRoom>
- *   <MediaDeviceSelect kind='audioinput' />
- * </LiveKitRoom>
- * ```
- * @public
- */
 export const CustomMediaDeviceSelect: (
   props: MediaDeviceSelectProps & React.RefAttributes<HTMLUListElement>,
 ) => React.ReactNode = /* @__PURE__ */ React.forwardRef<HTMLUListElement, MediaDeviceSelectProps>(
@@ -55,8 +31,7 @@ export const CustomMediaDeviceSelect: (
       exactMatch,
       track,
       requestPermissions,
-      onError,
-      ...props
+      onError
     }: MediaDeviceSelectProps,
     ref,
   ) {
@@ -64,14 +39,13 @@ export const CustomMediaDeviceSelect: (
     const handleError = React.useCallback(
       (e: Error) => {
         if (room) {
-          // awkwardly emit the event from outside of the room, as we don't have other means to raise a MediaDeviceError
           room.emit(RoomEvent.MediaDevicesError, e);
         }
         onError?.(e);
       },
       [room, onError],
     );
-    const { devices, activeDeviceId, setActiveMediaDevice, className } = useMediaDeviceSelect({
+    const { devices, activeDeviceId, setActiveMediaDevice } = useMediaDeviceSelect({
       kind,
       room,
       track,
@@ -90,7 +64,6 @@ export const CustomMediaDeviceSelect: (
       }
     }, [onDeviceListChange, devices]);
 
-    /* eslint-disable react-hooks/exhaustive-deps */
     React.useEffect(() => {
       if (activeDeviceId && activeDeviceId !== '') {
         onActiveDeviceChange?.(activeDeviceId);

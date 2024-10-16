@@ -7,6 +7,7 @@ import Image from "next/image";
 import userIcon from "/public/avatar/user5.jpeg";
 import useProfile from "@/hooks/user/useProfile";
 import { motion } from "framer-motion"; // Import motion from framer-motion
+import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 
 type FloatingElement = {
   id: number;
@@ -63,13 +64,7 @@ const AsideNav = () => {
           <header className="flex flex-col sm:flex-row justify-between gap-4 items-center mt-4 sm:mt-0">
             <div className="flex flex-row items-center gap-x-2">
               <div className="w-7 h-7 rounded-full bg-black/20">
-                <Image
-                  src={userIcon}
-                  width={100}
-                  height={100}
-                  className="w-full h-full object-cover rounded-full"
-                  alt="user"
-                />
+                <AvatarParticipant name={profile?.username || "hello"} />
               </div>
               {isLoading || isError ? (
                 <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>

@@ -1,62 +1,60 @@
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useParticipants } from "@livekit/components-react";
 import { useParams } from "next/navigation";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import StreamShare from "./StreamShare";
 import { getHashRate } from "@/utils/passport";
 import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";
-import { formatUnits } from "viem";
+import { PointCounter } from "./StreamScreen/PointCounter";
 
 const StreamInfo = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   const participants = useParticipants();
   const [participantPublishNumber, setParticipantPublishNumber] = useState(0);
-  const [hashRate, setHashRate] = useState<number>(0)
-  const [accumulatedPoints, setAccumulatedPoints] = useState<number>(0)
-  const { profile } = useProfile()
+  const [hashRate, setHashRate] = useState<number>(0);
+  const [accumulatedPoints, setAccumulatedPoints] = useState<number>(0);
+  const { profile } = useProfile();
 
   const isHost = useMemo(() => {
-    if(call?.userId  && profile?.id) return call?.userId == profile?.id
-    return false
-  }, [call, profile])
+    if (call?.userId && profile?.id) return call?.userId == profile?.id;
+    return false;
+  }, [call, profile]);
 
   useEffect(() => {
-   const interval = setInterval(() => {
-    if(!profile || !profile?.walletAddress) return
-    const walletAddress = profile.walletAddress as Address
+    const interval = setInterval(() => {
+      if (!profile || !profile?.walletAddress) return;
+      const walletAddress = profile.walletAddress as Address;
 
-    const _getHashRate = async () => {
-      setHashRate(Number(await getHashRate({walletAddress}))) 
-    }
-    _getHashRate()
+      const _getHashRate = async () => {
+        setHashRate(Number(await getHashRate({ walletAddress })));
+      };
+      _getHashRate();
 
-    return () => {
-      clearInterval(interval)
-    }
-   }, 5000)
-  }, [profile])
-
+      return () => {
+        clearInterval(interval);
+      };
+    }, 5000);
+  }, [profile]);
 
   useEffect(() => {
     if (!navigator.onLine) return;
     const interval = setInterval(() => {
-      if(hashRate) {
-        setAccumulatedPoints(accumulatedPoints => {
-          const points =  accumulatedPoints + (hashRate)
-          if(!isHost || !participants ) return points
-          
-          return points
-        })
+      if (hashRate) {
+        setAccumulatedPoints((accumulatedPoints) => {
+          const points = accumulatedPoints + hashRate;
+          if (!isHost || !participants) return points;
+
+          return points;
+        });
       }
-    }, 1000)
+    }, 1000);
 
     return () => {
-      clearInterval(interval)
-    }
-  }, [hashRate, participants, isHost])
-
+      clearInterval(interval);
+    };
+  }, [hashRate, participants, isHost]);
 
   useEffect(() => {
     if (participants && participants.length > 0) {
@@ -67,22 +65,10 @@ const StreamInfo = () => {
     }
   }, [participants]);
 
-
   return (
     <>
       <div className="md:hidden text-red-200 flex flex-row items-center text-xs xs:text-sm font-semibold justify-between gap-x-2">
-        <p className="text-slate-600 dark:text-slate-200 items-center text-sm flex flex-row gap-x-1 truncate">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6 text-slate-600"
-            viewBox="0 -960 960 960"
-            style={{ msFilter: "" }}
-            fill="currentColor"
-          >
-            <path d="M160-296.92v72.3q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h590.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-72.3H160Zm24.62-381.54H318q-5-9-8.42-19-3.43-10-3.43-21 0-33.85 23.08-56.93 23.08-23.07 56.92-23.07 20.31 0 37.57 10.64t30.13 26.43l24.61 33.7 24.62-33.7q12.61-16.3 30.13-26.69 17.51-10.38 37.72-10.38 33.69 0 56.76 23.07 23.08 23.08 23.08 56.93 0 11-3.04 21t-8.81 19h136.46q27.62 0 46.12 18.5 18.5 18.5 18.5 46.11v389.23q0 27.62-18.5 46.12Q803-160 775.38-160H184.62q-27.62 0-46.12-18.5Q120-197 120-224.62v-389.23q0-27.61 18.5-46.11t46.12-18.5ZM160-383.08h640v-230.77q0-9.23-7.69-16.92-7.69-7.69-16.93-7.69H542.15l79.39 109.38-31.69 22.93-111.39-151.7-111.38 151.7-31.7-22.93 78.93-109.38H184.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.92v230.77Zm226.15-295.38q17 0 28.5-11.5t11.5-28.5q0-17-11.5-28.5t-28.5-11.5q-17 0-28.5 11.5t-11.5 28.5q0 17 11.5 28.5t28.5 11.5Zm184.62 0q17 0 28.5-11.5t11.5-28.5q0-17-11.5-28.5t-28.5-11.5q-17 0-28.5 11.5t-11.5 28.5q0 17 11.5 28.5t28.5 11.5Z" />
-          </svg>
-          {formatUnits(BigInt(accumulatedPoints), 18)}
-        </p>
+        <PointCounter accumulatedPoints={accumulatedPoints} />
         <div className="flex flex-row gap-x-2 items-center">
           <p className="w-7 h-7 flex items-center justify-center bg-slate-200 rounded-full">
             <svg
@@ -103,8 +89,8 @@ const StreamInfo = () => {
           {call?.title}
         </h2>
         <div className="text-xs md:text-sm flex flex-row flex-wrap gap-x-2 items-center text-slate-400">
-          <p className="capitalize">{call?.type}{" "}Call</p>
-          <div className="flex items-center flex-row gap-x-1.5">
+          <p className="capitalize">{call?.type} Call</p>
+          <div className="flex items-center flex-row gap-x-2">
             <div className="flex items-center flex-row">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -129,17 +115,8 @@ const StreamInfo = () => {
               </svg>
               <span>{participants.length}</span>
             </div>
-            <div className="flex items-center flex-row">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 me-1"
-                viewBox="0 -960 960 960"
-                style={{ msFilter: "" }}
-                fill="currentColor"
-              >
-                <path d="M160-296.92v72.3q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h590.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-72.3H160Zm24.62-381.54H318q-5-9-8.42-19-3.43-10-3.43-21 0-33.85 23.08-56.93 23.08-23.07 56.92-23.07 20.31 0 37.57 10.64t30.13 26.43l24.61 33.7 24.62-33.7q12.61-16.3 30.13-26.69 17.51-10.38 37.72-10.38 33.69 0 56.76 23.07 23.08 23.08 23.08 56.93 0 11-3.04 21t-8.81 19h136.46q27.62 0 46.12 18.5 18.5 18.5 18.5 46.11v389.23q0 27.62-18.5 46.12Q803-160 775.38-160H184.62q-27.62 0-46.12-18.5Q120-197 120-224.62v-389.23q0-27.61 18.5-46.11t46.12-18.5ZM160-383.08h640v-230.77q0-9.23-7.69-16.92-7.69-7.69-16.93-7.69H542.15l79.39 109.38-31.69 22.93-111.39-151.7-111.38 151.7-31.7-22.93 78.93-109.38H184.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.92v230.77Zm226.15-295.38q17 0 28.5-11.5t11.5-28.5q0-17-11.5-28.5t-28.5-11.5q-17 0-28.5 11.5t-11.5 28.5q0 17 11.5 28.5t28.5 11.5Zm184.62 0q17 0 28.5-11.5t11.5-28.5q0-17-11.5-28.5t-28.5-11.5q-17 0-28.5 11.5t-11.5 28.5q0 17 11.5 28.5t28.5 11.5Z"/>
-              </svg>
-              <span>{formatUnits(BigInt(accumulatedPoints), 18)}</span>
+            <div className="hidden md:flex">
+              <PointCounter accumulatedPoints={accumulatedPoints} />
             </div>
           </div>
         </div>

@@ -1,13 +1,15 @@
 "use client";
 import Image from "next/image";
-import userLogo from "/public/avatar/user.png";
 import podyLogo from "/public/logo/Logo Icon Varient.png";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { AvatarParticipant } from "../../Avatar/AvatarParticipant";
+import useProfile from "@/hooks/user/useProfile";
 
 const StreamSidebar = () => {
   const pathname = usePathname();
   const linkisactive = pathname.startsWith("/call/");
+  const { profile } = useProfile();
 
   return (
     <div className="h-full flex flex-col justify-between items-center gap-3 text-slate-600 dark:text-slate-400 overflow-hidden">
@@ -69,11 +71,7 @@ const StreamSidebar = () => {
         </ul>
       </div>
       <div>
-        <Image
-          src={userLogo}
-          alt="user icon"
-          className="w-8 h-8 object-contain"
-        />
+        <div className="w-8 h-8"><AvatarParticipant name={profile?.username || "Unknown User"} /></div>
       </div>
     </div>
   );
