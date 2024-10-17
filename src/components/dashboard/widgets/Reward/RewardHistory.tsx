@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { claimPoints } from "@/utils/passport";
 import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";
+import ConnectOrComponent from "@/components/global/ConnectOrComponent";
 
 const HistorySkeleton = () => {
   return (
@@ -109,14 +110,16 @@ const RewardHistory = () => {
                         ? dayjs(data?.timeClaimed).format("DD MMM YYYY h:mm A")
                         : "N/A"}
                     </motion.h5>
-                    <button onClick={()=> {
+                  <ConnectOrComponent>
+                  <button onClick={()=> {
                       claimPoints({
                         userAddress: profile?.walletAddress as Address, 
                         nonce: data?._id, 
                         points: data?.points.toString(), 
                         signature: data?.signature
                       })
-                    }}>Hello</button>
+                    }}>Mint on Blockchain</button>
+                  </ConnectOrComponent>
                   </div>
                 </motion.li>
               ))}
