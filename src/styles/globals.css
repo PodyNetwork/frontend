@@ -553,15 +553,21 @@ body {
     @apply bg-white dark:bg-slate-800;
     border-radius: 10px;
     width: 100%;
-    max-width: calc((75vh * 16) / 9);
+    max-width: var(--max-video-width, 100%);
     margin: auto;
 }
+
 .focused-participant-container {
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
     position: relative;
     padding: 5px;
+}
+.pd_portrait_vid{
+    object-fit: contain !important;
+    height: calc(40vh * (9 / 16)) !important;
+    @apply bg-slate-200 dark:bg-slate-700 !important;
 }
 .focused-participant-container video {
     width: 100%;
@@ -619,7 +625,7 @@ body {
 }
 @media (max-width: 600px) {
     .enhanced-focus-layout {
-        max-width: 600px;
+        /* max-width: 600px; */
         gap: 5px;
         padding-right: 5px;
     }
@@ -631,7 +637,6 @@ body {
 
 @media (min-width: 550px) and (max-width: 767px) {
     .enhanced-focus-layout {
-        max-width: 100%;
         gap: 5px;
         padding-right: 5px;
     }
@@ -665,6 +670,9 @@ body {
         min-width: 200px;
         max-width: 200px;
     }
+    .participant-carousel .pd_portrait_vid {
+        height: calc(200px * (9 / 16)) !important;
+    }
 }
 @media (max-width: 499px) {
     .participant-carousel {
@@ -675,6 +683,9 @@ body {
         min-width: 150px;
         max-width: 150px;
     }
+    .participant-carousel .pd_portrait_vid {
+        height: calc(150px * (9 / 16)) !important;
+    }
     .enhanced-focus-layout{
         padding: 0;
     }
@@ -683,6 +694,9 @@ body {
     .participant-carousel > div {
         min-width: 100px;
         max-width: 100px;
+    }
+    .participant-carousel .pd_portrait_vid {
+        height: calc(100px * (9 / 16)) !important;
     }
 }
 .__pd_bg_gradient {
@@ -804,8 +818,4 @@ body {
 .__pd_lk:hover::after {
     width: 4px;
     background-color: #64748b;
-}
-.pd_portrait_vid{
-    object-fit: contain;
-    height: calc(40vh * (9 / 16)) !important;
 }
