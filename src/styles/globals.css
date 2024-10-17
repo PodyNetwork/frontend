@@ -556,15 +556,20 @@ body {
     max-width: calc((75vh * 16) / 9);
     margin: auto;
 }
-.focus_portrait {
-    max-height: 70vh;
-    overflow: hidden;
-    position: relative;
-}
 .focused-participant-container {
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
+    position: relative;
+    padding: 5px;
+}
+.focused-participant-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+.focused-participant-container video.portrait {
+    object-fit: contain; 
 }
 .participant-carousel {
     display: flex;
@@ -575,10 +580,9 @@ body {
     width: 100%;
     padding: 0px;
     gap: 5px;
-    margin-top: 5px;
 }
 .participant-carousel::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
 }
 .participant-carousel::-webkit-scrollbar-thumb {
     background: #007bff;
@@ -617,12 +621,6 @@ body {
     .participant-carousel {
         width: 140px;
     }
-
-    .focus_portrait {
-        max-height: 40vh;
-        overflow: hidden;
-        position: relative;
-    }
 }
 
 @media (min-width: 550px) and (max-width: 767px) {
@@ -635,11 +633,6 @@ body {
     .participant-carousel {
         width: 150px;
         flex-direction: column;
-    }
-    .focus_portrait {
-        max-height: 40vh;
-        overflow: hidden;
-        position: relative;
     }
 }
 
@@ -670,7 +663,7 @@ body {
 @media (max-width: 499px) {
     .participant-carousel {
         width: 100%;
-        padding: 0px 10px 10px 10px;
+        padding: 0px 5px 5px 5px;
     }
     .participant-carousel > div {
         min-width: 150px;
