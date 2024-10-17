@@ -3,7 +3,7 @@ import type { TrackReferenceOrPlaceholder } from "@livekit/components-core";
 import { ParticipantCustomTile } from "./ParticipantCustomTile";
 import { useSwipe, usePagination } from "@livekit/components-react";
 import { CustomFocusLayout } from "./CustomFocusLayout";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
