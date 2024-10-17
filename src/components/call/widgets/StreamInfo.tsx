@@ -35,7 +35,7 @@ const StreamInfo = () => {
       return () => {
         clearInterval(interval);
       };
-    }, 5000);
+    }, 30000);
   }, [profile]);
 
   useEffect(() => {
