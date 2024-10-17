@@ -7,6 +7,7 @@ import { getHashRate } from "@/utils/passport";
 import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";
 import { PointCounter } from "./StreamScreen/PointCounter";
+import useEndCall from "@/hooks/call/useEndCall";
 
 const StreamInfo = () => {
   const { url } = useParams();
@@ -65,6 +66,23 @@ const StreamInfo = () => {
     }
   }, [participants]);
 
+  const [callId, setCallId] = useState<string | undefined>(call?._id);
+  const { endCall } = useEndCall();
+ 
+  const handleEndCall = () => {
+    if (callId) {
+      endCall.mutate({ callId });
+    } else {
+      console.error("No call ID available to end the call.");
+    }
+  };
+  useEffect(() => {
+    if (call?._id) {
+      setCallId(call._id);
+    }
+  }, [call]);
+  // end call ends here
+
   return (
     <>
       <div className="md:hidden text-red-200 flex flex-row items-center text-xs xs:text-sm font-semibold justify-between gap-x-2">
@@ -82,6 +100,11 @@ const StreamInfo = () => {
             </svg>
           </p>
           <StreamShare />
+          {profile?.id === call?.userId && (
+            <button onClick={handleEndCall} aria-label="end call" className="text-red-500 text-sm">
+              End Call
+            </button>
+          )}
         </div>
       </div>
       <div className="relative flex flex-col gap-y-1">

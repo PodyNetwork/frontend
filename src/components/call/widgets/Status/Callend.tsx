@@ -24,7 +24,7 @@ const CallEndPage = () => {
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-14 h-14"
+        className="w-12 h-12"
         viewBox="0 -960 960 960"
         fill="currentColor"
       >
@@ -37,26 +37,47 @@ const CallEndPage = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-pody-dark_secondary text-white p-4">
       <div className="max-w-xs flex justify-center items-center flex-col text-center">
         <EndCallIcon />
-        <h2 className="xs:text-xl md:text-2xl font-medium mb-2">
+        <h2 className="text-base xs:text-xl font-medium mb-2">
           {isOngoing ? "You've left the call" : "The call has ended"}
         </h2>
-        <p className="xs:text-sm text-base mb-8">
+        <p className="text-xs mb-8">
           {isOngoing
             ? "You are no longer connected. To rejoin, please reconnect."
             : "Start call and keep earning rewards, every conversation brings you closer to more!"}
         </p>
 
-        <div className="space-y-4 flex flex-col w-full text-sm">
+        <div className="space-y-4 flex flex-col w-full text-xs xs:text-sm">
           {isOngoing && (
-            <button onClick={() => window.location.reload()} className="w-full bg-pody-primary hover:bg-gray-600 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out">
+            <button
+              onClick={() => window.location.reload()}
+              className="w-full bg-pody-primary hover:bg-gray-600 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out"
+            >
               Resume Call
             </button>
           )}
-          <Link href="/dashboard">
+          <Link href="/dashboard/reward">
             <button className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out">
-              Go to Dashboard
+              Go to Reward
             </button>
           </Link>
+        </div>
+        <div className="flex items-center gap-5 mt-5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-12 h-12 text-pody-danger hover:opacity-50"
+            viewBox="0 -960 960 960"
+            fill="currentColor"
+          >
+            <path d="M612.49-535.38q18.66 0 31.55-13.07 12.88-13.07 12.88-31.73 0-18.67-13.06-31.55-13.07-12.89-31.73-12.89-18.67 0-31.55 13.07-12.89 13.07-12.89 31.73 0 18.67 13.07 31.55 13.06 12.89 31.73 12.89Zm-264.62 0q18.67 0 31.55-13.07 12.89-13.07 12.89-31.73 0-18.67-13.07-31.55-13.06-12.89-31.73-12.89-18.66 0-31.55 13.07-12.88 13.07-12.88 31.73 0 18.67 13.06 31.55 13.07 12.89 31.73 12.89ZM480-420q-57.23 0-105.42 31.58-48.2 31.57-72.43 83.8H342q22-37 58.5-58.5t79.5-21.5q43 0 79.5 21.5t58.5 58.5h39.85q-24.23-52.23-72.43-83.8Q537.23-420 480-420Zm.13 300q-74.67 0-140.41-28.34-65.73-28.34-114.36-76.92-48.63-48.58-76.99-114.26Q120-405.19 120-479.87q0-74.67 28.34-140.41 28.34-65.73 76.92-114.36 48.58-48.63 114.26-76.99Q405.19-840 479.87-840q74.67 0 140.41 28.34 65.73 28.34 114.36 76.92 48.63 48.58 76.99 114.26Q840-554.81 840-480.13q0 74.67-28.34 140.41-28.34 65.73-76.92 114.36-48.58 48.63-114.26 76.99Q554.81-120 480.13-120ZM480-480Zm0 320q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z"/>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-12 h-12 text-pody-success hover:opacity-50"
+            viewBox="0 -960 960 960"
+            fill="currentColor"
+          >
+            <path d="M612.49-535.38q18.66 0 31.55-13.07 12.88-13.07 12.88-31.73 0-18.67-13.06-31.55-13.07-12.89-31.73-12.89-18.67 0-31.55 13.07-12.89 13.07-12.89 31.73 0 18.67 13.07 31.55 13.06 12.89 31.73 12.89Zm-264.62 0q18.67 0 31.55-13.07 12.89-13.07 12.89-31.73 0-18.67-13.07-31.55-13.06-12.89-31.73-12.89-18.66 0-31.55 13.07-12.88 13.07-12.88 31.73 0 18.67 13.06 31.55 13.07 12.89 31.73 12.89ZM480-284.62q57.23 0 105.42-31.57 48.2-31.58 72.43-83.81H618q-22 37-58.5 58.5T480-320q-43 0-79.5-21.5T342-400h-39.85q24.23 52.23 72.43 83.81 48.19 31.57 105.42 31.57Zm.13 164.62q-74.67 0-140.41-28.34-65.73-28.34-114.36-76.92-48.63-48.58-76.99-114.26Q120-405.19 120-479.87q0-74.67 28.34-140.41 28.34-65.73 76.92-114.36 48.58-48.63 114.26-76.99Q405.19-840 479.87-840q74.67 0 140.41 28.34 65.73 28.34 114.36 76.92 48.63 48.58 76.99 114.26Q840-554.81 840-480.13q0 74.67-28.34 140.41-28.34 65.73-76.92 114.36-48.58 48.63-114.26 76.99Q554.81-120 480.13-120ZM480-480Zm0 320q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Z"/>
+          </svg>
         </div>
       </div>
     </div>

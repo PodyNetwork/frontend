@@ -3,11 +3,10 @@ import type { TrackReferenceOrPlaceholder } from "@livekit/components-core";
 import { ParticipantCustomTile } from "./ParticipantCustomTile";
 import { useSwipe, usePagination } from "@livekit/components-react";
 import { CustomFocusLayout } from "./CustomFocusLayout";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-unused-expressions */
 export interface EnhancedFocusLayoutProps
   extends React.HTMLAttributes<HTMLDivElement> {
   tracks: TrackReferenceOrPlaceholder[];
@@ -19,22 +18,62 @@ export function EnhancedFocusLayout({
   tracks,
   focusedIndex,
   onParticipantClick,
-  ...props
 }: EnhancedFocusLayoutProps) {
   const filteredTracks = tracks
-    .map((track, index) => ({ track, originalIndex: index })) // Map to keep track of original index
+    .map((track, index) => ({ track, originalIndex: index }))
     .filter(({ originalIndex }) => originalIndex !== focusedIndex);
 
   const paginatedTracks = filteredTracks.map(({ track }) => track);
-
-  const pagination = usePagination(paginatedTracks.length, paginatedTracks); // Handle pagination
-
+  const pagination = usePagination(paginatedTracks.length, paginatedTracks);
   const focusRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useSwipe(focusRef, {
     onLeftSwipe: pagination.nextPage,
     onRightSwipe: pagination.prevPage,
   });
+
+  const updateCarouselHeight = React.useCallback(() => {
+    if (carouselRef.current) {
+      const hasParticipants = paginatedTracks.length > 0;
+      const carouselHeight = hasParticipants ? carouselRef.current.offsetHeight : 0;
+
+      document.documentElement.style.setProperty(
+        "--carousel-height",
+        `${carouselHeight}px`
+      );
+      console.log("Updated carousel height:", carouselHeight);
+    }
+  }, [paginatedTracks.length]);
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      updateCarouselHeight();
+    });
+
+    if (carouselRef.current) {
+      observer.observe(carouselRef.current, {
+        childList: true,
+        subtree: true,
+      });
+
+      updateCarouselHeight();
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [updateCarouselHeight, paginatedTracks.length]); // Added length dependency to track changes in stream
+
+  useEffect(() => {
+    const handleResize = () => {
+      updateCarouselHeight();
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [updateCarouselHeight]);
 
   const handleParticipantClick = (index: number) => {
     if (filteredTracks[index]) {
@@ -47,16 +86,16 @@ export function EnhancedFocusLayout({
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkFocusedTrack = () => {
       if (!tracks[focusedIndex]) {
-        // Find the next available track
         const nextAvailableIndex = tracks.findIndex(
           (track) => track !== undefined
         );
         if (nextAvailableIndex !== -1) {
-          // Update the focusedIndex to the next available track
-          onParticipantClick && onParticipantClick(nextAvailableIndex);
+          if (onParticipantClick) {
+            onParticipantClick(nextAvailableIndex);
+          }
         } else {
           console.warn("No available tracks to focus.");
         }
@@ -67,11 +106,8 @@ export function EnhancedFocusLayout({
   }, [focusedIndex, tracks, onParticipantClick]);
 
   const hasOtherParticipants = filteredTracks.length > 0;
-
-  // Check if there are no tracks available
   const noTracksAvailable = tracks.length === 0 || !tracks.some(Boolean);
 
-  // Avoid rendering the layout if no tracks are available
   if (noTracksAvailable) {
     return (
       <div className="enhanced-focus-layout" ref={focusRef}>
@@ -97,7 +133,7 @@ export function EnhancedFocusLayout({
                     alt="Pody Logo"
                   />
                 </motion.div>
-                <span className="text-[0.6rem] xs:text-xs text-slate-800">
+                <span className="text-[0.6rem] xs:text-xs text-slate-800 dark:text-slate-300">
                   Waiting for the host to join or someone to present, but you can still earn rewards while staying in the call!
                 </span>
               </div>
@@ -111,7 +147,6 @@ export function EnhancedFocusLayout({
   return (
     <div className="enhanced-focus-layout" ref={focusRef}>
       <div className="focused-participant-container">
-        {/* Display the focused participant */}
         {tracks[focusedIndex] && (
           <CustomFocusLayout
             trackRef={tracks[focusedIndex]}
@@ -120,9 +155,8 @@ export function EnhancedFocusLayout({
         )}
       </div>
 
-      {/* Display other participants in a carousel only if there are any */}
       {hasOtherParticipants && (
-        <div className="participant-carousel">
+        <div className="participant-carousel" ref={carouselRef}>
           {pagination.tracks.map((trackItem, index) => (
             <ParticipantCustomTile
               key={index}
