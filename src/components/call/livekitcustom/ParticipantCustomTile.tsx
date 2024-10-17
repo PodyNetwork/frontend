@@ -66,147 +66,169 @@ export interface ParticipantTileProps
   onParticipantClick?: (event: ParticipantClickEvent) => void;
 }
 
-export const ParticipantCustomTile: React.FC<ParticipantTileProps> = /* @__PURE__ */ React.forwardRef<
-  HTMLDivElement,
-  ParticipantTileProps
->(function ParticipantTile(
-  {
-    trackRef,
-    children,
-    onParticipantClick,
-    disableSpeakingIndicator,
-    ...htmlProps
-  }: ParticipantTileProps,
-  ref
-) {
-  const trackReference = useEnsureTrackRef(trackRef);
-  const { elementProps } = useParticipantTile<HTMLDivElement>({
-    htmlProps,
-    disableSpeakingIndicator,
-    onParticipantClick,
-    trackRef: trackReference,
-  });
+export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
+  /* @__PURE__ */ React.forwardRef<HTMLDivElement, ParticipantTileProps>(
+    function ParticipantTile(
+      {
+        trackRef,
+        children,
+        onParticipantClick,
+        disableSpeakingIndicator,
+        ...htmlProps
+      }: ParticipantTileProps,
+      ref
+    ) {
+      const trackReference = useEnsureTrackRef(trackRef);
+      const { elementProps } = useParticipantTile<HTMLDivElement>({
+        htmlProps,
+        disableSpeakingIndicator,
+        onParticipantClick,
+        trackRef: trackReference,
+      });
 
-  const [isPortrait, setIsPortrait] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const isEncrypted = useIsEncrypted(trackReference.participant);
-  const layoutContext = useMaybeLayoutContext();
-  const autoManageSubscription = useFeatureContext()?.autoSubscription;
+      const [isPortrait, setIsPortrait] = useState(false);
+      const videoRef = useRef<HTMLVideoElement>(null);
+      const isEncrypted = useIsEncrypted(trackReference.participant);
+      const layoutContext = useMaybeLayoutContext();
+      const autoManageSubscription = useFeatureContext()?.autoSubscription;
 
-  const handleSubscribe = React.useCallback(
-    (subscribed: boolean) => {
-      if (
-        trackReference.source &&
-        !subscribed &&
-        layoutContext &&
-        layoutContext.pin.dispatch &&
-        isTrackReferencePinned(trackReference, layoutContext.pin.state)
-      ) {
-        layoutContext.pin.dispatch({ msg: "clear_pin" });
-      }
-    },
-    [trackReference, layoutContext]
-  );
+      const handleSubscribe = React.useCallback(
+        (subscribed: boolean) => {
+          if (
+            trackReference.source &&
+            !subscribed &&
+            layoutContext &&
+            layoutContext.pin.dispatch &&
+            isTrackReferencePinned(trackReference, layoutContext.pin.state)
+          ) {
+            layoutContext.pin.dispatch({ msg: "clear_pin" });
+          }
+        },
+        [trackReference, layoutContext]
+      );
 
-  const participant = useEnsureParticipant(trackReference.participant);
+      const participant = useEnsureParticipant(trackReference.participant);
 
-  const isCameraOff =
-    trackReference?.source === Track.Source.Camera &&
-    (!trackReference?.publication?.isSubscribed ||
-      trackReference.publication?.isMuted);
+      const isCameraOff =
+        trackReference?.source === Track.Source.Camera &&
+        (!trackReference?.publication?.isSubscribed ||
+          trackReference.publication?.isMuted);
 
-  // Effect to determine video orientation based on the video element's dimensions
-  useEffect(() => {
-    const updateOrientation = () => {
-      if (videoRef.current) {
-        const { videoWidth, videoHeight } = videoRef.current;
-        setIsPortrait(videoHeight > videoWidth);
-      }
-    };
+      // Effect to determine video orientation based on the video element's dimensions
+      useEffect(() => {
+        const updateOrientation = () => {
+          if (videoRef.current) {
+            const { videoWidth, videoHeight } = videoRef.current;
+            setIsPortrait(videoHeight > videoWidth);
+          } 
+        };
 
-    const currentVideoRef = videoRef.current; // Store the current ref in a variable
+        const currentVideoRef = videoRef.current;
 
-    if (currentVideoRef) {
-      currentVideoRef.addEventListener("loadedmetadata", updateOrientation);
-    }
+        if (currentVideoRef) {
+          // Listen for the playing event for more reliable dimensions
+          currentVideoRef.addEventListener("playing", updateOrientation);
+          currentVideoRef.addEventListener("loadeddata", updateOrientation);
+          updateOrientation(); // Initial check
 
-    return () => {
-      if (currentVideoRef) {
-        currentVideoRef.removeEventListener("loadedmetadata", updateOrientation);
-      }
-    };
-  }, [videoRef]);
+          const handleResize = () => {
+            updateOrientation();
+          };
 
-  console.log(isPortrait);
+          window.addEventListener("resize", handleResize);
 
-  return (
-    <div ref={ref} style={{ position: "relative" }} {...elementProps}>
-      <TrackRefContextIfNeeded trackRef={trackReference}>
-        <ParticipantContextIfNeeded participant={participant}>
-          {children ?? (
-            <>
-              {isCameraOff ? (
-                <div className="camera-off-placeholder relative">
-                  <PlaceHolder participant={participant} name={participant.identity} />
-                  <div className="lk-participant-metadata">
-                    <div className="glass-effect flex flex-row items-center gap-x-1 text-xs truncate">
-                      <div className="w-2.5 h-2.5 md:w-6 md:h-6"><AvatarParticipant name={participant.identity} /></div>
-                      <CustomParticipantName />
-                    </div>
-                  </div>
-                </div>
-              ) : (
+          return () => {
+            currentVideoRef.removeEventListener("playing", updateOrientation);
+            currentVideoRef.removeEventListener("loadeddata", updateOrientation);
+            window.removeEventListener("resize", handleResize);
+          };
+        }
+      }, [videoRef, trackReference]); // Add trackReference to dependencies
+
+      return (
+        <div ref={ref} style={{ position: "relative" }} {...elementProps}>
+          <TrackRefContextIfNeeded trackRef={trackReference}>
+            <ParticipantContextIfNeeded participant={participant}>
+              {children ?? (
                 <>
-                  {isTrackReference(trackReference) &&
-                  (trackReference.publication?.kind === "video" ||
-                    trackReference.source === Track.Source.Camera ||
-                    trackReference.source === Track.Source.ScreenShare) ? (
-                    <VideoTrack
-                      ref={videoRef} // Assign the ref to the VideoTrack
-                      trackRef={trackReference}
-                      onSubscriptionStatusChanged={handleSubscribe}
-                      manageSubscription={autoManageSubscription}
-                      style={{ width: "100%", height: "100%" }}
-                      className={isPortrait ? "pd_portrait_vid" : "pd_landscape_vid"}
-                    />
-                  ) : (
-                    isTrackReference(trackReference) && (
-                      <AudioTrack
-                        trackRef={trackReference}
-                        onSubscriptionStatusChanged={handleSubscribe}
+                  {isCameraOff ? (
+                    <div className="camera-off-placeholder relative">
+                      <PlaceHolder
+                        participant={participant}
+                        name={participant.identity}
                       />
-                    )
-                  )}
-                  <div className="lk-participant-metadata">
-                    <div>
-                      {trackReference.source === Track.Source.Camera ? (
-                        <>
-                          {isEncrypted && (
-                            <LockLockedIcon
-                              style={{ marginRight: "0.25rem" }}
-                            />
-                          )}
-                          <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                            <div className="w-3 h-3 md:w-6 md:h-6"><AvatarParticipant name={participant.identity} /></div>
-                            <CustomParticipantName />
+                      <div className="lk-participant-metadata">
+                        <div className="glass-effect flex flex-row items-center gap-x-1 text-xs truncate">
+                          <div className="w-2.5 h-2.5 md:w-6 md:h-6">
+                            <AvatarParticipant name={participant.identity} />
                           </div>
-                        </>
-                      ) : (
-                        <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                          <div className="w-3 h-3 md:w-6 md:h-6"><AvatarParticipant name={participant.identity} /></div>
-                          <CustomParticipantName>
-                            &apos;s screen
-                          </CustomParticipantName>
+                          <CustomParticipantName />
                         </div>
-                      )}
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <>
+                      {isTrackReference(trackReference) &&
+                      (trackReference.publication?.kind === "video" ||
+                        trackReference.source === Track.Source.Camera ||
+                        trackReference.source === Track.Source.ScreenShare) ? (
+                        <VideoTrack
+                          ref={videoRef} // Assign the ref to the VideoTrack
+                          trackRef={trackReference}
+                          onSubscriptionStatusChanged={handleSubscribe}
+                          manageSubscription={autoManageSubscription}
+                          style={{ width: "100%", height: "100%" }}
+                          className={
+                            isPortrait ? "pd_portrait_vid" : "pd_landscape_vid"
+                          }
+                        />
+                      ) : (
+                        isTrackReference(trackReference) && (
+                          <AudioTrack
+                            trackRef={trackReference}
+                            onSubscriptionStatusChanged={handleSubscribe}
+                          />
+                        )
+                      )}
+                      <div className="lk-participant-metadata">
+                        <div>
+                          {trackReference.source === Track.Source.Camera ? (
+                            <>
+                              {isEncrypted && (
+                                <LockLockedIcon
+                                  style={{ marginRight: "0.25rem" }}
+                                />
+                              )}
+                              <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
+                                <div className="w-3 h-3 md:w-6 md:h-6">
+                                  <AvatarParticipant
+                                    name={participant.identity}
+                                  />
+                                </div>
+                                <CustomParticipantName />
+                              </div>
+                            </>
+                          ) : (
+                            <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
+                              <div className="w-3 h-3 md:w-6 md:h-6">
+                                <AvatarParticipant
+                                  name={participant.identity}
+                                />
+                              </div>
+                              <CustomParticipantName>
+                                &apos;s screen
+                              </CustomParticipantName>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
-            </>
-          )}
-        </ParticipantContextIfNeeded>
-      </TrackRefContextIfNeeded>
-    </div>
+            </ParticipantContextIfNeeded>
+          </TrackRefContextIfNeeded>
+        </div>
+      );
+    }
   );
-});

@@ -22,7 +22,7 @@ export const MobileParticipantInfo: React.FC<MobileParticipantInfoProps> = ({
   role,
 }) => {
   return (
-    <p className="flex flex-row items-center md:hidden text-xs leading-none">
+    <div className="flex flex-row items-center md:hidden text-xs leading-none">
       {isSpeaker ? (
         <>
           {participant.isMicrophoneEnabled ? (
@@ -42,6 +42,6 @@ export const MobileParticipantInfo: React.FC<MobileParticipantInfoProps> = ({
       ) : (
         <span>Listener</span>
       )}
-    </p>
+    </div>
   );
 };
