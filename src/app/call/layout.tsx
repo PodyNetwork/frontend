@@ -6,10 +6,11 @@ import CallPendingPage from "@/components/call/widgets/Status/CallPending";
 import LoaderStatus from "@/components/call/widgets/Status/LoaderStatus";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
+import AuthMiddleware from "@/middleware/AuthMiddleware";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   const { createCallToken, accessToken } = useCreateCallToken();
@@ -35,3 +36,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return <CustomLiveKit token={accessToken}>{children}</CustomLiveKit>;
 }
+
+
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return <AuthMiddleware><LayoutComponent>{children}</LayoutComponent></AuthMiddleware>
+}
+
+export default Layout
