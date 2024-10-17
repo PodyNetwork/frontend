@@ -557,11 +557,11 @@ body {
     margin: auto;
 }
 
-.focus_portrait {
+/* .focus_portrait {
     max-width: calc((70vh * 16) / 9);
     overflow: hidden;
     position: relative;
-}
+} */
 .focused-participant-container {
     border-radius: 10px;
     overflow: hidden;
@@ -619,11 +619,11 @@ body {
         width: 140px;
     }
 
-    .focus_portrait {
+    /* .focus_portrait {
         max-width: calc((40vh * 16) / 9);
         overflow: hidden;
         position: relative;
-    }
+    } */
 }
 
 @media (min-width: 550px) and (max-width: 767px) {
@@ -637,12 +637,11 @@ body {
         width: 150px;
         flex-direction: column;
     }
-
-    .focus_portrait {
+    /* .focus_portrait {
         max-width: calc((40vh * 16) / 9);
         overflow: hidden;
         position: relative;
-    }
+    } */
 }
 
 @media (min-width: 500px) and (max-width: 549px) {
