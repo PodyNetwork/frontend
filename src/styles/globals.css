@@ -557,7 +557,7 @@ body {
     margin: auto;
 }
 .focus_portrait {
-    max-width: calc((70vh * 16) / 9);
+    max-height: 70vh;
     overflow: hidden;
     position: relative;
 }
@@ -619,7 +619,7 @@ body {
     }
 
     .focus_portrait {
-        max-width: calc((40vh * 16) / 9);
+        max-height: 40vh;
         overflow: hidden;
         position: relative;
     }
@@ -637,7 +637,7 @@ body {
         flex-direction: column;
     }
     .focus_portrait {
-        max-width: calc((40vh * 16) / 9);
+        max-height: 40vh;
         overflow: hidden;
         position: relative;
     }

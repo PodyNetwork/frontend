@@ -96,12 +96,12 @@ export function EnhancedFocusLayout({
   if (noTracksAvailable) {
     return (
       <div
-      className="enhanced-focus-layout"
+      className={`enhanced-focus-layout ${
+        isLandscape ? "focus_landscape" : "focus_portrait"
+      }`}
       ref={focusRef}
     >
-      <div className={`focused-participant-container ${
-        isLandscape ? "focus_landscape" : "focus_portrait"
-      }`}>
+      <div className="focused-participant-container">
         <div className="camera-off-placeholder relative overflow-hidden">
           <div className="w-full h-full absolute top-0 left-0 flex flex-col items-center justify-center">
             <div className="max-w-md px-3 flex flex-col items-center justify-center text-center">
@@ -136,12 +136,12 @@ export function EnhancedFocusLayout({
 
   return (
     <div
-      className="enhanced-focus-layout"
+      className={`enhanced-focus-layout ${
+        isLandscape ? "focus_landscape" : "focus_portrait"
+      }`}
       ref={focusRef}
     >
-      <div className={`focused-participant-container ${
-        isLandscape ? "focus_landscape" : "focus_portrait"
-      }`}>
+      <div className="focused-participant-container">
         {/* Display the focused participant */}
         {tracks[focusedIndex] && (
           <CustomFocusLayout
