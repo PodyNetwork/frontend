@@ -12,9 +12,9 @@ interface GetUserArgs {
 }
 
 interface ClaimPointsArgs {
-   userAddress: string,
-   nonce: string,
-  points: string,
+  userAddress: string,
+  nonce: string,
+  points: bigint,
   signature: string
 }
 
