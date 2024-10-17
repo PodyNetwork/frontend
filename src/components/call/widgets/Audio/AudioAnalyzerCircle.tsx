@@ -3,7 +3,7 @@ import { LocalAudioTrack, RemoteAudioTrack } from 'livekit-client';
 import { useAudioWaveform } from '@livekit/components-react';
 
 const AudioAnalyzerCircle = ({ track }: { track: LocalAudioTrack | RemoteAudioTrack }) => {
-  const { bars } = useAudioWaveform(track, { barCount: 4, volMultiplier: 4 });
+  const { bars } = useAudioWaveform(track, { barCount: 4, volMultiplier: 6 });
 
   return (
     <div className="flex justify-center items-center h-full">

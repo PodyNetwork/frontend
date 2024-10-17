@@ -26,13 +26,20 @@ const Participant: React.FC<Props> = ({
   const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();
   const participants = useParticipants();
-  const { updateCallParticipantPermission } =
-    useUpdateCallParticipantPermission();
+  const { updateCallParticipantPermission } = useUpdateCallParticipantPermission();
   const { users } = useUserContext();
 
   const handleAddToSpeak = (username: string) => {
     updateCallParticipantPermission.mutate({
       participantCanPublish: true,
+      callId: call?._id || "",
+      username,
+    });
+  };
+
+  const handleRemoveFromSpeak = (username: string) => {
+    updateCallParticipantPermission.mutate({
+      participantCanPublish: false,
       callId: call?._id || "",
       username,
     });
@@ -87,6 +94,7 @@ const Participant: React.FC<Props> = ({
               <ParticipantControls
                 participant={participant}
                 handleAddToSpeak={handleAddToSpeak}
+                handleRemoveFromSpeak={handleRemoveFromSpeak}
                 profile={profile}
                 call={call}
                 participantBarToggleExpanded={participantBarToggleExpanded}

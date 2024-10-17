@@ -553,7 +553,7 @@ body {
     @apply bg-white dark:bg-slate-800;
     border-radius: 10px;
     width: 100%;
-    max-width: calc((77vh * 16) / 9);
+    max-width: calc((75vh * 16) / 9);
     margin: auto;
 }
 
@@ -562,13 +562,11 @@ body {
     overflow: hidden;
     position: relative;
 }
-
 .focused-participant-container {
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
 }
-
 .participant-carousel {
     display: flex;
     flex-direction: row;
@@ -580,53 +578,45 @@ body {
     gap: 5px;
     margin-top: 5px;
 }
-
 .participant-carousel::-webkit-scrollbar {
     width: 8px;
 }
-
 .participant-carousel::-webkit-scrollbar-thumb {
     background: #007bff;
     border-radius: 10px;
 }
-
 .participant-carousel::-webkit-scrollbar-track {
     background: #e0e0e0;
 }
-
 .ParticipantCustomTile {
     border-radius: 8px;
     transition: transform 0.2s;
 }
-
 .ParticipantCustomTile:hover {
     transform: scale(1.05);
 }
-
 @media (min-width: 768px) {
     .participant-carousel {
         width: 250px;
-        /* Fixed width on larger screens */
-        flex-direction: column;
+        flex-direction: row;
         padding: 10px;
         gap: 10px;
     }
 }
-
 @media (min-width: 500px) {
     .enhanced-focus-layout {
         flex-direction: row;
     }
 }
-
 @media (max-width: 600px) {
     .enhanced-focus-layout {
         max-width: 600px;
         gap: 5px;
+        padding-right: 5px;
     }
 
     .participant-carousel {
-        width: 110px;
+        width: 140px;
     }
 
     .focus_portrait {
@@ -638,13 +628,14 @@ body {
 
 @media (min-width: 550px) and (max-width: 767px) {
     .enhanced-focus-layout {
-        max-width: 600px;
+        max-width: 100%;
         gap: 5px;
+        padding-right: 5px;
     }
 
     .participant-carousel {
         width: 150px;
-
+        flex-direction: column;
     }
 
     .focus_portrait {
@@ -654,26 +645,57 @@ body {
     }
 }
 
+@media (min-width: 500px) and (max-width: 549px) {
+    .participant-carousel {
+        width: 150px;
+        flex-direction: column;
+    }
+}
+@media (min-width: 1023px) {
+    .participant-carousel {
+        flex-direction: column;
+    }
+}
 @media (min-width: 768px) and (max-width: 1023px) {
     .enhanced-focus-layout {
         flex-direction: column;
     }
-
     .participant-carousel {
-        width: 150px;
+        width: 100%;
+        padding: 5px 10px 10px 10px;
+    }
+    .participant-carousel > div {
+        min-width: 200px;
+        max-width: 200px;
     }
 }
-
+@media (max-width: 499px) {
+    .participant-carousel {
+        width: 100%;
+        padding: 0px 10px 10px 10px;
+    }
+    .participant-carousel > div {
+        min-width: 150px;
+        max-width: 150px;
+    }
+    .enhanced-focus-layout{
+        padding: 0;
+    }
+}
+@media (max-width: 300px) {
+    .participant-carousel > div {
+        min-width: 100px;
+        max-width: 100px;
+    }
+}
 .__pd_bg_gradient {
     background: linear-gradient(0deg, rgba(105, 145, 214, .08), rgb(248 250 253)), #fff;
 }
-
 @media (prefers-color-scheme: dark) {
     .__pd_bg_gradient {
         background: #07070A;
     }
 }
-
 .__loader_wrapper {
     background: #000;
     margin: 0;
@@ -749,10 +771,11 @@ body {
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
-    @apply bg-slate-200;
+    @apply bg-slate-200 dark:bg-slate-700;
     border-radius: inherit !important;
 }
-.__active_pd_lk::after{
+
+.__active_pd_lk::after {
     content: "";
     width: 4px;
     height: 70%;
@@ -763,24 +786,25 @@ body {
     transform: translateY(-50%);
     border-radius: 2px;
 }
+
 .__pd_lk {
     position: relative;
 }
 
 .__pd_lk::after {
     content: "";
-    width: 0; 
+    width: 0;
     height: 70%;
-    background-color: transparent; 
+    background-color: transparent;
     position: absolute;
     top: 50%;
     right: -2px;
     transform: translateY(-50%);
     border-radius: 2px;
-    transition: width 0.3s ease, background-color 0.3s ease; 
+    transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .__pd_lk:hover::after {
     width: 4px;
-    background-color: #64748b; 
+    background-color: #64748b;
 }

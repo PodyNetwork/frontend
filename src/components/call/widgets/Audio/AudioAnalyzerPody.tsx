@@ -3,11 +3,10 @@ import { LocalAudioTrack, RemoteAudioTrack } from 'livekit-client';
 import { useAudioWaveform } from '@livekit/components-react';
 
 const AudioAnalyzer = ({ track }: { track: LocalAudioTrack | RemoteAudioTrack }) => {
-  // Set waveform bars to 5 to match the design.
-  const { bars } = useAudioWaveform(track, { barCount: 4, volMultiplier: 4 });
+  const { bars } = useAudioWaveform(track, { barCount: 3, volMultiplier: 6 });
 
   return (
-    <div className="flex justify-center items-center h-[13px] md:h-[20px]">
+    <div className="flex justify-center items-center h-[13px] md:h-[17px]">
       {bars.map((bar, index) => (
         <div
           key={index}

@@ -1,11 +1,9 @@
-import { RemoteAudioTrack, AudioTrack } from "livekit-client";
-import { useEffect, useState } from "react";
-import AudioAnalyzer from "../Audio/AudioAnalyzerPody";
+import { TrackPublication } from "livekit-client";
+import AudioAnalyzerWrapper from "../Audio/AudioAnalyzerWrapper";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 interface Participant {
   identity: string;
-  audioTrackPublications: Map<string, any>;
+  audioTrackPublications: Map<string, TrackPublication>;
   permissions?: {
     canPublish?: boolean;
   };
@@ -13,7 +11,7 @@ interface Participant {
 }
 
 interface MobileParticipantInfoProps {
-  isSpeaker: boolean; 
+  isSpeaker: boolean;
   participant: Participant;
   role: string;
 }
@@ -23,40 +21,12 @@ export const MobileParticipantInfo: React.FC<MobileParticipantInfoProps> = ({
   participant,
   role,
 }) => {
-  const audioTrackPublication = Array.from(
-    participant.audioTrackPublications.values()
-  )[0];
-  const audioTrack = audioTrackPublication?.track;
-
-  const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>(null);
-
-  useEffect(() => {
-    // Update currentTrack whenever the audioTrack changes
-    setCurrentTrack(audioTrack ?? null);
-
-    // If audioTrack is a remote track, listen for its state changes
-    if (audioTrack instanceof RemoteAudioTrack) {
-      const handleTrackMuted = () => setCurrentTrack(null);
-      const handleTrackUnmuted = () => setCurrentTrack(audioTrack);
-
-      // Attach event listeners
-      audioTrack.on("muted", handleTrackMuted);
-      audioTrack.on("unmuted", handleTrackUnmuted);
-
-      // Cleanup function to remove listeners
-      return () => {
-        audioTrack.off("muted", handleTrackMuted);
-        audioTrack.off("unmuted", handleTrackUnmuted);
-      };
-    }
-  }, [audioTrack]);
-
   return (
     <p className="flex flex-row items-center md:hidden text-xs leading-none">
       {isSpeaker ? (
         <>
-          {participant.isMicrophoneEnabled && currentTrack ? (
-            <AudioAnalyzer track={currentTrack} />
+          {participant.isMicrophoneEnabled ? (
+            <AudioAnalyzerWrapper participant={participant} />
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
