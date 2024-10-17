@@ -1,41 +1,22 @@
-import { useEffect, useState } from "react";
-import AudioAnalyzer from "../Audio/AudioAnalyzerPody";
-import { LocalAudioTrack, RemoteAudioTrack, AudioTrack } from "livekit-client";
+import { TrackPublication } from "livekit-client";
+import AudioAnalyzerWrapper from "../Audio/AudioAnalyzerWrapper";
+
+interface Participant {
+  identity: string;
+  audioTrackPublications: Map<string, TrackPublication>;
+}
 
 export const MicrophoneIcon = ({
   enabled,
-  audioTrack,
+  participant,
 }: {
   enabled: boolean;
-  audioTrack: LocalAudioTrack | RemoteAudioTrack | null; // Explicitly type the track
+  participant: Participant;
 }) => {
-  const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>(null);
-
-  useEffect(() => {
-    // Update currentTrack whenever the audioTrack changes
-    setCurrentTrack(audioTrack ?? null);
-
-    // If audioTrack is a remote track, listen for its state changes
-    if (audioTrack instanceof RemoteAudioTrack) {
-      const handleTrackMuted = () => setCurrentTrack(null);
-      const handleTrackUnmuted = () => setCurrentTrack(audioTrack);
-
-      // Attach event listeners
-      audioTrack.on("muted", handleTrackMuted);
-      audioTrack.on("unmuted", handleTrackUnmuted);
-
-      // Cleanup function to remove listeners
-      return () => {
-        audioTrack.off("muted", handleTrackMuted);
-        audioTrack.off("unmuted", handleTrackUnmuted);
-      };
-    }
-  }, [audioTrack]);
-
   return (
     <>
-      {enabled && currentTrack ? (
-        <AudioAnalyzer track={currentTrack} />
+      {enabled ? (
+        <AudioAnalyzerWrapper participant={participant} />
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"

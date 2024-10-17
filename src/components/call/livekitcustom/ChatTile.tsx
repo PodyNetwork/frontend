@@ -127,7 +127,7 @@ export default function ChatTile({
             return (
               <div key={msg.id} className="flex flex-col mb-2">
                 <div className="flex flex-row">
-                  <div className="w-6 h-6"><AvatarParticipant name={msg.from?.identity || "unknown user"} /></div>
+                  <div className="w-6 h-6 me-2"><AvatarParticipant name={msg.from?.identity || "unknown user"} /></div>
                   <div className="w-[75%] rounded-lg p-2 bg-[#f8fafd] text-slate-700">
                     <p className="text-xs">{msg.message}</p>
                   </div>
@@ -146,7 +146,7 @@ export default function ChatTile({
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="w-full px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white outline-none text-sm pr-10"
+                className="w-full px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white outline-none text-xs pr-10"
                 disabled={isSending}
                 ref={inputRef}
               />
