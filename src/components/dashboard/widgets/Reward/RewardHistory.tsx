@@ -115,7 +115,7 @@ const RewardHistory = () => {
                       claimPoints({
                         userAddress: profile?.walletAddress as Address, 
                         nonce: data?._id, 
-                        points: data?.points.toString(), 
+                        points: BigInt(data?.points) ?? BigInt(0), 
                         signature: data?.signature
                       })
                     }}>Mint on Blockchain</button>
