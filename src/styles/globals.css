@@ -800,7 +800,7 @@ body {
     width: 4px;
     background-color: #64748b;
 }
-.enhanced-focus-layout.focus_portrait .lk-participant-media-video{
+.pd_portrait_vid{
     object-fit: contain;
     height: calc(40vh * (9 / 16)) !important;
 }

@@ -1,6 +1,8 @@
+// Import statements remain unchanged
 import * as React from "react";
 import { Participant } from "livekit-client";
 import { Track } from "livekit-client";
+import { useEffect, useRef, useState } from "react";
 import type {
   ParticipantClickEvent,
   TrackReferenceOrPlaceholder,
@@ -64,9 +66,7 @@ export interface ParticipantTileProps
   onParticipantClick?: (event: ParticipantClickEvent) => void;
 }
 
-export const ParticipantCustomTile: (
-  props: ParticipantTileProps & React.RefAttributes<HTMLDivElement>
-) => React.ReactNode = /* @__PURE__ */ React.forwardRef<
+export const ParticipantCustomTile: React.FC<ParticipantTileProps> = /* @__PURE__ */ React.forwardRef<
   HTMLDivElement,
   ParticipantTileProps
 >(function ParticipantTile(
@@ -80,13 +80,15 @@ export const ParticipantCustomTile: (
   ref
 ) {
   const trackReference = useEnsureTrackRef(trackRef);
-
   const { elementProps } = useParticipantTile<HTMLDivElement>({
     htmlProps,
     disableSpeakingIndicator,
     onParticipantClick,
     trackRef: trackReference,
   });
+
+  const [isPortrait, setIsPortrait] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const isEncrypted = useIsEncrypted(trackReference.participant);
   const layoutContext = useMaybeLayoutContext();
   const autoManageSubscription = useFeatureContext()?.autoSubscription;
@@ -105,7 +107,7 @@ export const ParticipantCustomTile: (
     },
     [trackReference, layoutContext]
   );
-  
+
   const participant = useEnsureParticipant(trackReference.participant);
 
   const isCameraOff =
@@ -113,13 +115,36 @@ export const ParticipantCustomTile: (
     (!trackReference?.publication?.isSubscribed ||
       trackReference.publication?.isMuted);
 
+  // Effect to determine video orientation based on the video element's dimensions
+  useEffect(() => {
+    const updateOrientation = () => {
+      if (videoRef.current) {
+        const { videoWidth, videoHeight } = videoRef.current;
+        setIsPortrait(videoHeight > videoWidth);
+      }
+    };
+
+    const currentVideoRef = videoRef.current; // Store the current ref in a variable
+
+    if (currentVideoRef) {
+      currentVideoRef.addEventListener("loadedmetadata", updateOrientation);
+    }
+
+    return () => {
+      if (currentVideoRef) {
+        currentVideoRef.removeEventListener("loadedmetadata", updateOrientation);
+      }
+    };
+  }, [videoRef]);
+
+  console.log(isPortrait);
+
   return (
     <div ref={ref} style={{ position: "relative" }} {...elementProps}>
       <TrackRefContextIfNeeded trackRef={trackReference}>
-        <ParticipantContextIfNeeded participant={trackReference.participant}>
+        <ParticipantContextIfNeeded participant={participant}>
           {children ?? (
             <>
-              {/* Render placeholder if the camera is off */}
               {isCameraOff ? (
                 <div className="camera-off-placeholder relative">
                   <PlaceHolder participant={participant} name={participant.identity} />
@@ -137,10 +162,12 @@ export const ParticipantCustomTile: (
                     trackReference.source === Track.Source.Camera ||
                     trackReference.source === Track.Source.ScreenShare) ? (
                     <VideoTrack
+                      ref={videoRef} // Assign the ref to the VideoTrack
                       trackRef={trackReference}
                       onSubscriptionStatusChanged={handleSubscribe}
                       manageSubscription={autoManageSubscription}
                       style={{ width: "100%", height: "100%" }}
+                      className={isPortrait ? "pd_portrait_vid" : "pd_landscape_vid"}
                     />
                   ) : (
                     isTrackReference(trackReference) && (
