@@ -570,6 +570,7 @@ body {
 }
 .focused-participant-container video.portrait {
     object-fit: contain; 
+    max-height: 20vh;
 }
 .participant-carousel {
     display: flex;
