@@ -1,9 +1,9 @@
 import { SkeletonTopThree } from "./SkeletonTopThree";
-import Image from "next/image";
 import { formatUnits } from "viem";
 import { LeaderboardEntry } from "@/app/dashboard/leaderboard/types";
 import { motion } from "framer-motion";
 import { formatNumber } from "@/lib/formatNumber";
+import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 
 export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
   if (data.length === 0) {
@@ -26,13 +26,7 @@ export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
           >
             <div className="relative">
               <div className="w-16 h-16 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 shadow-lg">
-                <Image
-                  src={"/avatar/user6.png"}
-                  alt={`Top ${item.rank}`}
-                  width={192}
-                  height={192}
-                  className="w-full h-full object-cover rounded-full border-2 border-white"
-                />
+                <AvatarParticipant name={item.username} />
               </div>
               <div className="absolute -top-1.5 -right-1.5 w-7 h-7 rounded-full bg-pody-primary flex items-center justify-center shadow-lg">
                 <span className="text-sm font-bold text-white">

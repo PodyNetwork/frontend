@@ -9,8 +9,9 @@ const ReadyToGo = () => {
     <>
         <div className='_grad_card_main'></div>
         <div className='relative z-50'>
-            <h3 className='text-xl font-medium text-slate-200'>Ready to Go service</h3>
-            <p className='text-sm mt-1.5 text-slate-400'>Streamlining solutions for swift success</p>
+            <h3 className='text-xl font-medium text-slate-200'>Mint On-Chain Passport</h3>
+            <p className='text-sm mt-1.5 text-slate-400 leading-relaxed'>Get access to Pody by minting your personal on-chain passport. This digital ID allows you to enter meetings and classrooms securely, while maintaining anonymity.
+            </p>
             <div className='flex flex-col gap-y-4 mt-10 pb-8'>
                 <div className='flex flex-row gap-x-3 flex-nowrap overflow-hidden'>
                     {service.map((servicedata, index) => (

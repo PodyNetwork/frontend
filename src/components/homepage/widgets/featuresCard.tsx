@@ -8,15 +8,15 @@ import ReadyToGo from './readyToGo';
 const FeaturesCard = () => {
   return (
     <>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 _features_card_x2'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 _features_card_x2'>
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
                 <ReadyToGo />
             </div>
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_main_2'></div>
                 <div className='relative z-50 h-full flex flex-col'>
-                    <h3 className='text-xl font-medium text-slate-200'>3D Meeting & Classroom</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center flex-wrap gap-x-2'>Tailored for Realtime webRTC <small className='bg-pody-primary px-1 rounded-sm text-slate-600'>coming soon</small></p>
+                    <h3 className='text-xl font-medium text-slate-200'>Create 2D Classrooms/Meetings</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center flex-wrap gap-x-2 leading-relaxed'>Easily set up your own virtual 2D meeting or classroom. Invite participants and enjoy interactive features like screen sharing and real-time streaming.</p>
                     <div className='flex-1 flex items-center'>
                         <div>
                             <button className='border border-pody-gray/30 px-4 py-2 rounded-full text-sm'>Join Waitlist 😉</button>
@@ -25,12 +25,13 @@ const FeaturesCard = () => {
                 </div>
             </div>
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 _features_card_x3'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 _features_card_x3'>
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50'>
-                    <h3 className='text-xl font-medium text-slate-200'>Flexible Architecture design</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Seamlessly integrated WebRTC with Telegram</p>
+                    <h3 className='text-xl font-medium text-slate-200'>Earn Rewards for Participation</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center leading-relaxed'>Get rewarded for your time. The longer you participate, the more points you earn. These points can be converted to tokens, creating real value for your time in meetings.
+                    </p>
                     <div className='flex flex-col gap-y-4 mt-8 pb-8 text-sm'>
                         <Image src={arcimage} className='object-cover h-52' alt="architecture design" />
                     </div>
@@ -39,8 +40,8 @@ const FeaturesCard = () => {
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50'>
-                    <h3 className='text-xl font-medium text-slate-200'>The best Ecosystem</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Join the unique ecosystem in decentralized solution</p>
+                    <h3 className='text-xl font-medium text-slate-200'>Host Reward Mechanism</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center leading-relaxed'>The more participants you attract and the more engaged they are, the more you earn. Create meaningful meetings and classrooms that reward both you and your participants.</p>
                     <div className='flex flex-col gap-y-4 mt-8 pb-8 text-sm'>
                        <div className='ic_cr_container mx-auto flex-wrap animate-pulse'>
                             {ecosystem.map((ecosystemdata, index) => (
@@ -55,8 +56,8 @@ const FeaturesCard = () => {
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50'>
-                    <h3 className='text-xl font-medium text-slate-200'>3D & 2D Support</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center'>integrated WebRTC with realtime data</p>
+                    <h3 className='text-xl font-medium text-slate-200'>Decentralized and Private Meetings</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Pody runs on decentralized peer-to-peer technology using WebRTC, ensuring privacy and security for all users. No data harvesting, no AI interference.</p>
                     <div className='flex flex-row gap-4 mt-8 pb-8 text-sm flex-wrap'>
                         {support.map((supportdata, index) => (
                             <button className='px-3 py-2 text-nowrap rounded-full border border-pody-border/30' key={index}>{supportdata.title}</button>

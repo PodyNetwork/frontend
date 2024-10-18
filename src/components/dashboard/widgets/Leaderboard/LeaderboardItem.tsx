@@ -1,6 +1,6 @@
 import { LeaderboardEntry } from "@/app/dashboard/leaderboard/types";
+import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { formatUnits } from "viem";
 
 export const LeaderboardItem = ({
@@ -17,13 +17,9 @@ export const LeaderboardItem = ({
       <div className="flex items-center gap-x-2 flex-grow min-w-0">
         <div className="text-base text-slate-500 w-6 flex-shrink-0">{rank}</div>
         <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
-          <Image
-            src={"/avatar/user6.png"}
-            width={56}
-            height={56}
-            alt={username}
-            className="rounded-full w-6 h-6 sm:w-8 sm:h-8 object-cover border-2 border-pody-ptext-pody-primary shadow-md flex-shrink-0"
-          />
+          <div className="w-6 h-6 sm:w-8 sm:h-8 ">
+              <AvatarParticipant name={username} />
+          </div>
           <h3 className="text-xs sm:text-sm text-slate-500 truncate">{username}</h3>
         </div>
       </div>

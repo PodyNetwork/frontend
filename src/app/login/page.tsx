@@ -7,6 +7,7 @@ import Paragraph from '@/components/global/paragraph'
 import { useForm } from '@tanstack/react-form'
 import useLogin from './hooks/useLogin'
 import ConnectOrComponent from '@/components/global/ConnectOrComponent'
+import Link from 'next/link'
 
 const Login = () => {
 
@@ -21,9 +22,9 @@ const Login = () => {
     <main className="relative float-left w-full h-full overflow-hidden" aria-label="Login">
       <AuthLayout>
         <div className='max-w-72 flex-1'>
-          <div className='pb-6'>
+          <div className='pb-4'>
             <Heading2 className="font-bold text-slate-800">Hello!</Heading2>
-            <Paragraph className="text-slate-400 mt-2">Login to Get Started</Paragraph>
+            <Paragraph className="text-slate-400 mt-2">Convert meeting time into reward</Paragraph>
           </div>
           <form onSubmit={(e) => {
             e.preventDefault()
@@ -32,7 +33,7 @@ const Login = () => {
           }}>
             <ConnectOrComponent>
               <button
-                className='p-3 bg-pody-dark_secondary w-full rounded-lg text-slate-200 text-sm mt-3 hover:bg-pody-dark_secondary/90'
+                className='p-3 bg-pody-dark_secondary w-full rounded-lg text-slate-200 text-sm mt-1 hover:bg-pody-dark_secondary/90'
                 disabled={login.isPending}
               >
                 {login.isPending ? (
@@ -47,6 +48,7 @@ const Login = () => {
             </ConnectOrComponent>
             {errorMessage && <div className="text-red-500 text-sm mt-2">{errorMessage.message}</div>}
           </form>
+          <div className='text-sm mt-2'><span>Don&apos;st have pody passport yet?</span>{" "}<Link className='text-blue-500' href="/signup">Mint Passport</Link></div>
         </div>
       </AuthLayout>
     </main>

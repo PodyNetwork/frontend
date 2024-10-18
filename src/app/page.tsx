@@ -4,6 +4,8 @@ import Roadmap from "@/components/homepage/Roadmap";
 import Cta from "@/components/homepage/Cta";
 import Footer from "@/components/homepage/Footer";
 import type { Metadata } from "next";
+import RewardSection from "@/components/homepage/PodyReward";
+import Faq from "@/components/homepage/Faq";
 
 
 export const metadata: Metadata = {
@@ -16,7 +18,9 @@ export default function Home() {
     <main className="relative float-left w-full h-full overflow-hidden" aria-label="Homepage">
         <HeroSection />
         <FeaturesSection />
+        <RewardSection />
         <Roadmap />
+        <Faq />
         <Cta />
         <Footer />
     </main>

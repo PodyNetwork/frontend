@@ -7,6 +7,7 @@ import Paragraph from '@/components/global/paragraph'
 import useSignup from './hooks/useSignup'
 import { formOptions, useForm } from '@tanstack/react-form'
 import ConnectOrComponent from '@/components/global/ConnectOrComponent'
+import Link from 'next/link'
 
 const formOpts = formOptions<{ username: string }>({
     defaultValues: {
@@ -28,9 +29,9 @@ const Login = () => {
         <main className="relative float-left w-full h-full overflow-hidden" aria-label="Homepage">
             <AuthLayout>
                 <div className='max-w-72 flex-1'>
-                    <div className='pb-8'>
+                    <div className='pb-4'>
                         <Heading2 className="font-bold text-slate-800">Hello!</Heading2>
-                        <Paragraph className="text-slate-400 mt-2">Sign Up to Get Started</Paragraph>
+                        <Paragraph className="text-slate-400 mt-2 text-base">Sign Up and start earning rewards</Paragraph>
                     </div>
                     <form onSubmit={(e) => {
                         e.preventDefault()
@@ -97,6 +98,7 @@ const Login = () => {
                         </ConnectOrComponent>
                     </form>
                     {errorMessage && <div className="text-red-500 text-sm mt-2">{errorMessage.message}</div>}
+                    <div className='text-sm mt-2'><span>Minted pody passport?</span>{" "}<Link className='text-blue-500' href="/login">Login</Link></div>
                 </div>
             </AuthLayout>
         </main>

@@ -1,42 +1,45 @@
-import { ReactNode, useEffect, useState } from "react"
-import axios from "@/network/axios"
-import useLoading from "@/hooks/useLoading"
-import { useRouter } from "next/navigation"
-import Loader from "@/components/preloader/Loader"
+'use client'
+import { ReactNode, useEffect, useState } from "react";
+import axios from "@/network/axios";
+import useLoading from "@/hooks/useLoading";
+import { useRouter } from "next/navigation";
+import Loader from "@/components/preloader/Loader";
+import NetworkError from "@/components/Error/NetworkError";
 
+/* eslint-disable react-hooks/exhaustive-deps */
 const AuthMiddleware = ({ children }: { children: ReactNode }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-    const { startLoading, stopLoading, loading } = useLoading(true)
-    const router = useRouter()
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { startLoading, stopLoading } = useLoading(true);
+  const router = useRouter();
 
-    useEffect(() => {
-        if (isLoggedIn) return
-        startLoading()
+  useEffect(() => {
+    if (isLoggedIn) return;
+    startLoading();
 
-        const fetchProfile = async () => {
-            try {
-                const response = await axios.get<any>('/user/profile');
-                if (response.data) {
-                    setIsLoggedIn(true)
-                } else {
-                    throw new Error('Profile not found');
-                }
-            } catch (error) {
-                console.error('Error fetching profile:', error);
-                router.push('/login')
-            } finally {
-                stopLoading()
-            }
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get<unknown>("/user/profile");
+        if (response.data) {
+          setIsLoggedIn(true);
+        } else {
+          throw new Error("Profile not found");
         }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+        router.push("/login");
+      } finally {
+        stopLoading();
+      }
+    };
 
-        fetchProfile()
-    }, [isLoggedIn])
+    fetchProfile();
+  }, [isLoggedIn]);
 
-    if (isLoggedIn) return children
+  if (isLoggedIn) return children;
 
-    if (!navigator.onLine) return <>No network</>
+  if (typeof window !== 'undefined' && !window?.navigator.onLine) return <NetworkError />;
 
-    return <Loader/>
-}
+  return <Loader />;
+};
 
-export default AuthMiddleware
+export default AuthMiddleware;

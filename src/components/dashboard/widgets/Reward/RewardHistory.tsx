@@ -50,7 +50,7 @@ const RewardHistory = () => {
     fetchNextPage();
   };
 
-  const {profile} = useProfile()
+  const { profile } = useProfile();
 
   return (
     <>
@@ -96,7 +96,7 @@ const RewardHistory = () => {
                       </h3>
                     </div>
                   </motion.div>
-                  <div>
+                  <div className="flex items-center gap-x-2">
                     <motion.h5
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -104,22 +104,27 @@ const RewardHistory = () => {
                         delay: 0.7 + index * 0.1,
                         duration: 0.3,
                       }}
-                      className="font-medium text-sm text-slate-500"
+                      className="font-medium text-xs text-slate-500"
                     >
                       {data?.timeClaimed
                         ? dayjs(data?.timeClaimed).format("DD MMM YYYY h:mm A")
                         : "N/A"}
                     </motion.h5>
-                  <ConnectOrComponent>
-                  <button onClick={()=> {
-                      claimPoints({
-                        userAddress: profile?.walletAddress as Address, 
-                        nonce: data?._id, 
-                        points: BigInt(data?.points) ?? BigInt(0), 
-                        signature: data?.signature
-                      })
-                    }}>Mint on Blockchain</button>
-                  </ConnectOrComponent>
+                    <ConnectOrComponent>
+                      <button
+                        className="text-xs px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto"
+                        onClick={() => {
+                          claimPoints({
+                            userAddress: profile?.walletAddress as Address,
+                            nonce: data?._id,
+                            points: BigInt(data?.points) ?? BigInt(0),
+                            signature: data?.signature,
+                          });
+                        }}
+                      >
+                        Mint Point
+                      </button>
+                    </ConnectOrComponent>
                   </div>
                 </motion.li>
               ))}
