@@ -128,7 +128,7 @@ const AsideNav = () => {
         </div>
       </div>
 
-      {/* Web3 Mobile menu */}
+      {/* Pody Mobile menu */}
       <div
         className={`md:hidden fixed inset-0 bg-pody-primary z-40 transition-all duration-300 ease-in-out ${
           mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -166,8 +166,8 @@ const AsideNav = () => {
             ))}
           </ul>
           <div className="mt-8 flex flex-col items-center gap-y-4">
-            <div className="flex items-center gap-x-2 bg-indigo-800/50 p-2 rounded-full">
-              <div className="w-9 h-9 rounded-full bg-indigo-600 overflow-hidden">
+            <div className="flex items-center gap-x-2 bg-pody-secondary/50 p-2 rounded-full">
+              <div className="w-9 h-9 rounded-full bg-pody-secondary overflow-hidden">
                 <Image
                   src={userIcon}
                   width={100}
@@ -184,9 +184,6 @@ const AsideNav = () => {
                 </h3>
               )}
             </div>
-            <ul className="flex gap-x-4 text-sm text-white">
-              {/* ... (include the SVG icons here with text-white class) ... */}
-            </ul>
           </div>
         </div>
       </div>
