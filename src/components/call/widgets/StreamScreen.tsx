@@ -16,7 +16,7 @@ const StreamScreen = () => {
 
       const availableHeight = window.innerHeight - (infoHeight + controlsHeight + 100);
       const calculatedMaxWidth = `calc(${availableHeight}px * 16 / 9)`; 
-      const calculatedMaxWidth_potrait = `calc(${availableHeight}px * 9 / 16 * 2)`;
+      const calculatedMaxWidth_potrait = `calc((${availableHeight}px * 9 / 16 * 2) - ${infoHeight + controlsHeight}px)`;
 
       document.documentElement.style.setProperty('--max-video-width', calculatedMaxWidth);
       document.documentElement.style.setProperty('--max-video-width-potrait', calculatedMaxWidth_potrait);

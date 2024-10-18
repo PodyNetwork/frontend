@@ -609,6 +609,9 @@ body {
         width: 150px;
         flex-direction: column;
     }
+    .pd_portrait_vid {
+        height: calc(50vh * (9 / 16)) !important;
+    }
 }
 
 @media (min-width: 500px) and (max-width: 549px) {
