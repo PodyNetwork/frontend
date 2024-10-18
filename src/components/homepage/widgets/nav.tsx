@@ -7,7 +7,7 @@ const Nav = () => {
   return (
     <div className='w-full flex flex-row items-center text-sm justify-between py-8 px-8 md:px-16 text-slate-500' aria-label='Navigation Menu'>
         <ul className='flex flex-row gap-6 items-center' aria-label='Menu'>
-            <Link href="/"><Image src={logo} alt='Pody' className='w-16 object-contain' /></Link>
+            <Link href="/"><Image src={logo} alt='Pody' className='w-14 object-contain' /></Link>
             {navlink.mainLink.map((link, index) => (
                 <li key={index} className='hidden md:block hover:text-pody-primary hover:transition-all duration-100'>
                     <Link href={link.url}>{link.title}</Link>

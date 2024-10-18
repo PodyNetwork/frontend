@@ -13,7 +13,7 @@ const Footer = () => {
             <div className='max-w-5xl 2xl:max-w-7xl mx-auto'>
                 <div className='w-full relative'>
                     <div className='flex md:flex-row flex-col justify-between gap-5 py-7 bg-ed-50'>
-                        <Link href="/"><Image src={logo} alt='Pody Logo' className='w-20' /></Link>
+                        <Link href="/"><Image src={logo} alt='Pody Logo' className='w-14' /></Link>
                         <ul className='flex flex-row gap-5 flex-wrap items-center' aria-label='Footer Menu'>
                             {navlink.mainLink.map((link, index) => (
                                 <li key={index} className='md:px-2 hover:text-pody-primary hover:transition-all duration-100'>

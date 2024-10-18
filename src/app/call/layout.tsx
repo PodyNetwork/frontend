@@ -2,6 +2,7 @@
 
 import CustomLiveKit from "@/components/call/CustomLiveKit";
 import CallEndPage from "@/components/call/widgets/Status/Callend";
+import CallNotFound from "@/components/call/widgets/Status/CallNotFound";
 import CallPendingPage from "@/components/call/widgets/Status/CallPending";
 import LoaderStatus from "@/components/call/widgets/Status/LoaderStatus";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
@@ -12,8 +13,10 @@ import { useEffect } from "react";
 
 const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
   const { url } = useParams();
-  const { call } = useGetCallByURL(url as string);
+  const { call, isError } = useGetCallByURL(url as string);
   const { createCallToken, accessToken } = useCreateCallToken();
+
+  console.log(isError)
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -31,6 +34,8 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (call?.status === "ended") return <CallEndPage />;
+
+  if (typeof call === "undefined" && isError) return <CallNotFound />;
 
   if (!accessToken) return <LoaderStatus status="Loading..." />;
 

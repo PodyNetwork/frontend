@@ -536,7 +536,7 @@ body {
 }
 .pd_portrait_vid{
     object-fit: contain !important;
-    height: calc(50vh * (9 / 16)) !important;
+    height: var(--max-video-width-potrait, 100);
     @apply bg-slate-200 dark:bg-slate-700 !important;
 }
 .participant-carousel {
@@ -586,7 +586,7 @@ body {
 }
 @media (max-width: 600px) {
     .enhanced-focus-layout {
-        /* max-width: 600px; */
+        max-width: 600px;
         gap: 5px;
         padding-right: 5px;
     }
