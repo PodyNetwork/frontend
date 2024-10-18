@@ -42,7 +42,6 @@ export function EnhancedFocusLayout({
         "--carousel-height",
         `${carouselHeight}px`
       );
-      console.log("Updated carousel height:", carouselHeight);
     }
   }, [paginatedTracks.length]);
 

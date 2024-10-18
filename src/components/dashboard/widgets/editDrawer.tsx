@@ -166,6 +166,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
                           value={field.state.value}
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
+                          className="px-3.5"
                         />
                         {field.state.meta.errors && (
                           <div className="text-red-400 text-sm mb-1">

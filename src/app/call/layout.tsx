@@ -16,8 +16,6 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
   const { call, isError } = useGetCallByURL(url as string);
   const { createCallToken, accessToken } = useCreateCallToken();
 
-  console.log(isError)
-
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (call && !accessToken) {

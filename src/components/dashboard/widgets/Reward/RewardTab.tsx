@@ -1,6 +1,4 @@
-import React from "react";
 import { motion } from "framer-motion";
-import useClaimPoint from "@/hooks/point/useClaimPoints";
 import { RewardClaimSkeleton } from "./RewardClaimSkeleton";
 import { EmptyMessage } from "./RewardEmptyMessage";
 import useGetPointsHistory from "@/hooks/point/useGetPointsHistory";
@@ -19,7 +17,6 @@ const RewardTab = () => {
   const handleLoadMore = () => {
     fetchNextPage();
   };
-  const { claimPoint, loading } = useClaimPoint();
 
   return (
     <>
@@ -32,19 +29,6 @@ const RewardTab = () => {
         <h4 className="text-base text-slate-700 dark:text-slate-800 font-medium">
           Rewards
         </h4>
-        <button
-          onClick={() => {
-            claimPoint.mutate();
-          }}
-          disabled={loading}
-          className={`text-xs px-4 py-1.5 ${
-            loading ? "bg-pody-primary/50" : "bg-pody-primary"
-          } text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto ${
-            loading ? "cursor-not-allowed" : ""
-          }`}
-        >
-          {loading ? "Claiming..." : "Claim Points"}
-        </button>
       </motion.div>
       <div className="gap-4">
         <ul className="space-y-3 sm:space-y-4">

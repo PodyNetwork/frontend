@@ -536,7 +536,7 @@ body {
 }
 .pd_portrait_vid{
     object-fit: contain !important;
-    height: var(--max-video-width-potrait, 100);
+    height: var(--max-video-width-potrait, 100) !important;
     @apply bg-slate-200 dark:bg-slate-700 !important;
 }
 .participant-carousel {
@@ -577,6 +577,9 @@ body {
         flex-direction: row;
         padding: 10px;
         gap: 10px;
+    }
+    .participant-carousel .pd_portrait_vid {
+        height: calc(250px * (9 / 16)) !important;
     }
 }
 @media (min-width: 500px) {

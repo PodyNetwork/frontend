@@ -61,7 +61,7 @@ const RewardHistory = () => {
         className="flex h-fit w-full items-center justify-between rounded-t-2xl pb-[20px] pt-4"
       >
         <h4 className="text-base text-slate-700 dark:text-slate-800 font-medium">
-          History
+          Claim History
         </h4>
       </motion.div>
       <div className="gap-4">

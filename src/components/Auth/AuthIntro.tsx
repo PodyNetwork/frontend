@@ -23,8 +23,7 @@ const AuthIntro = () => {
           </h3>
           <p className="text-sm mt-1.5 text-slate-400 leading-relaxed">
             Get rewarded for your time. The longer you participate, the more
-            points you earn. These points can be converted to tokens, creating
-            real value for your time in Classroom.
+            points you earn.
           </p>
           <ScrollContent />
         </div>

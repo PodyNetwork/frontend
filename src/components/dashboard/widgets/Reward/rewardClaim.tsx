@@ -10,7 +10,7 @@ const RewardClaim = () => {
       <Tabs defaultValue="reward">
         <TabsList>
           <TabsTrigger value="reward">Reward</TabsTrigger>
-          <TabsTrigger value="history">History</TabsTrigger>
+          <TabsTrigger value="history">Claim History</TabsTrigger>
         </TabsList>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
