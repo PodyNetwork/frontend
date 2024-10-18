@@ -96,8 +96,6 @@ export function EnhancedFocusLayout({
           if (onParticipantClick) {
             onParticipantClick(nextAvailableIndex);
           }
-        } else {
-          console.warn("No available tracks to focus.");
         }
       }
     };

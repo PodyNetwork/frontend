@@ -41,7 +41,7 @@ const Page = () => {
           ) : leaderboard.length === 0 ? (
             <div className="flex flex-col md:flex-row items-center justify-between w-full gap-4">
               <div className="w-full md:w-4/12">
-                <p className="break-words text-lg sm:text-xl">No leaderboard data available, create meeting to start earning points</p>
+                <p className="break-words text-lg sm:text-xl">No leaderboard data available, create classroom to start earning points</p>
               </div>
               <div className="w-full md:w-7/12">
                 <Image src={noLeaderboardError} className="w-full h-64 object-contain" width={300} height={300} alt="user" />

@@ -4,7 +4,7 @@ const RoadmapTrack = () => {
   return (
     <div className='grid md:grid-cols-4 relative'>
         <div className='flex flex-col relative'>
-            <div className='flex flex-col'>
+            <div className='flex flex-col pt-3'>
                 <h2 className='text-lg font-bold ms-2'>Prototype</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map w-10 h-10 rounded-full relative mt-2.5 flex items-center'>
@@ -23,7 +23,7 @@ const RoadmapTrack = () => {
             </div>
         </div>
         <div className='flex flex-col relative'>
-            <div className='flex flex-col'>
+            <div className='flex flex-col pt-3'>
                 <h2 className='text-lg font-bold ms-2'>MVP</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map __ring_map_extend  w-10 h-10 rounded-full relative mt-2.5 flex items-center'>
@@ -40,7 +40,7 @@ const RoadmapTrack = () => {
             </div>
         </div>
         <div className='flex flex-col relative'>
-            <div className='flex flex-col'>
+            <div className='flex flex-col pt-3'>
                 <h2 className='text-lg font-bold ms-2'>Beta Test</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map w-10 h-10 rounded-full relative mt-2.5 flex items-center'>
@@ -57,7 +57,7 @@ const RoadmapTrack = () => {
             </div>
         </div>
         <div className='flex flex-col relative'>
-            <div className='flex flex-col'>
+            <div className='flex flex-col pt-3'>
                 <h2 className='text-lg font-bold ms-2'>Full Launch</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map __ring_map_extend w-10 h-10 rounded-full relative mt-2.5 flex items-center'>

@@ -14,11 +14,9 @@ const StreamScreen = () => {
       const infoHeight = infoRef.current.offsetHeight;
       const controlsHeight = controlsRef.current.offsetHeight;
 
-      // Calculate the available height for the video
-      const availableHeight = window.innerHeight - (infoHeight + controlsHeight + 100); // Adjust the padding as necessary
-      const calculatedMaxWidth = `calc(${availableHeight}px * 16 / 9)`; // Calculate width based on 16:9 aspect ratio
+      const availableHeight = window.innerHeight - (infoHeight + controlsHeight + 100);
+      const calculatedMaxWidth = `calc(${availableHeight}px * 16 / 9)`; 
 
-      // Set the CSS variable dynamically
       document.documentElement.style.setProperty('--max-video-width', calculatedMaxWidth);
     }
   };

@@ -172,7 +172,7 @@ const CallHistory = ({
       return <CallsCard calls={calls} />;
     }
     return (
-      <CallMessageDisplay message="Opps no meeting found. Click the 'Create Meeting' button to start one." />
+      <CallMessageDisplay message="Opps no meeting found. Click the 'Create Classroom' button to start one." />
     );
   };
 

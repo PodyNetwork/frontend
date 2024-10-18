@@ -1,20 +1,20 @@
 {
     "mainLink": [
         {
-            "title": "Home",
-            "url": "/"
-        },
-        {
-            "title": "Passport",
-            "url": "/passport"
-        },
-        {
             "title": "Features",
-            "url": "/features"
+            "url": "#features"
         },
         {
-            "title": "3D Meeting",
-            "url": "/meet"
+            "title": "Reward",
+            "url": "#reward"
+        },
+        {
+            "title": "Roadmap",
+            "url": "#roadmap"
+        },
+        {
+            "title": "FAQ",
+            "url": "#faq"
         }
     ],
     "authLink": [

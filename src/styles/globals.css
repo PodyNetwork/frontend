@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
     --font-manrope: var(--font-manrope);
 }
@@ -54,8 +53,6 @@ body {
     opacity: 0.75;
 }
 
-
-
 ._grad_card_main_login {
     width: 30%;
     height: 150px;
@@ -64,11 +61,10 @@ body {
     transform: rotate(45deg);
     bottom: -1.75rem;
     left: 0;
-    background: linear-gradient(360deg, #0D0F13 0.00%, #0D0F13 0.00%, #96EA63 100.00%);
+    background: linear-gradient(360deg, #0D0F13 0.00%, #0D0F13 0.00%, #3F3B60 100.00%);
     filter: blur(80px);
     opacity: 0.55;
 }
-
 ._grad_card_base {
     width: 200px;
     height: 200px;
@@ -540,7 +536,7 @@ body {
 }
 .pd_portrait_vid{
     object-fit: contain !important;
-    height: calc(40vh * (9 / 16)) !important;
+    height: calc(50vh * (9 / 16)) !important;
     @apply bg-slate-200 dark:bg-slate-700 !important;
 }
 .participant-carousel {
@@ -647,6 +643,9 @@ body {
     .participant-carousel > div {
         min-width: 150px;
         max-width: 150px;
+    }
+    .pd_portrait_vid{{
+        height: calc(50vh * (9 / 16)) !important;
     }
     .participant-carousel .pd_portrait_vid {
         height: calc(150px * (9 / 16)) !important;
@@ -786,4 +785,17 @@ body {
 }
 .__pd_faq_bg{
     background: linear-gradient(45deg, #212429, rgba(0, 0, 0, 0.315));
+}
+.background-text {
+    position: absolute;
+    bottom: -7rem;
+    right: 0;
+    width: 100%; 
+    font-size: 16rem; 
+    font-weight: 800; 
+    color: rgba(0, 0, 0, 0.1); 
+    text-align: right; 
+    pointer-events: none; 
+    z-index: 1; 
+    white-space: nowrap; 
 }

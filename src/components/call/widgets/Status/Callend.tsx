@@ -43,7 +43,7 @@ const CallEndPage = () => {
         <p className="text-xs mb-8">
           {isOngoing
             ? "You are no longer connected. To rejoin, please reconnect."
-            : "Start call and keep earning rewards, every conversation brings you closer to more!"}
+            : "Create Classroom and keep earning rewards, every conversation brings you closer to more!"}
         </p>
 
         <div className="space-y-4 flex flex-col w-full text-xs xs:text-sm">

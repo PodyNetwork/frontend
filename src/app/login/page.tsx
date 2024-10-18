@@ -48,7 +48,7 @@ const Login = () => {
             </ConnectOrComponent>
             {errorMessage && <div className="text-red-500 text-sm mt-2">{errorMessage.message}</div>}
           </form>
-          <div className='text-sm mt-2'><span>Don&apos;st have pody passport yet?</span>{" "}<Link className='text-blue-500' href="/signup">Mint Passport</Link></div>
+          <div className='text-sm mt-2'><span>Don&apos;t have pody passport yet?</span>{" "}<Link className='text-blue-500' href="/signup">Mint Passport</Link></div>
         </div>
       </AuthLayout>
     </main>

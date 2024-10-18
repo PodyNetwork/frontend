@@ -4,9 +4,9 @@ import RoadmapTrack from './widgets/roadmapTrack'
 
 const Roadmap = () => {
   return (
-    <section className='bg-pody-dark relative text-white py-32 px-8 md:px-16 min-h-screen flex flex-col justify-center' aria-label='roadmapo'>
+    <section id='roadmap' className='bg-pody-dark relative text-white py-40 px-8 md:px-16 flex flex-col justify-center' aria-label='roadmapo'>
         <div>
-            <div className='max-w-5xl mx-auto'>
+            <div className='max-w-5xl 2xl:max-w-7xl mx-auto'>
                 <RoadmapHeader />
                 <RoadmapTrack />
             </div>

@@ -10,22 +10,21 @@ const Hero = () => {
   return (
     <div className="relative w-full px-8 md:px-16">
       <div className="max-w-5xl mx-auto _hero_wrapper flex flex-col">
-        <div className="max-w-2xl mx-auto flex flex-col gap-y-6 justify-center items-center">
+        <div className="max-w-3xl mx-auto flex flex-col gap-y-6 justify-center items-center">
           <Heading1 className="text-center font-extrabold">
-            Meeting with a rewarding twist
+            Teach on Open campus and earn rewards
           </Heading1>
           <div className="max-w-md">
             <Paragraph className="text-center text-slate-400">
-              Experience interactive, rewarding, and engaging virtual meetings
-              and Classroom
+              Experience interactive, rewarding, and engaging virtual Classroom
             </Paragraph>
-            <div className="flex flex-row justify-center gap-3 mt-4 text-sm">
+            <div className="flex flex-row flex-wrap justify-center items-center gap-3 mt-4 text-sm">
               <Link href="/dashboard">
                 <ButtonPody>
-                  <span className="text-sm">Create Meeting</span>
+                  <span className="text-sm">Create Classroom</span>
                 </ButtonPody>
               </Link>
-              <ButtonBorder>Join Meeting</ButtonBorder>
+              <ButtonBorder>Join Classroom</ButtonBorder>
             </div>
           </div>
         </div>

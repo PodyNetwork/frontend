@@ -1,29 +1,25 @@
-"use client"
-
-import "@rainbow-me/rainbowkit/styles.css";
+import { ReactNode } from "react";
 import "../styles/globals.css";
-import { WagmiProvider } from "wagmi";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { config } from "@/utils/wagmi";
-import queryClient from "@/utils/queryClient";
 import manrope from "@/fonts/Manrope/localFont";
+import Providers from "./Providers";
+import type { Metadata } from "next";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const metadata: Metadata = {
+  title: "Pody Classroom - Get rewarded for your time.",
+  description:
+    "Teach on Open-campus and earn rewards, Decentralized and privacy-focused.",
+  icons: {
+    icon: "/logo.png",
+  },
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={manrope.variable}>
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider modalSize="compact">
-              <main>{children}</main>
-            </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
+        <Providers>
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );

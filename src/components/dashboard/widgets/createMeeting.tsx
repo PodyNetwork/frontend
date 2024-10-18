@@ -8,7 +8,7 @@ const CreateMeeting = () => {
     <>
       <div className="flex flex-col gap-y-4">
         <h2 className="text-4xl text-slate-800">
-          Create <span className="text-slate-500">Meeting</span> for Now or
+          Create <span className="text-slate-500">Classroom</span> for Now or
           Later
         </h2>
         <div className="text-sm mt-2 flex flex-col xs:flex-row flex-wrap text-nowrap gap-2">
@@ -40,7 +40,7 @@ const CreateMeeting = () => {
                 </svg>
                 <span>Creating...</span>
               </div>
-            ) : (<span>Create Meeting</span>)}
+            ) : (<span>Create Classroom</span>)}
           </button>
           <ScheduleDrawer />
         </div>

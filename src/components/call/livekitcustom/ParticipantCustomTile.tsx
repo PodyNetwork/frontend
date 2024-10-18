@@ -114,22 +114,48 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
         (!trackReference?.publication?.isSubscribed ||
           trackReference.publication?.isMuted);
 
-      // Effect to determine video orientation based on the video element's dimensions
+      // Effect to determine video orientation and size
       useEffect(() => {
         const updateOrientation = () => {
           if (videoRef.current) {
             const { videoWidth, videoHeight } = videoRef.current;
             setIsPortrait(videoHeight > videoWidth);
-          } 
+          }
+        };
+
+        const observeChanges = () => {
+          if (videoRef.current) {
+            const mutationObserver = new MutationObserver(() => {
+              updateOrientation();
+            });
+
+            mutationObserver.observe(videoRef.current, {
+              attributes: true,
+              childList: true,
+              subtree: true,
+            });
+
+            const resizeObserver = new ResizeObserver(() => {
+              updateOrientation(); // Update orientation on size change
+            });
+
+            resizeObserver.observe(videoRef.current); // Track size changes
+
+            return () => {
+              mutationObserver.disconnect();
+              resizeObserver.disconnect();
+            };
+          }
         };
 
         const currentVideoRef = videoRef.current;
 
         if (currentVideoRef) {
-          // Listen for the playing event for more reliable dimensions
           currentVideoRef.addEventListener("playing", updateOrientation);
           currentVideoRef.addEventListener("loadeddata", updateOrientation);
           updateOrientation(); // Initial check
+
+          observeChanges();
 
           const handleResize = () => {
             updateOrientation();
@@ -143,7 +169,7 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
             window.removeEventListener("resize", handleResize);
           };
         }
-      }, [videoRef, trackReference]); // Add trackReference to dependencies
+      }, [videoRef, trackReference]);
 
       return (
         <div ref={ref} style={{ position: "relative" }} {...elementProps}>

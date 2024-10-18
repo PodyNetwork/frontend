@@ -3,15 +3,8 @@ import FeaturesSection from "@/components/homepage/Features";
 import Roadmap from "@/components/homepage/Roadmap";
 import Cta from "@/components/homepage/Cta";
 import Footer from "@/components/homepage/Footer";
-import type { Metadata } from "next";
 import RewardSection from "@/components/homepage/PodyReward";
 import Faq from "@/components/homepage/Faq";
-
-
-export const metadata: Metadata = {
-  title: "Pody",
-  description: "",
-};
 
 export default function Home() {
   return (

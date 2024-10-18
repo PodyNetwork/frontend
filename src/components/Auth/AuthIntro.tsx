@@ -1,12 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import logo from "/public/logo/pody logo 1.png";
-
-import service from "@/components/homepage/data/service.json";
-import serviceb from "@/components/homepage/data/serviceb.json";
-import servicec from "@/components/homepage/data/servicec.json";
-import ButtonIcon from "@/components/global/buttonIcon";
 import Link from "next/link";
+import ScrollContent from "../homepage/widgets/ScrollContent";
 
 const AuthIntro = () => {
   return (
@@ -28,43 +24,9 @@ const AuthIntro = () => {
           <p className="text-sm mt-1.5 text-slate-400 leading-relaxed">
             Get rewarded for your time. The longer you participate, the more
             points you earn. These points can be converted to tokens, creating
-            real value for your time in meetings.
+            real value for your time in Classroom.
           </p>
-          <div className="flex flex-col gap-y-3 sm:gap-y-4 mt-4 sm:mt-6 md:mt-10 pb-6 sm:pb-8">
-            <div className="flex flex-row gap-x-2 sm:gap-x-3 flex-nowrap overflow-x-auto md:overflow-hidden">
-              {service.map((servicedata, index) => (
-                <ButtonIcon
-                  key={index}
-                  svg={servicedata.icon}
-                  special={servicedata.special}
-                >
-                  {servicedata.title}
-                </ButtonIcon>
-              ))}
-            </div>
-            <div className="flex flex-row gap-x-2 sm:gap-x-3 flex-nowrap overflow-x-auto md:overflow-hidden _start_icon_shuffle">
-              {serviceb.map((servicedata, index) => (
-                <ButtonIcon
-                  key={index}
-                  svg={servicedata.icon}
-                  special={servicedata.special}
-                >
-                  {servicedata.title}
-                </ButtonIcon>
-              ))}
-            </div>
-            <div className="flex flex-row gap-x-2 sm:gap-x-3 flex-nowrap overflow-x-auto md:overflow-hidden">
-              {servicec.map((servicedata, index) => (
-                <ButtonIcon
-                  key={index}
-                  svg={servicedata.icon}
-                  special={servicedata.special}
-                >
-                  {servicedata.title}
-                </ButtonIcon>
-              ))}
-            </div>
-          </div>
+          <ScrollContent />
         </div>
       </div>
     </div>

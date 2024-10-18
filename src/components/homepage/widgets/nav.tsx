@@ -5,7 +5,7 @@ import logo from "/public/logo/pody logo 1.png"
 
 const Nav = () => {
   return (
-    <div className='w-full flex flex-row items-center text-sm justify-between py-6 px-8 md:px-16 text-slate-500' aria-label='Navigation Menu'>
+    <div className='w-full flex flex-row items-center text-sm justify-between py-8 px-8 md:px-16 text-slate-500' aria-label='Navigation Menu'>
         <ul className='flex flex-row gap-6 items-center' aria-label='Menu'>
             <Link href="/"><Image src={logo} alt='Pody' className='w-16 object-contain' /></Link>
             {navlink.mainLink.map((link, index) => (

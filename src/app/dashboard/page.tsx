@@ -13,7 +13,7 @@ export default function Page() {
     <main className="w-full">
       <div className="bg-pody-primary/20 p-8 px-6 md:p-12">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="w-full md:w-5/12 lg:w-4/12">
+          <div className="w-full md:w-5/12">
             <CreateMeeting />
           </div>
           <div className="w-full md:w-7/12 flex justify-center">
