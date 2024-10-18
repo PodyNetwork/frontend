@@ -40,9 +40,8 @@ const ScrollContent = () => {
           onFinish={() => {}}
         >
           {shuffledServices1.map((servicedata, index) => (
-            <div className="me-3">
+            <div className="me-3"  key={index}>
               <ButtonIcon
-                key={index}
                 svg={servicedata.icon}
                 special={servicedata.special}
               >
@@ -62,9 +61,8 @@ const ScrollContent = () => {
           onFinish={() => {}}
         >
           {shuffledServices2.map((servicedata, index) => (
-            <div className="me-3">
+            <div className="me-3" key={index}>
               <ButtonIcon
-                key={index}
                 svg={servicedata.icon}
                 special={servicedata.special}
               >
@@ -84,9 +82,8 @@ const ScrollContent = () => {
           onFinish={() => {}}
         >
           {shuffledServices3.map((servicedata, index) => (
-            <div className="me-3">
+            <div className="me-3"  key={index}>
               <ButtonIcon
-                key={index}
                 svg={servicedata.icon}
                 special={servicedata.special}
               >

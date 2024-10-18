@@ -4,7 +4,6 @@ import ButtonPody from "../../global/button";
 import herocard from "../data/herocard.json";
 import Link from "next/link";
 import JoinDrawer from "./JoinDrawer";
-import { Toaster } from "@/components/ui/sonner";
 
 const Hero = () => {
   return (
