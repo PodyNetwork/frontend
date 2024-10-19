@@ -21,7 +21,7 @@ const StreamScreen = () => {
       const calculatedMaxWidth = `calc(${availableHeight}px * 16 / 9)`; 
       const calculatedMaxWidthCarousel = `calc(${availableHeightCarousel}px * 16 / 9)`; 
       const calculatedMaxWidthPortrait = `calc((${availableHeight}px * 9 / 16 * 2) - ${infoHeight + controlsHeight}px)`;
-      const calculatedMaxWidthPortraitCarousel = `calc((${availableHeightCarousel}px * 9 / 16 * 2) - ${infoHeight + controlsHeight + carouselHeight}px)`;
+      const calculatedMaxWidthPortraitCarousel = `calc((${availableHeight}px * 9 / 16 * 2) - ${infoHeight + controlsHeight + carouselHeight}px)`;
 
       document.documentElement.style.setProperty('--max-video-width', calculatedMaxWidth);
       document.documentElement.style.setProperty('--max-video-width-carousel', calculatedMaxWidthCarousel);

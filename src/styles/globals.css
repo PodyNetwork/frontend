@@ -634,7 +634,7 @@ body {
     }
     .participant-carousel {
         width: 100%;
-        padding: 5px 10px 10px 10px;
+        padding: 5px 5px 10px 5px;
     }
     .participant-carousel > div {
         min-width: 200px;
@@ -759,7 +759,7 @@ body {
     height: 0;
     overflow: hidden;
     @apply bg-slate-200 dark:bg-slate-700;
-    border-radius: inherit !important;
+    border-radius: calc(var(--radius) - 2px);
 }
 
 .__active_pd_lk::after {
