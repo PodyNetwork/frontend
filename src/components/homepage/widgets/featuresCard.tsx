@@ -1,9 +1,8 @@
-import React from 'react'
-import arcimage from "/public/misc/web_arc.png"
+import rewardforparticipation from "/public/illustration/group_positivity.png"
+import decentralizedandprivate from "/public/illustration/coffe_maker.png"
 import ecosystem from '../data/ecosystem.json'
-import support from '../data/support.json'
-import Image from 'next/image';
-import ReadyToGo from './readyToGo';
+import Image from 'next/image'
+import ReadyToGo from './readyToGo'
 
 const FeaturesCard = () => {
   return (
@@ -21,7 +20,7 @@ const FeaturesCard = () => {
             </div>
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 _features_card_x3'>
-            <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
+            <div className='p-6 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50 flex flex-col h-full'>
                     <h3 className='text-xl font-medium text-slate-200'>Earn Rewards for Participation</h3>
@@ -30,11 +29,11 @@ const FeaturesCard = () => {
                     </p>
                     <div className='flex-grow'></div>
                     <div className='flex flex-col gap-y-4 text-sm pt-8'>
-                        <Image src={arcimage} className='object-cover h-52' alt="architecture design" />
+                        <Image src={rewardforparticipation} className='object-cover h-52 rounded-xl' alt="Rewards for Participation" />
                     </div>
                 </div>
             </div>
-            <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
+            <div className='p-6 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50 flex flex-col h-full'>
                     <h3 className='text-xl font-medium text-slate-200'>Host Reward Mechanism</h3>
@@ -50,15 +49,14 @@ const FeaturesCard = () => {
                     </div>
                 </div>
             </div>
-            <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
+            <div className='p-6 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50 h-full flex flex-col'>
                     <h3 className='text-xl font-medium text-slate-200'>Decentralized and Private Classroom</h3>
                     <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Pody runs on decentralized peer-to-peer technology using WebRTC, ensuring privacy and security for all users. No data harvesting, no AI interference.</p>
-                    <div className='flex flex-row gap-4 mt-auto pt-8 text-sm flex-wrap'>
-                        {support.map((supportdata, index) => (
-                            <button className='px-3 py-2 text-nowrap rounded-full border border-pody-border/30' key={index}>{supportdata.title}</button>
-                        ))}
+                    <div className='flex-grow'></div>
+                    <div className='flex flex-col gap-y-4 text-sm pt-8'>
+                        <Image src={decentralizedandprivate} className='object-cover h-52 rounded-xl' alt="Rewards for Participation" />
                     </div>
                 </div>
             </div>

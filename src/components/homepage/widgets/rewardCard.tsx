@@ -1,36 +1,43 @@
 import Image from "next/image";
+import studentImg from "/public/illustration/friends_together.png";
+import teacherImg from "/public/illustration/teacher_standing.png";
 
 const Rewardcard = () => {
   return (
     <>
-      <div className="flex flex-col sm:flex-row gap-6 mt-6">
-        <div className="px-7 pt-7 relative rounded-md shadow-md shadow-pody-secondary/50 bg-gradient-to-r from-pody-secondary/30 to-pody-dark_secondary overflow-hidden w-full sm:w-1/2 lg:w-8/12">
-          <div className="relative z-50">
-            <h3 className="text-xl font-normal text-slate-200">Teacher</h3>
-            <p className="text-xs mt-1.5 text-slate-400 flex items-center leading-loose max-w-lg">
-              Hosts are rewarded based on the number of participants and their
-              level of engagement during the meeting. Hosting interactive and
-              educational sessions results in more points. You can also increase
-              the rate at which you earn as a host. Enjoy 10% of every
-              participant points in your meeting/classroom.
+      <div className="flex flex-col md:flex-row gap-6 mt-6">
+        <div className="p-6 flex flex-row __reward_system_pd relative rounded-2xl shadow-md shadow-pody-secondary/50 bg-gradient-to-r from-pody-secondary/30 to-pody-dark_secondary overflow-hidden gap-6 w-full md:w-1/2">
+          <div className="relative z-50 w-7/12 __pd_reward_content">
+            <p className="text-sm text-slate-400 flex items-center leading-loose max-w-lg">
+              Hosts are rewarded 10% of every participant points in the
+              classroom based on their level of engagement during the classroom.
+              Hosting interactive and educational sessions results in more
+              points.
             </p>
           </div>
-          <div className="mt-auto relative -bottom-[2.75rem] flex justify-center lg:justify-start pt-12 z-50">
-            <Image src="/illustration/HostAvatar.png" alt="host" width={300} height={300} className="w-56 h-56 object-cover" />
+          <div className="z-50 w-5/12 __pd_reward_img">
+            <Image
+              src={teacherImg}
+              alt="teacher"
+              className="w-full min-h-72 h-full object-cover rounded-xl"
+            />
           </div>
           <div className="background-text">PODY</div>
         </div>
-        <div className="px-7 pt-7 relative rounded-md shadow-md shadow-pody-secondary/50 bg-gradient-to-l from-pody-secondary/30 to-pody-dark_secondary flex flex-col items-center overflow-hidden w-full sm:w-1/2 lg:w-4/12">
-          <div className="relative z-50">
-            <h3 className="text-xl font-normal text-slate-200">Student</h3>
-            <p className="text-xs mt-1.5 text-slate-400 flex items-center leading-loose">
+        <div className="p-6 flex flex-row __reward_system_pd relative rounded-2xl shadow-md shadow-pody-secondary/50 bg-gradient-to-r from-pody-secondary/30 to-pody-dark_secondary overflow-hidden gap-6 w-full md:w-1/2">
+          <div className="relative z-50 w-7/12 __pd_reward_content">
+            <p className="text-sm text-slate-400 flex items-center leading-loose max-w-lg">
               Participants earn points for the total time spent in a meeting.
               The longer you stay and engage, the more points you earn.
               Participants can also increase the rate at which they earn.
             </p>
           </div>
-          <div className="mt-auto relative -bottom-[1.75rem] flex justify-center pt-12 z-50">
-            <Image src="/illustration/ParticipantAvatar.png" alt="Participant" width={300} height={300} className="w-56 h-56 object-cover" />
+          <div className="z-50 w-5/12 __pd_reward_img">
+            <Image
+              src={studentImg}
+              alt="teacher"
+              className="w-full min-h-72 h-full object-cover rounded-xl"
+            />
           </div>
           <div className="background-text">NETWORK</div>
         </div>

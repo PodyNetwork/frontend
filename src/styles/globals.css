@@ -811,3 +811,17 @@ body {
     z-index: 1; 
     white-space: nowrap; 
 }
+@media (max-width: 400px) {
+    .__reward_system_pd{
+        flex-direction: column;
+    }
+    .__reward_system_pd > div {
+        @apply w-full;
+    }
+    .__pd_reward_img{
+        order: 1;
+    }
+    .__pd_reward_content{
+        order: 2;
+    }
+}
