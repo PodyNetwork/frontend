@@ -4,16 +4,14 @@
 :root {
     --font-manrope: var(--font-manrope);
 }
-
 body {
     font-family: var(--font-manrope), sans-serif;
+    overflow-x: hidden;
 }
-
 ._radial_container {
     width: 100%;
     @apply flex justify-center;
 }
-
 ._radial_bg {
     width: 100%;
     border-radius: 100%;
