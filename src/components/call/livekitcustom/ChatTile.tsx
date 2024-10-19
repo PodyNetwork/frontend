@@ -88,7 +88,7 @@ export default function ChatTile({
 
   return (
     <div
-      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[70vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-lg transition-all duration-300 ease-in-out ${
+      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[50vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-lg transition-all duration-300 ease-in-out ${
         isChatOpen
           ? "translate-y-0"
           : "translate-y-full md:translate-y-[calc(100%-50px)]"

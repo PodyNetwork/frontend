@@ -8,6 +8,15 @@ body {
     font-family: var(--font-manrope), sans-serif;
     overflow-x: hidden;
 }
+/* Prevent auto-zoom on input fields for mobile browsers */
+input,
+textarea,
+select,
+button {
+  touch-action: manipulation;
+  -webkit-user-select: auto;
+  user-select: auto;
+}
 ._radial_container {
     width: 100%;
     @apply flex justify-center;
