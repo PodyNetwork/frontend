@@ -643,6 +643,9 @@ body {
     .participant-carousel .pd_portrait_vid {
         height: calc(200px * (9 / 16)) !important;
     }
+    .pd_portrait_vid{
+        height: var(--max-video-width-potrait-carousel, 100) !important;
+    }
 }
 @media (max-width: 499px) {
     .participant-carousel {
