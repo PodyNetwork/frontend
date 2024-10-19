@@ -12,12 +12,11 @@ const Hero = () => {
         <div className="max-w-5xl mx-auto _hero_wrapper flex flex-col">
           <div className="max-w-3xl mx-auto flex flex-col gap-y-6 justify-center items-center">
             <Heading1 className="text-center font-extrabold">
-              Teach on Open Campus and Earn Rewards
+              Learn on Open Campus and Earn Rewards
             </Heading1>
             <div className="max-w-md">
               <Paragraph className="text-center text-slate-400">
-                Experience interactive, rewarding, and engaging virtual
-                Classroom
+                Your number one Web3 Alternative to Google Meet and Twitter Space
               </Paragraph>
               <div className="flex flex-row flex-wrap justify-center items-center gap-3 mt-4 text-sm">
                 <Link href="/dashboard">
