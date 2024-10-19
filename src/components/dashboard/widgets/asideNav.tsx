@@ -4,7 +4,6 @@ import dashlink from "../data/links.json";
 import Link from "next/link";
 import logo from "/public/logo/pody logo dark.png";
 import Image from "next/image";
-import userIcon from "/public/avatar/user5.jpeg";
 import useProfile from "@/hooks/user/useProfile";
 import { motion } from "framer-motion"; // Import motion from framer-motion
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
@@ -64,13 +63,13 @@ const AsideNav = () => {
           <header className="flex flex-col sm:flex-row justify-between gap-4 items-center mt-4 sm:mt-0">
             <div className="flex flex-row items-center gap-x-2">
               <div className="w-7 h-7 rounded-full bg-black/20">
-                <AvatarParticipant name={profile?.username || "hello"} />
+                <AvatarParticipant name={profile?.username || "unknown user"} />
               </div>
               {isLoading || isError ? (
                 <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>
               ) : (
                 <h3 className="text-sm text-slate-500">
-                  Hello, {profile?.username}.
+                  Hello, {profile?.username}
                 </h3>
               )}
             </div>
@@ -103,11 +102,13 @@ const AsideNav = () => {
       {/* Mobile menu button */}
       <div className="md:hidden bg-pody-primary/20 w-full py-6 px-6 gap-x-4 relative">
         <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
-          <Image
-            src={logo}
-            className="w-20 object-contain sm:mb-0 sm:me-6"
-            alt="Pody"
-          />
+          <Link href="/">
+            <Image
+              src={logo}
+              className="w-20 xs:w-24 object-contain sm:mb-0 sm:me-6"
+              alt="Pody"
+            />
+          </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`${mobileMenuOpen && "fixed z-50 right-8"}`}
@@ -151,7 +152,7 @@ const AsideNav = () => {
               />
             ))}
           </div>
-          <Image src={logo} className="w-24 object-contain mb-8" alt="Pody" />
+          <Link href="/"><Image src={logo} className="w-20 xs:w-24 object-contain mb-8" alt="Pody" /></Link>
           <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
             {dashlink.map((data, index) => (
               <Link
@@ -159,28 +160,22 @@ const AsideNav = () => {
                 href={data.url}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <li className="py-2 hover:text-indigo-300 transition-all rounded-full text-pody-dark">
+                <li className="py-2 hover:text-indigo-300 transition-all rounded-full text-slate-700">
                   {data.title}
                 </li>
               </Link>
             ))}
           </ul>
           <div className="mt-8 flex flex-col items-center gap-y-4">
-            <div className="flex items-center gap-x-2 bg-pody-secondary/50 p-2 rounded-full">
+            <div className="flex items-center gap-x-2 bg-pody-secondary/70 p-2 rounded-full">
               <div className="w-9 h-9 rounded-full bg-pody-secondary overflow-hidden">
-                <Image
-                  src={userIcon}
-                  width={100}
-                  height={100}
-                  className="w-full h-full object-cover"
-                  alt="user"
-                />
+                <AvatarParticipant name={profile?.username || "unknown user"} />
               </div>
               {isLoading || isError ? (
                 <div className="w-24 h-6 bg-slate-600/50 rounded animate-pulse"></div>
               ) : (
-                <h3 className="text-xs text-white">
-                  Hello, {profile?.username ?? "..."}.
+                <h3 className="text-xs text-slate-700">
+                  Hello, {profile?.username ?? "..."}
                 </h3>
               )}
             </div>

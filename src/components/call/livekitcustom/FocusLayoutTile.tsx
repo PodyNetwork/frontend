@@ -6,6 +6,7 @@ import { CustomFocusLayout } from "./CustomFocusLayout";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useCarouselHeight } from "../utils/CarouselHeightContext";
 
 export interface EnhancedFocusLayoutProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -27,6 +28,7 @@ export function EnhancedFocusLayout({
   const pagination = usePagination(paginatedTracks.length, paginatedTracks);
   const focusRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const { setCarouselHeight } = useCarouselHeight();
 
   useSwipe(focusRef, {
     onLeftSwipe: pagination.nextPage,
@@ -38,17 +40,20 @@ export function EnhancedFocusLayout({
       const hasParticipants = paginatedTracks.length > 0;
       const carouselHeight = hasParticipants ? carouselRef.current.offsetHeight : 0;
 
-      document.documentElement.style.setProperty(
-        "--carousel-height",
-        `${carouselHeight}px`
-      );
+      document.documentElement.style.setProperty("--carousel-height", `${carouselHeight}px`);
+      setCarouselHeight(carouselHeight);
+
+      console.log(carouselHeight); // Log to verify height
+    } else {
+      // Reset height when there are no participants
+      setCarouselHeight(0);
+      document.documentElement.style.setProperty("--carousel-height", `0px`);
+      console.log(0); // Log the reset height
     }
-  }, [paginatedTracks.length]);
+  }, [paginatedTracks.length, setCarouselHeight]);
 
   useEffect(() => {
-    const observer = new MutationObserver(() => {
-      updateCarouselHeight();
-    });
+    const observer = new MutationObserver(updateCarouselHeight);
 
     if (carouselRef.current) {
       observer.observe(carouselRef.current, {
@@ -56,13 +61,13 @@ export function EnhancedFocusLayout({
         subtree: true,
       });
 
-      updateCarouselHeight();
+      updateCarouselHeight(); // Initial update
     }
 
     return () => {
       observer.disconnect();
     };
-  }, [updateCarouselHeight, paginatedTracks.length]); // Added length dependency to track changes in stream
+  }, [updateCarouselHeight]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -73,6 +78,10 @@ export function EnhancedFocusLayout({
       window.removeEventListener("resize", handleResize);
     };
   }, [updateCarouselHeight]);
+
+  useEffect(() => {
+    updateCarouselHeight(); // Check height when tracks change
+  }, [tracks, updateCarouselHeight]);
 
   const handleParticipantClick = (index: number) => {
     if (filteredTracks[index]) {
@@ -88,9 +97,7 @@ export function EnhancedFocusLayout({
   useEffect(() => {
     const checkFocusedTrack = () => {
       if (!tracks[focusedIndex]) {
-        const nextAvailableIndex = tracks.findIndex(
-          (track) => track !== undefined
-        );
+        const nextAvailableIndex = tracks.findIndex((track) => track !== undefined);
         if (nextAvailableIndex !== -1) {
           if (onParticipantClick) {
             onParticipantClick(nextAvailableIndex);

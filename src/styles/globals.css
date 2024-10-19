@@ -618,6 +618,9 @@ body {
         width: 150px;
         flex-direction: column;
     }
+    .pd_portrait_vid {
+        height: calc(50vh * (9 / 16)) !important;
+    }
 }
 @media (min-width: 1023px) {
     .participant-carousel {
@@ -626,6 +629,7 @@ body {
 }
 @media (min-width: 768px) and (max-width: 1023px) {
     .enhanced-focus-layout {
+        max-width: var(--max-video-width-carousel, 100%);
         flex-direction: column;
     }
     .participant-carousel {

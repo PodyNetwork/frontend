@@ -51,20 +51,22 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         </div>
 
         {/* Mobile menu button */}
-        <div className="md:hidden w-full py-4 px-8 gap-x-4 relative">
+        <div className="md:hidden w-full py-6 px-8 gap-x-4 relative">
             <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
-            <Image
-                src={logo}
-                className="w-16 object-contain sm:mb-0 sm:me-6"
-                alt="Pody"
-            />
+            <Link href="/">
+                <Image
+                    src={logo}
+                    className="w-20 xs:w-24 object-contain sm:mb-0 sm:me-6"
+                    alt="Pody"
+                />
+            </Link>
             <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className={`${mobileMenuOpen && "fixed z-50 right-8"}`}
             >
                 <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-8 h-8 text-slate-300"
+                className="w-9 h-9 text-slate-300"
                 viewBox="0 -960 960 960"
                 fill="currentColor"
                 >
@@ -101,7 +103,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
               />
             ))}
           </div>
-          <Image src={logo} className="w-20 xs:w-24 object-contain mb-8" alt="Pody" />
+          <Link href="/"><Image src={logo} className="w-20 xs:w-24 object-contain mb-8" alt="Pody" /></Link>
           <ul className="text-sm xs:text-lg flex flex-col items-center gap-y-4 relative z-50">
             {navlink.mainLink.map((data, index) => (
               <Link
