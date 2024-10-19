@@ -123,7 +123,7 @@ const ScheduleDrawer = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <button className="px-4 py-1.5 bg-transparent border border-slate-600 text-slate-600 rounded-md hover:bg-pody-primary hover:text-slate-900 hover:transition-all hover:border-pody-primary">
+        <button className="px-4 py-1.5 flex-1 bg-transparent border border-slate-600 text-slate-600 rounded-md hover:bg-pody-primary hover:text-slate-900 hover:transition-all hover:border-pody-primary">
           Schedule for Later
         </button>
       </DrawerTrigger>

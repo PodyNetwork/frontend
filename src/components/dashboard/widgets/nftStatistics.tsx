@@ -7,10 +7,10 @@ const NftStatistics = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-pody-dark rounded-2xl relative flex flex-col w-full"
+      className="bg-pody-dark rounded-xl relative flex flex-col w-full"
     >
-      <div className="__bg_nftcontainer w-full min-h-72 rounded-2xl">
-        <div className="p-8">
+      <div className="__bg_nftcontainer w-full min-h-96 rounded-2xl flex flex-col justify-center">
+        <div className="p-8 max-w-md">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -21,9 +21,9 @@ const NftStatistics = () => {
               initial={{ x: -20 }}
               animate={{ x: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="text-white text-3xl font-semibold mb-3"
+              className="text-white text-4xl font-semibold mb-3"
             >
-              NFT Collection & Milestones
+              Pody NFT
             </motion.h2>
             <motion.p
               initial={{ x: -20 }}
@@ -31,7 +31,7 @@ const NftStatistics = () => {
               transition={{ delay: 0.4, duration: 0.5 }}
               className="text-white text-base mt-2"
             >
-              Unlock unique NFTs as you achieve your goals
+              Unlock unique NFTs, each NFT upgrade your points power
             </motion.p>
           </motion.div>
         </div>

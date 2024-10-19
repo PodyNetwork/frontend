@@ -22,7 +22,7 @@ const AsideNav = () => {
   const { profile, isLoading, isError } = useProfile();
 
   useEffect(() => {
-    const elements = Array.from({ length: 30 }, (_, i) => ({
+    const elements = Array.from({ length: 40 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
@@ -45,7 +45,7 @@ const AsideNav = () => {
             <Link href="/">
               <Image
                 src={logo}
-                className="w-14 object-contain mb-4 md:mb-0 sm:me-6"
+                className="w-16 object-contain mb-4 md:mb-0 sm:me-6"
                 alt="Pody"
               />
             </Link>
@@ -105,7 +105,7 @@ const AsideNav = () => {
           <Link href="/">
             <Image
               src={logo}
-              className="w-20 xs:w-24 object-contain sm:mb-0 sm:me-6"
+              className="w-20 object-contain sm:mb-0 sm:me-6"
               alt="Pody"
             />
           </Link>
@@ -152,7 +152,7 @@ const AsideNav = () => {
               />
             ))}
           </div>
-          <Link href="/"><Image src={logo} className="w-20 xs:w-24 object-contain mb-8" alt="Pody" /></Link>
+          <Link href="/"><Image src={logo} className="w-20 object-contain mb-8" alt="Pody" /></Link>
           <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
             {dashlink.map((data, index) => (
               <Link
@@ -167,14 +167,14 @@ const AsideNav = () => {
             ))}
           </ul>
           <div className="mt-8 flex flex-col items-center gap-y-4">
-            <div className="flex items-center gap-x-2 bg-pody-secondary/70 p-2 rounded-full">
-              <div className="w-9 h-9 rounded-full bg-pody-secondary overflow-hidden">
+            <div className="flex items-center gap-x-2 bg-pody-secondary/70 p-1.5 rounded-full">
+              <div className="w-8 h-8 rounded-full bg-pody-secondary overflow-hidden">
                 <AvatarParticipant name={profile?.username || "unknown user"} />
               </div>
               {isLoading || isError ? (
                 <div className="w-24 h-6 bg-slate-600/50 rounded animate-pulse"></div>
               ) : (
-                <h3 className="text-xs text-slate-700">
+                <h3 className="text-xs text-slate-300">
                   Hello, {profile?.username ?? "..."}
                 </h3>
               )}

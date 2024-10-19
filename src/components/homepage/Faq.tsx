@@ -10,6 +10,7 @@ const RewardSection = () => {
       <div className="max-w-5xl 2xl:max-w-7xl mx-auto">
         <FaqCard />
       </div>
+      <div className="background-text">FAQs</div>
     </section>
   );
 };

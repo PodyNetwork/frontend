@@ -66,22 +66,25 @@ const CallsCard = ({ calls }: Calls) => {
             className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]"
           >
             <div className="flex flex-col gap-y-1.5">
-              <p className="text-xs text-slate-700 capitalize">
-                {(() => {
-                  if (!call || !call?.scheduledTime) {
-                    return "";
-                  }
-                  const scheduledDate = dayjs(call.scheduledTime);
-                  if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
-                  if (scheduledDate.isToday())
-                    return "Today - " + scheduledDate.format("HH:mm");
-                  if (scheduledDate.isTomorrow())
-                    return "Tomorrow - " + scheduledDate.format("HH:mm");
-                  if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
-                    return "Yesterday - " + scheduledDate.format("HH:mm");
-                  return scheduledDate.format("MMM D, YYYY HH:mm");
-                })()}
-              </p>
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <p className="text-xs text-slate-700 capitalize">
+                  {(() => {
+                    if (!call || !call?.scheduledTime) {
+                      return "";
+                    }
+                    const scheduledDate = dayjs(call.scheduledTime);
+                    if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
+                    if (scheduledDate.isToday())
+                      return "Today - " + scheduledDate.format("HH:mm");
+                    if (scheduledDate.isTomorrow())
+                      return "Tomorrow - " + scheduledDate.format("HH:mm");
+                    if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
+                      return "Yesterday - " + scheduledDate.format("HH:mm");
+                    return scheduledDate.format("MMM D, YYYY HH:mm");
+                  })()}
+                </p>
+                <p className="text-xs capitalize">{call?.type}</p>
+              </div>
               <h3 className="text-base sm:text-lg font-medium text-slate-800">
                 {call?.title}
               </h3>
@@ -113,7 +116,7 @@ const CallsCard = ({ calls }: Calls) => {
                 <h3 className="font-medium">{call?.url}</h3>
                 <p className="text-xs">Call ID</p>
               </div>
-              {call?.type === "scheduled" && (
+              {call?.type === "scheduled" && call?.status === "pending" && (
                 <EditDrawer
                   call={{
                     ...call,

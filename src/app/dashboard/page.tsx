@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
 import CallHistory from "@/components/dashboard/widgets/callHistory";
-import EarningChart from "@/components/dashboard/widgets/earningChart";
 import CreateMeeting from "@/components/dashboard/widgets/createMeeting";
 import useGetCalls from "@/hooks/call/useGetCalls";
+import Image from "next/image";
+import videoConfrenceImg from "/public/illustration/video-conference.png";
 
 export default function Page() {
   const { calls, isLoading, isError } = useGetCalls({
@@ -16,8 +16,8 @@ export default function Page() {
           <div className="w-full md:w-5/12">
             <CreateMeeting />
           </div>
-          <div className="w-full md:w-7/12 flex justify-center">
-            <EarningChart />
+          <div className="w-full md:w-6/12 flex justify-center">
+            <Image src={videoConfrenceImg} className="object-contain w-full" alt="" />
           </div>
         </div>
       </div>

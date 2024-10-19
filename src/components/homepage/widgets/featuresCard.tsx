@@ -1,5 +1,5 @@
-import rewardforparticipation from "/public/illustration/group_positivity.png"
-import decentralizedandprivate from "/public/illustration/coffe_maker.png"
+import rewardforparticipation from "/public/illustration/reward.png"
+import decentralizedandprivate from "/public/illustration/privacy.png"
 import ecosystem from '../data/ecosystem.json'
 import Image from 'next/image'
 import ReadyToGo from './readyToGo'

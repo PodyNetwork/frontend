@@ -3,7 +3,8 @@ import RewardHeader from "./widgets/rewardHeader";
 
 const RewardSection = () => {
   return (
-    <section
+    <>
+      <section
       id="reward"
       className="bg-pody-dark relative text-white py-40 px-8 md:px-16 flex flex-col justify-center"
       aria-label="Pody Reward"
@@ -12,7 +13,9 @@ const RewardSection = () => {
         <RewardHeader />
         <Rewardcard />
       </div>
+      <div className="background-text">PODY NETWORK</div>
     </section>
+    </>
   );
 };
 

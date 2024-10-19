@@ -11,7 +11,7 @@ const FaqCard = () => {
   };
   return (
     <>
-      <div className="flex flex-col md:flex-row items-start gap-6 mt-6">
+      <div className="flex flex-col md:flex-row items-start gap-6 mt-6 z-50">
         <div className="py-7 relative overflow-hidden w-full md:w-5/12">
           <div className="relative z-50">
             <h3 className="text-2xl xs:text-3xl md:text-4xl font-medium text-slate-200">
@@ -20,7 +20,7 @@ const FaqCard = () => {
           </div>
         </div>
         <motion.div
-          className="py-7 relative rounded-md overflow-hidden w-full md:w-7/12"
+          className="py-7 relative rounded-md overflow-hidden w-full md:w-7/12 z-50"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}

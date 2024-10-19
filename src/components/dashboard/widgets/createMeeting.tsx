@@ -13,7 +13,7 @@ const CreateMeeting = () => {
         </h2>
         <div className="text-sm mt-2 flex flex-col xs:flex-row flex-wrap text-nowrap gap-2">
           <button
-            className={`px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto ${
+            className={`px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 flex-1 hover:transition-all w-full xs:w-auto ${
               loading ? "opacity-50" : "opacity-100"
             }`}
             onClick={() => {
@@ -44,7 +44,7 @@ const CreateMeeting = () => {
           </button>
           <ScheduleDrawer />
         </div>
-        <div className="text-sm">Last meeting: 24th september 2021</div>
+        <div className="text-sm">Create classroom to start earning points</div>
       </div>
     </>
   );

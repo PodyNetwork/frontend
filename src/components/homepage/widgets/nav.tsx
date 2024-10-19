@@ -19,7 +19,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   );
 
   useEffect(() => {
-    const elements = Array.from({ length: 30 }, (_, i) => ({
+    const elements = Array.from({ length: 40 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
@@ -56,7 +56,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
             <Link href="/">
                 <Image
                     src={logo}
-                    className="w-20 xs:w-24 object-contain sm:mb-0 sm:me-6"
+                    className="w-20 object-contain sm:mb-0 sm:me-6"
                     alt="Pody"
                 />
             </Link>
@@ -103,7 +103,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
               />
             ))}
           </div>
-          <Link href="/"><Image src={logo} className="w-20 xs:w-24 object-contain mb-8" alt="Pody" /></Link>
+          <Link href="/"><Image src={logo} className="w-20 object-contain mb-8" alt="Pody" /></Link>
           <ul className="text-sm xs:text-lg flex flex-col items-center gap-y-4 relative z-50">
             {navlink.mainLink.map((data, index) => (
               <Link

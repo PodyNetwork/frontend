@@ -49,7 +49,7 @@ const NftList = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"
+      className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-3"
     >
       {[...Array(totalLevels)].map((_, levelIndex) => (
         <motion.div
@@ -57,7 +57,7 @@ const NftList = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 * levelIndex, duration: 0.5 }}
-          className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+          className="bg-white rounded-md overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
         >
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -69,7 +69,7 @@ const NftList = () => {
               layout="fill"
               objectFit="cover"
               alt={`Level ${levelIndex + 1} NFT`}
-              className={`rounded-t-xl ${BigInt(levelIndex + 1) > level + BigInt(1) ? 'filter blur-sm' : ''}`}
+              className={`rounded-t-md ${BigInt(levelIndex + 1) > level + BigInt(1) ? 'filter bur blur-md' : ''}`}
             />
           </motion.div>
           <div className="p-4">
@@ -77,7 +77,7 @@ const NftList = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 + 0.1 * levelIndex, duration: 0.5 }}
-              className="font-semibold text-lg text-slate-800 mb-2"
+              className="font-semibold text-base text-slate-800 mb-2"
             >
               Level {levelIndex + 1}
             </motion.h3>
@@ -102,7 +102,7 @@ const NftList = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-3 py-1 bg-pody-primary text-white text-sm font-medium rounded-full hover:bg-pody-primary/80 transition-colors duration-300"
+                  className="px-3 py-1 bg-pody-primary text-slate-800 text-xs font-medium rounded-sm hover:bg-pody-primary/80 transition-colors duration-300"
                   onClick={handleMint}
                   disabled={isMinting}
                 >
