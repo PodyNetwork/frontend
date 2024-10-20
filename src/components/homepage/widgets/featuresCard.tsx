@@ -25,7 +25,7 @@ const FeaturesCard = () => {
                 <div className='relative z-50 flex flex-col h-full'>
                     <h3 className='text-xl font-medium text-slate-200'>Earn Rewards for Participation</h3>
                     <p className='text-sm mt-1.5 text-slate-400 flex items-center leading-relaxed'>
-                        Get rewarded for your time. The longer you participate, the more points you earn. These points can be converted to tokens, creating real value for your time in the classroom.
+                        Get rewarded for your time. The longer you participate, the more points you earn. These points will be converted to tokens, creating real value for your time in the classroom.
                     </p>
                     <div className='flex-grow'></div>
                     <div className='flex flex-col gap-y-4 text-sm pt-8'>

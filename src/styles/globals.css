@@ -13,9 +13,9 @@ input,
 textarea,
 select,
 button {
-  touch-action: manipulation;
-  -webkit-user-select: auto;
-  user-select: auto;
+  touch-action: manipulation !important;
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
 }
 ._radial_container {
     width: 100%;
@@ -30,10 +30,6 @@ button {
     min-height: 700px;
     top: -350px;
 }
-._hero_wrapper {
-    margin-top: 8rem;
-}
-
 ._grad_bg {
     background: linear-gradient(0deg, #3F3B60 0.00%, #07070aa5 100.00%);
 }

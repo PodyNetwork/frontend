@@ -11,12 +11,12 @@ const Rewardcard = () => {
             <Image
               src={hostImg}
               alt="teacher"
-              className="w-full min-h-72 h-full object-cover rounded-xl"
+              className="w-full min-h-72 h-full object-cover rounded-xl opacity-70 hover:opacity-100 transition-all duration-300"
             />
           </div>
-          <div className="relative z-50 w-full __pd_reward_content">
-            <h3 className="text-2xl font-medium text-slate-300">Hosts</h3>
-            <p className="text-base text-slate-500 flex items-center leading-loose max-w-sm mt-2.5">
+          <div className="relative z-50 w-full __pd_reward_content py-6">
+            <h3 className="text-xl font-medium text-slate-300">Hosts</h3>
+            <p className="text-sm text-slate-500 flex items-center leading-loose max-w-sm mt-2.5">
               Hosts are rewarded 10% of every participant points in the
               classroom based on their level of engagement during the classroom.
               Hosting interactive and educational sessions results in more
@@ -29,12 +29,12 @@ const Rewardcard = () => {
             <Image
               src={participantImg}
               alt="teacher"
-              className="w-full min-h-72 h-full object-cover rounded-xl"
+              className="w-full min-h-72 h-full object-cover rounded-xl opacity-70 hover:opacity-100 transition-all duration-300"
             />
           </div>
-          <div className="relative z-50 w-full __pd_reward_content">
-            <h3 className="text-2xl font-medium text-slate-300">Participant</h3>
-            <p className="text-base text-slate-500 flex items-center leading-loose max-w-sm mt-2.5">
+          <div className="relative z-50 w-full __pd_reward_content py-6">
+            <h3 className="text-xl font-medium text-slate-300">Participant</h3>
+            <p className="text-sm text-slate-500 flex items-center leading-loose max-w-sm mt-2.5">
               Participants earn points for the total time spent in a meeting.
               The longer you stay and engage, the more points you earn.
               Participants can also increase the rate at which they earn.
