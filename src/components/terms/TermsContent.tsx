@@ -4,7 +4,7 @@ const TermsContent = () => {
   return (
     <section className="w-full relative" aria-labelledby="Terms content">
       <div className="bg-white relative">
-        <div className="z-50 relative flex flex-col">
+        <div className="z-30 relative flex flex-col">
           <div className="relative w-full px-5 md:px-16 flex-1">
             <div className="max-w-5xl mx-auto">
               <div className="max-w-2xl flex flex-col gap-y-6 my-12 text-sm leading-relaxed">

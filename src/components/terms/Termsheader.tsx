@@ -10,7 +10,7 @@ const Termsheader = () => {
           <div className="relative w-full px-5 md:px-16 flex-1">
             <div className="max-w-5xl mx-auto">
               <div className="max-w-2xl flex flex-col gap-y-3 my-20">
-                <div className="text-2xl md:text-4xl font-bold text-slate-200">
+                <div className="text-2xl xs:text-3xl md:text-4xl font-bold text-slate-200">
                   <h1>Terms of Service for Pody Network</h1>
                 </div>
                 <div className="text-base text-slate-400">
