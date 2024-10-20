@@ -819,3 +819,47 @@ body {
         order: 2;
     }
 }
+.__pd_terms {
+    counter-reset: podycounter;
+}
+
+.__pd_terms > li > h2 {
+    @apply font-bold py-1.5 mb-2 ml-6;
+    position: relative;
+}
+
+.__pd_terms > li > h2::before {
+    counter-increment: podycounter; 
+    content: counter(podycounter) ". ";
+    position: absolute;
+    left: -1.5rem;
+}
+.__pd_terms > li > p {
+    @apply  mb-3;
+}
+.__pd_terms > li > ul > li {
+    @apply  mb-3;
+}
+.__pd_terms > li > ul > li > h4 {
+    @apply  font-medium mb-1.5;
+}
+.__pd_terms > li > ul > li > p {
+    @apply  mb-1.5;
+}
+.__pd_unorder {
+    counter-reset: list-counter;
+}
+.__pd_unorder > li {
+    position: relative;
+    list-style: disc;
+    list-style-position: inside;
+    padding-left: 1.5rem; 
+}
+.__pd_roman_list_lower {
+    list-style-type: lower-roman; 
+    padding-left: calc(1.5rem + 10px); 
+}
+
+.__pd_roman_list_lower > li {
+    padding-left: 10px;
+}

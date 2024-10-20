@@ -8,7 +8,7 @@ import heroimage from "/public/illustration/video-conference_screen.png";
 const Hero = () => {
   return (
     <>
-      <div className="relative w-full px-5 md:px-16 flex-1 bg-rd-50">
+      <div className="relative w-full px-5 md:px-16 flex-1">
         <div className="max-w-5xl mx-auto _hero_wrapper flex flex-col gap-y-16">
           <div className="max-w-3xl mx-auto flex flex-col gap-y-6 justify-center items-center mt-16">
             <Heading1 className="text-center font-extrabold">

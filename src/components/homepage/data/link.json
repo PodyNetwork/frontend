@@ -15,6 +15,10 @@
         {
             "title": "FAQ",
             "url": "#faq"
+        },
+        {
+            "title": "Terms",
+            "url": "/terms"
         }
     ],
     "authLink": [
