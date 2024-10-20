@@ -19,7 +19,7 @@ const PlaceHolder = ({ name, participant }: { name: string; participant: Partici
             <div className="w-[20%] md:w-[12%]">
                 <AvatarParticipant name={name} />
             </div>
-            <div className={`max-w-sm ${hasActiveAudioTrack ? 'h-[15%]' : 'h-0 overflow-hidden'}`}>
+            <div className={`w-full max-w-sm ${hasActiveAudioTrack ? 'h-[15%] mt-2.5' : 'h-0 overflow-hidden'}`}>
                 {audioTrackPublications.map((audioTrackPublication) => {
                     const audioTrack = audioTrackPublication.track; 
 

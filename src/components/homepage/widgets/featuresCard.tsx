@@ -15,7 +15,7 @@ const FeaturesCard = () => {
                 <div className='_grad_card_main_2'></div>
                 <div className='relative z-50 h-full flex flex-col'>
                     <h3 className='text-xl font-medium text-slate-200'>Advanced Host Management</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center flex-wrap gap-x-2 leading-relaxed'>You can remove students from the call or grant them speaking privileges.</p>
+                    <p className='text-sm mt-2.5 text-slate-400 flex items-center flex-wrap gap-x-2 leading-relaxed'>You can remove students from the call or grant them speaking privileges.</p>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@ const FeaturesCard = () => {
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50 flex flex-col h-full'>
                     <h3 className='text-xl font-medium text-slate-200'>Earn Rewards for Participation</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center leading-relaxed'>
+                    <p className='text-sm mt-2.5 text-slate-400 flex items-center leading-relaxed'>
                     Not ready to start the class right away? You can schedule it for later.
                     </p>
                     <div className='flex-grow'></div>
@@ -37,7 +37,7 @@ const FeaturesCard = () => {
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50 flex flex-col h-full'>
                     <h3 className='text-xl font-medium text-slate-200'>Earning Power Boost</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center leading-relaxed'>You can increase your earnings per second by minting more NFTs directly from the dashboard.</p>
+                    <p className='text-sm mt-2.5 text-slate-400 flex items-center leading-relaxed'>You can increase your earnings per second by minting more NFTs directly from the dashboard.</p>
                     <div className='flex flex-col gap-y-4 text-sm mt-auto pt-8'>
                        <div className='ic_cr_container mx-auto flex-wrap animate-pulse'>
                             {ecosystem.map((ecosystemdata, index) => (

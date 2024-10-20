@@ -12,7 +12,7 @@ const AudioAnalyzer = ({ track }: { track: LocalAudioTrack | RemoteAudioTrack })
           key={index}
           className="bg-slate-700 dark:bg-slate-400 rounded-lg mx-px transition-all duration-100 ease-in-out"
           style={{
-            height: `${Math.min(bar * 100, 80)}%`,  // Limit the height to a maximum of 28px
+            height: `${Math.min(bar * 100, 90)}%`,  // Limit the height to a maximum of 28px
             width: '3px'                  
           }}
         />

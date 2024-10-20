@@ -90,11 +90,11 @@ const StreamInfo = () => {
     <>
       <div className="md:hidden text-red-200 flex flex-row items-center text-xs xs:text-sm font-semibold justify-between gap-x-2">
         <PointCounter accumulatedPoints={accumulatedPoints} />
-        <div className="flex flex-row gap-x-2 items-center">
-          <p className="w-7 h-7 flex items-center justify-center bg-slate-200 rounded-full" onClick={openMenu}>
+        <div className="flex flex-row gap-x-3 items-center">
+          <p className="w-8 h-8 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full" onClick={openMenu}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 text-slate-600"
+              className="w-6 h-6 text-slate-600 dark:text-slate-400"
               viewBox="0 -960 960 960"
               style={{ msFilter: "" }}
               fill="currentColor"

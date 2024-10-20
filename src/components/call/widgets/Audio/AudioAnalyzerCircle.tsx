@@ -12,8 +12,8 @@ const AudioAnalyzerCircle = ({ track }: { track: LocalAudioTrack | RemoteAudioTr
           key={index}
           className="bg-slate-700 dark:bg-slate-400 rounded-lg mx-1 transition-all duration-100 ease-in-out"
           style={{
-            height: `${Math.min(bar * 100, 70)}%`, // Use percentage for height, with a max height limit
-            width: '15px',
+            height: `${Math.min(bar * 100, 90)}%`, // Use percentage for height, with a max height limit
+            width: '3.5%',
           }}
         />
       ))}
