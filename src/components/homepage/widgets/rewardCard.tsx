@@ -11,7 +11,7 @@ const Rewardcard = () => {
             <Image
               src={hostImg}
               alt="teacher"
-              className="w-full min-h-72 h-full object-cover rounded-xl"
+              className="w-full min-h-72 h-full object-cover rounded-xl opacity-70 hover:opacity-100 transition-all duration-300"
             />
           </div>
           <div className="relative z-50 w-full __pd_reward_content">
@@ -27,7 +27,7 @@ const Rewardcard = () => {
             <Image
               src={participantImg}
               alt="teacher"
-              className="w-full min-h-72 h-full object-cover rounded-xl"
+              className="w-full min-h-72 h-full object-cover rounded-xl opacity-70 hover:opacity-100 transition-all duration-300"
             />
           </div>
           <div className="relative z-50 w-full __pd_reward_content">
