@@ -6,7 +6,6 @@ import Footer from "@/components/homepage/Footer";
 import RewardSection from "@/components/homepage/PodyReward";
 import Faq from "@/components/homepage/Faq";
 import PartnerSection from "@/components/homepage/Partner";
-import Benefits from "@/components/homepage/Benefits";
 
 export default function Home() {
   return (

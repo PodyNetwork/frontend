@@ -33,7 +33,7 @@ const Rewardcard = () => {
           <div className="relative z-50 w-full __pd_reward_content">
             <h3 className="text-2xl font-medium text-slate-300">Participant</h3>
             <p className="text-base text-slate-500 flex items-center leading-loose max-w-sm mt-2.5">
-            In addition to the points earned, hosts receive 10% of each participant's points in the classroom. This bonus is calculated once the meeting concludes or when participants exit..
+            In addition to the points earned, hosts receive 10% of each participant&apos;s points in the classroom. This bonus is calculated once the meeting concludes or when participants exit..
             </p>
           </div>
         </div>
