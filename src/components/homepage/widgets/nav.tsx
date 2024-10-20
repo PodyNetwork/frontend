@@ -51,7 +51,7 @@ const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
         </div>
 
         {/* Mobile menu button */}
-        <div className="md:hidden w-full py-6 px-4 gap-x-4 relative">
+        <div className="md:hidden w-full py-6 px-5 gap-x-4 relative">
             <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
             <Link href="/">
                 <Image

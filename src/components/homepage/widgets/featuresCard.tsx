@@ -29,7 +29,7 @@ const FeaturesCard = () => {
                     </p>
                     <div className='flex-grow'></div>
                     <div className='flex flex-col gap-y-4 text-sm pt-8'>
-                        <Image src={rewardforparticipation} className='object-cover h-52 rounded-xl' alt="Rewards for Participation" />
+                        <Image src={rewardforparticipation} className='object-cover h-60 md:h-56 rounded-xl' alt="Rewards for Participation" />
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@ const FeaturesCard = () => {
                     <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Track your points in real-time, redeem them, and seamlessly transfer them on-chain.</p>
                     <div className='flex-grow'></div>
                     <div className='flex flex-col gap-y-4 text-sm pt-8'>
-                        <Image src={decentralizedandprivate} className='object-cover h-52 rounded-xl' alt="Rewards for Participation" />
+                        <Image src={decentralizedandprivate} className='object-cover h-60 md:h-56 rounded-xl' alt="Rewards for Participation" />
                     </div>
                 </div>
             </div>

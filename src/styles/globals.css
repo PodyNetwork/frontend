@@ -72,7 +72,7 @@ body {
     opacity: 0.75;
 }
 
-._features_card_x2>div:nth-child(1)::before {
+._features_card_x2>div::before {
     content: "";
     position: absolute;
     top: 0;

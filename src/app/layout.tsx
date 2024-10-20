@@ -9,12 +9,12 @@ export const metadata: Metadata = {
     default: 'Pody Classroom - Get rewarded for your time.',
     template: 'Pody - %s',  
   },
-  description: 'Learn on Open Campus and Earn Rewards Your number one Web3 Alternative to Google Meet and Twitter Space',
+  description: 'Learn on Open Campus and Earn Rewards your number one Web3 Alternative to Google Meet and Twitter Space',
   keywords: ['pody', 'pody network', 'SocialFi', 'EduFi', 'reward', 'classroom', 'teacher', 'student', 'meeting', 'earn on open campus', 'points', 'web3'],
   authors: [{ name: 'podyteam', url: 'https://pody.network' }],
   openGraph: {
     title: 'Pody Classroom - Get rewarded for your time.',
-    description: 'Learn on Open Campus and Earn Rewards Your number one Web3 Alternative to Google Meet and Twitter Space',
+    description: 'Learn on Open Campus and Earn Rewards your number one Web3 Alternative to Google Meet and Twitter Space',
     url: 'https://pody.network',
     siteName: 'Pody',
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Pody',
-    description: 'Learn on Open Campus and Earn Rewards Your number one Web3 Alternative to Google Meet and Twitter Space',
+    description: 'Learn on Open Campus and Earn Rewards your number one Web3 Alternative to Google Meet and Twitter Space',
     images: ['https://pody.network/social/banner.png'],
     creator: '@PodyNetwork',
   },

@@ -3,12 +3,12 @@ import Paragraph from "../../global/paragraph";
 import Link from "next/link";
 import JoinDrawer from "./JoinDrawer";
 import Image from "next/image";
-import heroimage from "/public/illustration/online-remote-video.png";
+import heroimage from "/public/illustration/video-conference_screen.png";
 
 const Hero = () => {
   return (
     <>
-      <div className="relative w-full px-4 md:px-16 flex-1 bg-rd-50">
+      <div className="relative w-full px-5 md:px-16 flex-1 bg-rd-50">
         <div className="max-w-5xl mx-auto _hero_wrapper flex flex-col gap-y-16">
           <div className="max-w-3xl mx-auto flex flex-col gap-y-6 justify-center items-center mt-16">
             <Heading1 className="text-center font-extrabold">
@@ -34,7 +34,7 @@ const Hero = () => {
           <div className="relative flex justify-center w-full">
             <Image
               src={heroimage}
-              className="w-full max-w-[700px] object-contain h-auto"
+              className="w-full max-w-[800px] object-contain h-auto"
               alt="pody video conferencing"
             />
           </div>

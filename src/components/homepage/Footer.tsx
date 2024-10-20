@@ -8,7 +8,7 @@ import sociallink from "./data/socails.json"
 const Footer = () => {
     const year = new Date().getFullYear();
   return (
-    <section className='bg-pody-dark_secondary relative py-4 px-4 md:px-0 flex flex-col justify-center text-slate-500 text-sm' aria-label='Footer'>
+    <section className='bg-pody-dark_secondary relative py-4 px-5 md:px-0 flex flex-col justify-center text-slate-500 text-sm' aria-label='Footer'>
         <div>
             <div className='max-w-5xl 2xl:max-w-7xl mx-auto'>
                 <div className='w-full relative'>

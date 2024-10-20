@@ -5,7 +5,7 @@ import JoinDrawer from "./widgets/JoinDrawer";
 const Cta = () => {
   return (
     <section
-      className="bg-pody-dark relative text-white py-32 px-4 md:px-16 flex flex-col justify-center overflow-hidden"
+      className="bg-pody-dark relative text-white py-32 px-5 md:px-16 flex flex-col justify-center overflow-hidden"
       aria-label="cta"
     >
       <div>

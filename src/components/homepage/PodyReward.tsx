@@ -6,7 +6,7 @@ const RewardSection = () => {
     <>
       <section
       id="reward"
-      className="bg-pody-dark relative text-white py-28 px-4 md:px-16 flex flex-col justify-center"
+      className="bg-pody-dark relative text-white py-28 px-5 md:px-16 flex flex-col justify-center"
       aria-label="Pody Reward"
     >
       <div className="max-w-5xl 2xl:max-w-7xl mx-auto">
