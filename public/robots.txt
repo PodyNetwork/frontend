@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://pody.network
+
+# Sitemaps
+Sitemap: https://pody.network/sitemap.xml

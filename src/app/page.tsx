@@ -9,6 +9,21 @@ import PartnerSection from "@/components/homepage/Partner";
 
 export default function Home() {
   return (
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Pody",
+              url: "https://pody.network",
+              logo: "https://pody.network/logo.png",
+            }),
+          }}
+        />
+      </Head>
     <main className="relative float-left w-full h-full overflow-hidden" aria-label="Homepage">
         <HeroSection />
         <PartnerSection />
@@ -20,5 +35,6 @@ export default function Home() {
         <Cta />
         <Footer />
     </main>
+    </>
   );
 }
