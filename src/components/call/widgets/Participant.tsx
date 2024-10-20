@@ -79,7 +79,7 @@ const Participant: React.FC<Props> = ({
                   <AvatarParticipant name={participant.identity} />
                 </div>
                 <div
-                  className={`md:ms-2.5 flex flex-col items-center justify-center text-sm ${
+                  className={`mt-1 md:mt-0 md:ms-2.5 flex flex-col items-center justify-center text-sm ${
                     !participantBarToggleExpanded && "md:hidden"
                   }`}
                 >

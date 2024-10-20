@@ -8,6 +8,7 @@ import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";
 import { PointCounter } from "./StreamScreen/PointCounter";
 import useEndCall from "@/hooks/call/useEndCall";
+import { useParticipantMenu } from "../utils/ParticipantMenuContext";
 
 const StreamInfo = () => {
   const { url } = useParams();
@@ -83,12 +84,14 @@ const StreamInfo = () => {
   }, [call]);
   // end call ends here
 
+  const  { openMenu } = useParticipantMenu();
+
   return (
     <>
       <div className="md:hidden text-red-200 flex flex-row items-center text-xs xs:text-sm font-semibold justify-between gap-x-2">
         <PointCounter accumulatedPoints={accumulatedPoints} />
         <div className="flex flex-row gap-x-2 items-center">
-          <p className="w-7 h-7 flex items-center justify-center bg-slate-200 rounded-full">
+          <p className="w-7 h-7 flex items-center justify-center bg-slate-200 rounded-full" onClick={openMenu}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-5 h-5 text-slate-600"

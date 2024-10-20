@@ -88,7 +88,7 @@ export default function ChatTile({
 
   return (
     <div
-      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[50vh] md:h-[400px] bg-white dark:bg-gray-800 shadow-xl rounded-t-lg transition-all duration-300 ease-in-out ${
+      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[55vh] md:h-[400px] bg-white dark:bg-gray-800 __shadow_pody rounded-t-lg transition-all duration-300 ease-in-out ${
         isChatOpen
           ? "translate-y-0"
           : "translate-y-full md:translate-y-[calc(100%-50px)]"
@@ -102,7 +102,7 @@ export default function ChatTile({
         >
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-x-2">
-              <h2 className="font-medium text-sm text-gray-800 dark:text-white">
+              <h2 className="font-semibold text-base md:text-sm text-gray-800 dark:text-white">
                 Chat Room
               </h2>
               {!isChatOpen && unreadMessageCount.current > 0 && (
@@ -127,12 +127,12 @@ export default function ChatTile({
             return (
               <div key={msg.id} className="flex flex-col mb-2">
                 <div className="flex flex-row">
-                  <div className="w-6 h-6 me-2"><AvatarParticipant name={msg.from?.identity || "unknown user"} /></div>
-                  <div className="w-[75%] rounded-lg p-2 bg-[#f8fafd] text-slate-700">
-                    <p className="text-xs">{msg.message}</p>
+                  <div className="w-8 h-8 md:w-6 md:h-6 me-2"><AvatarParticipant name={msg.from?.identity || "unknown user"} /></div>
+                  <div className="w-[75%] rounded-lg p-2.5 md:p-2 bg-[#f8fafd] text-slate-700">
+                    <p className="text-sm md:text-xs">{msg.message}</p>
                   </div>
                 </div>
-                <div className="text-[0.68rem] dark:text-slate-300 ms-8 mt-1 gap-x-1 flex flex-row items-center">
+                <div className="text-xs text-slate-600 dark:text-slate-300 ms-8 mt-1 gap-x-1 flex flex-row items-center">
                   {!hideName && <h3>{msg.from?.name ?? msg.from?.identity}</h3>}
                   {!hideTimestamp && <span className="opacity-75">{time}</span>}
                 </div>
@@ -146,7 +146,7 @@ export default function ChatTile({
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="w-full px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white outline-none text-xs pr-10"
+                className="w-full px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white outline-none text-sm pr-10"
                 disabled={isSending}
                 ref={inputRef}
               />

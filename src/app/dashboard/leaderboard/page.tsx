@@ -18,14 +18,14 @@ const Page = () => {
     <main className="w-full">
       <div className="w-full bg-pody-primary/20 p-6 md:p-12">
         <div className="max-w-2xl mx-auto flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6">
-          <div className="w-full sm:w-5/12 mb-6 sm:mb-0">
+          <div className="w-full sm:w-6/12 mb-6 sm:mb-0">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-3xl sm:text-3xl text-slate-800 text-center sm:text-left">
-                Leaderboard top performer of the week
+              <h2 className="text-2xl sm:text-3xl text-slate-800 text-center sm:text-left">
+                Leaderboard top performer, with points updated in real-time.
               </h2>
             </motion.div>
           </div>

@@ -43,12 +43,9 @@ export function EnhancedFocusLayout({
       document.documentElement.style.setProperty("--carousel-height", `${carouselHeight}px`);
       setCarouselHeight(carouselHeight);
 
-      console.log(carouselHeight); // Log to verify height
     } else {
-      // Reset height when there are no participants
       setCarouselHeight(0);
       document.documentElement.style.setProperty("--carousel-height", `0px`);
-      console.log(0); // Log the reset height
     }
   }, [paginatedTracks.length, setCarouselHeight]);
 
