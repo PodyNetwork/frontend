@@ -8,9 +8,9 @@ const ReadyToGo = () => {
     <>
       <div className='_grad_card_main'></div>
       <div className='relative z-50'>
-        <h3 className='text-xl font-medium text-slate-200'>Mint On-Chain Passport</h3>
+        <h3 className='text-xl font-medium text-slate-200'>Earn Rewards every Seconds</h3>
         <p className='text-sm mt-1.5 text-slate-400 leading-relaxed'>
-          Get access to Pody by minting your personal on-chain passport. This digital ID allows you to enter classrooms securely while maintaining anonymity.
+        The longer you participate in a classroom, the more the points you earn.
         </p>
         <ScrollContent />
       </div>

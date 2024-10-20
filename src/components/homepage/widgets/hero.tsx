@@ -28,7 +28,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className="text-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 flex-1 justify-between py-32">
+          {/* <div className="text-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 flex-1 justify-between py-32">
             {herocard.map((data, index) => (
               <div className="w-11/12" key={index}>
                 <div className="flex flex-row gap-x-3 items-center">
@@ -48,7 +48,7 @@ const Hero = () => {
                 <p className="text-sm mt-3 text-slate-400">{data.desc}</p>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

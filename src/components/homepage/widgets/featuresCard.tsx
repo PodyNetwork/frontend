@@ -14,8 +14,8 @@ const FeaturesCard = () => {
             <div className='p-7 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_main_2'></div>
                 <div className='relative z-50 h-full flex flex-col'>
-                    <h3 className='text-xl font-medium text-slate-200'>Create 2D Classrooms</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center flex-wrap gap-x-2 leading-relaxed'>Easily set up your own virtual 2D meeting or classroom. Invite participants and enjoy interactive features like screen sharing and real-time streaming.</p>
+                    <h3 className='text-xl font-medium text-slate-200'>Advanced Host Management</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center flex-wrap gap-x-2 leading-relaxed'>You can remove students from the call or grant them speaking privileges.</p>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@ const FeaturesCard = () => {
                 <div className='relative z-50 flex flex-col h-full'>
                     <h3 className='text-xl font-medium text-slate-200'>Earn Rewards for Participation</h3>
                     <p className='text-sm mt-1.5 text-slate-400 flex items-center leading-relaxed'>
-                        Get rewarded for your time. The longer you participate, the more points you earn. These points can be converted to tokens, creating real value for your time in the classroom.
+                    Not ready to start the class right away? You can schedule it for later.
                     </p>
                     <div className='flex-grow'></div>
                     <div className='flex flex-col gap-y-4 text-sm pt-8'>
@@ -36,8 +36,8 @@ const FeaturesCard = () => {
             <div className='p-6 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50 flex flex-col h-full'>
-                    <h3 className='text-xl font-medium text-slate-200'>Host Reward Mechanism</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center leading-relaxed'>The more participants you attract and the more engaged they are, the more you earn. Create meaningful classrooms that reward both you and your participants.</p>
+                    <h3 className='text-xl font-medium text-slate-200'>Earning Power Boost</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center leading-relaxed'>You can increase your earnings per second by minting more NFTs directly from the dashboard.</p>
                     <div className='flex flex-col gap-y-4 text-sm mt-auto pt-8'>
                        <div className='ic_cr_container mx-auto flex-wrap animate-pulse'>
                             {ecosystem.map((ecosystemdata, index) => (
@@ -52,8 +52,8 @@ const FeaturesCard = () => {
             <div className='p-6 relative rounded-xl shadow-xl overflow-hidden'>
                 <div className='_grad_card_base'></div>
                 <div className='relative z-50 h-full flex flex-col'>
-                    <h3 className='text-xl font-medium text-slate-200'>Decentralized and Private Classroom</h3>
-                    <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Pody runs on decentralized peer-to-peer technology using WebRTC, ensuring privacy and security for all users. No data harvesting, no AI interference.</p>
+                    <h3 className='text-xl font-medium text-slate-200'>View Earning Statistics</h3>
+                    <p className='text-sm mt-1.5 text-slate-400 flex items-center'>Track your points in real-time, redeem them, and seamlessly transfer them on-chain.</p>
                     <div className='flex-grow'></div>
                     <div className='flex flex-col gap-y-4 text-sm pt-8'>
                         <Image src={decentralizedandprivate} className='object-cover h-52 rounded-xl' alt="Rewards for Participation" />
