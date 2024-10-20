@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build && rm -rf ./.next/cache",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@livekit/components-react": "^2.6.4",
@@ -38,6 +39,7 @@
     "livekit-client": "^2.5.6",
     "lucide-react": "^0.446.0",
     "next": "14.2.13",
+    "next-sitemap": "^4.2.3",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-day-picker": "^8.10.1",

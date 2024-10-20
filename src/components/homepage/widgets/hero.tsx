@@ -1,6 +1,5 @@
 import Heading1 from "../../global/heading1";
 import Paragraph from "../../global/paragraph";
-import ButtonPody from "../../global/button";
 import Link from "next/link";
 import JoinDrawer from "./JoinDrawer";
 import Image from "next/image";
