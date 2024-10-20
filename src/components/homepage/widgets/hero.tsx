@@ -2,8 +2,6 @@ import Heading1 from "../../global/heading1";
 import Paragraph from "../../global/paragraph";
 import Link from "next/link";
 import JoinDrawer from "./JoinDrawer";
-import Image from "next/image";
-import heroimage from "/public/illustration/online-remote-video.png";
 
 const Hero = () => {
   return (

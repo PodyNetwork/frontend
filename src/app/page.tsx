@@ -13,7 +13,7 @@ export default function Home() {
     <main className="relative float-left w-full h-full overflow-hidden" aria-label="Homepage">
         <HeroSection />
         <PartnerSection />
-        <Benefits />
+        {/* <Benefits /> */}
         <FeaturesSection />
         <RewardSection />
         <Roadmap />
