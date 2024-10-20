@@ -6,6 +6,7 @@ import Footer from "@/components/homepage/Footer";
 import RewardSection from "@/components/homepage/PodyReward";
 import Faq from "@/components/homepage/Faq";
 import PartnerSection from "@/components/homepage/Partner";
+import Head from "next/head";
 
 export default function Home() {
   return (
