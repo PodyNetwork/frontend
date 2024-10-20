@@ -1,5 +1,3 @@
-import React from "react";
-import Partner from "./widgets/partner";
 import Hero from "./widgets/hero";
 import Nav from "./widgets/nav";
 
