@@ -2,7 +2,7 @@ import React from 'react'
 
 const RoadmapTrack = () => {
   return (
-    <div className='grid md:grid-cols-4 relative'>
+    <div className='grid gap-y-4 md:gap-y-0 md:grid-cols-4 relative'>
        
         <div className='flex flex-col relative'>
             <div className='flex flex-col pt-3'>
@@ -54,7 +54,7 @@ const RoadmapTrack = () => {
         </div>
         <div className='flex flex-col relative'>
             <div className='flex flex-col pt-3'>
-                <h2 className='text-lg font-bold ms-3'>Q1 2025 - Reward</h2>
+                <h2 className='text-lg font-bold ms-3'>Q2 2025 - Reward</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map w-10 h-10 rounded-full relative mt-2.5 flex items-center'>
                     </div>

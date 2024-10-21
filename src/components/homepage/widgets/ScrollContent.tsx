@@ -29,7 +29,7 @@ const ScrollContent = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-y-4 mt-10 pb-8 text-xs">
+    <div className="flex flex-col gap-y-4 text-xs">
       <div className="overflow-hidden">
         <Marquee
           velocity={10}

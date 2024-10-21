@@ -11,7 +11,7 @@ const ButtonIcon:React.FC<ButtonIconProps> = ({children, svg, special} ) => {
     <button className="px-3 py-1.5 bg-pody-secondary/10 text-nowrap shadow-md text-slate-400 hover:text-slate-200 rounded-md hover:bg-pody-secondary hover:transition-all text-xs flex flex-row items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className={`w-3.5 h-3.5 me-2 ${special && 'text-pody-primary'}`}
+        className={`w-3.5 h-3.5 me-2 ${special && 'text-red-500'}`}
         viewBox="0 -960 960 960"
         style={{ msFilter: "" }}
         fill="currentColor"
