@@ -1,6 +1,7 @@
 "use client";
 import rewardforparticipation from "/public/illustration/reward.png";
 import decentralizedandprivate from "/public/illustration/privacy.png";
+import hostmanagement from "/public/illustration/host_ui_pody.png";
 import Image from "next/image";
 import ReadyToGo from "./readyToGo";
 import { motion } from "framer-motion";
@@ -38,6 +39,7 @@ const FeaturesCard = () => {
       clearInterval(powerBoostInterval);
     };
   }, [power]);
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 _features_card_x2">
@@ -54,6 +56,16 @@ const FeaturesCard = () => {
               You can remove students from the call or grant them speaking
               privileges.
             </p>
+            <div className="flex-grow"></div>
+            <div className="flex flex-col gap-y-4 text-sm pt-8">
+              <div className="h-40 bg-pody-dark rounded-xl">
+                <Image
+                  src={hostmanagement}
+                  className="object-contain h-full"
+                  alt="Rewards for Participation"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -88,12 +100,12 @@ const FeaturesCard = () => {
               You can increase your earnings per second by minting more NFTs
               directly from the dashboard.
             </p>
-            <div className="flex flex-col gap-y-4 text-lg mt-auto pt-36">
+            <div className="flex flex-col gap-y-4 text-sm mt-auto pt-36">
               <div className="flex">
-                <motion.div className="flex items-center flex-row px-4 py-2 bg-pody-secondary/30 rounded-full backdrop-blur-xl shadow-md shadow-black">
+                <motion.div className="flex items-center flex-row px-4 py-1.5 bg-pody-secondary/30 rounded-full backdrop-blur-xl shadow-md shadow-black">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 me-1.5 text-red-400"
+                    className="w-4 h-4 me-1.5 text-red-400"
                     viewBox="0 -960 960 960"
                     fill="currentColor"
                   >
