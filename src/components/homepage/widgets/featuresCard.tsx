@@ -5,42 +5,39 @@ import Image from "next/image";
 import ReadyToGo from "./readyToGo";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-/* eslint-disable  @typescript-eslint/no-unused-vars */
+
 const FeaturesCard = () => {
-    const [count, setCount] = useState(1);
-    const [power, setPower] = useState(1);
-    const [level, setLevel] = useState(1);
-  
-    useEffect(() => {
-      // Function to randomly increase the power level within the 60s
-      const powerBoostInterval = setInterval(() => {
-        const randomPower = Math.floor(Math.random() * 5) + 1;
-        setPower(randomPower);
-        setLevel(randomPower); // Update level when power changes
-      }, Math.floor(Math.random() * ((60 * 1000) / 5))); // Random interval spread within 60 seconds
-  
-      // Function to count based on the current power level
-      const counterInterval = setInterval(() => {
-        setCount((prevCount) => {
-          const newCount = prevCount + power; // Increment count based on power level
-  
-          // If the count reaches or exceeds 1000, reset it
-          if (newCount >= 1000) {
-            // Reset count, power, and level after reaching 1000
-            setCount(1); // Reset count
-            setPower(1); // Reset power level
-            setLevel(1); // Reset level
-            return 1; // Return 1 for the next round
-          }
-          return newCount; // Otherwise, return the new count
-        });
-      }, 1000); // Update every second
-  
-      return () => {
-        clearInterval(counterInterval);
-        clearInterval(powerBoostInterval);
-      };
-    }, [power]);
+  const [count, setCount] = useState(1);
+  const [power, setPower] = useState(1);
+  const [level, setLevel] = useState(1);
+
+  useEffect(() => {
+    // Function to randomly increase the power level within the 60s
+    const powerBoostInterval = setInterval(() => {
+      const randomPower = Math.floor(Math.random() * 5) + 1;
+      setPower(randomPower);
+      setLevel(randomPower);
+    }, Math.floor(Math.random() * ((60 * 1000) / 5)));
+
+    const counterInterval = setInterval(() => {
+      setCount((prevCount) => {
+        const newCount = prevCount + power;
+
+        if (newCount >= 1000) {
+          setCount(1);
+          setPower(1);
+          setLevel(1);
+          return 1;
+        }
+        return newCount; // Otherwise, return the new count
+      });
+    }, 1000); // Update every second
+
+    return () => {
+      clearInterval(counterInterval);
+      clearInterval(powerBoostInterval);
+    };
+  }, [power]);
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 _features_card_x2">
@@ -96,7 +93,11 @@ const FeaturesCard = () => {
                     viewBox="0 -960 960 960"
                     fill="currentColor"
                   >
-                    <path d="M480-151.54 103.85-603.08 212.31-820h535.38l108.46 216.92L480-151.54ZM352.69-620h254.62l-80-160h-94.62l-80 160ZM460-237.62V-580H175.69L460-237.62Zm40 0L784.31-580H500v342.38ZM651.69-620h150.62l-80-160H571.69l80 160Zm-494 0h150.62l80-160H237.69l-80 160Z" />
+                    {count > 100 ? (
+                      <path d="M480-151.54 103.85-603.08 212.31-820h535.38l108.46 216.92L480-151.54ZM352.69-620h254.62l-80-160h-94.62l-80 160ZM460-237.62V-580H175.69L460-237.62Zm40 0L784.31-580H500v342.38ZM651.69-620h150.62l-80-160H571.69l80 160Zm-494 0h150.62l80-160H237.69l-80 160Z" />
+                    ) : (
+                      <path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-61 83.92 49.62-212.54-164.93-142.84 217.23-18.85L480-777.69l85.08 200.38 217.23 18.85-164.93 142.84L667-203.08 480-315.92 293-203.08ZM480-470Z" />
+                    )}
                   </svg>
 
                   <motion.span
@@ -124,7 +125,7 @@ const FeaturesCard = () => {
                 </motion.div>
               </div>
               <div className="text-slate-300 text-xs flex items-center">
-                This is your estimated earning rate per second at Level {power}
+                This is your estimated earning rate per second at Level {level}
               </div>
             </div>
           </div>
