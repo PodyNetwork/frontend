@@ -49,12 +49,9 @@ const FeaturesCard = () => {
         <div className="p-7 relative rounded-xl shadow-xl overflow-hidden">
           <div className="_grad_card_main_2"></div>
           <div className="relative z-50 h-full flex flex-col">
-            <h3 className="text-xl font-medium text-slate-200">
-              Advanced Host Management
-            </h3>
+            <h3 className="text-xl font-medium text-slate-200">Schedule Call</h3>
             <p className="text-sm mt-2.5 text-slate-400 flex items-center flex-wrap gap-x-2 leading-relaxed">
-              You can remove students from the call or grant them speaking
-              privileges.
+                Not ready to start the class right away? You can schedule it for later.
             </p>
             <div className="flex-grow"></div>
             <div className="flex flex-col gap-y-4 text-sm pt-8">
@@ -74,11 +71,10 @@ const FeaturesCard = () => {
           <div className="_grad_card_base"></div>
           <div className="relative z-50 flex flex-col h-full">
             <h3 className="text-xl font-medium text-slate-200">
-              Earn Rewards for Participation
+              Earn Rewards
             </h3>
             <p className="text-sm mt-2.5 text-slate-400 flex items-center leading-relaxed">
-              Not ready to start the class right away? You can schedule it for
-              later.
+            The longer you participate in a classroom, the more the points you earn.
             </p>
             <div className="flex-grow"></div>
             <div className="flex flex-col gap-y-4 text-sm pt-8">
@@ -94,7 +90,7 @@ const FeaturesCard = () => {
           <div className="_grad_card_base"></div>
           <div className="relative z-50 flex flex-col h-full">
             <h3 className="text-xl font-medium text-slate-200">
-              Earning Power Boost
+            Reward Boost
             </h3>
             <p className="text-sm mt-2.5 text-slate-400 flex items-center leading-relaxed">
               You can increase your earnings per second by minting more NFTs
