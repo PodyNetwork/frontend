@@ -26,7 +26,7 @@ export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
           >
             <div className="relative">
               <div className="w-16 h-16 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 shadow-lg">
-                <AvatarParticipant name={item.username} />
+                <AvatarParticipant name={item?.username} />
               </div>
               <div className="absolute -top-1.5 -right-1.5 w-7 h-7 rounded-full bg-pody-primary flex items-center justify-center shadow-lg">
                 <span className="text-sm font-bold text-white">
@@ -35,7 +35,7 @@ export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
               </div>
             </div>
             <h2 className="font-medium text-sm mt-2 text-slate-800">
-              {item.username}
+              {item?.username}
             </h2>
             <p className="text-sm text-pody-primary font-semibold truncate">
               {formatNumber(
