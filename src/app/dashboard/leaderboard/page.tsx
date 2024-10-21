@@ -52,7 +52,7 @@ const Page = () => {
               .fill(0)
               .map((_, index) => <SkeletonLeaderboardItem key={index} />)
           ) : leaderboard.length === 0 ? (
-            <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody cursor-pointer">
+            <div className="relative flex p-6 w-full flex-col rounded-3xl __shadow_pody cursor-pointer">
               <div className="flex flex-col gap-4 md:flex-row items-center justify-between w-full">
                 <div className="w-full md:w-4/12">
                   <p className="break-words text-lg sm:text-xl">

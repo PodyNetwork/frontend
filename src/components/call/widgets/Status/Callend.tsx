@@ -86,7 +86,7 @@ const CallEndPage = () => {
               </Link>
             </div>
             <p className="text-xs mt-1.5">
-              Share your feedback and earn an extra 1500 points!
+              Submit your feedback and earn an additional 1500 points!
             </p>
           </>
         )}
