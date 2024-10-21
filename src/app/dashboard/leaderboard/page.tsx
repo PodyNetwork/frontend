@@ -9,7 +9,14 @@ import { TopThree } from "@/components/dashboard/widgets/Leaderboard/TopThree";
 import { LeaderboardItem } from "@/components/dashboard/widgets/Leaderboard/LeaderboardItem";
 
 const Page = () => {
-  const { leaderboard, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = useLeaderboard();
+  const {
+    leaderboard,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+  } = useLeaderboard();
   const handleLoadMore = () => {
     fetchNextPage();
   };
@@ -25,26 +32,43 @@ const Page = () => {
               transition={{ duration: 0.5 }}
             >
               <h2 className="text-2xl sm:text-3xl text-slate-800 text-center sm:text-left">
-                Leaderboard top performer, with points updated in real-time.
+                Top performer on the leaderboard, with points updated in real time.
               </h2>
             </motion.div>
           </div>
           <div className="w-6/12 flex justify-center">
-            {isLoading ? <SkeletonTopThree /> : <TopThree data={leaderboard.slice(0, 3)} />}
+            {isLoading ? (
+              <SkeletonTopThree />
+            ) : (
+              <TopThree data={leaderboard.slice(0, 3)} />
+            )}
           </div>
         </div>
       </div>
       <div className="max-w-sm sm:max-w-md lg:max-w-2xl mx-auto py-6 sm:py-8 px-4 sm:px-0">
         <div>
           {isLoading && !isFetchingNextPage ? (
-            Array(5).fill(0).map((_, index) => <SkeletonLeaderboardItem key={index} />)
+            Array(5)
+              .fill(0)
+              .map((_, index) => <SkeletonLeaderboardItem key={index} />)
           ) : leaderboard.length === 0 ? (
-            <div className="flex flex-col md:flex-row items-center justify-between w-full gap-4">
-              <div className="w-full md:w-4/12">
-                <p className="break-words text-lg sm:text-xl">No leaderboard data available, create classroom to start earning points</p>
-              </div>
-              <div className="w-full md:w-7/12">
-                <Image src={noLeaderboardError} className="w-full h-64 object-contain" width={300} height={300} alt="user" />
+            <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody cursor-pointer">
+              <div className="flex flex-col gap-4 md:flex-row items-center justify-between w-full">
+                <div className="w-full md:w-4/12">
+                  <p className="break-words text-lg sm:text-xl">
+                    No leaderboard data available, create classroom to start
+                    earning points
+                  </p>
+                </div>
+                <div className="w-full md:w-7/12">
+                  <Image
+                    src={noLeaderboardError}
+                    className="w-full h-64 object-contain"
+                    width={300}
+                    height={300}
+                    alt="leaderboard"
+                  />
+                </div>
               </div>
             </div>
           ) : (
@@ -54,11 +78,16 @@ const Page = () => {
               ))}
             </ul>
           )}
-          {isFetchingNextPage && 
-            Array(5).fill(0).map((_, index) => <SkeletonLeaderboardItem key={`loading-${index}`} />)
-          }
+          {isFetchingNextPage &&
+            Array(5)
+              .fill(0)
+              .map((_, index) => (
+                <SkeletonLeaderboardItem key={`loading-${index}`} />
+              ))}
           {isError && (
-            <p className="text-center text-red-500 py-4">An error occurred while fetching more data. Please try again.</p>
+            <p className="text-center text-red-500 py-4">
+              An error occurred while fetching more data. Please try again.
+            </p>
           )}
           {hasNextPage && (
             <div className="flex justify-center mt-4">
@@ -67,7 +96,7 @@ const Page = () => {
                 disabled={isFetchingNextPage}
                 className="bg-pody-primary text-white px-4 py-2 rounded-md hover:bg-pody-primary/80 transition-colors duration-300"
               >
-                {isFetchingNextPage ? 'Loading...' : 'Load More'}
+                {isFetchingNextPage ? "Loading..." : "Load More"}
               </button>
             </div>
           )}
