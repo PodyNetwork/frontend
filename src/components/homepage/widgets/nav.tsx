@@ -41,12 +41,12 @@ const Nav = () => {
         <div className="w-full max-w-7xl mx-auto flex flex-row items-center justify-between py-2">
           <ul className="flex flex-row gap-6 items-center" aria-label="Menu">
             <Link href="/">
-              <Image src={logo} alt="Pody" className="w-16 object-contain" />
+              <Image src={logo} alt="Pody" className="w-16 object-contain me-2" />
             </Link>
             {navlink.mainLink.map((link, index) => (
               <li
                 key={index}
-                className="hover:text-pody-primary hover:transition-all duration-100"
+                className="hover:text-pody-primary hover:transition-all duration-100 px-2"
               >
                 <Link href={link.url}>{link.title}</Link>
               </li>

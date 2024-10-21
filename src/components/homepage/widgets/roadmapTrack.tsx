@@ -6,7 +6,7 @@ const RoadmapTrack = () => {
        
         <div className='flex flex-col relative'>
             <div className='flex flex-col pt-3'>
-                <h2 className='text-lg font-bold ms-2'>MVP</h2>
+                <h2 className='text-lg font-bold ms-3'>Q3 - MVP</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map __ring_map_extend  w-10 h-10 rounded-full relative mt-2.5 flex items-center'>
                     </div>
@@ -22,7 +22,7 @@ const RoadmapTrack = () => {
         </div>
         <div className='flex flex-col relative'>
             <div className='flex flex-col pt-3'>
-                <h2 className='text-lg font-bold ms-2'>Testnet</h2>
+                <h2 className='text-lg font-bold ms-3'>Q4 - Testnet</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map w-10 h-10 rounded-full relative mt-2.5 flex items-center'>
                     </div>
@@ -38,7 +38,7 @@ const RoadmapTrack = () => {
         </div>
         <div className='flex flex-col relative'>
             <div className='flex flex-col pt-3'>
-                <h2 className='text-lg font-bold ms-2'>Mainnet</h2>
+                <h2 className='text-lg font-bold ms-3'>Q1 2025 - Mainnet</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map __ring_map_extend w-10 h-10 rounded-full relative mt-2.5 flex items-center'>
                     </div>
@@ -54,7 +54,7 @@ const RoadmapTrack = () => {
         </div>
         <div className='flex flex-col relative'>
             <div className='flex flex-col pt-3'>
-                <h2 className='text-lg font-bold ms-2'>Reward Distribution</h2>
+                <h2 className='text-lg font-bold ms-3'>Q1 2025 - Reward</h2>
                 <div className='absolute w-full mt-6'>
                     <div className='__ring_map w-10 h-10 rounded-full relative mt-2.5 flex items-center'>
                     </div>
