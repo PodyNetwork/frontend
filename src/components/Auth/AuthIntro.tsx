@@ -21,7 +21,7 @@ const AuthIntro = () => {
             points you earn.
           </h3>
           <p className="text-xs mt-2.5 text-slate-400 leading-relaxed">
-           <span className="text-red-400">*</span>It took you 4 seconda to read that, you could have earned up to 12 points
+           <span className="text-red-400">*</span>It took you 4 seconds to read that, you could have earned up to 12 points
           </p>
         </div>
       </div>
