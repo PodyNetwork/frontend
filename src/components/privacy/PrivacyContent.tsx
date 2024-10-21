@@ -99,7 +99,7 @@ const PrivacyContent = () => {
                     <h2>Changes to This Privacy Policy</h2>
                     <p>
                       This Privacy Policy may be updated from time to time. The
-                      "Effective Date" at the top indicates when this policy was
+                      &quot;Effective Date&quot; at the top indicates when this policy was
                       last revised. We encourage you to review this policy
                       periodically for any updates.
                     </p>
