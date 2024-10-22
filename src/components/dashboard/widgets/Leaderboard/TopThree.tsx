@@ -16,7 +16,7 @@ export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
         const item = data[index];
         return (
           <motion.div
-            key={item.rank}
+            key={item?.rank}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -30,7 +30,7 @@ export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
               </div>
               <div className="absolute -top-1.5 -right-1.5 w-7 h-7 rounded-full bg-pody-primary flex items-center justify-center shadow-lg">
                 <span className="text-sm font-bold text-white">
-                  {item.rank}
+                  {item?.rank}
                 </span>
               </div>
             </div>
