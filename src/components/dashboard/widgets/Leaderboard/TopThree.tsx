@@ -2,7 +2,6 @@ import { SkeletonTopThree } from "./SkeletonTopThree";
 import { formatUnits } from "viem";
 import { LeaderboardEntry } from "@/app/dashboard/leaderboard/types";
 import { motion } from "framer-motion";
-import { formatNumber } from "@/lib/formatNumber";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 
 export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
