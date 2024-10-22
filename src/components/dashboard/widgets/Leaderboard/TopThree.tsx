@@ -38,9 +38,7 @@ export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
               {item?.username}
             </h2>
             <p className="text-sm text-pody-primary font-semibold truncate">
-              {formatNumber(
-                Number(formatUnits(BigInt(item?.totalPoints ?? 0), 18))
-              )}
+               {Math.round(Number(formatUnits(BigInt(item?.totalPoints ?? 0), 18)))}
             </p>
           </motion.div>
         );
