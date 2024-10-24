@@ -5,6 +5,7 @@ import Image from "next/image";
 import ReadyToGo from "./readyToGo";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import ScrollContent from "./ScrollContent";
 
 const FeaturesCard = () => {
   const [count, setCount] = useState(1);
@@ -38,34 +39,39 @@ const FeaturesCard = () => {
       clearInterval(powerBoostInterval);
     };
   }, [power]);
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 _features_card_x2">
         <div className="p-7 relative rounded-xl shadow-xl overflow-hidden">
-          <ReadyToGo />
-        </div>
-        <div className="p-7 relative rounded-xl shadow-xl overflow-hidden">
           <div className="_grad_card_main_2"></div>
           <div className="relative z-50 h-full flex flex-col">
-            <h3 className="text-xl font-medium text-slate-200">Schedule Call</h3>
-            <p className="text-sm mt-2.5 text-slate-400 flex items-center flex-wrap gap-x-2 leading-relaxed">
-                Not ready to start the class right away? You can schedule it for later.
+            <h3 className="text-xl font-medium text-slate-200">
+              Advanced Host Management
+            </h3>
+            <p className="text-sm mt-2.5 text-slate-400 leading-relaxed">
+              You can remove students from the call or grant them speaking
+              privileges.{" "}
             </p>
+            <div className="relative mt-auto pt-16">
+              <ScrollContent />
+            </div>
           </div>
+        </div>
+        <div className="p-7 relative rounded-xl shadow-xl overflow-hidden">
+          <ReadyToGo />
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 _features_card_x3">
         <div className="p-6 relative rounded-xl shadow-xl overflow-hidden">
           <div className="_grad_card_base"></div>
           <div className="relative z-50 flex flex-col h-full">
-            <h3 className="text-xl font-medium text-slate-200">
-              Earn Rewards
-            </h3>
+            <h3 className="text-xl font-medium text-slate-200">Earn Rewards</h3>
             <p className="text-sm mt-2.5 text-slate-400 flex items-center leading-relaxed">
-            The longer you participate in a classroom, the more the points you earn.
+              The longer you participate in a classroom, the more the points you
+              earn.
             </p>
-            <div className="flex-grow"></div>
-            <div className="flex flex-col gap-y-4 text-sm pt-8">
+            <div className="flex flex-col gap-y-4 text-sm pt-16 md:pt-14 mt-auto">
               <Image
                 src={rewardforparticipation}
                 className="object-cover h-60 md:h-56 rounded-xl"
@@ -77,19 +83,17 @@ const FeaturesCard = () => {
         <div className="p-6 relative rounded-xl shadow-xl overflow-hidden">
           <div className="_grad_card_base"></div>
           <div className="relative z-50 flex flex-col h-full">
-            <h3 className="text-xl font-medium text-slate-200">
-            Reward Boost
-            </h3>
+            <h3 className="text-xl font-medium text-slate-200">Reward Boost</h3>
             <p className="text-sm mt-2.5 text-slate-400 flex items-center leading-relaxed">
               You can increase your earnings per second by minting more NFTs
               directly from the dashboard.
             </p>
-            <div className="flex flex-col gap-y-4 text-lg mt-auto pt-36">
+            <div className="flex flex-col gap-y-4 text-sm mt-auto pt-36">
               <div className="flex">
-                <motion.div className="flex items-center flex-row px-4 py-2 bg-pody-secondary/30 rounded-full backdrop-blur-xl shadow-md shadow-black">
+                <motion.div className="flex items-center flex-row px-4 py-1.5 bg-pody-secondary/30 rounded-full backdrop-blur-xl shadow-md shadow-black">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 me-1.5 text-red-400"
+                    className="w-4 h-4 me-1.5 text-red-400"
                     viewBox="0 -960 960 960"
                     fill="currentColor"
                   >
@@ -140,8 +144,7 @@ const FeaturesCard = () => {
               Track your points in real-time, redeem them, and seamlessly
               transfer them on-chain.
             </p>
-            <div className="flex-grow"></div>
-            <div className="flex flex-col gap-y-4 text-sm pt-8">
+            <div className="flex flex-col gap-y-4 text-sm pt-16 md:pt-14 relative mt-auto">
               <Image
                 src={decentralizedandprivate}
                 className="object-cover h-60 md:h-56 rounded-xl"

@@ -73,7 +73,7 @@ const AsideNav = () => {
                 </h3>
               )}
             </div>
-            <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
+            <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info hidden">
               <li>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

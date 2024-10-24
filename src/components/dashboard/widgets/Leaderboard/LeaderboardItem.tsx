@@ -18,7 +18,7 @@ export const LeaderboardItem = ({
         <div className="text-base text-slate-500 w-6 flex-shrink-0">{rank}</div>
         <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
           <div className="w-6 h-6 sm:w-8 sm:h-8 ">
-              <AvatarParticipant name={username} />
+              <AvatarParticipant name={username || "Unknown User"} />
           </div>
           <h3 className="text-xs sm:text-sm text-slate-500 truncate">{username}</h3>
         </div>
