@@ -1,7 +1,7 @@
 'use client'
 
 import AsideNav from "@/components/dashboard/widgets/asideNav"
-import AuthMiddleware from "@/middleware/AuthMiddleware";
+import AuthMiddleware from "@/middlewares/AuthMiddleware";
 
 
 const DashboardLayout = ({

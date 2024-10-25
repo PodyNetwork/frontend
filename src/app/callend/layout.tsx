@@ -1,6 +1,6 @@
 "use client";
 
-import AuthMiddleware from "@/middleware/AuthMiddleware";
+import AuthMiddleware from "@/middlewares/AuthMiddleware";
 
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

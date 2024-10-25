@@ -16,6 +16,7 @@ const AuthMiddleware = ({ children }: { children: ReactNode }) => {
     if (isLoggedIn) return;
     startLoading();
 
+
     const fetchProfile = async () => {
       try {
         const response = await axios.get<unknown>("/user/profile");
@@ -26,6 +27,7 @@ const AuthMiddleware = ({ children }: { children: ReactNode }) => {
         }
       } catch (error) {
         console.error("Error fetching profile:", error);
+        sessionStorage.setItem('redirect_after_login',window.location.href)
         router.push("/login");
       } finally {
         stopLoading();

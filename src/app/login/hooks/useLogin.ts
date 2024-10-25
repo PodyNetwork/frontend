@@ -33,7 +33,8 @@ const useLogin = () => {
       clearErrorMessage();
       setAccessToken(data.data.accessToken);
       setRefreshToken(data.data.refreshToken);
-      router.push('/dashboard');
+      const redirect_after_login = sessionStorage.getItem('redirect_after_login')
+      router.push(redirect_after_login ?? '/dashboard');
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
