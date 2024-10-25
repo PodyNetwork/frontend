@@ -122,7 +122,7 @@ const RewardHistory = () => {
                           });
                         }}
                       >
-                        Mint Point
+                        Transfer On-chain
                       </button>
                     </ConnectOrComponent>
                   </div>

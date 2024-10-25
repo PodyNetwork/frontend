@@ -25,7 +25,8 @@ export default function ChatTile({
   const ulRef = React.useRef<HTMLUListElement>(null);
   const lastReadMsgAt = React.useRef<ChatMessage["timestamp"]>(0);
   const unreadMessageCount = React.useRef(0);
-
+  const notifiedParticipants = React.useRef(new Set<string>()); // Track participants notified
+  
   const chatOptions: ChatOptions = React.useMemo(
     () => ({ messageDecoder, messageEncoder, channelTopic }),
     [messageDecoder, messageEncoder, channelTopic]
@@ -35,7 +36,11 @@ export default function ChatTile({
   const layoutContext = useMaybeLayoutContext();
   const { isChatOpen, setIsChatOpen } = useMyContext();
 
-  // Submit handler for sending a message
+  const playNotificationSound = React.useCallback(() => {
+    const audio = new Audio("/audio/podynotif.mp3");
+    audio.play();
+  }, []);
+
   const handleSubmit = React.useCallback(
     async (event: React.FormEvent) => {
       event.preventDefault();
@@ -51,31 +56,31 @@ export default function ChatTile({
     [send]
   );
 
-  // Automatically scroll to the bottom of chat when new messages arrive
   React.useEffect(() => {
     ulRef.current?.scrollTo({ top: ulRef.current.scrollHeight });
   }, [chatMessages]);
 
-  // Handle unread message count when chat state changes
   React.useEffect(() => {
     if (!layoutContext || chatMessages.length === 0) return;
 
+    chatMessages.forEach((msg) => {
+      const participantId = msg?.from?.identity;
+      if (participantId && !notifiedParticipants.current.has(participantId)) {
+        // Play notification sound for the first message
+        playNotificationSound();
+        notifiedParticipants.current.add(participantId);
+      }
+    });
+
     if (isChatOpen) {
-      // Reset unread message count and mark messages as read
-      lastReadMsgAt.current =
-        chatMessages[chatMessages.length - 1]?.timestamp || 0;
+      lastReadMsgAt.current = chatMessages[chatMessages.length - 1]?.timestamp || 0;
       unreadMessageCount.current = 0;
     } else {
-      // Count unread messages when chat is closed
       const unreadCount = chatMessages.filter(
         (msg) => msg.timestamp > lastReadMsgAt.current
       ).length;
 
-      // Update unread message count and dispatch changes if necessary
-      if (
-        unreadCount > 0 &&
-        layoutContext.widget.state?.unreadMessages !== unreadCount
-      ) {
+      if (unreadCount > 0 && layoutContext.widget.state?.unreadMessages !== unreadCount) {
         layoutContext.widget.dispatch?.({
           msg: "unread_msg",
           count: unreadCount,
@@ -84,7 +89,7 @@ export default function ChatTile({
 
       unreadMessageCount.current = unreadCount;
     }
-  }, [chatMessages, isChatOpen, layoutContext]);
+  }, [chatMessages, isChatOpen, layoutContext, playNotificationSound]);
 
   return (
     <div
