@@ -1,4 +1,4 @@
-import { setAccessToken, setRefreshToken } from '@/utils/token';
+import { setAccessToken, setRefreshToken } from '@/utils/jwtoken';
 import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
 

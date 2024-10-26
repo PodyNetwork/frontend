@@ -1,4 +1,4 @@
-import { getAccessToken, getRefreshToken, setAccessToken } from "@/utils/token";
+import { getAccessToken, getRefreshToken, setAccessToken } from "@/utils/jwtoken";
 import axios from "axios";
 import type { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 

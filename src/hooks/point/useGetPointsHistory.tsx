@@ -42,7 +42,7 @@ const useGetPointsHistory = (args: PointHistoryArgs = {}) => {
     isError,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ['calls', args],
+    queryKey: ['pointsHistory', args],
     queryFn: fetchPointsHistory,
     getNextPageParam: (lastPage: PointHistoryResponse) => {
       if (lastPage.data.currentPage >= lastPage.data.totalPages) return undefined;

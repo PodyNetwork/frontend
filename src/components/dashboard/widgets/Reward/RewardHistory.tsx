@@ -110,7 +110,7 @@ const RewardHistory = () => {
                         ? dayjs(data?.timeClaimed).format("DD MMM YYYY h:mm A")
                         : "N/A"}
                     </motion.h5>
-                    <ConnectOrComponent>
+                   {!data?.claimed &&  <ConnectOrComponent>
                       <button
                         className="text-xs px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto"
                         onClick={() => {
@@ -124,7 +124,7 @@ const RewardHistory = () => {
                       >
                         Transfer On-chain
                       </button>
-                    </ConnectOrComponent>
+                    </ConnectOrComponent>}
                   </div>
                 </motion.li>
               ))}

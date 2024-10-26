@@ -26,7 +26,7 @@ const useGetPointsBalance = () => {
     isError,
     refetch
   } = useQuery({
-    queryKey: ['points_balance'],
+    queryKey: ['pointsBalance'],
     queryFn: fetchPointsHistory,
     retry: 2,
     staleTime: 0,

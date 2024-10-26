@@ -11,6 +11,7 @@ interface ClaimHistoryResponse extends BaseResponse {
         userId: string;
         points: number;
         signature: string;
+        claimed: boolean;
         timeClaimed: Date;
       },
       totalPages: number,
@@ -43,7 +44,7 @@ const useGetClaimHistory = (args: PointHistoryArgs = {}) => {
     isError, 
     refetch
   } = useInfiniteQuery({
-    queryKey: ['calls', args],
+    queryKey: ['claimHistory', args],
     queryFn: fetchPointsHistory,
     getNextPageParam: (lastPage: ClaimHistoryResponse) => {
       if (lastPage.data.currentPage >= lastPage.data.totalPages) return undefined;
