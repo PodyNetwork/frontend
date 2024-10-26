@@ -7,7 +7,7 @@ import CallPendingPage from "@/components/call/widgets/Status/CallPending";
 import LoaderStatus from "@/components/call/widgets/Status/LoaderStatus";
 import useCreateCallToken from "@/hooks/call/useCreateCallToken";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
-import AuthMiddleware from "@/middleware/AuthMiddleware";
+import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 

@@ -8,6 +8,7 @@ interface Profile {
   id: string;
   username: string;
   walletAddress: string;
+  email?: string
 }
 
 interface ProfileResponse extends BaseResponse {

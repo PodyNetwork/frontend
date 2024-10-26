@@ -85,7 +85,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
     call.scheduledTime ? new Date(call.scheduledTime) : new Date()
   );
 
-  const [canSpeak, setCanSpeak] = useState(call.participantsCanPublish);
+  const [canSpeak, setCanSpeak] = useState(call.permissions.canPublish && call.permissions.canSubscribe);
   const { updateCall, errorMessage } = useUpdateCall();
   const router = useRouter();
 
