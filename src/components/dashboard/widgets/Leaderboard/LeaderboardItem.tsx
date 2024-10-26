@@ -11,7 +11,7 @@ export const LeaderboardItem = ({
     <motion.li
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: rank * 0.1 }}
+      transition={{ duration: 0.3, delay: 0.1 }}
       className="flex flex-row items-center justify-between bg-white rounded-xl px-3 sm:px-6 py-3 mb-2 __shadow_pody transition-shadow duration-300"
     >
       <div className="flex items-center gap-x-2 flex-grow min-w-0">

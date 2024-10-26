@@ -31,6 +31,7 @@ const RewardTab = () => {
         </h4>
       </motion.div>
       <div className="gap-4">
+        {isLoading ? 'loading' : 'not fetching'}
         <ul className="space-y-3 sm:space-y-4">
           {isLoading ? (
             Array.from({ length: 6 }, (_, index) => (
@@ -42,14 +43,14 @@ const RewardTab = () => {
                 key={item?._id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+                transition={{ delay: 0.3 * 0.1, duration: 0.5 }}
                 className="flex flex-row items-center justify-between bg-white rounded-xl px-3 sm:px-6 py-3 mb-2 __shadow_pody transition-shadow duration-300"
               >
                 <motion.div
                   className="flex items-center gap-x-2 flex-grow min-w-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
+                  transition={{ delay: 0.6 * 0.1, duration: 0.3 }}
                 >
                   <div className="text-base text-slate-500 w-6 flex-shrink-0">
                     {index + 1}
@@ -67,7 +68,7 @@ const RewardTab = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{
-                      delay: 0.7 + index * 0.1,
+                      delay: 0.7 * 0.1,
                       duration: 0.3,
                     }}
                     className="font-medium text-sm text-slate-500"

@@ -40,7 +40,7 @@ const useGetPointsHistory = (args: PointHistoryArgs = {}) => {
     isFetchingNextPage,
     isLoading,
     isError,
-    refetch
+    refetch,
   } = useInfiniteQuery({
     queryKey: ['calls', args],
     queryFn: fetchPointsHistory,
@@ -63,7 +63,7 @@ const useGetPointsHistory = (args: PointHistoryArgs = {}) => {
     isFetchingNextPage, 
     isLoading, 
     isError, 
-    refetch 
+    refetch, 
   };
 }
 
