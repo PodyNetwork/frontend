@@ -122,7 +122,7 @@ const RewardHistory = () => {
                             points: BigInt(data?.points) ?? BigInt(0),
                             signature: data?.signature,
                           });
-                        } catch (e) {
+                        } catch {
                           toast("Error", {
                             description: "Could not transfer point on-chain"
                           });
