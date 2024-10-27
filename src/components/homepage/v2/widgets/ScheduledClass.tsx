@@ -58,11 +58,12 @@ const ScheduledClass = () => {
         <div className="flex flex-col items-center mb-6">
           <div className="max-w-xl text-center flex flex-col gap-y-2.5">
             <h2 className="text-4xl font-semibold text-pody-secondary">
-              Bookmark Scheduled Classroom
+              Add Scheduled Classroom to calendar
             </h2>
             <p className="text-base mt-1.5">
-              Your can bookmark down upcoming classroom you can join later, dont
-              worry we will notify you when it starts
+              You can add sechuled classroom to your calendar to ensure
+              you don&apos;t miss them. This way, you can easily plan your schedule
+              and stay informed.
             </p>
           </div>
         </div>
@@ -130,7 +131,7 @@ const ScheduledClass = () => {
                           viewBox="0 -960 960 960"
                           fill="currentColor"
                         >
-                          <path d="M240-180v-555.38q0-27.62 18.5-46.12Q277-800 304.62-800h350.76q27.62 0 46.12 18.5Q720-763 720-735.38V-180L480-283.08 240-180Zm40-62 200-86 200 86v-493.38q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H304.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93V-242Zm0-518h400-400Z" />
+                          <path d="M700-100v-120H580v-40h120v-120h40v120h120v40H740v120h-40ZM224.62-200q-27.62 0-46.12-18.5Q160-237 160-264.62v-430.76q0-27.62 18.5-46.12Q197-760 224.62-760h70.76v-89.23h43.08V-760h206.16v-89.23h40V-760h70.76q27.62 0 46.12 18.5Q720-723 720-695.38v228.61q-10-.69-20-.69t-20 .69v-68.61H200v270.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h266.92q0 10 .69 20t2.54 20H224.62ZM200-575.39h480v-119.99q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v119.99Zm0 0V-720-575.39Z"/>
                         </svg>
                       </div>
                       <div className="pt-1">
