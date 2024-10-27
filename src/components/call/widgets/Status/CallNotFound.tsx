@@ -29,10 +29,8 @@ const CallNotFound = () => {
         </h2>
         <p className="text-xs mb-8">The requested classroom could not be located check the link and retry</p>
         <div className="space-y-4 flex flex-col w-full text-xs xs:text-sm">
-          <Link href="/dashboard">
-            <button className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out">
+          <Link href="/dashboard" className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out">
               Create Classroom
-            </button>
           </Link>
         </div>
       </div>

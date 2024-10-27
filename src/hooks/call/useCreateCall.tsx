@@ -17,12 +17,12 @@ const useCreateCall = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
   const { startLoading, stopLoading, loading } = useLoading();
 
-  const createCallHandler = useCallback(async (args: CreateCallArgs = {}): Promise<CallResponse> => {
+  const createCallHandler = useCallback(async (args: CreateCallArgs = {}): Promise<CallResponse|void> => {
     startLoading();
     try {
       const response = await axios.post<CallResponse>('/call', args);
       return response.data;
-    } finally {
+    } catch(e) {
       stopLoading(); 
     }
   }, [startLoading, stopLoading]);
@@ -31,7 +31,7 @@ const useCreateCall = () => {
     mutationFn: createCallHandler,
     onSuccess: (data) => {
       clearErrorMessage();
-      router.push(`/call/${data.data.url}`);
+      router.push(`/call/${data?.data.url}`);
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
