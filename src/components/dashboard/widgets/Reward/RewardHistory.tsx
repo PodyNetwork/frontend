@@ -6,6 +6,7 @@ import { claimPoints } from "@/utils/passport";
 import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";
 import ConnectOrComponent from "@/components/global/ConnectOrComponent";
+import { toast, Toaster } from "sonner";
 
 const HistorySkeleton = () => {
   return (
@@ -114,12 +115,18 @@ const RewardHistory = () => {
                       <button
                         className="text-xs px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto"
                         onClick={() => {
-                          claimPoints({
+                          try{
+                            claimPoints({
                             userAddress: profile?.walletAddress as Address,
                             nonce: data?._id,
                             points: BigInt(data?.points) ?? BigInt(0),
                             signature: data?.signature,
                           });
+                        } catch (e) {
+                          toast("Error", {
+                            description: "Could not transfer point on-chain"
+                          });
+                          }
                         }}
                       >
                         Transfer On-chain
@@ -141,6 +148,7 @@ const RewardHistory = () => {
             </button>
           </div>
         )}
+        <Toaster/>
       </div>
     </>
   );
