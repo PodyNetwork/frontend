@@ -22,7 +22,7 @@ interface TokenAllowanceArgs {
 const approveTokens = async (args: ApproveTokenArgs): Promise<void> => {
     const { request } = await simulateContract(config, {
         abi: podyTokenAbi,
-        address: process.env.NEXT_PUBLIC_PODY_GIFT_ADDRESS as Address,
+        address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
         functionName: "approve",
         args: [args.recipient, args.amount],
     });
@@ -35,7 +35,7 @@ const getBalance = async (args: TokenBalanceArgs): Promise<bigint> => {
 
     const result = await readContract(config, {
       abi: podyTokenAbi,
-      address: process.env.NEXT_PUBLIC_PODY_GIFT_ADDRESS as Address,
+      address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
       functionName: "balanceOf",
       args: [args.recipient],
     }) as bigint;
@@ -48,7 +48,7 @@ const getBalance = async (args: TokenBalanceArgs): Promise<bigint> => {
 
     const result = await readContract(config, {
       abi: podyTokenAbi,
-      address: process.env.NEXT_PUBLIC_PODY_GIFT_ADDRESS as Address,
+      address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
       functionName: "allowance",
       args: [args.sender,args.recipient],
     }) as bigint;
