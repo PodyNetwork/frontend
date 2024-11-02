@@ -16,7 +16,7 @@ const NftList = () => {
   useEffect(() => {
     const fetchLevel = async () => {
       const userLevel = await getUserLevel({
-        walletAddress: account.address as Address
+        walletAddress: account.address as Address,
       });
       setLevel(userLevel);
     };
@@ -31,10 +31,10 @@ const NftList = () => {
     try {
       setIsMinting(true);
       await mintPassport({
-        walletAddress: account.address as Address
+        walletAddress: account.address as Address,
       });
       const newLevel = await getUserLevel({
-        walletAddress: account.address as Address
+        walletAddress: account.address as Address,
       });
       setLevel(newLevel);
     } catch (error) {
@@ -69,7 +69,11 @@ const NftList = () => {
               layout="fill"
               objectFit="cover"
               alt={`Level ${levelIndex + 1} NFT`}
-              className={`rounded-t-md ${BigInt(levelIndex + 1) > level + BigInt(1) ? 'filter bur blur-md' : ''}`}
+              className={`rounded-t-md ${
+                BigInt(levelIndex + 1) > level + BigInt(1)
+                  ? "filter bur blur-md"
+                  : ""
+              }`}
             />
           </motion.div>
           <div className="p-4">
@@ -87,7 +91,9 @@ const NftList = () => {
               transition={{ delay: 0.3 + 0.1 * levelIndex, duration: 0.5 }}
               className="text-sm text-slate-600"
             >
-              {BigInt(levelIndex + 1) <= level ? `${nftsPerLevel} NFTs Unlocked` : "Locked"}
+              {BigInt(levelIndex + 1) <= level
+                ? `${nftsPerLevel} NFTs Unlocked`
+                : "Locked"}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -109,7 +115,13 @@ const NftList = () => {
                   {isMinting ? "Minting..." : "Mint NFT"}
                 </motion.button>
               ) : (
-                <span className={`text-sm font-medium ${BigInt(levelIndex + 1) <= level ? "text-green-500" : "text-red-500"}`}>
+                <span
+                  className={`text-sm font-medium ${
+                    BigInt(levelIndex + 1) <= level
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
                   {BigInt(levelIndex + 1) <= level ? "Unlocked" : "Locked"}
                 </span>
               )}

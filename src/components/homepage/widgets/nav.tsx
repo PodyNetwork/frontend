@@ -34,30 +34,25 @@ const Nav = () => {
   });
   return (
     <>
-      <div
-        className="w-full hidden md:flex flex-row items-center text-sm justify-between py-8 px-8 md:px-16 text-slate-500"
-        aria-label="Navigation Menu"
-      >
-        <div className="w-full max-w-7xl mx-auto flex flex-row items-center justify-between py-2">
-          <ul className="flex flex-row gap-6 items-center" aria-label="Menu">
-            <Link href="/">
-              <Image src={logo} alt="Pody" className="w-16 object-contain me-2" />
-            </Link>
-            {navlink.mainLink.map((link, index) => (
-              <li
-                key={index}
-                className="hover:text-pody-primary hover:transition-all duration-100 px-2"
-              >
-                <Link href={link.url}>{link.title}</Link>
-              </li>
-            ))}
-          </ul>
-          <ul className="flex flex-row items-center gap-6">
-            <li className="px-2 hover:text-pody-primary hover:transition-all duration-100">
-              <Link href="/login">Login</Link>
+      <div className="w-full hidden max-w-7xl mx-auto md:flex flex-row items-center justify-between py-4 text-sm text-slate-100 my-2 rounded-md relative" aria-label="Navigation Menu">
+        <ul className="flex flex-row items-center gap-x-5" aria-label="Menu">
+          <Link href="/">
+            <Image src={logo} alt="Pody" className="w-14 object-contain me-1" />
+          </Link>
+          {navlink.mainLink.map((link, index) => (
+            <li
+              key={index}
+              className="hover:text-pody-primary hover:transition-all duration-100 px-1"
+            >
+              <Link href={link.url}>{link.title}</Link>
             </li>
-          </ul>
-        </div>
+          ))}
+        </ul>
+        <ul className="flex flex-row items-center gap-5">
+          <li className="px-2 hover:text-pody-primary hover:transition-all duration-100">
+            <Link href="/login">Login</Link>
+          </li>
+        </ul>
       </div>
 
       {/* Mobile menu button */}
@@ -96,7 +91,7 @@ const Nav = () => {
           mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex flex-col items-center justify-center h-full relative overflow-hidden">
+        <div className="flex flex-col items-center justify-center h-full relative overflow-hidden text-3xl font-extrabold">
           <div className="absolute inset-0 opacity-20">
             {floatingElements.map(({ id, left, top }) => (
               <motion.div
@@ -116,7 +111,7 @@ const Nav = () => {
           <Link href="/">
             <Image src={logo} className="w-20 object-contain mb-8" alt="Pody" />
           </Link>
-          <ul className="text-sm xs:text-lg flex flex-col items-center gap-y-4 relative z-50">
+          <ul className="flex flex-col items-center gap-y-4 relative z-50">
             {navlink.mainLink.map((data, index) => (
               <Link
                 key={index}
@@ -129,7 +124,7 @@ const Nav = () => {
               </Link>
             ))}
           </ul>
-          <div className="text-sm xs:text-lg flex flex-col items-center mt-4 relative z-50">
+          <div className="flex flex-col items-center mt-4 relative z-50">
             <Link href="/login">
               <span className="hover:text-pody-primary transition-all rounded-full text-slate-400">
                 Login

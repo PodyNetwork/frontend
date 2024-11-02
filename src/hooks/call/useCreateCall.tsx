@@ -22,7 +22,7 @@ const useCreateCall = () => {
     try {
       const response = await axios.post<CallResponse>('/call', args);
       return response.data;
-    } catch(e) {
+    } catch {
       stopLoading(); 
     }
   }, [startLoading, stopLoading]);

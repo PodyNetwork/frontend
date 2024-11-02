@@ -1,4 +1,4 @@
-import { simulateContract, writeContract, readContract } from "@wagmi/core";
+import { simulateContract, writeContract } from "@wagmi/core";
 import podyGiftAbi from "../abis/podyGift.json";
 import { config } from "@/utils/wagmi";
 import { Address } from "@/types/address";
@@ -34,7 +34,7 @@ const gift = async (sender: Address, recipient: Address, amount: bigint) : Promi
             recipient,
             amount
         })
-       } catch (error) {
+       } catch {
         throw new Error('token approval failed')
        }
     }
