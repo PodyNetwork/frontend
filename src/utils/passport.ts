@@ -41,6 +41,17 @@ const claimPoints = async (args: ClaimPointsArgs): Promise<void> => {
   await writeContract(config, request);
 };
 
+const getLevelFee = async (args: { level: BigInt}): Promise<bigint> => {
+
+  const result = await readContract(config, {
+    abi: podyPassportAbi,
+    address: process.env.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS as Address,
+    functionName: "hashRates",
+    args: [args.level],
+  }) as bigint;
+
+  return result;
+};
 
 const getUser = async (args: GetUserArgs): Promise<Array<bigint>> => {
 
@@ -64,4 +75,4 @@ const getUserLevel = async (args: GetUserArgs): Promise<bigint> => {
   return user[2];
 };
 
-export  { mintPassport, getUserLevel, getUser, getHashRate, claimPoints };
+export  { mintPassport, getUserLevel, getUser, getHashRate, claimPoints, getLevelFee };

@@ -4,57 +4,56 @@ import { config } from "@/utils/wagmi";
 import { Address } from "@/types/address";
 
 interface ApproveTokenArgs {
-    recipient: Address;
-    amount: bigint
+  recipient: Address;
+  amount: bigint
 }
 
 interface TokenBalanceArgs {
-    recipient: Address;
+  recipient: Address;
 }
 
 interface TokenAllowanceArgs {
-    sender: Address;
-    recipient: Address;
+  sender: Address;
+  recipient: Address;
 }
 
 
 
 const approveTokens = async (args: ApproveTokenArgs): Promise<void> => {
-    const { request } = await simulateContract(config, {
-        abi: podyTokenAbi,
-        address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
-        functionName: "approve",
-        args: [args.recipient, args.amount],
-    });
+  const { request } = await simulateContract(config, {
+    abi: podyTokenAbi,
+    address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
+    functionName: "approve",
+    args: [args.recipient, args.amount],
+  });
 
-    await writeContract(config, request);
+  await writeContract(config, request);
 };
 
 
 const getBalance = async (args: TokenBalanceArgs): Promise<bigint> => {
 
-    const result = await readContract(config, {
-      abi: podyTokenAbi,
-      address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
-      functionName: "balanceOf",
-      args: [args.recipient],
-    }) as bigint;
-  
-    return result;
-  };
+  const result = await readContract(config, {
+    abi: podyTokenAbi,
+    address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
+    functionName: "balanceOf",
+    args: [args.recipient],
+  }) as bigint;
+
+  return result;
+};
+
+const getAllowance = async (args: TokenAllowanceArgs): Promise<bigint> => {
+
+  const result = await readContract(config, {
+    abi: podyTokenAbi,
+    address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
+    functionName: "allowance",
+    args: [args.sender, args.recipient],
+  }) as bigint;
+
+  return result;
+};
 
 
-  const getAllowance = async (args: TokenAllowanceArgs): Promise<bigint> => {
-
-    const result = await readContract(config, {
-      abi: podyTokenAbi,
-      address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
-      functionName: "allowance",
-      args: [args.sender,args.recipient],
-    }) as bigint;
-  
-    return result;
-  };
-
- 
-export  { approveTokens, getBalance, getAllowance };
+export { approveTokens, getBalance, getAllowance };
