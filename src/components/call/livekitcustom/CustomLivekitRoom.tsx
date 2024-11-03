@@ -12,15 +12,24 @@ import { useUserContext } from "../utils/UserContext";
 
 export const CustomLiveKitRoom: React.FC<
   React.PropsWithChildren<LiveKitRoomProps> &
-  React.RefAttributes<HTMLDivElement>
+    React.RefAttributes<HTMLDivElement>
 > = React.forwardRef<HTMLDivElement, React.PropsWithChildren<LiveKitRoomProps>>(
   function LiveKitRoom(props, ref) {
     const { room, htmlProps } = useLiveKitRoom(props);
     const [isDisconnected, setIsDisconnected] = useState<boolean>(false);
-    const [participantIdentities, setParticipantIdentities] = useState<string[]>([]);
+    const [participantIdentities, setParticipantIdentities] = useState<
+      string[]
+    >([]);
+    const [isRoomConnected, setIsRoomConnected] = useState<boolean>(false);
 
-    const { setUsers } = useUserContext(); 
-    const { data: participantsData } = useFetchBulkUsers(participantIdentities);
+    const { setUsers } = useUserContext();
+    
+    const shouldFetchUsers =
+      isRoomConnected && participantIdentities.length > 0;
+   
+      const { data: participantsData } = useFetchBulkUsers(
+      shouldFetchUsers ? participantIdentities : []
+    );
 
     useEffect(() => {
       if (participantsData) {
@@ -32,33 +41,43 @@ export const CustomLiveKitRoom: React.FC<
       if (!room) return;
 
       const updateParticipantIdentities = () => {
-        if (room.state !== "connected") return;
+        const identities = [
+          room.localParticipant?.identity,
+          ...Array.from(room.remoteParticipants.values()).map(
+            (p) => p.identity
+          ),
+        ].filter(Boolean) as string[];
 
-        const identities: string[] = [];
-
-        const localParticipant = room.localParticipant;
-        if (localParticipant) {
-          identities.push(localParticipant.identity);
-        }
-
-        const remoteIdentities = Array.from(room.remoteParticipants.values())
-          .map((participant) => participant.identity)
-          .filter(Boolean);
-
-        identities.push(...remoteIdentities);
         setParticipantIdentities(identities);
       };
 
-      room.on("connected", updateParticipantIdentities);
-      room.on("participantConnected", updateParticipantIdentities);
-      room.on("participantDisconnected", updateParticipantIdentities);
-    }, [room]);
+      const handleRoomConnected = () => {
+        setIsRoomConnected(true);
+        updateParticipantIdentities();
+      };
 
-    useEffect(() => {
+      const handleParticipantChange = () => {
+        if (room.state === "connected") {
+          updateParticipantIdentities();
+        }
+      };
+
       const handleDisconnected = () => {
         setIsDisconnected(true);
       };
-      room?.on("disconnected", handleDisconnected);
+
+      room.on("connected", handleRoomConnected);
+      room.on("participantConnected", handleParticipantChange);
+      room.on("participantDisconnected", handleParticipantChange);
+      room.on("disconnected", handleDisconnected);
+
+      // Cleanup event listeners on component unmount or when room changes
+      return () => {
+        room.off("connected", handleRoomConnected);
+        room.off("participantConnected", handleParticipantChange);
+        room.off("participantDisconnected", handleParticipantChange);
+        room.off("disconnected", handleDisconnected);
+      };
     }, [room]);
 
     if (isDisconnected) {

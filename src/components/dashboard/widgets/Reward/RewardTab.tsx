@@ -31,7 +31,6 @@ const RewardTab = () => {
         </h4>
       </motion.div>
       <div className="gap-4">
-        {isLoading ? 'loading' : 'not fetching'}
         <ul className="space-y-3 sm:space-y-4">
           {isLoading ? (
             Array.from({ length: 6 }, (_, index) => (

@@ -21,8 +21,6 @@ const giftTokens = async (args: GiftArgs): Promise<void> => {
     await writeContract(config, request);
 };
 
-
-
 const gift = async (sender: Address, recipient: Address, amount: bigint) : Promise<boolean> => {
     if(await getBalance({recipient}) < amount)  {
         throw new Error('insufficient balance to perform this action')

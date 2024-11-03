@@ -1,7 +1,9 @@
 'use client'
 
 import AsideNav from "@/components/dashboard/widgets/asideNav"
+import Loader from "@/components/preloader/Loader";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
+import { useTransition } from "react";
 
 
 const DashboardLayout = ({
@@ -9,8 +11,10 @@ const DashboardLayout = ({
 }: {
   children: React.ReactNode
 }) => {
+  const [isPending, startTransition] = useTransition();
   return (
     <>
+      {isPending && <Loader />}
       <section className="flex flex-col relative">
         <AsideNav />
         {children}

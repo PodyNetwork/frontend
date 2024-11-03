@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import dashlink from "../data/links.json";
 import Link from "next/link";
 import logo from "/public/logo/pody logo dark.png";
@@ -7,6 +7,7 @@ import Image from "next/image";
 import useProfile from "@/hooks/user/useProfile";
 import { motion } from "framer-motion"; // Import motion from framer-motion
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
+import { useRouter } from "next/navigation";
 
 type FloatingElement = {
   id: number;
@@ -36,6 +37,15 @@ const AsideNav = () => {
     top: `${Math.random() * 100}%`,
   });
 
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const handleClick = (href: string) => {
+    startTransition(() => {
+      router.push(href);
+    });
+  };
+
   return (
     <>
       {/* Desktop menu */}
@@ -55,7 +65,16 @@ const AsideNav = () => {
                   key={index}
                   className="py-2 hover:text-slate-500 hover:transition-all rounded-full text-slate-700"
                 >
-                  <Link href={data.url}>{data.title}</Link>
+                  <Link
+                    onClick={(e) => {
+                      e.preventDefault(); 
+                      handleClick(data.url); 
+                    }}
+                    style={{ opacity: isPending ? 0.5 : 1 }}
+                    href={data.url}
+                  >
+                    {data.title}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -152,7 +171,9 @@ const AsideNav = () => {
               />
             ))}
           </div>
-          <Link href="/"><Image src={logo} className="w-20 object-contain mb-8" alt="Pody" /></Link>
+          <Link href="/">
+            <Image src={logo} className="w-20 object-contain mb-8" alt="Pody" />
+          </Link>
           <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
             {dashlink.map((data, index) => (
               <Link

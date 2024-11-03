@@ -717,6 +717,10 @@ body {
     }
 }
 
+.__pd_bg_gradient_light {
+    background: linear-gradient(0deg, rgba(105, 145, 214, .08), rgb(248 250 253)), #fff;
+}
+
 .__loader_wrapper {
     background: #000;
     margin: 0;
@@ -1095,6 +1099,8 @@ body {
 .white-section {
     background-color: white;
     height: 300px;
-    /* Adjust the height as needed */
     position: relative;
 }
+
+
+

@@ -57,10 +57,10 @@ const ScheduledClass = () => {
       <div className="px-3 md:px-10 flex flex-col max-w-7xl mx-auto py-16">
         <div className="flex flex-col items-center mb-6">
           <div className="max-w-xl text-center flex flex-col gap-y-2.5">
-            <h2 className="text-4xl font-semibold text-pody-secondary">
+            <h2 className="text-4xl font-semibold text-pody-dark">
               Add Scheduled Classroom to calendar
             </h2>
-            <p className="text-base mt-1.5">
+            <p className="text-base mt-1.5 text-slate-700">
               You can add sechuled classroom to your calendar to ensure
               you don&apos;t miss them. This way, you can easily plan your schedule
               and stay informed.

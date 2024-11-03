@@ -9,8 +9,7 @@ import { ResponseError } from '@/types/globals';
 import { useRouter } from 'next/navigation';
 import useLoading from '../useLoading';
 
-interface CreateCallArgs{ scheduledTime?: number, participantsCanPublish?: boolean, title?: string, participantsCanPublishData?: boolean }
-
+interface CreateCallArgs{ scheduledTime?: number, participantsCanPublish?: boolean, title?: string, participantsCanPublishData?: boolean, privacy?: string}
 
 const useCreateCall = () => {
   const router = useRouter(); 

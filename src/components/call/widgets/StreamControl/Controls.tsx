@@ -99,7 +99,7 @@ const Controls = ({
   // end call
   const [callId, setCallId] = useState<string | undefined>(call?._id);
   const { endCall, errorMessage } = useEndCall();
- 
+
   const handleEndCall = () => {
     if (callId) {
       endCall.mutate({ callId });
@@ -119,6 +119,8 @@ const Controls = ({
   const { buttonProps } = useCustomDisconnectButton({
     stopTracks: true,
   });
+
+  const { stopTracks, ...restButtonProps } = buttonProps;
 
   return (
     <div
@@ -206,7 +208,7 @@ const Controls = ({
       )}
       {/* leave button */}
       {visibleControls.leave && (
-        <button {...buttonProps}>
+        <button {...restButtonProps}>
           <div className="bg-pody-danger h-10 px-3.5 rounded-full flex justify-center items-center text-slate-100 text-sm cursor-pointer">
             <span>Leave Call</span>
           </div>

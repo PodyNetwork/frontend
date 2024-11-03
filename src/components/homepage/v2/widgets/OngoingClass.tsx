@@ -167,10 +167,10 @@ const OngoingClass = () => {
       >
         <div className="flex flex-col items-center mb-6">
           <div className="max-w-xl text-center flex flex-col gap-y-2.5">
-            <h2 className="text-2xl xs:text-4xl font-semibold text-pody-secondary">
+            <h2 className="text-2xl xs:text-4xl font-semibold text-pody-dark">
               Get Reward Instantly when you join active classroom
             </h2>
-            <p className="text-base mt-1.5">
+            <p className="text-base mt-1.5 text-slate-700">
               Your reward is calculated when you join a classroom starts when
               you join
             </p>

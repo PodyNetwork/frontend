@@ -9,6 +9,14 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
@@ -20,6 +28,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
 import { Input } from "@/components/ui/input";
 import ButtonPody from "@/components/global/button";
 import { useState } from "react";
@@ -119,7 +128,6 @@ const ScheduleDrawer = () => {
     },
   });
 
-
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -130,9 +138,9 @@ const ScheduleDrawer = () => {
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Schedule Meeting</DrawerTitle>
+            <DrawerTitle>Schedule Classroom</DrawerTitle>
             <DrawerDescription>
-              Set your meeting for later; it can only begin after the new time.
+              Set your classroom for later; it can only begin after the time.
             </DrawerDescription>
           </DrawerHeader>
           <div className="p-4 pb-0">
@@ -144,7 +152,7 @@ const ScheduleDrawer = () => {
               }}
               className="flex items-center justify-center space-x-2"
             >
-              <div className="flex-1 flex flex-col gap-y-2 pb-10">
+              <div className="flex-1 flex flex-col gap-y-3.5 pb-10">
                 <form.Field
                   name="title"
                   validators={{
@@ -155,7 +163,7 @@ const ScheduleDrawer = () => {
                   }}
                 >
                   {(field) => (
-                    <>
+                    <div className="flex gap-y-1 flex-col">
                       <Input
                         type="text"
                         placeholder="Title"
@@ -165,11 +173,11 @@ const ScheduleDrawer = () => {
                         className="px-4"
                       />
                       {field.state.meta.errors && (
-                        <div className="text-red-400 text-sm mb-1">
+                        <div className="text-red-400 text-sm">
                           {field.state.meta.errors[0]}
                         </div>
                       )}
-                    </>
+                    </div>
                   )}
                 </form.Field>
                 <div className="w-full">
@@ -200,6 +208,17 @@ const ScheduleDrawer = () => {
                   </Popover>
                 </div>
                 <div>
+                  <Select>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Call Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="light">Public</SelectItem>
+                      <SelectItem value="dark">Private</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
                   {/* Other components */}
                   <ToggleSwitch
                     label="Participant Can Speak"
@@ -212,7 +231,7 @@ const ScheduleDrawer = () => {
                   <ButtonPody type="submit" disabled={form.state.isSubmitting}>
                     {form.state.isSubmitting
                       ? "Scheduling..."
-                      : "Schedule Meeting"}
+                      : "Schedule Classroom"}
                   </ButtonPody>
                 </div>
               </div>

@@ -16,7 +16,7 @@ interface BulkUserResponse extends BaseResponse {
 
 const useBulkUserByUsername = (usernames: string) => {
   const fetchBulkUsers = useCallback(async (): Promise<BulkUserResponse> => {
-    const response = await axios.get<BulkUserResponse>('user/profile/retrieve/bulk', { params: {usernames}});
+    const response = await axios.get<BulkUserResponse>('user/profile/retrieve/bulk', { params: { usernames } });
     return response.data;
   }, [usernames]);
 
@@ -24,16 +24,21 @@ const useBulkUserByUsername = (usernames: string) => {
     data,
     isLoading,
     isError,
-    refetch
+    refetch,
   }: UseQueryResult<BulkUserResponse> = useQuery({
-    queryKey: ['bulkUserByUsername'],
+    queryKey: ['bulkUserByUsername', usernames],
     queryFn: fetchBulkUsers,
+    enabled: !!usernames, 
     retry: false,
     staleTime: 300000, 
   });
 
+  if (isError) {
+    console.error("Error fetching bulk users:", data);
+  }
+
   return { 
-    userProfiles: data?.data, 
+    userProfiles: data?.data || [], 
     isLoading, 
     isError, 
     refetch 

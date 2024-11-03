@@ -6,10 +6,10 @@ const PodyFeatures = () => {
       <div className="px-3 md:px-10 flex flex-col max-w-7xl mx-auto pt-24 pb-16">
         <div className="flex flex-col items-center mb-6">
           <div className="max-w-xl text-center flex flex-col gap-y-2.5">
-            <h2 className="text-4xl font-semibold text-pody-secondary">
+            <h2 className="text-4xl font-semibold text-pody-dark">
               Pody&apos;s Unique Features
             </h2>
-            <p className="text-base mt-1.5">
+            <p className="text-base mt-1.5 text-slate-700">
               Discover the powerful features that make our platform stand out
             </p>
           </div>

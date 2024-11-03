@@ -16,7 +16,8 @@ interface Call {
     createdAt: string,
     updatedAt: string,
     url: string,
-    participantsCanPublish?: boolean
+    participantsCanPublish?: boolean,
+    privacy?: 'public' |'private'
 }
 
 interface CallResponse extends BaseResponse {

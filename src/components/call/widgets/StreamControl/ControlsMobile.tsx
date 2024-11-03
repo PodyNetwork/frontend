@@ -96,6 +96,8 @@ const ControlsMobile = ({
     stopTracks: true,
   });
 
+  const { stopTracks, ...restButtonProps } = buttonProps;
+
   return (
     <div className="md:hidden block fixed p-5 z-30 bottom-0 bg-white dark:bg-black w-full __shadow_pody text-[0.7rem]">
       <div className="text-slate-600 dark:text-slate-400 mx-auto relative flex flex-row items-center justify-between max-w-sm">
@@ -188,7 +190,7 @@ const ControlsMobile = ({
         </div>
         {/* leave call button */}
         {visibleControls.leave && (
-          <button {...buttonProps}>
+          <button {...restButtonProps}>
             <div className="flex items-center flex-col truncate">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
