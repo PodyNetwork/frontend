@@ -114,7 +114,7 @@ const CallsCard = ({ calls }: Calls) => {
               </div>
               <div className={`text-xs sm:text-sm flex-1 ${call?.status === "ended" && "opacity-50"}`} onClick={() => goToMeeting(call.url)}>
                 <h3 className="font-medium">{call?.url}</h3>
-                <p className="text-xs">Call ID</p>
+                <p className="text-xs capitalize">{call?.privacy} Call</p>
               </div>
               {call?.type === "scheduled" && call?.status === "pending" && (
                 <EditDrawer

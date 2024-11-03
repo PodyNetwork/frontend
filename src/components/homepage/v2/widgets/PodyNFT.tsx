@@ -13,66 +13,36 @@ const PodyNFT = () => {
           </div>
           <div className="flex flex-row my-28 flex-nowrap __nft_card_lineup">
             <div className="__nft_ard">
-              <div className="p-1.5 bg-white __shadow_pody rounded-xl flex flex-col min-w-[200px] max-w-[200px]">
+              <div className="p-1.5 bg-white __shadow_pody rounded-md flex flex-col min-w-[250px] max-w-[250px]">
                 <Image
                   src="/nft/levelpro.png"
                   width={200}
                   height={200}
                   alt="nft"
-                  className="w-full aspect-square object-cover z-50 relative rounded-md"
+                  className="w-full aspect-square object-cover z-50 relative rounded-sm blur-sm"
                 />
-                <div className="flex flex-col gap-y-1.5 text-slate-600 py-2">
-                  <h3 className="text-base font-medium text-slate-800">
-                    Podies NFT
-                  </h3>
-                  <div>
-                    <button className="text-xs px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto">
-                      Mint NFT
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="__nft_ard">
-              <div className="p-1.5 bg-white __shadow_pody rounded-xl flex flex-col min-w-[200px] max-w-[200px]">
+              <div className="p-1.5 bg-white __shadow_pody rounded-md flex flex-col min-w-[250px] max-w-[250px]">
                 <Image
-                  src="/nft/levelpro.png"
+                  src="/nft/levelbase.png"
                   width={200}
                   height={200}
                   alt="nft"
-                  className="w-full aspect-square object-cover z-50 relative rounded-md"
+                  className="w-full aspect-square object-cover z-50 relative rounded-sm"
                 />
-                <div className="flex flex-col gap-y-1.5 text-slate-600 py-2 __scale_x">
-                  <h3 className="text-sm font-medium text-slate-800">
-                    Podies NFT
-                  </h3>
-                  <div>
-                    <button className="text-xs px-2 py-1 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto">
-                      Mint NFT
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="__nft_ard">
-              <div className="p-1.5 bg-white __shadow_pody rounded-xl flex flex-col min-w-[200px] max-w-[200px]">
+              <div className="p-1.5 bg-white __shadow_pody rounded-md flex flex-col min-w-[250px] max-w-[250px]">
                 <Image
                   src="/nft/levelpro.png"
                   width={200}
                   height={200}
                   alt="nft"
-                  className="w-full aspect-square object-cover z-50 relative rounded-md"
+                  className="w-full aspect-square object-cover z-50 relative rounded-sm blur-sm"
                 />
-                <div className="flex flex-col gap-y-1.5 text-slate-600 py-2">
-                  <h3 className="text-base font-medium text-slate-800">
-                    Podies NFT
-                  </h3>
-                  <div>
-                    <button className="text-xs px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto">
-                      Mint NFT
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

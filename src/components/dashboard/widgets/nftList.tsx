@@ -71,7 +71,7 @@ const NftList = () => {
               alt={`Level ${levelIndex + 1} NFT`}
               className={`rounded-t-md ${
                 BigInt(levelIndex + 1) > level + BigInt(1)
-                  ? "filter bur blur-md"
+                  ? "filter blur-md"
                   : ""
               }`}
             />

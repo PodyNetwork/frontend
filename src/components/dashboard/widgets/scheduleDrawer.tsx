@@ -115,6 +115,13 @@ const ScheduleDrawer = () => {
     setCanSpeak(participantCanSpeak);
   };
 
+  const [selectedPrivacy, setSelectedPrivacy] = useState("");
+
+  const handleValueChange = (value: string) => {
+    setSelectedPrivacy(value); 
+    console.log("Selected value:", value);
+  };
+
   const form = useForm<{ title: string }>({
     ...formOpts,
     onSubmit: async ({ value }) => {
@@ -122,6 +129,7 @@ const ScheduleDrawer = () => {
         title: value.title,
         scheduledTime: scheduleTime.getTime(),
         participantsCanPublish: canSpeak,
+        privacy: selectedPrivacy,
       });
       form.reset();
       router.push("/dashboard/call");
@@ -131,7 +139,7 @@ const ScheduleDrawer = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <button className="px-4 py-1.5 flex-1 bg-transparent border border-slate-600 text-slate-600 rounded-md hover:bg-pody-primary hover:text-slate-900 hover:transition-all hover:border-pody-primary">
+        <button className="px-4 py-2.5 flex-1 bg-transparent border border-slate-600 text-slate-600 rounded-md hover:bg-pody-primary hover:text-slate-900 hover:transition-all hover:border-pody-primary">
           Schedule for Later
         </button>
       </DrawerTrigger>
@@ -208,13 +216,13 @@ const ScheduleDrawer = () => {
                   </Popover>
                 </div>
                 <div>
-                  <Select>
+                  <Select onValueChange={handleValueChange}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Call Type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="light">Public</SelectItem>
-                      <SelectItem value="dark">Private</SelectItem>
+                      <SelectItem value="public">Public</SelectItem>
+                      <SelectItem value="private">Private</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

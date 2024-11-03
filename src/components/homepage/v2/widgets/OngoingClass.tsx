@@ -1,7 +1,30 @@
 import useGetPublicCalls from "@/hooks/call/useGetPublicCalls";
 import BlockiesSvg from "blockies-react-svg";
+import dayjs from "dayjs";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import isToday from "dayjs/plugin/isToday";
+import isTomorrow from "dayjs/plugin/isTomorrow";
+
+interface Call {
+  _id: string;
+  userId: string;
+  scheduledTime?: number;
+  type: string;
+  status: string;
+  title: string;
+  key: string;
+  url: string;
+  privacy?: string;
+}
+
+interface Calls {
+  calls: Call[];
+}
+
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
 
 const SkeletonCard = () => {
   return (
@@ -95,35 +118,74 @@ const SkeletonCard = () => {
 };
 
 const Publiccall = () => {
+  const { calls, isLoading } = useGetPublicCalls();
+
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
+
+  if (!calls || calls.length === 0) {
+    return <Inactivecall />;
+  }
+
+  const router = useRouter();
+
+  function goToMeeting(callUrl: string) {
+    const fullUrl = `/call/${callUrl}`;
+    router.push(fullUrl);
+  }
+
   return (
-    <div className="p-4 sm:p-5 __pdy_gls-eft rounded-2xl flex flex-col h-[270px] min-w-[250px] max-w-[250px]">
-      <div className="flex flex-col gap-y-1.5 text-slate-600">
-        <div className="flex items-center justify-between gap-2 flex-wrap">
-          <p className="text-xs capitalize">Today - 11:29</p>
-          <p className="text-xs capitalize">instant</p>
+    <>
+      {calls.map((call: Call) => (
+        <div
+          key={call._id} // Make sure to use a unique key
+          className="p-4 sm:p-5 __pdy_gls-eft rounded-2xl flex flex-col h-[270px] min-w-[250px] max-w-[250px]"
+        >
+          <div className="flex flex-col gap-y-1.5 text-slate-600">
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <p className="text-xs capitalize">
+                {(() => {
+                  if (!call || !call?.scheduledTime) {
+                    return "";
+                  }
+                  const scheduledDate = dayjs(call.scheduledTime);
+                  if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
+                  if (scheduledDate.isToday())
+                    return "Today - " + scheduledDate.format("HH:mm");
+                  if (scheduledDate.isTomorrow())
+                    return "Tomorrow - " + scheduledDate.format("HH:mm");
+                  if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
+                    return "Yesterday - " + scheduledDate.format("HH:mm");
+                  return scheduledDate.format("MMM D, YYYY HH:mm");
+                })()}
+              </p>
+              <p className="text-xs capitalize">{call.type}</p>
+            </div>
+            <h3 className="text-base sm:text-lg font-medium text-slate-800 truncate">
+              {call.title}
+            </h3>
+            <div>
+              <button className="text-xs text-pody-success bg-pody-success/10 px-2 sm:px-3 py-1 font-medium rounded-sm ">
+                {call.status}
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-row items-center gap-x-2 sm:gap-x-3 mt-auto">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full relative bg-black/20">
+              <BlockiesSvg
+                address={call.url} // Ensure `userId` or appropriate identifier is provided
+                className="w-full h-full rounded-full"
+              />
+            </div>
+            <div className={`text-xs sm:text-sm flex-1 ${call?.status === "ended" && "opacity-50"}`} onClick={() => goToMeeting(call.url)}>
+                <h3 className="font-medium">{call?.url}</h3>
+                <p className="text-xs capitalize">{call?.privacy} Call</p>
+            </div>
+          </div>
         </div>
-        <h3 className="text-base sm:text-lg font-medium text-slate-800 truncate">
-          The socio economical effect of crude oil in nigeria
-        </h3>
-        <div>
-          <button className="text-xs text-pody-success bg-pody-success/10 px-2 sm:px-3 py-1 font-medium rounded-sm ">
-            Ongoing
-          </button>
-        </div>
-      </div>
-      <div className="flex flex-row items-center gap-x-2 sm:gap-x-3 mt-auto">
-        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full relative bg-black/20">
-          <BlockiesSvg
-            address="9zi-s8c-5hb7"
-            className="w-full h-full rounded-full"
-          />
-        </div>
-        <div className="text-xs sm:text-sm flex-1 text-slate-600">
-          <h3 className="font-medium">9zi-s8c-5hb7</h3>
-          <p className="text-xs">Call ID</p>
-        </div>
-      </div>
-    </div>
+      ))}
+    </>
   );
 };
 
@@ -135,7 +197,8 @@ const Inactivecall = () => {
           <h3 className="text-2xl font-medium">Public Classroom</h3>
           <div className="text-base flex flex-col mt-1.5 text-slate-300">
             <p>
-              You can join public classroom and earn rewards, Public classrooms will be posted here as soon as they become available.
+              You can join public classroom and earn rewards, Public classrooms
+              will be posted here as soon as they become available.
             </p>
           </div>
         </div>
@@ -155,9 +218,6 @@ const OngoingClass = () => {
 
     return () => clearInterval(interval);
   }, [heights]);
-
-  const { calls, isLoading } =
-    useGetPublicCalls();
 
   return (
     <section className="w-full relative">
@@ -202,13 +262,7 @@ const OngoingClass = () => {
                 <h2 className="text-sm font-medium">Public Classroom</h2>
               </div>
               <div className="relative mt-auto pt-12 flex flex-row gap-x-3 overflow-x-auto max-w-7xl">
-                {isLoading ? (
-                  <SkeletonCard />
-                ) : calls.length > 0 ? (
-                  calls.map((item, index) => <Publiccall key={index} />)
-                ) : (
-                  <Inactivecall />
-                )}
+                <Publiccall />
               </div>
             </div>
           </div>
