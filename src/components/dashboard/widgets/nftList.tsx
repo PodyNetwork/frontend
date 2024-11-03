@@ -2,26 +2,36 @@ import React from "react";
 import nftlist from "../data/nft.json";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { getUserLevel } from "@/utils/passport";
+import { getLevelFee, getUserLevel } from "@/utils/passport";
 import { useAccount } from "wagmi";
 import { Address } from "@/types/address";
 import { useEffect } from "react";
 import { mintPassport } from "@/utils/passport";
+import { toast, Toaster } from "sonner";
+import { getBalance } from "@wagmi/core";
+import { config } from "@/utils/wagmi";
+import { formatEther } from "viem";
+
 
 const NftList = () => {
   const account = useAccount();
   const [level, setLevel] = React.useState<bigint>(BigInt(0));
+  const [nextLevelFee, setNextLevelFee] = React.useState<bigint>(BigInt(0));
   const [isMinting, setIsMinting] = React.useState<boolean>(false);
 
   useEffect(() => {
-    const fetchLevel = async () => {
+    const fetchLevelAndFee = async () => {
       const userLevel = await getUserLevel({
         walletAddress: account.address as Address,
       });
+
+      const _nextLevelFee = await getLevelFee({ level: userLevel })
+
       setLevel(userLevel);
+      setNextLevelFee(_nextLevelFee)
     };
 
-    fetchLevel();
+    fetchLevelAndFee();
   }, [account.address]);
 
   const totalLevels = 5;
@@ -30,13 +40,22 @@ const NftList = () => {
   const handleMint = async () => {
     try {
       setIsMinting(true);
-      await mintPassport({
-        walletAddress: account.address as Address,
-      });
-      const newLevel = await getUserLevel({
-        walletAddress: account.address as Address,
-      });
-      setLevel(newLevel);
+      const balance =  await getBalance(config, {
+        address: account.address as Address
+      })
+      if(nextLevelFee > balance.value) {
+        toast("Success",{
+          description: "insufficient balance"
+        })
+      } else {
+        await mintPassport({
+          walletAddress: account.address as Address,
+        });
+        const newLevel = await getUserLevel({
+          walletAddress: account.address as Address,
+        });
+        setLevel(newLevel);
+      }
     } catch (error) {
       console.error("Error minting passport:", error);
     } finally {
@@ -92,8 +111,8 @@ const NftList = () => {
               className="text-sm text-slate-600"
             >
               {BigInt(levelIndex + 1) <= level
-                ? `${nftsPerLevel} NFTs Unlocked`
-                : "Locked"}
+                ? `Unlocked`
+                : BigInt(levelIndex + 1) === level + BigInt(1) ? `Fee: ${formatEther(nextLevelFee)} ether` : "Locked"}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -129,6 +148,7 @@ const NftList = () => {
           </div>
         </motion.div>
       ))}
+      <Toaster />
     </motion.div>
   );
 };
