@@ -116,6 +116,42 @@ export function EnhancedFocusLayout({
   const hasOtherParticipants = filteredTracks.length > 0;
   const noTracksAvailable = tracks.length === 0 || !tracks.some(Boolean);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [timer, setTimer] = useState<number | null>(null); // Set initial type here
+
+  const toggleSidebar = () => {
+    setIsOpen((prev) => !prev);
+    // Clear existing timer if it's being opened
+    if (!isOpen) {
+      clearTimeout(timer!); // Use non-null assertion since timer can be null
+    }
+  };
+
+  const handleMouseEnter = () => {
+    // Clear the timer if mouse enters the sidebar
+    if (timer) {
+      clearTimeout(timer);
+      setTimer(null); // Reset timer state
+    }
+  };
+
+  const handleMouseLeave = () => {
+    // Set a timer to close the sidebar after 3 seconds
+    const newTimer = window.setTimeout(() => {
+      setIsOpen(false);
+    }, 3000); // Change this duration as needed
+    setTimer(newTimer); // Set the new timer ID
+  };
+
+  useEffect(() => {
+    // Cleanup timer on component unmount
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [timer]);
+
   if (noTracksAvailable) {
     return (
       <div className="enhanced-focus-layout" ref={focusRef}>
@@ -183,25 +219,38 @@ export function EnhancedFocusLayout({
         </div>
       </div>
       {showCarousel && hasOtherParticipants && (
-        <div className="min-w-40 max-w-40 absolute hidden top-0 bg-slate-50 h-screen max-h-screen z-50 left-0 py-5 px-2 overflow-y-auto flex flex-col gap-y-2 __shadow_pody">
-          <div className="w-6 h-6 rounded-full bg-orange-400 relative flex flex-col items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              className="h-4 text-slate-600 block"
-              fill="currentColor"
-            >
-              <path d="M400-93.85 13.85-480 400-866.15l56.77 56.77L127.38-480l329.39 329.38L400-93.85Z" />
-            </svg>
-          </div>
-          <div className="participant-carousel" ref={carouselRef}>
-            {pagination.tracks.map((trackItem, index) => (
-              <ParticipantCustomTileNoIcon
-                key={index}
-                trackRef={trackItem}
-                onClick={() => handleParticipantClick(index)}
-              />
-            ))}
+        <div>
+          <div
+            className={`absolute top-0 bg-slate-50 dark:bg-slate-800 h-screen max-h-screen z-50 left-0 py-5 flex flex-col gap-y-2 __shadow_pody transition-all duration-300 ease-in-out ${isOpen ? 'min-w-44 max-w-44 px-2' : 'w-0'}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="absolute h-full right-0 top-0 flex justify-end items-center">
+              <button
+                className="w-7 h-7 rounded-sm bg-pody-secondary flex flex-col items-center justify-center relative z-50 left-8"
+                onClick={toggleSidebar}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 text-slate-200"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  {isOpen ? (<path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>) : (<path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>)}
+                </svg>
+              </button>
+            </div>
+            {isOpen && (
+              <div className="participant-carousel h-full overflow-y-auto" ref={carouselRef}>
+                {pagination.tracks.map((trackItem, index) => (
+                  <ParticipantCustomTileNoIcon
+                    key={index}
+                    trackRef={trackItem}
+                    onClick={() => handleParticipantClick(index)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

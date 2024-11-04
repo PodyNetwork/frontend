@@ -77,7 +77,7 @@ const Reaction = () => {
             {emojis.map((hex, index) => (
               <p
                 key={index}
-                className="text-[1.35rem] text-muted-foreground"
+                className="text-[1.4rem] text-muted-foreground"
                 onClick={() =>
                   handleEmojiClick(String.fromCodePoint(parseInt(hex, 16)))
                 }
@@ -89,15 +89,23 @@ const Reaction = () => {
         </PopoverContent>
       </Popover>
 
-      {/* Animated Reactions */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <AnimatePresence>
           {reactions.map(({ id, emoji, offset }) => (
             <motion.div
               key={id}
               initial={{ opacity: 1, x: offset.x, y: offset.y }}
-              animate={{ opacity: 0, y: offset.y - 100 }}
-              exit={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                x: offset.x + (Math.random() * 60 - 30), 
+                y: offset.y - 100, // Move upwards
+                scale: 1.4, 
+              }}
+              exit={{
+                opacity: 0,
+                scale: 1,
+                transition: { duration: 0.5 }, // Adjust duration for exit
+              }}
               style={{
                 position: "absolute",
                 left: `calc(50% + ${offset.x}px)`,

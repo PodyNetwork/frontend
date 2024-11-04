@@ -38,6 +38,8 @@ export default function ChatTile({
   const { isChatOpen, setIsChatOpen } = useMyContext();
   const { isGiftOpen, openGiftMenu } = useGiftMenu();
 
+  const { profile } = useProfile();
+
   const playNotificationSound = React.useCallback(() => {
     const audio = new Audio("/audio/podynotif.mp3");
     audio.play();
@@ -64,19 +66,22 @@ export default function ChatTile({
 
   React.useEffect(() => {
     if (!layoutContext || chatMessages.length === 0) return;
-
+  
     const unreadCount = chatMessages.reduce((count, msg) => {
       const participantId = msg?.from?.identity;
-      if (participantId && !notifiedParticipants.current.has(participantId)) {
+      const isCurrentUser = participantId === profile?.username;
+  
+      // Only play notification for messages not sent by the current user
+      if (participantId && !isCurrentUser && !notifiedParticipants.current.has(participantId)) {
         playNotificationSound();
         notifiedParticipants.current.add(participantId);
       }
+  
       return msg.timestamp > lastReadMsgAt.current ? count + 1 : count;
     }, 0);
-
+  
     if (isChatOpen) {
-      lastReadMsgAt.current =
-        chatMessages[chatMessages.length - 1]?.timestamp || 0;
+      lastReadMsgAt.current = chatMessages[chatMessages.length - 1]?.timestamp || 0;
       unreadMessageCount.current = 0;
     } else {
       if (
@@ -90,7 +95,8 @@ export default function ChatTile({
       }
       unreadMessageCount.current = unreadCount;
     }
-  }, [chatMessages, isChatOpen, layoutContext, playNotificationSound]);
+  }, [chatMessages, isChatOpen, layoutContext, playNotificationSound, profile?.username]);
+  
 
   const gifts = [
     { id: "1", name: "PodyToken", icon: "/icon/Pody.jpg", price: 1, isAvailable: true, },
@@ -101,22 +107,12 @@ export default function ChatTile({
       price: 5,
       isHot: true,
       isAvailable: false,
-    },
-    {
-      id: "3",
-      name: "BNB",
-      icon: "/icon/Binance-coin.png",
-      price: 5,
-      isHot: true,
-      isAvailable: false,
     }
   ];
 
   const handleGiftSend = (gift: any) => {
     console.log("Gift sent:", gift);
   };
-
-  const { profile } = useProfile();
 
   return (
     <div

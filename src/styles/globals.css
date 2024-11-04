@@ -550,7 +550,23 @@ body {
 .participant-carousel {
     width: 100%;
     padding: 0px;
-    gap: 5px;
+}
+.participant-carousel .pd_portrait_vid {
+    height: calc(200px * (9 / 16)) !important;
+}
+.participant-carousel > div{
+    @apply mb-2;
+}
+@media (max-width: 499px) {
+    .participant-carousel {
+        width: 100%;
+    }
+    .pd_portrait_vid {
+        height: calc(50vh * (9 / 16)) !important;
+    }
+    .enhanced-focus-layout {
+        padding: 0;
+    }
 }
 .participant-carousel::-webkit-scrollbar {
     height: 4px;
