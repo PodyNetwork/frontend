@@ -7,6 +7,7 @@ import { useMyContext } from "../utils/MyContext";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import GiftUI from "../widgets/GiftCard";
 import { useGiftMenu } from "../utils/GiftMenuContext";
+import useProfile from "@/hooks/user/useProfile";
 
 export interface ChatProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -92,38 +93,49 @@ export default function ChatTile({
   }, [chatMessages, isChatOpen, layoutContext, playNotificationSound]);
 
   const gifts = [
-    { id: "gift1", name: "Rose", icon: "/avatar/user4.jpg", price: 1 },
+    { id: "1", name: "PodyToken", icon: "/icon/Pody.jpg", price: 1, isAvailable: true, },
     {
-      id: "gift2",
-      name: "Fire",
-      icon: "/avatar/user5.jpeg",
+      id: "2",
+      name: "EDUCHAIN",
+      icon: "/icon/educhain.png",
       price: 5,
       isHot: true,
+      isAvailable: false,
     },
+    {
+      id: "3",
+      name: "BNB",
+      icon: "/icon/Binance-coin.png",
+      price: 5,
+      isHot: true,
+      isAvailable: false,
+    }
   ];
 
   const handleGiftSend = (gift: any) => {
     console.log("Gift sent:", gift);
   };
 
+  const { profile } = useProfile();
+
   return (
     <div
-      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[55vh] md:h-[400px] overflow-y-auto bg-white dark:bg-gray-800 __shadow_pody rounded-t-lg transition-all duration-300 ease-in-out ${
+      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[55vh] md:h-screen overflow-y-auto bg-white dark:bg-slate-800 __shadow_pody transition-all duration-300 ease-in-out ${
         isChatOpen
           ? "translate-y-0"
-          : "translate-y-full md:translate-y-[calc(100%-50px)]"
+          : "translate-y-full"
       }`}
       {...props}
     >
       <div className="flex flex-col h-full">
         <div
-          className="px-4 py-3 border-b dark:border-gray-700 cursor-pointer"
+          className="px-4 py-3 border-b dark:border-slate-700 cursor-pointer"
           onClick={() => setIsChatOpen((open) => !open)}
         >
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-x-2">
-              <h2 className="font-semibold text-base md:text-sm text-gray-800 dark:text-white">
-                Chat Room
+              <h2 className="font-semibold text-base md:text-sm text-slate-800 dark:text-white">
+                Chat
               </h2>
               {!isChatOpen && unreadMessageCount.current > 0 && (
                 <p className="bg-red-500 w-5 h-5 flex items-center justify-center text-slate-300 rounded-full text-xs">
@@ -135,47 +147,82 @@ export default function ChatTile({
           </div>
         </div>
         <div className={`flex-col h-full ${isGiftOpen ? "hidden" : "flex"}`}>
-          <ul className="flex-grow overflow-y-auto px-4 py-3" ref={ulRef}>
+          <ul
+            className="flex-grow overflow-y-auto px-4 py-3 flex flex-col"
+            ref={ulRef}
+          >
             {chatMessages.map((msg, idx, allMsg) => {
-              const hideName = idx >= 1 && allMsg[idx - 1].from === msg.from;
-              const hideTimestamp =
-                idx >= 1 && msg.timestamp - allMsg[idx - 1].timestamp < 60000;
+              const isLastFromSender =
+                idx === allMsg.length - 1 || allMsg[idx + 1].from !== msg.from;
+              const showTimestamp = isLastFromSender;
+
               const time = new Date(msg.timestamp).toLocaleTimeString(
                 navigator?.language || "en-US",
                 { timeStyle: "short" }
               );
 
+              const isCurrentUser = msg.from?.identity === profile?.username;
+
               return (
                 <div key={msg.id} className="flex flex-col mb-2">
-                  <div className="flex flex-row">
-                    <div className="w-8 h-8 md:w-6 md:h-6 me-2">
-                      <AvatarParticipant
-                        name={msg.from?.identity || "unknown user"}
-                      />
-                    </div>
-                    <div className="w-[75%] rounded-lg p-2.5 md:p-2 bg-[#f8fafd] text-slate-700">
-                      <p className="text-sm md:text-xs">{msg.message}</p>
-                    </div>
-                  </div>
-                  <div className="text-xs text-slate-600 dark:text-slate-300 ms-8 mt-1 gap-x-1 flex flex-row items-center">
-                    {!hideName && (
-                      <h3>{msg.from?.name ?? msg.from?.identity}</h3>
+                  <div
+                    className={`flex ${
+                      isCurrentUser ? "justify-end" : "justify-start"
+                    }`}
+                  >
+                    {!isCurrentUser && (
+                      <div className="w-8 h-8 max-w-8 max-h-8 md:w-6 md:min-w-6 md:h-6 md:max-h-6 me-2">
+                        <AvatarParticipant
+                          name={msg.from?.identity || "unknown user"}
+                        />
+                      </div>
                     )}
-                    {!hideTimestamp && (
-                      <span className="opacity-75">{time}</span>
+                    <div className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"}`}>
+                      <div
+                        className={`rounded-lg relative p-2.5 md:p-2 ${
+                          isCurrentUser
+                            ? "bg-blue-100 text-right text-slate-700"
+                            : "bg-[#f8fafd] text-left text-slate-700"
+                        }`}
+                        style={{
+                          width: "fit-content",
+                        }}
+                      >
+                        <p className="text-sm md:text-xs">{msg.message}</p>
+                      </div>
+                      <div className="w-full flex flow-row gap-x-2">
+                        {!isCurrentUser && isLastFromSender && (
+                          <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">
+                            <h3>{msg.from?.name ?? msg.from?.identity}</h3>
+                          </div>
+                        )}
+                        {showTimestamp && (
+                          <div className="text-xs text-slate-600 dark:text-slate-300 mt-1">
+                            <span className="opacity-75">{time}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {isCurrentUser && (
+                      <div className="w-8 h-8 max-w-8 max-h-8 md:w-6 md:min-w-6 md:h-6 md:max-h-6 ms-2">
+                        <AvatarParticipant
+                          name={msg.from?.identity || "unknown user"}
+                        />
+                      </div>
                     )}
                   </div>
                 </div>
               );
             })}
           </ul>
-          <div className="px-2.5 py-3 border-t dark:border-gray-700 flex flex-row items-center gap-x-1.5">
+
+          <div className="px-2.5 py-3 border-t dark:border-slate-700 flex flex-row items-center gap-x-2">
             <form onSubmit={handleSubmit} className="relative flex-1">
               <div className="flex items-center">
                 <input
                   type="text"
                   placeholder="Type a message..."
-                  className="w-full px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white outline-none text-sm pr-10"
+                  className="w-full px-3 py-2 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white outline-none text-sm pr-10"
                   disabled={isSending}
                   ref={inputRef}
                 />
@@ -200,7 +247,7 @@ export default function ChatTile({
 const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={`w-6 h-6 text-gray-600 dark:text-gray-400 transition-transform duration-300 ${
+    className={`w-6 h-6 text-slate-600 dark:text-slate-400 transition-transform duration-300 ${
       isOpen ? "rotate-180" : ""
     }`}
     viewBox="0 0 24 24"
@@ -220,7 +267,7 @@ const SendButton = ({ isSending }: { isSending: boolean }) => (
       viewBox="0 -960 960 960"
       fill="currentColor"
     >
-      <path d="M140-190v-580l688.46 290L140-190Zm60-90 474-200-474-207v407Zm0 0v-90Z" />
+      <path d="M140-190v-580l688.46 290L140-190Zm60-90 474-200-474-200v147.69L416.92-480 200-427.69V-280Zm0 0v-400 400Z" />
     </svg>
   </button>
 );

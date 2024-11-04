@@ -119,7 +119,6 @@ const ScheduleDrawer = () => {
 
   const handleValueChange = (value: string) => {
     setSelectedPrivacy(value); 
-    console.log("Selected value:", value);
   };
 
   const form = useForm<{ title: string }>({
@@ -139,7 +138,7 @@ const ScheduleDrawer = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <button className="px-4 py-2.5 flex-1 bg-transparent border border-slate-600 text-slate-600 rounded-md hover:bg-pody-primary hover:text-slate-900 hover:transition-all hover:border-pody-primary">
+        <button className="px-4 py-2 flex-1 bg-transparent border border-slate-600 text-slate-600 rounded-md hover:bg-pody-primary hover:text-slate-900 hover:transition-all hover:border-pody-primary">
           Schedule for Later
         </button>
       </DrawerTrigger>
@@ -217,7 +216,7 @@ const ScheduleDrawer = () => {
                 </div>
                 <div>
                   <Select onValueChange={handleValueChange}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full h-11">
                       <SelectValue placeholder="Call Type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -235,7 +234,7 @@ const ScheduleDrawer = () => {
                   />
                   {/* Other components */}
                 </div>
-                <div className="text-sm mt-2">
+                <div className="text-sm">
                   <ButtonPody type="submit" disabled={form.state.isSubmitting}>
                     {form.state.isSubmitting
                       ? "Scheduling..."

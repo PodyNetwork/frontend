@@ -21,7 +21,7 @@ const CreateMeeting = () => {
           <DropdownMenu>
             <DropdownMenuTrigger className="outline-none">
               <button
-                className={`px-6 py-2.5 bg-pody-primary outline-none text-slate-900 rounded-md hover:bg-pody-primary/80 flex-1 hover:transition-all w-full xs:w-auto ${
+                className={`px-6 py-2 bg-pody-primary outline-none text-slate-900 rounded-md hover:bg-pody-primary/80 flex-1 hover:transition-all w-full xs:w-auto ${
                   loading ? "opacity-50" : "opacity-100"
                 }`}
               >

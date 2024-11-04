@@ -6,6 +6,17 @@ import React, { useEffect, useState } from "react";
 import { gift } from "@/utils/gift";
 import { useGiftMenu } from "../utils/GiftMenuContext";
 import useBulkUserByUsername from "@/hooks/user/useGetBulkParticipantByusername";
+import Image from "next/image";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Participant = {
   id: string;
@@ -33,6 +44,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
   const [selectedParticipant, setSelectedParticipant] = useState<string | null>(
     null
   );
+  const [selectedGift, setSelectedGift] = useState<string | null>(null);
   const [amount, setAmount] = useState<number>(0);
   const [visibleParticipants, setVisibleParticipants] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
@@ -44,6 +56,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
   const { profile } = useProfile();
   const participantList = useParticipants();
   const excludedParticipantIds = [profile?.username];
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { userProfiles, isLoading: getParticipantLoading } =
     useBulkUserByUsername(selectedParticipant || "");
@@ -59,9 +72,11 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
   });
 
   const handleSendGift = async () => {
-    if (!selectedParticipant || amount <= 0) {
-      return alert("Please select a participant and enter a valid amount.");
+    if (!selectedParticipant || !selectedGift || amount <= 0) {
+      setErrorMessage("Please select a participant and enter a valid amount.");
+      return;
     }
+    setErrorMessage("");
 
     const participantData = userProfiles?.find(
       (p) => p.username === selectedParticipant
@@ -86,7 +101,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
 
       const giftData = {
         participantId: selectedParticipant,
-        giftId: "token",
+        giftId: selectedGift,
         amount: Number(amountInWei),
       };
       send(new TextEncoder().encode(JSON.stringify(giftData)), {});
@@ -110,8 +125,8 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
-      const validCryptoNumber = /^(\d*(\.\d{0,18})?|\.\d{1,18})$/;
-      if (validCryptoNumber.test(rawValue) || rawValue === "") {
+    const validCryptoNumber = /^(\d*(\.\d{0,18})?|\.\d{1,18})$/;
+    if (validCryptoNumber.test(rawValue) || rawValue === "") {
       setAmount(rawValue ? parseFloat(rawValue) : 0);
     }
   };
@@ -125,6 +140,10 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
     setVisibleParticipants(5);
   };
 
+  const handleChangeToken = (value: string) => {
+    setSelectedGift(value); 
+  };
+
   const filteredParticipants = participants
     .filter(
       (participant) =>
@@ -136,7 +155,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
   const { closeGiftMenu } = useGiftMenu();
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <div
         className="mx-auto mt-2 h-1.5 w-[100px] rounded-full bg-muted dark:bg-slate-400 cursor-pointer"
         onClick={closeGiftMenu}
@@ -153,8 +172,9 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
 
         <div className="flex flex-nowrap max-w-sm relative overflow-x-auto gap-2">
           {filteredParticipants.length < 1 ? (
-            <span className="text-sm text-slate-500">
-              No participants to gift
+            <span className="text-xs text-slate-500">
+              Opps No Participant to Gift, Invite Participant to classroom to
+              start gifting
             </span>
           ) : (
             filteredParticipants.map((participant) => (
@@ -172,7 +192,40 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
         </div>
       </div>
 
-      <div className="p-4 bg-slate-100 dark:bg-slate-700 rounded-lg flex flex-col items-center text-center my-5">
+      <div className="mt-4">
+        <h3 className="text-sm text-slate-500 dark:text-slate-400">Select Gift</h3>
+        <Select onValueChange={handleChangeToken}>
+          <SelectTrigger className="w-full mt-2 dark:border-slate-500">
+            <SelectValue placeholder="Select a Gift" />
+          </SelectTrigger>
+          <SelectContent className="dark:bg-slate-600 dark:border-slate-500">
+            <SelectGroup>
+              <SelectLabel className="text-slate-300">Token</SelectLabel>
+              {gifts.map((data: GiftItem, index: number) => (
+                <SelectItem value={data.name} className="dark:hover:bg-slate-500 dark:focus:bg-slate-500">
+                  <button
+                    type="button"
+                    className="inline-flex w-full py-1 text-xs text-slate-500 dark:text-slate-300"
+                  >
+                    <div className="inline-flex items-center">
+                      <Image
+                        src={data.icon}
+                        width={50}
+                        height={50}
+                        alt=""
+                        className="h-4 w-4 rounded-full me-2 object-cover"
+                      />
+                      {data.name}
+                    </div>
+                  </button>
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg flex flex-col items-center text-center my-5">
         <SendGiftHeader
           selectedParticipant={selectedParticipant}
           participants={participants}
@@ -182,8 +235,8 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
           type="text"
           value={amount.toString()}
           onChange={handleAmountChange}
-          className="text-4xl font-semibold text-center bg-transparent border-none focus:outline-none mb-4 block w-full dark:text-slate-300"
-          placeholder="0.00" // Optional: hint for the expected input format
+          className="text-4xl font-semibold text-center bg-transparent border-none focus:outline-none mb-3 block w-full dark:text-slate-300"
+          placeholder="0.00"
         />
 
         <button
@@ -193,6 +246,9 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
         >
           {getParticipantLoading ? "Loading..." : "Send Gift"}
         </button>
+        {errorMessage && (
+          <div className="text-sm text-red-500 mt-2">{errorMessage}</div>
+        )}
       </div>
 
       {animationData && (
@@ -263,8 +319,8 @@ const SendGiftHeader: React.FC<{
 }> = ({ selectedParticipant, participants }) => (
   <p className="text-slate-500 flex items-center space-x-1 mb-2">
     <span className="inline-flex items-center justify-center text-sm font-medium dark:text-slate-300">
-      <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM2 15a6 6 0 0112 0H2zM14 8a3 3 0 106 0 3 3 0 00-6 0zM20 15a6 6 0 00-8 5h8a6 6 0 000-5z" />
+      <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 -960 960 960">
+        <path d="M480-492.31q-57.75 0-98.87-41.12Q340-574.56 340-632.31q0-57.75 41.13-98.87 41.12-41.13 98.87-41.13 57.75 0 98.87 41.13Q620-690.06 620-632.31q0 57.75-41.13 98.88-41.12 41.12-98.87 41.12ZM180-187.69v-88.93q0-29.38 15.96-54.42 15.96-25.04 42.66-38.5 59.3-29.07 119.65-43.61 60.35-14.54 121.73-14.54t121.73 14.54q60.35 14.54 119.65 43.61 26.7 13.46 42.66 38.5Q780-306 780-276.62v88.93H180Zm60-60h480v-28.93q0-12.15-7.04-22.5-7.04-10.34-19.11-16.88-51.7-25.46-105.42-38.58Q534.7-367.69 480-367.69q-54.7 0-108.43 13.11-53.72 13.12-105.42 38.58-12.07 6.54-19.11 16.88-7.04 10.35-7.04 22.5v28.93Zm240-304.62q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 384.62Z" />
       </svg>
       Send Gift to{" "}
       {selectedParticipant

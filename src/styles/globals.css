@@ -298,11 +298,14 @@ body {
     @apply flex flex-row-reverse;
 }
 
-@media(max-width: 300px) {
+@media (max-width: 200px) {
     .__participant_list {
-        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(0, 60px));
+        justify-content: center; /* Center items when they are the only one in the row */
     }
 }
+
 
 .__participant_message_container {
     overflow-y: auto;
@@ -533,37 +536,26 @@ body {
     max-width: var(--max-video-width, 100%);
     margin: auto;
 }
-
 .focused-participant-container {
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
     position: relative;
-    padding: 5px;
 }
-
 .pd_portrait_vid {
     object-fit: contain !important;
     height: var(--max-video-width-potrait, 100) !important;
     @apply bg-slate-200 dark:bg-slate-700 !important;
 }
-
 .participant-carousel {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-    max-height: 400px;
     width: 100%;
     padding: 0px;
     gap: 5px;
 }
-
 .participant-carousel::-webkit-scrollbar {
     height: 4px;
     width: 4px;
 }
-
 .participant-carousel::-webkit-scrollbar-thumb {
     background: #3F3B60;
     border-radius: 3px;
@@ -583,129 +575,6 @@ body {
     transform: scale(1.05);
 }
 
-@media (min-width: 768px) {
-    .participant-carousel {
-        width: 250px;
-        flex-direction: row;
-        padding: 10px;
-        gap: 10px;
-    }
-
-    .participant-carousel .pd_portrait_vid {
-        height: calc(250px * (9 / 16)) !important;
-    }
-}
-
-@media (min-width: 500px) {
-    .enhanced-focus-layout {
-        flex-direction: row;
-    }
-}
-
-@media (max-width: 600px) {
-    .enhanced-focus-layout {
-        max-width: 600px;
-        gap: 5px;
-        padding-right: 5px;
-    }
-
-    .participant-carousel {
-        width: 140px;
-    }
-}
-
-@media (min-width: 550px) and (max-width: 767px) {
-    .enhanced-focus-layout {
-        gap: 5px;
-        padding-right: 5px;
-    }
-
-    .participant-carousel {
-        width: 150px;
-        flex-direction: column;
-    }
-
-    .pd_portrait_vid {
-        height: calc(50vh * (9 / 16)) !important;
-    }
-}
-
-@media (min-width: 500px) and (max-width: 549px) {
-    .participant-carousel {
-        width: 150px;
-        flex-direction: column;
-    }
-
-    .pd_portrait_vid {
-        height: calc(50vh * (9 / 16)) !important;
-    }
-}
-
-@media (min-width: 1023px) {
-    .participant-carousel {
-        flex-direction: column;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-    .enhanced-focus-layout {
-        max-width: var(--max-video-width-carousel, 100%);
-        flex-direction: column;
-    }
-
-    .participant-carousel {
-        width: 100%;
-        padding: 5px 5px 10px 5px;
-    }
-
-    .participant-carousel>div {
-        min-width: 200px;
-        max-width: 200px;
-    }
-
-    .participant-carousel .pd_portrait_vid {
-        height: calc(200px * (9 / 16)) !important;
-    }
-
-    .pd_portrait_vid {
-        height: var(--max-video-width-potrait-carousel, 100) !important;
-    }
-}
-
-@media (max-width: 499px) {
-    .participant-carousel {
-        width: 100%;
-        padding: 0px 5px 5px 5px;
-    }
-
-    .participant-carousel>div {
-        min-width: 150px;
-        max-width: 150px;
-    }
-
-    .pd_portrait_vid {
-        height: calc(50vh * (9 / 16)) !important;
-    }
-
-    .participant-carousel .pd_portrait_vid {
-        height: calc(150px * (9 / 16)) !important;
-    }
-
-    .enhanced-focus-layout {
-        padding: 0;
-    }
-}
-
-@media (max-width: 300px) {
-    .participant-carousel>div {
-        min-width: 100px;
-        max-width: 100px;
-    }
-
-    .participant-carousel .pd_portrait_vid {
-        height: calc(100px * (9 / 16)) !important;
-    }
-}
 
 .__pd_bg_gradient {
     background: linear-gradient(0deg, rgba(105, 145, 214, .08), rgb(248 250 253)), #fff;
@@ -1101,6 +970,3 @@ body {
     height: 300px;
     position: relative;
 }
-
-
-

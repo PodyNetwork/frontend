@@ -71,7 +71,6 @@ export const CustomLiveKitRoom: React.FC<
       room.on("participantDisconnected", handleParticipantChange);
       room.on("disconnected", handleDisconnected);
 
-      // Cleanup event listeners on component unmount or when room changes
       return () => {
         room.off("connected", handleRoomConnected);
         room.off("participantConnected", handleParticipantChange);
@@ -90,7 +89,6 @@ export const CustomLiveKitRoom: React.FC<
           <RoomContext.Provider value={room}>
             <LKFeatureContext.Provider value={props.featureFlags}>
               {props.children}
-              {/* You can now use participantsData to display user info */}
             </LKFeatureContext.Provider>
           </RoomContext.Provider>
         )}

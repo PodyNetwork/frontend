@@ -13,7 +13,7 @@ const StreamShare = () => {
       <div>
         {isLoading ||
           (isError ? (
-            <>hello</>
+            <></>
           ) : (
             <button
               onClick={() =>
@@ -24,10 +24,10 @@ const StreamShare = () => {
                 })
               }
             >
-              <p className="w-8 h-8 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full">
+              <p className="w-7 h-7 flex items-center justify-center bg-slate-200 dark:bg-slate-800 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 text-slate-600 dark:text-slate-400"
+                  className="w-5 h-5 text-slate-600 dark:text-slate-400"
                   viewBox="0 -960 960 960"
                   style={{ msFilter: "" }}
                   fill="currentColor"

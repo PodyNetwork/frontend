@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useCarouselHeight } from "../utils/CarouselHeightContext";
+import { ParticipantCustomTileNoIcon } from "./ParticipantCustomTileNoIcon";
 
 export interface EnhancedFocusLayoutProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -153,36 +154,57 @@ export function EnhancedFocusLayout({
   }
 
   return (
-    <div className="enhanced-focus-layout" ref={focusRef}>
-      <div className="focused-participant-container">
-        {tracks[focusedIndex] && (
-          <CustomFocusLayout
-            trackRef={tracks[focusedIndex]}
-            onParticipantClick={() => handleParticipantClick(focusedIndex)}
-          />
-        )}
-        <button
-          onClick={() => setShowCarousel(!showCarousel)}
-          className="absolute top-[10px] right-[10px] text-slate-500"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-5 h-5" fill="currentColor">
-            {showCarousel ? (<path d="M120-120v-200h80v120h120v80H120Zm520 0v-80h120v-120h80v200H640ZM120-640v-200h200v80H200v120h-80Zm640 0v-120H640v-80h200v200h-80Z"/>) : (<path d="M240-120v-120H120v-80h200v200h-80Zm400 0v-200h200v80H720v120h-80ZM120-640v-80h120v-120h80v200H120Zm520 0v-200h80v120h120v80H640Z"/>)}
-          </svg>
-        </button>
-      </div>
-
-      {/* Render the carousel only if showCarousel is true */}
-      {showCarousel && hasOtherParticipants && (
-        <div className="participant-carousel" ref={carouselRef}>
-          {pagination.tracks.map((trackItem, index) => (
-            <ParticipantCustomTile
-              key={index}
-              trackRef={trackItem}
-              onClick={() => handleParticipantClick(index)}
+    <>
+      <div className="enhanced-focus-layout" ref={focusRef}>
+        <div className="focused-participant-container">
+          {tracks[focusedIndex] && (
+            <CustomFocusLayout
+              trackRef={tracks[focusedIndex]}
+              onParticipantClick={() => handleParticipantClick(focusedIndex)}
             />
-          ))}
+          )}
+          <button
+            onClick={() => setShowCarousel(!showCarousel)}
+            className="absolute top-[10px] right-[10px] text-slate-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 -960 960 960"
+              className="w-5 h-5"
+              fill="currentColor"
+            >
+              {showCarousel ? (
+                <path d="M120-120v-200h80v120h120v80H120Zm520 0v-80h120v-120h80v200H640ZM120-640v-200h200v80H200v120h-80Zm640 0v-120H640v-80h200v200h-80Z" />
+              ) : (
+                <path d="M240-120v-120H120v-80h200v200h-80Zm400 0v-200h200v80H720v120h-80ZM120-640v-80h120v-120h80v200H120Zm520 0v-200h80v120h120v80H640Z" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </div>
+      {showCarousel && hasOtherParticipants && (
+        <div className="min-w-40 max-w-40 absolute hidden top-0 bg-slate-50 h-screen max-h-screen z-50 left-0 py-5 px-2 overflow-y-auto flex flex-col gap-y-2 __shadow_pody">
+          <div className="w-6 h-6 rounded-full bg-orange-400 relative flex flex-col items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 -960 960 960"
+              className="h-4 text-slate-600 block"
+              fill="currentColor"
+            >
+              <path d="M400-93.85 13.85-480 400-866.15l56.77 56.77L127.38-480l329.39 329.38L400-93.85Z" />
+            </svg>
+          </div>
+          <div className="participant-carousel" ref={carouselRef}>
+            {pagination.tracks.map((trackItem, index) => (
+              <ParticipantCustomTileNoIcon
+                key={index}
+                trackRef={trackItem}
+                onClick={() => handleParticipantClick(index)}
+              />
+            ))}
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
