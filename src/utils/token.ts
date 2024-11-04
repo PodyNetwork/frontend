@@ -9,7 +9,7 @@ interface ApproveTokenArgs {
 }
 
 interface TokenBalanceArgs {
-  recipient: Address;
+  account: Address;
 }
 
 interface TokenAllowanceArgs {
@@ -37,7 +37,7 @@ const getBalance = async (args: TokenBalanceArgs): Promise<bigint> => {
     abi: podyTokenAbi,
     address: process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address,
     functionName: "balanceOf",
-    args: [args.recipient],
+    args: [args.account],
   }) as bigint;
 
   return result;
