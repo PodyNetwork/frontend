@@ -1,12 +1,10 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// Define a shape for the context value
 interface CarouselHeightContextType {
   carouselHeight: number;
   setCarouselHeight: (height: number) => void;
 }
 
-// Create the context with a default value
 const CarouselHeightContext = createContext<CarouselHeightContextType | undefined>(undefined);
 
 export const CarouselHeightProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

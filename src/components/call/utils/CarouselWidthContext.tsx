@@ -1,12 +1,10 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// Define a shape for the context value
 interface CarouselWidthContextType {
   carouselWidth: number;
   setCarouselWidth: (width: number) => void;
 }
 
-// Create the context with a default value
 const CarouselWidthContext = createContext<CarouselWidthContextType | undefined>(undefined);
 
 export const CarouselWidthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

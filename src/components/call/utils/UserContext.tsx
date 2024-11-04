@@ -7,16 +7,15 @@ interface User {
   walletAddress: string;
 }
 
-// Update the UserContextType to use User objects
 interface UserContextType {
-  users: User[];  // Change from usernames to users
-  setUsers: (users: User[]) => void; // Change from setUsernames to setUsers
+  users: User[];  
+  setUsers: (users: User[]) => void; 
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [users, setUsers] = useState<User[]>([]); // Initialize with User type
+  const [users, setUsers] = useState<User[]>([]); 
 
   return (
     <UserContext.Provider value={{ users, setUsers }}>
@@ -25,7 +24,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-// Custom hook to use the UserContext
 export const useUserContext = () => {
   const context = useContext(UserContext);
   if (!context) {
@@ -34,4 +32,4 @@ export const useUserContext = () => {
   return context;
 };
 
-export default UserContext; // Exporting the context itself
+export default UserContext;

@@ -27,6 +27,7 @@ import {
   Mail,
   Maximize,
   MessageSquare,
+  Minimize,
   Plus,
   PlusCircle,
   Presentation,
@@ -36,8 +37,12 @@ import {
   UserPlus,
   Users,
 } from "lucide-react";
+import { useFullscreen } from "../../utils/FullscreenContext";
 
-const MenuExtra = () => {
+
+const MenuExtra = ({ username }: { username: string }) => {
+  const { isFullscreen, enterFullscreen, exitFullscreen } = useFullscreen();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -54,7 +59,7 @@ const MenuExtra = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 border-none shadow-none __shadow_pody mb-1.5 text-slate-500">
-        <DropdownMenuLabel>0x3ax</DropdownMenuLabel>
+        <DropdownMenuLabel>{username}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
@@ -62,9 +67,14 @@ const MenuExtra = () => {
             <span>Share Classroom</span>
             <DropdownMenuShortcut>⌘+S</DropdownMenuShortcut>
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={isFullscreen ? exitFullscreen : enterFullscreen}>
+            {isFullscreen ? <Minimize />: <Maximize />}
+            <span>{isFullscreen ? 'Exit Fullscreen': "Fullscreen"}</span>
+            <DropdownMenuShortcut>⌘+F</DropdownMenuShortcut>
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <Maximize />
-            <span>Fullscreen</span>
+            <span>Participants</span>
             <DropdownMenuShortcut>⌘+F</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>

@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// Define the context type
 interface GiftMenuContextType {
     isGiftOpen: boolean;
     openGiftMenu: () => void;
     closeGiftMenu: () => void;
 }
 
-// Create the context
 const GiftMenuContext = createContext<GiftMenuContextType | undefined>(undefined);
 
 // Create a provider component
@@ -24,7 +22,6 @@ const GiftMenuProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     );
 };
 
-// Custom hook to use the GiftMenuContext
 const useGiftMenu = (): GiftMenuContextType => {
     const context = useContext(GiftMenuContext);
     if (!context) {

@@ -20,6 +20,7 @@ import { useMyContext } from "../../utils/MyContext";
 import { useCustomDisconnectButton } from "../../livekitcustom/CustomDisconnect";
 import Reaction from "./Reaction";
 import MenuExtra from "./MenuExtra";
+import { useFullscreen } from "../../utils/FullscreenContext";
 
 export type ControlBarControls = {
   microphone?: boolean;
@@ -124,9 +125,11 @@ const Controls = ({
 
   const { stopTracks, ...restButtonProps } = buttonProps;
 
+  const { isFullscreen } = useFullscreen();
+
   return (
     <div
-      className="hidden h-10 md:flex flex-wrap justify-center items-center gap-x-3 text-sm "
+      className={`hidden h-10 md:flex flex-wrap justify-center items-center gap-x-3 text-sm ${isFullscreen ? "bottom-5 absolute w-full" : "relative"}`}
       aria-label="controls"
     >
       {/* video source */}
@@ -284,7 +287,7 @@ const Controls = ({
         </svg>
       </div>
       {/* Reaction */}
-      <MenuExtra />
+      <MenuExtra username={profile?.username || ""} />
     </div>
   );
 };
