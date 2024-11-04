@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { parseEther } from "viem";
 
 type Participant = {
   id: string;
@@ -92,7 +93,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
     const recipientAddress = participantData.walletAddress;
 
     try {
-      const amountInWei = BigInt(amount * 10 ** 18);
+      const amountInWei = parseEther(amount.toString());
       await gift(
         senderAddress as `0x${string}`,
         recipientAddress as `0x${string}`,

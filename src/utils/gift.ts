@@ -13,7 +13,7 @@ interface GiftArgs {
 const giftTokens = async (args: GiftArgs): Promise<void> => {
     const { request } = await simulateContract(config, {
         abi: podyGiftAbi,
-        address: process.env.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS as Address,
+        address: process.env.NEXT_PUBLIC_PODY_GIFT_ADDRESS as Address,
         functionName: "giftTokens",
         args: [args.recipient, args.amount],
     });
@@ -26,10 +26,12 @@ const gift = async (sender: Address, recipient: Address, amount: bigint) : Promi
         throw new Error('insufficient balance to perform this action')
     }
 
-    if(await getAllowance({sender, recipient}) < amount) {
+    const podyGiftAddress = process.env.NEXT_PUBLIC_PODY_GIFT_ADDRESS as Address
+
+    if(await getAllowance({sender, recipient: podyGiftAddress}) < amount) {
        try {
         await approveTokens({
-            recipient,
+            recipient: podyGiftAddress,
             amount
         })
        } catch {
@@ -37,10 +39,10 @@ const gift = async (sender: Address, recipient: Address, amount: bigint) : Promi
        }
     }
 
-    await giftTokens({
+    console.error(await giftTokens({
         amount,
         recipient
-    })
+    }))
 
     return true
 }
