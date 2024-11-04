@@ -40,28 +40,16 @@ const readContractBigInt = async (args: BaseTokenArgs, functionName: string, add
   return result;
 };
 
-const approveTokens = async (args: ApproveTokenArgs): Promise<void> => {
-  await simulateAndWriteContract(args, "approve", process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address);
-};
-
 const approveCustomToken = async (args: ApproveTokenArgs & { tokenAddress: Address }): Promise<void> => {
   await simulateAndWriteContract(args, "approve", args.tokenAddress);
-};
-
-const getBalance = async (args: TokenBalanceArgs): Promise<bigint> => {
-  return readContractBigInt(args, "balanceOf", process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address);
 };
 
 const getCustomTokenBalance = async (args: TokenBalanceArgs & { tokenAddress: Address }): Promise<bigint> => {
   return readContractBigInt(args, "balanceOf", args.tokenAddress);
 };
 
-const getAllowance = async (args: TokenAllowanceArgs): Promise<bigint> => {
-  return readContractBigInt(args, "allowance", process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address);
-};
-
 const getCustomTokenAllowance = async (args: TokenAllowanceArgs & { tokenAddress: Address }): Promise<bigint> => {
   return readContractBigInt(args, "allowance", args.tokenAddress);
 };
 
-export { approveTokens, getBalance, getAllowance, getCustomTokenBalance, getCustomTokenAllowance, approveCustomToken };
+export { getCustomTokenBalance, getCustomTokenAllowance, approveCustomToken };
