@@ -2,8 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import useGetPointsBalance from "@/hooks/point/useGetPointsBalance";
 import { formatUnits } from "viem";
-import { formatNumber } from "@/lib/formatNumber";
 import useClaimPoint from "@/hooks/point/useClaimPoints";
+import approx from 'approximate-number' 
 
 const RewardStatistic = () => {
   const { pointsBalance } = useGetPointsBalance();
@@ -18,17 +18,17 @@ const RewardStatistic = () => {
   );
   const totalPoints = unclaimedPointsInEther + claimedPointsInEther;
 
-  const FormatedclaimedPointsInEther = formatNumber(
-    Math.round(Number(formatUnits(BigInt(claimedPoints ?? 0), 18)))
+  const FormatedclaimedPointsInEther = (
+    (Number(formatUnits(BigInt(claimedPoints ?? 0), 18)))
   );
-  const FormatedunclaimedPointsInEther = formatNumber(
+  const FormatedunclaimedPointsInEther = approx(
     Math.round(Number(formatUnits(BigInt(points ?? 0), 18)))
   );
 
   const rewardData = [
     {
       title: "Total",
-      value: formatNumber(totalPoints),
+      value: approx(totalPoints),
       icon: "trophy",
       color: "from-emerald-400 to-emerald-600",
     },

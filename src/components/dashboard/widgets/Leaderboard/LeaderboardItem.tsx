@@ -2,6 +2,7 @@ import { LeaderboardEntry } from "@/app/dashboard/leaderboard/types";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import { motion } from "framer-motion";
 import { formatUnits } from "viem";
+import approx from 'approximate-number'
 
 export const LeaderboardItem = ({
     rank,
@@ -25,7 +26,7 @@ export const LeaderboardItem = ({
       </div>
       <div className="flex-shrink-0 ml-2">
         <p className="text-xs sm:text-sm flex flex-row items-center gap-x-1 font-bold text-pody-primary whitespace-nowrap">
-          {Math.round(Number(formatUnits(BigInt(totalPoints), 18)))}
+          {approx(Number(formatUnits(BigInt(totalPoints), 18)), {decimal: true})}
         </p>
       </div>
     </motion.li>

@@ -4,6 +4,7 @@ import { EmptyMessage } from "./RewardEmptyMessage";
 import useGetPointsHistory from "@/hooks/point/useGetPointsHistory";
 import { formatUnits } from "viem";
 import dayjs from "dayjs";
+import approx from 'approximate-number'
 
 const RewardTab = () => {
   const {
@@ -17,6 +18,14 @@ const RewardTab = () => {
   const handleLoadMore = () => {
     fetchNextPage();
   };
+
+  const safeApproximatePoints = (points: bigint) : string => {
+    const pointsInEther = formatUnits(points, 18)
+    if(Number(pointsInEther) < 1) {
+      return "0"
+    }
+    return approx(pointsInEther)
+  }
 
   return (
     <>
@@ -57,7 +66,7 @@ const RewardTab = () => {
                   <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
                     <h3 className="text-xs sm:text-sm text-slate-800 truncate">
                       {item?.points !== undefined
-                        ? `${formatUnits(item.points, 18)} points`
+                        ? `${safeApproximatePoints(item.points)} points`
                         : "No points available"}
                     </h3>
                   </div>
