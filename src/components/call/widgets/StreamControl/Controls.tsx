@@ -127,9 +127,34 @@ const Controls = ({
 
   const { isFullscreen } = useFullscreen();
 
+  const [showControls, setShowControls] = useState(true);
+
+  useEffect(() => {
+    let hideTimeout: ReturnType<typeof setTimeout> | undefined;
+  
+    const handleMouseMove = () => {
+      if (isFullscreen) {
+        setShowControls(true);
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => setShowControls(false), 3000);
+      }
+    };
+  
+    document.addEventListener("mousemove", handleMouseMove);
+  
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(hideTimeout);
+    };
+  }, [isFullscreen]);
+
   return (
     <div
-      className={`hidden h-10 md:flex flex-wrap justify-center items-center gap-x-3 text-sm ${isFullscreen ? "bottom-5 absolute w-full" : "relative"}`}
+      className={`hidden h-10 md:flex flex-wrap justify-center items-center gap-x-3 text-sm controls ${
+        isFullscreen ? "bottom-5 absolute w-full" : "relative"
+      } ${
+        showControls ? "visible" : "opacity-0"
+      } transition-opacity duration-300`}
       aria-label="controls"
     >
       {/* video source */}

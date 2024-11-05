@@ -89,6 +89,27 @@ const StreamInfo = () => {
 
   const { isFullscreen } = useFullscreen();
 
+  const [showInfo, setshowInfo] = useState(true);
+
+  useEffect(() => {
+    let hideTimeout: ReturnType<typeof setTimeout> | undefined;
+
+    const handleMouseMove = () => {
+      if (isFullscreen) {
+        setshowInfo(true);
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => setshowInfo(false), 3000);
+      }
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(hideTimeout);
+    };
+  }, [isFullscreen]);
+
   return (
     <>
       <div className="md:hidden text-red-200 flex flex-row items-center text-xs xs:text-sm font-semibold justify-between gap-x-2">
@@ -132,7 +153,15 @@ const StreamInfo = () => {
           )}
         </div>
       </div>
-      <div className={`flex flex-col gap-y-1 ${isFullscreen ? "absolute top-0 z-50 px-5 py-2" : "relative"}`}>
+      <div
+        className={`flex flex-col gap-y-1 ${
+          isFullscreen
+            ? "absolute top-0 z-50 px-3 w-full __dark_veil py-3"
+            : "relative"
+        } ${
+          showInfo ? "visible" : "opacity-0"
+        } transition-opacity duration-300`}
+      >
         <h2 className="font-medium text-base md:text-xl text-slate-600 dark:text-slate-200 truncate">
           {call?.title}
         </h2>
