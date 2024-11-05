@@ -18,8 +18,7 @@ const Footer = () => {
             <div className="text-xs text-slate-500 flex flex-col gap-y-3 w-full md:w-10/12 py-7">
               <p>
                 Pody Network is a decentralized platform designed for virtual
-                classrooms. Enjoy interactive, virtual environments tailored for education.
-                to Meet and Earn rewards for participation in real-time. Participant mint A unique, blockchain-based identity. 
+                classrooms. Enjoy interactive, virtual environments tailored for education to Meet and Earn rewards for participation in real-time. Participant mint A unique, blockchain-based identity. 
                 Pody is Focused on privacy with decentralized data protection.
               </p>
               <p>
