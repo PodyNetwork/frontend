@@ -21,10 +21,8 @@ const RewardTab = () => {
 
   const safeApproximatePoints = (points: bigint) : string => {
     const pointsInEther = formatUnits(points, 18)
-    if(Number(pointsInEther) < 1) {
-      return "0"
-    }
-    return approx(pointsInEther)
+    const etherApprox = approx(pointsInEther)
+    return etherApprox == "NaNt" ? "0" : etherApprox
   }
 
   return (
