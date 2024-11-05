@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 type FullscreenContextType = {
   isFullscreen: boolean;
@@ -11,8 +11,30 @@ const FullscreenContext = createContext<FullscreenContextType | undefined>(undef
 export const FullscreenProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const enterFullscreen = () => setIsFullscreen(true);
-  const exitFullscreen = () => setIsFullscreen(false);
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement !== null);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  const enterFullscreen = () => {
+    const docElement = document.documentElement;
+    docElement.requestFullscreen?.().catch(err => {
+      console.error(`Failed to enter fullscreen: ${err.message}`);
+    });
+  };
+
+  const exitFullscreen = () => {
+    document.exitFullscreen?.().catch(err => {
+      console.error(`Failed to exit fullscreen: ${err.message}`);
+    });
+  };
 
   return (
     <FullscreenContext.Provider value={{ isFullscreen, enterFullscreen, exitFullscreen }}>
