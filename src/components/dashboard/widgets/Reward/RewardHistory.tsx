@@ -7,6 +7,7 @@ import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";
 import ConnectOrComponent from "@/components/global/ConnectOrComponent";
 import { toast, Toaster } from "sonner";
+import approx from 'approximate-number'
 
 const HistorySkeleton = () => {
   return (
@@ -91,8 +92,8 @@ const RewardHistory = () => {
                     </div>
                     <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
                       <h3 className="text-xs sm:text-sm text-slate-800 truncate">
-                        {data?.points !== undefined
-                          ? `${formatUnits(BigInt(data?.points), 18)} points`
+                        {(data?.points) !== undefined
+                          ? `${approx(formatUnits(BigInt(data?.points), 18))} points`
                           : "No points available"}
                       </h3>
                     </div>
