@@ -1,13 +1,26 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 import logo from "/public/logo/pody logo dark.png";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import useProfile from "@/hooks/user/useProfile";
+import useSetEmail from "@/hooks/user/useSetEmail";
 
 const page = () => {
   const { profile, isLoading, isError } = useProfile();
+
+  const [email, setEmail] = useState("");
+  const { setEmail: setEmailMutation, errorMessage, loading } = useSetEmail();
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setEmailMutation.mutate({ email });
+  };
 
   return (
     <main className="w-full relative" aria-label="mail">
@@ -34,7 +47,7 @@ const page = () => {
         <section className="relative w-full flex-1 h-full flex items-center flex-col justify-center">
           <div className="w-full px-4 md:px-12">
             <div className="w-full xs:max-w-md bg-white p-7 rounded-lg flex-1 flex flex-col gap-y-2.5 __shadow_pody mx-auto relative">
-              <h2 className="font-medium text-slate-700 text-2xl">
+              <h2 className="font-medium text-slate-700 text-xl">
                 Dont miss out! Get special offer and surprises straignt to your
                 inbox
               </h2>
@@ -42,33 +55,45 @@ const page = () => {
                 A certified email address guarantees secure and authenticated
                 communication with a digital signature.
               </p>
-              <div className="mt-2">
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-slate-600"
-                >
-                  Email Address <sup className="text-red-500 font-bold">*</sup>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                    <svg
-                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 -960 960 960"
-                    >
-                      <path d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520ZM160-662.31V-720v467.69q0 5.39 3.46 8.85t8.85 3.46H160v-422.31Z" />
-                    </svg>
+              <form onSubmit={handleSubmit}>
+                <div className="mt-2">
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-slate-600"
+                  >
+                    Email Address <sup className="text-red-500 font-bold">*</sup>
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                      <svg
+                        className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 -960 960 960"
+                      >
+                        <path d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520ZM160-662.31V-720v467.69q0 5.39 3.46 8.85t8.85 3.46H160v-422.31Z" />
+                      </svg>
+                    </div>
+                      <input
+                        type="text"
+                        id="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        className="bg-slate-50 border border-slate-300 text-slate-500 text-base rounded-md outline-none block w-full ps-10 p-2.5"
+                        placeholder="name@hello.com"
+                      />
                   </div>
-                  <input
-                    type="text"
-                    id="email"
-                    className="bg-slate-50 border border-slate-300 text-slate-500 text-base rounded-lg outline-none block w-full ps-10 p-3"
-                    placeholder="name@hello.com"
-                  />
                 </div>
-              </div>
+                
+                <div>
+                  <button className="bg-pody-secondary relative py-2 px-6 text-sm text-white rounded-md mt-1 hover:opacity-80 hover:transition-all">
+                    {loading ? 'Submitting...' : 'Submit'}
+                  </button>
+                </div>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage.message}</p>}
+              </form>
+              {/* Otp */}
               <div className="mt-2 hidden">
                 <label
                   htmlFor="email"
@@ -101,11 +126,6 @@ const page = () => {
                     Please enter the one-time password sent to your phone.
                   </p>
                 </div>
-              </div>
-              <div>
-                <button className="bg-pody-secondary relative py-2 px-6 text-sm text-white rounded-md mt-1 hover:opacity-80 hover:transition-all">
-                  Submit
-                </button>
               </div>
             </div>
           </div>

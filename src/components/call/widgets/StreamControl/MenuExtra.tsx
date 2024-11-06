@@ -1,16 +1,11 @@
-import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -18,30 +13,20 @@ import {
   AudioLines,
   ChartArea,
   CircleDollarSign,
-  Cloud,
-  CreditCard,
-  Github,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Mail,
   Maximize,
-  MessageSquare,
   Minimize,
-  Plus,
-  PlusCircle,
   Presentation,
   Settings,
-  Share,
-  User,
   UserPlus,
   Users,
 } from "lucide-react";
 import { useFullscreen } from "../../utils/FullscreenContext";
-
+import { useParticipantBar } from "../../utils/ParticipantBarContext";
 
 const MenuExtra = ({ username }: { username: string }) => {
   const { isFullscreen, enterFullscreen, exitFullscreen } = useFullscreen();
+  const { isParticipantBarVisible, hideParticipantBar, showParticipantBar } =
+    useParticipantBar();
 
   return (
     <DropdownMenu>
@@ -67,16 +52,30 @@ const MenuExtra = ({ username }: { username: string }) => {
             <span>Share Classroom</span>
             <DropdownMenuShortcut>⌘+S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={isFullscreen ? exitFullscreen : enterFullscreen}>
-            {isFullscreen ? <Minimize />: <Maximize />}
-            <span>{isFullscreen ? 'Exit Fullscreen': "Fullscreen"}</span>
+          <DropdownMenuItem
+            onClick={isFullscreen ? exitFullscreen : enterFullscreen}
+          >
+            {isFullscreen ? <Minimize /> : <Maximize />}
+            <span>{isFullscreen ? "Exit Fullscreen" : "Fullscreen"}</span>
             <DropdownMenuShortcut>⌘+F</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Maximize />
-            <span>Participants</span>
-            <DropdownMenuShortcut>⌘+F</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          {isFullscreen && (
+            <DropdownMenuItem
+              onClick={
+                isParticipantBarVisible
+                  ? hideParticipantBar
+                  : showParticipantBar
+              }
+            >
+              <Users />
+              <span>
+                {isParticipantBarVisible
+                  ? "Hide Participants"
+                  : "Show Participants"}
+              </span>
+              <DropdownMenuShortcut>⌘+P</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

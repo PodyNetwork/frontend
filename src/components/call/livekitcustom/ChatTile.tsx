@@ -3,11 +3,11 @@ import * as React from "react";
 import { useMaybeLayoutContext } from "@livekit/components-react";
 import type { MessageFormatter } from "@livekit/components-react";
 import { useChat } from "@livekit/components-react";
-import { useMyContext } from "../utils/MyContext";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import GiftUI from "../widgets/GiftCard";
 import { useGiftMenu } from "../utils/GiftMenuContext";
 import useProfile from "@/hooks/user/useProfile";
+import { useChatContext } from "../utils/ChatContext";
 
 export interface ChatProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -35,7 +35,7 @@ export default function ChatTile({
 
   const { send, chatMessages, isSending } = useChat(chatOptions);
   const layoutContext = useMaybeLayoutContext();
-  const { isChatOpen, setIsChatOpen } = useMyContext();
+  const { isChatOpen, toggleChat } = useChatContext();
   const { isGiftOpen, openGiftMenu } = useGiftMenu();
 
   const { profile } = useProfile();
@@ -126,7 +126,7 @@ export default function ChatTile({
       <div className="flex flex-col h-full">
         <div
           className="px-4 py-3 border-b dark:border-slate-700 cursor-pointer"
-          onClick={() => setIsChatOpen((open) => !open)}
+          onClick={toggleChat}
         >
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-x-2">

@@ -2,7 +2,7 @@ import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import useProfile from "@/hooks/user/useProfile";
 import { useDataChannel, useParticipants } from "@livekit/components-react";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { gift } from "@/utils/gift";
 import { useGiftMenu } from "../utils/GiftMenuContext";
 import useBulkUserByUsername from "@/hooks/user/useGetBulkParticipantByusername";
@@ -166,7 +166,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     exit: { opacity: 0, y: -50, transition: { duration: 0.5 } },
   };
-
+  
   return (
     <div className="w-full overflow-hidden">
       <div
@@ -218,6 +218,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
               <SelectLabel className="text-slate-300">Token</SelectLabel>
               {gifts.map((data: GiftItem, index: number) => (
                 <SelectItem
+                  key={index}
                   value={data.name}
                   className="dark:hover:bg-slate-500 dark:focus:bg-slate-500"
                 >

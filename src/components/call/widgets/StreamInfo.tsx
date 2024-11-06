@@ -109,6 +109,7 @@ const StreamInfo = () => {
       clearTimeout(hideTimeout);
     };
   }, [isFullscreen]);
+  
 
   return (
     <>

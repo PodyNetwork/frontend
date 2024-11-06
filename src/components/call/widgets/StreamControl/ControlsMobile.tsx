@@ -8,8 +8,8 @@ import {
 import { supportsScreenSharing } from "@livekit/components-core";
 
 import { SourceToggle } from "../../livekitcustom/SourceToggle";
-import { useMyContext } from "../../utils/MyContext";
 import { useCustomDisconnectButton } from "../../livekitcustom/CustomDisconnect";
+import { useChatContext } from "../../utils/ChatContext";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -90,7 +90,7 @@ const ControlsMobile = ({
 
   const { localParticipant } = useLocalParticipant();
 
-  const { setIsChatOpen } = useMyContext();
+  const { toggleChat } = useChatContext();
 
   const { buttonProps } = useCustomDisconnectButton({
     stopTracks: true,
@@ -182,7 +182,7 @@ const ControlsMobile = ({
             viewBox="0 -960 960 960"
             style={{ msFilter: "" }}
             fill="currentColor"
-            onClick={() => setIsChatOpen((ref) => !ref)}
+            onClick={toggleChat}
           >
             <path d="M250-410h300v-60H250v60Zm0-120h460v-60H250v60Zm0-120h460v-60H250v60ZM100-118.46v-669.23Q100-818 121-839q21-21 51.31-21h615.38Q818-860 839-839q21 21 21 51.31v455.38Q860-302 839-281q-21 21-51.31 21H241.54L100-118.46ZM216-320h571.69q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-455.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H172.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v523.08L216-320Zm-56 0v-480 480Z" />
           </svg>

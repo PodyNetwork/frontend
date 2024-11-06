@@ -532,14 +532,14 @@ body {
     flex-direction: column;
     align-items: center;
     @apply bg-white dark:bg-slate-800;
-    border-radius: 10px;
+    border-radius: calc(var(--radius) - 2px);
     width: 100%;
     max-width: var(--max-video-width, 100%);
     margin: auto;
 }
 
 .focused-participant-container {
-    border-radius: 10px;
+    border-radius: calc(var(--radius) - 2px);
     overflow: hidden;
     width: 100%;
     position: relative;
@@ -1008,4 +1008,14 @@ body {
 .controls.visible {
     opacity: 1;
     visibility: visible;
+}
+
+.lk-participant-media-video {
+    border-radius: var(--radius) !important;
+}
+
+.__glass-effect {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(0.7px);
+-webkit-backdrop-filter: blur(0.7px);
 }
