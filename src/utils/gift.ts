@@ -26,9 +26,9 @@ const checkAndApproveTokens = async (sender: Address, recipient: Address, amount
     if (await getCustomTokenBalance({ account: sender, tokenAddress }) < amount) {
         throw new Error('insufficient balance to perform this action');
     }
-    if (await getCustomTokenAllowance({ account: sender, recipient, tokenAddress }) < amount) {
+    if (await getCustomTokenAllowance({ recipient, tokenAddress, sender }) < amount) {
         try {
-            await approveCustomToken({ recipient, amount, account: sender, tokenAddress });
+            await approveCustomToken({ recipient, amount, tokenAddress });
         } catch {
             throw new Error('token approval failed');
         }
@@ -103,6 +103,8 @@ const giftCustomTokens = async (args: GiftCustomArgs): Promise<void> => {
 const gift = async (sender: Address, recipient: Address, amount: bigint): Promise<boolean> => {
     const tokenAddress = process.env.NEXT_PUBLIC_PODY_TOKEN_ADDRESS as Address;
     const podyGiftAddress = process.env.NEXT_PUBLIC_PODY_GIFT_ADDRESS as Address;
+
+
 
     await validateGiftAmount(tokenAddress, amount);
     await checkAndApproveTokens(sender, podyGiftAddress, amount, tokenAddress);
