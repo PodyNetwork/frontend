@@ -10,10 +10,10 @@ const RewardStatistic = () => {
 
   const { points, claimedPoints } = pointsBalance ?? {};
 
-  const claimedPointsInEther = Math.round(
+  const claimedPointsInEther = (
     Number(formatUnits(BigInt(claimedPoints ?? 0), 18))
   );
-  const unclaimedPointsInEther = Math.round(
+  const unclaimedPointsInEther = (
     Number(formatUnits(BigInt(points ?? 0), 18))
   );
   const totalPoints = unclaimedPointsInEther + claimedPointsInEther;
@@ -21,8 +21,8 @@ const RewardStatistic = () => {
   const FormatedclaimedPointsInEther = (
     (Number(formatUnits(BigInt(claimedPoints ?? 0), 18)))
   );
-  const FormatedunclaimedPointsInEther = approx(
-    Math.round(Number(formatUnits(BigInt(points ?? 0), 18)))
+  const FormatedunclaimedPointsInEther = (
+    (Number(formatUnits(BigInt(points ?? 0), 18)))
   );
 
   const rewardData = [
@@ -34,13 +34,13 @@ const RewardStatistic = () => {
     },
     {
       title: "Claimed",
-      value: FormatedclaimedPointsInEther,
+      value: approx(FormatedclaimedPointsInEther),
       icon: "star",
       color: "from-amber-400 to-amber-600",
     },
     {
       title: "Unclaimed",
-      value: FormatedunclaimedPointsInEther ?? 0,
+      value: approx(FormatedunclaimedPointsInEther) ?? 0,
       icon: "gift",
       color: "from-purple-400 to-purple-600",
     },
