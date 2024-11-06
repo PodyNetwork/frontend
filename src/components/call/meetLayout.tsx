@@ -59,11 +59,9 @@ const MeetLayout = () => {
               <Participant />
             </div>
           )}
-          {isChatOpen && (
-            <div className="__pd_bg_gradient z-20 dark:bg-pody-dark overflow-hidden md:w-[20rem] md:py-5 md:p-5 relative flex flex-col gap-y-2 flex-1 md:flex-none">
-              <ChatRoom />
-            </div>
-          )}
+          <div className={`__pd_bg_gradient z-20 dark:bg-pody-dark overflow-hidden md:w-[20rem] md:py-5 md:p-5 relative flex-col gap-y-2 flex-1 md:flex-none ${isChatOpen ? "flex" : 'hidden'}`}>
+            <ChatRoom />
+          </div>
         </div>
         <ControlsMobile />
         <ParticipantMobileManage />
