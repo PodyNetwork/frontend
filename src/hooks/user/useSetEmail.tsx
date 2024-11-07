@@ -13,7 +13,6 @@ interface SetEmailArgs { email: string }
 
 
 const useSetEmail = () => {
-  const router = useRouter(); 
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
   const { startLoading, stopLoading, loading } = useLoading();
 
@@ -31,7 +30,7 @@ const useSetEmail = () => {
     mutationFn: setEmailHandler,
     onSuccess: (data) => {
       clearErrorMessage();
-      router.push(`/call/${data.data.url}`);
+      console.log(data)
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {

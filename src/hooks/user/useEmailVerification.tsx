@@ -31,7 +31,8 @@ const useEmailVerification = () => {
     mutationFn: verifyEmailHandler,
     onSuccess: (data) => {
       clearErrorMessage();
-      router.push(`/call/${data.data.url}`);
+      router.push(`/dashboard`);
+      console.log(data)
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
