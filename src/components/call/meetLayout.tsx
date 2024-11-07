@@ -34,7 +34,7 @@ const MeetLayout = () => {
             <StreamSidebar />
           </div>
           <div
-            className={`md:h-full flex flex-col __main-screen relative float-left w-full bg-red-300 ${
+            className={`md:h-full flex flex-col __main-screen relative float-left w-full ${
               !isFullscreen && (participantBarIsExpanded || isChatOpen)
                 ? "md:w-[calc(100vw-25rem)] pt-5 md:pt-5 md:py-5 px-1.5 gap-4 __pd_bg_gradient dark:bg-pody-dark"
                 : isFullscreen
