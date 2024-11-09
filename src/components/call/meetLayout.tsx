@@ -76,7 +76,7 @@ const MeetLayout = () => {
           </div>
         </div>
         {/* Mobile Controls */}
-        <ControlsMobile />
+        {/* <ControlsMobile /> */}
         <ParticipantMobileManage />
       </section>
     </ParticipanMenuProvider>

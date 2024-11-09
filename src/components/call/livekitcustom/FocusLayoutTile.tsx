@@ -1,124 +1,43 @@
-import * as React from "react";
+"use client";
+import React, { useState } from "react";
 import type { TrackReferenceOrPlaceholder } from "@livekit/components-core";
 import { ParticipantCustomTile } from "./ParticipantCustomTile";
-import { useSwipe } from "@livekit/components-react";
-import { CustomFocusLayout } from "./CustomFocusLayout";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ParticipantCustomTileNoIcon } from "./ParticipantCustomTileNoIcon";
 
-export interface EnhancedFocusLayoutProps
+export interface EnhancedGridLayoutProps
   extends React.HTMLAttributes<HTMLDivElement> {
   tracks: TrackReferenceOrPlaceholder[];
-  focusedIndex: number;
   onParticipantClick?: (index: number) => void;
 }
 
-export function EnhancedFocusLayout({
+export function EnhancedGridLayout({
   tracks,
-  focusedIndex,
   onParticipantClick,
-}: EnhancedFocusLayoutProps) {
-  const filteredTracks = tracks
-    .map((track, index) => ({ track, originalIndex: index }))
-    .filter(({ originalIndex }) => originalIndex !== focusedIndex);
+}: EnhancedGridLayoutProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const noTracksAvailable = tracks.length === 0;
 
-  const paginatedTracks = filteredTracks.map(({ track }) => track);
-
-  // Pagination logic for showing 3 items at a time
-  const itemsPerPage = 3;
-  const [currentPage, setCurrentPage] = useState(0);
-  const totalPages = Math.ceil(paginatedTracks.length / itemsPerPage);
-
-  const getCurrentPageTracks = () => {
-    const start = currentPage * itemsPerPage;
-    const end = start + itemsPerPage;
-    return paginatedTracks.slice(start, end);
-  };
-
-  const focusRef = useRef<HTMLDivElement>(null);
-
-  useSwipe(focusRef, {
-    onLeftSwipe: () => handleNext(),
-    onRightSwipe: () => handlePrev(),
-  });
-
-  const handleParticipantClick = (index: number) => {
-    const trackIndex = currentPage * itemsPerPage + index;
-    if (filteredTracks[trackIndex]) {
-      const originalIndex = filteredTracks[trackIndex].originalIndex;
-      if (onParticipantClick) {
-        onParticipantClick(originalIndex);
-      }
-    } else {
-      console.error(`Index ${index} is out of bounds for filteredTracks.`);
+  const handleParticipantClick = () => {
+    if (onParticipantClick) {
+      onParticipantClick(currentIndex);
     }
   };
 
-  const handleNext = () => {
-    if (currentPage < totalPages - 1) {
-      setCurrentPage((prev) => prev + 1);
+  const handleDragEnd = (event: any, info: { offset: { x: number } }) => {
+    const swipeThreshold = 100; // Minimum swipe distance in pixels to change participant
+    if (info.offset.x > swipeThreshold) {
+      // Swipe Right
+      setCurrentIndex((prev) => (prev === 0 ? tracks.length - 1 : prev - 1));
+    } else if (info.offset.x < -swipeThreshold) {
+      // Swipe Left
+      setCurrentIndex((prev) => (prev + 1) % tracks.length);
     }
   };
-
-  const handlePrev = () => {
-    if (currentPage > 0) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
-
-  useEffect(() => {
-    const checkFocusedTrack = () => {
-      if (!tracks[focusedIndex]) {
-        const nextAvailableIndex = tracks.findIndex(
-          (track) => track !== undefined
-        );
-        if (nextAvailableIndex !== -1) {
-          if (onParticipantClick) {
-            onParticipantClick(nextAvailableIndex);
-          }
-        }
-      }
-    };
-
-    checkFocusedTrack();
-  }, [focusedIndex, tracks, onParticipantClick]);
-
-  const hasOtherParticipants = filteredTracks.length > 0;
-  const noTracksAvailable = tracks.length === 0 || !tracks.some(Boolean);
-
-  const updateElementWidth = useCallback(() => {
-    if (focusRef.current) {
-      const containerWidth = focusRef.current.offsetWidth;
-      const newWidth = `${containerWidth / 4}px`;
-
-      document.documentElement.style.setProperty(
-        "--max-video-screen",
-        newWidth
-      );
-    }
-  }, []);
-
-  useEffect(() => {
-    updateElementWidth();
-
-    const resizeObserver = new ResizeObserver(updateElementWidth);
-
-    if (focusRef.current) {
-      resizeObserver.observe(focusRef.current);
-    }
-
-    return () => {
-      if (focusRef.current) {
-        resizeObserver.unobserve(focusRef.current);
-      }
-    };
-  }, [updateElementWidth]);
 
   if (noTracksAvailable) {
     return (
-      <div className="enhanced-focus-layout" ref={focusRef}>
+      <div className="enhanced-focus-layout">
         <div className="focused-participant-container">
           <div className="camera-off-placeholder relative overflow-hidden">
             <div className="w-full h-full absolute top-0 left-0 flex flex-col items-center justify-center">
@@ -154,67 +73,54 @@ export function EnhancedFocusLayout({
   }
 
   return (
-    <>
-      <div className="w-full __stream_vid_screen flex flex-row gap-x-2 justify-center items-center">
-        <div
-          className="h-full __video_layout_main relative flex-1 flex flex-col justify-center"
-          ref={focusRef}
-        >
-          {tracks[focusedIndex] && (
-            <CustomFocusLayout
-              trackRef={tracks[focusedIndex]}
-              onParticipantClick={() => handleParticipantClick(focusedIndex)}
+    <div className="w-full h-full relative">
+      {/* Mobile view (Swipeable) */}
+      <div className="block sm:hidden w-full h-full overflow-hidden">
+        <AnimatePresence initial={false} mode="wait">
+          <motion.div
+            key={currentIndex}
+            className="w-full h-full"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            onDragEnd={handleDragEnd}
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            <ParticipantCustomTile
+              trackRef={tracks[currentIndex]}
+              onClick={handleParticipantClick}
             />
-          )}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Dots Navigation */}
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+          {tracks.map((_, index) => (
+            <motion.div
+              key={index}
+              className={`w-2 h-2 rounded-full ${
+                index === currentIndex ? "bg-blue-500" : "bg-gray-400"
+              }`}
+              initial={{ scale: 0.8 }}
+              animate={{ scale: index === currentIndex ? 1.2 : 1 }}
+              transition={{ duration: 0.3 }}
+            />
+          ))}
         </div>
-        {hasOtherParticipants && (
-          <div className="h-full relative __carousel_width flex flex-col gap-y-2 justify-center">
-            {getCurrentPageTracks().map((trackItem, index) => (
-              <div
-                key={index}
-                className="__carousel_videoHeight w-full flex flex-col justify-center bg-slate-200 rounded-md"
-              >
-                <ParticipantCustomTileNoIcon
-                  trackRef={trackItem}
-                  onClick={() => handleParticipantClick(index)}
-                />
-              </div>
-            ))}
-
-            {/* Pagination Controls */}
-            <div className="flex items-center flex-col gap-x-2 mt-2">
-              {/* Dots Pagination */}
-              <div className="flex items-center gap-x-1">
-                {Array.from({ length: totalPages }).map((_, pageIndex) => (
-                  <span
-                    key={pageIndex}
-                    className={`w-2 h-2 rounded-full ${
-                      pageIndex === currentPage ? "bg-blue-500" : "bg-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-              <div className="flex flex-row items-center gap-x-2 text-sm mt-2">
-                <button
-                  className="bg-blue-300 px-2 py-1 rounded"
-                  onClick={handlePrev}
-                  disabled={currentPage === 0}
-                >
-                  Prev
-                </button>
-
-                <button
-                  className="bg-blue-300 px-2 py-1 rounded"
-                  onClick={handleNext}
-                  disabled={currentPage >= totalPages - 1}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
-    </>
+
+      {/* Desktop view (Grid Layout) */}
+      <div className="hidden sm:grid gap-2 sm:grid-cols-2 lg:grid-cols-2 __video_layout_main mx-auto text-center justify-center">
+        {tracks.map((track, index) => (
+          <ParticipantCustomTile
+            key={index}
+            trackRef={track}
+            onClick={() => onParticipantClick?.(index)}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

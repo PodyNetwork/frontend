@@ -1,7 +1,8 @@
 import { RoomAudioRenderer, useTracks } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import React, { useState, useMemo } from 'react';
-import { EnhancedFocusLayout } from '../livekitcustom/FocusLayoutTile';
+import { EnhancedGridLayout } from '../livekitcustom/FocusLayoutTile';
+
 
 const MyVideoConference = () => {
   const tracks = useTracks(
@@ -24,9 +25,8 @@ const MyVideoConference = () => {
   };
 
   return (
-    <EnhancedFocusLayout
+    <EnhancedGridLayout
       tracks={filteredTracks}
-      focusedIndex={focusedIndex}
       onParticipantClick={handleFocusChange}
     />
   );
