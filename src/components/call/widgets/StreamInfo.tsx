@@ -163,7 +163,7 @@ const StreamInfo = () => {
           showInfo ? "visible" : "opacity-0"
         } transition-opacity duration-300`}
       >
-        <h2 className="font-medium text-base md:text-xl text-slate-600 dark:text-slate-200 truncate">
+        <h2 className="font-semibold text-base md:text-xl text-slate-600 dark:text-slate-200 truncate">
           {call?.title}
         </h2>
         <div className="text-xs md:text-sm flex flex-row flex-wrap gap-x-2 items-center text-slate-400">

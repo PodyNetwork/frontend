@@ -52,7 +52,7 @@ const Participant = () => {
         participants={participants}
         participantBarToggle={toggleParticipantBar}
       />
-      <div className="grid grid-cols-3 xs:grid-cols-4 gap-2.5 md:mb-[20px] md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list">
+      <div className="grid grid-cols-3 xs:grid-cols-4 gap-3 md:mb-[20px] md:gap-0 md:flex flex-row flex-wrap md:flex-col relative __participant_list">
         {participants.map((participant, index) => {
           const { identity, permissions } = participant;
           const profileScan = users.find((user) => user.username === identity);

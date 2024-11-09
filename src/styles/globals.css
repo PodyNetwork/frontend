@@ -1022,6 +1022,11 @@ body {
 .__video_layout_main{
     max-width: var(--max-video-width, 100%);
 }
+@media (max-width: 767px) {
+    .__video_layout_main{
+        max-width: 60vh;
+    }
+}
 .__stream_vid_screen{
     height: var(--max-video-height);
     position: relative;
@@ -1042,4 +1047,9 @@ body {
 }
 .__carousel_vid_rad .lk-participant-media-video {
     border-radius: 0 !important;
+}
+@media (max-width: 400px) {
+    .__chat_full{
+        @apply w-full max-w-full;
+    }
 }

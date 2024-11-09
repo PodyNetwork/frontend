@@ -66,22 +66,26 @@ export default function ChatTile({
 
   React.useEffect(() => {
     if (!layoutContext || chatMessages.length === 0) return;
-  
+
     const unreadCount = chatMessages.reduce((count, msg) => {
       const participantId = msg?.from?.identity;
       const isCurrentUser = participantId === profile?.username;
-  
-      // Only play notification for messages not sent by the current user
-      if (participantId && !isCurrentUser && !notifiedParticipants.current.has(participantId)) {
+
+      if (
+        participantId &&
+        !isCurrentUser &&
+        !notifiedParticipants.current.has(participantId)
+      ) {
         playNotificationSound();
         notifiedParticipants.current.add(participantId);
       }
-  
+
       return msg.timestamp > lastReadMsgAt.current ? count + 1 : count;
     }, 0);
-  
+
     if (isChatOpen) {
-      lastReadMsgAt.current = chatMessages[chatMessages.length - 1]?.timestamp || 0;
+      lastReadMsgAt.current =
+        chatMessages[chatMessages.length - 1]?.timestamp || 0;
       unreadMessageCount.current = 0;
     } else {
       if (
@@ -95,11 +99,22 @@ export default function ChatTile({
       }
       unreadMessageCount.current = unreadCount;
     }
-  }, [chatMessages, isChatOpen, layoutContext, playNotificationSound, profile?.username]);
-  
+  }, [
+    chatMessages,
+    isChatOpen,
+    layoutContext,
+    playNotificationSound,
+    profile?.username,
+  ]);
 
   const gifts = [
-    { id: "1", name: "PodyToken", icon: "/icon/Pody.jpg", price: 1, isAvailable: true, },
+    {
+      id: "1",
+      name: "PodyToken",
+      icon: "/icon/Pody.jpg",
+      price: 1,
+      isAvailable: true,
+    },
     {
       id: "2",
       name: "EDUCHAIN",
@@ -107,7 +122,7 @@ export default function ChatTile({
       price: 5,
       isHot: true,
       isAvailable: false,
-    }
+    },
   ];
 
   const handleGiftSend = (gift: any) => {
@@ -116,10 +131,8 @@ export default function ChatTile({
 
   return (
     <div
-      className={`fixed bottom-0 right-0 z-50 w-full md:w-[20rem] h-[55vh] md:h-screen overflow-y-auto bg-white dark:bg-slate-800 __shadow_pody transition-all duration-300 ease-in-out ${
-        isChatOpen
-          ? "translate-y-0"
-          : "translate-y-full"
+      className={`fixed bottom-0 right-0 z-50 w-[20rem] __chat_full h-screen overflow-y-auto bg-white dark:bg-slate-800 __shadow_pody transition-all duration-300 ease-in-out ${
+        isChatOpen ? "translate-y-0" : "translate-y-full"
       }`}
       {...props}
     >
@@ -173,7 +186,11 @@ export default function ChatTile({
                         />
                       </div>
                     )}
-                    <div className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"}`}>
+                    <div
+                      className={`flex flex-col ${
+                        isCurrentUser ? "items-end" : "items-start"
+                      }`}
+                    >
                       <div
                         className={`rounded-lg relative p-2.5 md:p-2 ${
                           isCurrentUser
