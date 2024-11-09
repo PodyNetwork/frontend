@@ -3,17 +3,7 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { useQuery } from '@tanstack/react-query';
 import { BaseResponse } from '@/types/globals';
-
-interface Profile {
-  id: string;
-  username: string;
-  walletAddress: string;
-  email?: string
-}
-
-interface ProfileResponse extends BaseResponse {
-  data: Profile;
-}
+import type { ProfileResponse } from '@/types/profile';
 
 const useProfile = () => {
   const fetchProfile = useCallback(async (): Promise<ProfileResponse> => {
@@ -25,6 +15,7 @@ const useProfile = () => {
     data,
     isLoading,
     isError,
+    isFetched,
     refetch
   } = useQuery({
     queryKey: ['profile'],
@@ -34,6 +25,7 @@ const useProfile = () => {
 
   return { 
     profile: data?.data, 
+    isFetched,
     isLoading, 
     isError, 
     refetch 

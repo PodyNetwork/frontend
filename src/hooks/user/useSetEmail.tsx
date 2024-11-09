@@ -15,6 +15,7 @@ interface SetEmailArgs { email: string }
 const useSetEmail = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
   const { startLoading, stopLoading, loading } = useLoading();
+  const router = useRouter()
 
   const setEmailHandler = useCallback(async (args: SetEmailArgs): Promise<CallResponse> => {
     startLoading();
@@ -28,9 +29,9 @@ const useSetEmail = () => {
 
   const setEmail = useMutation({
     mutationFn: setEmailHandler,
-    onSuccess: (data) => {
+    onSuccess: () => {
       clearErrorMessage();
-      console.log(data)
+      router.push('/email/verify')
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
