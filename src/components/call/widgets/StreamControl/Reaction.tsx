@@ -28,7 +28,6 @@ const Reaction = () => {
     const reaction: ReactionType = JSON.parse(new TextDecoder().decode(msg.payload));
     setReactions((prev) => [...prev, reaction]);
 
-    // Remove the reaction after 1.5 seconds
     setTimeout(() => {
       setReactions((prev) => prev.filter((r) => r.id !== reaction.id));
     }, 1500);
@@ -41,7 +40,7 @@ const Reaction = () => {
       const newReaction: ReactionType = {
         id: crypto.randomUUID(), 
         emoji,
-        offset: { x: 0, y: -30 }, // Fixed offset above the popover
+        offset: { x: 0, y: -30 }, 
       };
 
       send(new TextEncoder().encode(JSON.stringify(newReaction)), {});

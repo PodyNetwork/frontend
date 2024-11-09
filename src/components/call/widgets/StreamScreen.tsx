@@ -5,6 +5,7 @@ import "@livekit/components-styles";
 import StreamVideo from "./StreamVideo";
 import StreamInfo from "./StreamInfo";
 import { useFullscreen } from "../utils/FullscreenContext";
+import GiftAnimationPage from "./Gift/GiftAnimation";
 
 const StreamScreen = () => {
   const infoRef = useRef<HTMLDivElement>(null);
@@ -52,11 +53,14 @@ const StreamScreen = () => {
 
   return (
     <>
-      <div ref={infoRef} className="md:py-5">
+      <div ref={infoRef} className="md:py-5 py-4">
         <StreamInfo />
       </div>
       <StreamVideo />
       <div ref={controlsRef} className="md:py-4">
+        <div className="relative mx-auto">
+          <GiftAnimationPage />
+        </div>
         <Controls />
       </div>
     </>

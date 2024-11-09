@@ -10,6 +10,7 @@ import ParticipantMobileManage from "./widgets/ParticipantManageMobile";
 import { ParticipanMenuProvider } from "./utils/ParticipantMenuContext";
 import { useFullscreen } from "./utils/FullscreenContext";
 import { useParticipantBar } from "./utils/ParticipantBarContext";
+import { GiftAnimationProvider } from "./utils/GiftanimationContext";
 
 const MeetLayout = () => {
   const { isFullscreen, exitFullscreen } = useFullscreen();
@@ -30,8 +31,8 @@ const MeetLayout = () => {
     isFullscreen
       ? "w-full h-full bg-black"
       : participantBarIsExpanded || isChatOpen
-      ? "md:w-[calc(100vw-25rem)] px-5 __pd_bg_gradient dark:bg-pody-dark"
-      : "md:w-[calc(100vw-9rem)] px-5 __pd_bg_gradient dark:bg-pody-dark"
+      ? "md:w-[calc(100vw-25rem)] px-1.5 md:px-5 __pd_bg_gradient dark:bg-pody-dark"
+      : "md:w-[calc(100vw-9rem)] px-1.5 md:px-5 __pd_bg_gradient dark:bg-pody-dark"
   }`;
 
   const participantPanelClasses = `__pd_bg_gradient z-20 dark:bg-pody-dark p-1.5 pt-6 w-full flex flex-col gap-y-2 flex-1 md:flex-none ${
@@ -48,37 +49,39 @@ const MeetLayout = () => {
 
   return (
     <ParticipanMenuProvider>
-      <section className="w-full flex flex-col bg-white dark:bg-[#111114]">
-        <div className="flex flex-col md:flex-row gap-x-2 h-screen max-h-screen md:justify-between relative">
-          {/* Sidebar */}
-          <div
-            className={`w-16 max-w-16 py-5 __pd_bg_gradient dark:bg-pody-dark h-full ${sidebarClasses}`}
-          >
-            <StreamSidebar />
-          </div>
-          {/* Main Stream Screen */}
-          <div className={mainScreenClasses}>
-            <StreamScreen />
-          </div>
-          {/* Participant Panel */}
-          {!isChatOpen && (
-            <div className={participantPanelClasses}>
-              <Participant />
+      <GiftAnimationProvider>
+        <section className="w-full flex flex-col bg-white dark:bg-[#111114]">
+          <div className="flex flex-col md:flex-row gap-x-2 h-screen max-h-screen md:justify-between relative">
+            {/* Sidebar */}
+            <div
+              className={`w-16 max-w-16 py-5 __pd_bg_gradient dark:bg-pody-dark h-full ${sidebarClasses}`}
+            >
+              <StreamSidebar />
             </div>
-          )}
-          {/* Chat Room */}
-          <div
-            className={`__pd_bg_gradient z-20 dark:bg-pody-dark overflow-hidden md:w-[20rem] md:py-5 md:p-5 relative flex-col gap-y-2 flex-1 md:flex-none ${
-              isChatOpen ? "flex" : "hidden"
-            }`}
-          >
-            <ChatRoom />
+            {/* Main Stream Screen */}
+            <div className={mainScreenClasses}>
+              <StreamScreen />
+            </div>
+            {/* Participant Panel */}
+            {!isChatOpen && (
+              <div className={participantPanelClasses}>
+                <Participant />
+              </div>
+            )}
+            {/* Chat Room */}
+            <div
+              className={`__pd_bg_gradient z-40 dark:bg-pody-dark overflow-hidden md:w-[20rem] md:py-5 md:p-5 relative flex-col gap-y-2 flex-1 md:flex-none ${
+                isChatOpen ? "flex" : "hidden"
+              }`}
+            >
+              <ChatRoom />
+            </div>
           </div>
-        </div>
-        {/* Mobile Controls */}
-        {/* <ControlsMobile /> */}
-        <ParticipantMobileManage />
-      </section>
+          {/* Mobile Controls */}
+          <ControlsMobile />
+          <ParticipantMobileManage />
+        </section>
+      </GiftAnimationProvider>
     </ParticipanMenuProvider>
   );
 };
