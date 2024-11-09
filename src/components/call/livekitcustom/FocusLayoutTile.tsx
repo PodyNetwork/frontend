@@ -26,7 +26,6 @@ export function EnhancedFocusLayout({
 
   const paginatedTracks = filteredTracks.map(({ track }) => track);
 
-  // Pagination logic for showing 3 items at a time
   const itemsPerPage = 3;
   const [currentPage, setCurrentPage] = useState(0);
   const totalPages = Math.ceil(paginatedTracks.length / itemsPerPage);
@@ -88,34 +87,6 @@ export function EnhancedFocusLayout({
   const hasOtherParticipants = filteredTracks.length > 0;
   const noTracksAvailable = tracks.length === 0 || !tracks.some(Boolean);
 
-  const updateElementWidth = useCallback(() => {
-    if (focusRef.current) {
-      const containerWidth = focusRef.current.offsetWidth;
-      const newWidth = `${containerWidth / 4}px`;
-
-      document.documentElement.style.setProperty(
-        "--max-video-screen",
-        newWidth
-      );
-    }
-  }, []);
-
-  useEffect(() => {
-    updateElementWidth();
-
-    const resizeObserver = new ResizeObserver(updateElementWidth);
-
-    if (focusRef.current) {
-      resizeObserver.observe(focusRef.current);
-    }
-
-    return () => {
-      if (focusRef.current) {
-        resizeObserver.unobserve(focusRef.current);
-      }
-    };
-  }, [updateElementWidth]);
-
   if (noTracksAvailable) {
     return (
       <div className="enhanced-focus-layout" ref={focusRef}>
@@ -168,7 +139,7 @@ export function EnhancedFocusLayout({
           )}
         </div>
         {hasOtherParticipants && (
-          <div className="h-full relative __carousel_width flex flex-col gap-y-2 justify-center">
+          <div className="h-full relative w-[230px] flex flex-col gap-y-2 justify-center">
             {getCurrentPageTracks().map((trackItem, index) => (
               <div
                 key={index}
@@ -182,36 +153,37 @@ export function EnhancedFocusLayout({
             ))}
 
             {/* Pagination Controls */}
-            <div className="flex items-center flex-col gap-x-2 mt-2">
-              {/* Dots Pagination */}
-              <div className="flex items-center gap-x-1">
-                {Array.from({ length: totalPages }).map((_, pageIndex) => (
-                  <span
-                    key={pageIndex}
-                    className={`w-2 h-2 rounded-full ${
-                      pageIndex === currentPage ? "bg-blue-500" : "bg-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-              <div className="flex flex-row items-center gap-x-2 text-sm mt-2">
-                <button
-                  className="bg-blue-300 px-2 py-1 rounded"
-                  onClick={handlePrev}
-                  disabled={currentPage === 0}
-                >
-                  Prev
-                </button>
+            {totalPages > 1 && (
+              <div className="flex items-center flex-col gap-x-2 mt-2">
+                <div className="flex items-center gap-x-1">
+                  {Array.from({ length: totalPages }).map((_, pageIndex) => (
+                    <span
+                      key={pageIndex}
+                      className={`w-2 h-2 rounded-full ${
+                        pageIndex === currentPage ? "bg-blue-500" : "bg-gray-300"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <div className="flex flex-row items-center gap-x-2 text-sm mt-2">
+                  <button
+                    className="bg-blue-300 px-2 py-1 rounded"
+                    onClick={handlePrev}
+                    disabled={currentPage === 0}
+                  >
+                    Prev
+                  </button>
 
-                <button
-                  className="bg-blue-300 px-2 py-1 rounded"
-                  onClick={handleNext}
-                  disabled={currentPage >= totalPages - 1}
-                >
-                  Next
-                </button>
+                  <button
+                    className="bg-blue-300 px-2 py-1 rounded"
+                    onClick={handleNext}
+                    disabled={currentPage >= totalPages - 1}
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>
