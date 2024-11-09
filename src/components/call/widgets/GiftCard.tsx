@@ -108,7 +108,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts, onGiftSend }) => {
       const giftData = {
         participantId: selectedParticipant,
         giftId: selectedGift,
-        amount: Number(amountInWei),
+        amount: amount,
       };
   
       setAnimationData(giftData); 
