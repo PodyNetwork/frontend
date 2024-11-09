@@ -1,9 +1,9 @@
 import * as React from "react";
 import type { TrackReferenceOrPlaceholder } from "@livekit/components-core";
 import { ParticipantCustomTile } from "./ParticipantCustomTile";
-import { useSwipe, usePagination } from "@livekit/components-react";
+import { useSwipe } from "@livekit/components-react";
 import { CustomFocusLayout } from "./CustomFocusLayout";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ParticipantCustomTileNoIcon } from "./ParticipantCustomTileNoIcon";
@@ -25,22 +25,46 @@ export function EnhancedFocusLayout({
     .filter(({ originalIndex }) => originalIndex !== focusedIndex);
 
   const paginatedTracks = filteredTracks.map(({ track }) => track);
-  const pagination = usePagination(paginatedTracks.length, paginatedTracks);
+
+  // Pagination logic for showing 3 items at a time
+  const itemsPerPage = 3;
+  const [currentPage, setCurrentPage] = useState(0);
+  const totalPages = Math.ceil(paginatedTracks.length / itemsPerPage);
+
+  const getCurrentPageTracks = () => {
+    const start = currentPage * itemsPerPage;
+    const end = start + itemsPerPage;
+    return paginatedTracks.slice(start, end);
+  };
+
   const focusRef = useRef<HTMLDivElement>(null);
 
   useSwipe(focusRef, {
-    onLeftSwipe: pagination.nextPage,
-    onRightSwipe: pagination.prevPage,
+    onLeftSwipe: () => handleNext(),
+    onRightSwipe: () => handlePrev(),
   });
 
   const handleParticipantClick = (index: number) => {
-    if (filteredTracks[index]) {
-      const originalIndex = filteredTracks[index].originalIndex;
+    const trackIndex = currentPage * itemsPerPage + index;
+    if (filteredTracks[trackIndex]) {
+      const originalIndex = filteredTracks[trackIndex].originalIndex;
       if (onParticipantClick) {
         onParticipantClick(originalIndex);
       }
     } else {
       console.error(`Index ${index} is out of bounds for filteredTracks.`);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 0) {
+      setCurrentPage((prev) => prev - 1);
     }
   };
 
@@ -63,37 +87,34 @@ export function EnhancedFocusLayout({
 
   const hasOtherParticipants = filteredTracks.length > 0;
   const noTracksAvailable = tracks.length === 0 || !tracks.some(Boolean);
-  const [isOpen, setIsOpen] = useState(false);
-  const [timer, setTimer] = useState<number | null>(null); // Set initial type here
 
-  const toggleSidebar = () => {
-    setIsOpen((prev) => !prev);
-    if (!isOpen) {
-      clearTimeout(timer!);
+  const updateElementWidth = useCallback(() => {
+    if (focusRef.current) {
+      const containerWidth = focusRef.current.offsetWidth;
+      const newWidth = `${containerWidth / 4}px`;
+
+      document.documentElement.style.setProperty(
+        "--max-video-screen",
+        newWidth
+      );
     }
-  };
-
-  const handleMouseEnter = () => {
-    if (timer) {
-      clearTimeout(timer);
-      setTimer(null); 
-    }
-  };
-
-  const handleMouseLeave = () => {
-    const newTimer = window.setTimeout(() => {
-      setIsOpen(false);
-    }, 3000); 
-    setTimer(newTimer); 
-  };
+  }, []);
 
   useEffect(() => {
+    updateElementWidth();
+
+    const resizeObserver = new ResizeObserver(updateElementWidth);
+
+    if (focusRef.current) {
+      resizeObserver.observe(focusRef.current);
+    }
+
     return () => {
-      if (timer) {
-        clearTimeout(timer);
+      if (focusRef.current) {
+        resizeObserver.unobserve(focusRef.current);
       }
     };
-  }, [timer]);
+  }, [updateElementWidth]);
 
   if (noTracksAvailable) {
     return (
@@ -134,52 +155,66 @@ export function EnhancedFocusLayout({
 
   return (
     <>
-      <div className="enhanced-focus-layout" ref={focusRef}>
-      <div className="focused-participant-container">
-        {tracks[focusedIndex] && (
-          <CustomFocusLayout
-            trackRef={tracks[focusedIndex]}
-            onParticipantClick={() => handleParticipantClick(focusedIndex)}
-          />
-        )}
-      </div>
-    </div>
-    {hasOtherParticipants && (
-      <div>
+      <div className="w-full __stream_vid_screen flex flex-row gap-x-2 justify-center items-center">
         <div
-          className={`absolute top-0 bg-slate-50 dark:bg-slate-800 h-screen max-h-screen z-50 left-0 py-5 flex flex-col gap-y-2 __shadow_pody transition-all duration-300 ease-in-out ${isOpen ? 'min-w-44 max-w-44 px-2' : 'w-0'}`}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          className="h-full __video_layout_main relative flex-1 flex flex-col justify-center"
+          ref={focusRef}
         >
-          <div className="absolute h-full right-0 top-0 flex justify-end items-center">
-            <button
-              className="w-7 h-7 rounded-sm bg-pody-secondary flex flex-col items-center justify-center relative z-50 left-8"
-              onClick={toggleSidebar}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 text-slate-200"
-                fill="currentColor"
-                viewBox="0 0 24 24"
+          {tracks[focusedIndex] && (
+            <CustomFocusLayout
+              trackRef={tracks[focusedIndex]}
+              onParticipantClick={() => handleParticipantClick(focusedIndex)}
+            />
+          )}
+        </div>
+        {hasOtherParticipants && (
+          <div className="h-full relative __carousel_width flex flex-col gap-y-2 justify-center">
+            {getCurrentPageTracks().map((trackItem, index) => (
+              <div
+                key={index}
+                className="__carousel_videoHeight w-full flex flex-col justify-center bg-slate-200 rounded-md"
               >
-                {isOpen ? (<path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>) : (<path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>)}
-              </svg>
-            </button>
-          </div>
-          {isOpen && (
-            <div className="participant-carousel h-full overflow-y-auto">
-              {pagination.tracks.map((trackItem, index) => (
                 <ParticipantCustomTileNoIcon
-                  key={index}
                   trackRef={trackItem}
                   onClick={() => handleParticipantClick(index)}
                 />
-              ))}
+              </div>
+            ))}
+
+            {/* Pagination Controls */}
+            <div className="flex items-center flex-col gap-x-2 mt-2">
+              {/* Dots Pagination */}
+              <div className="flex items-center gap-x-1">
+                {Array.from({ length: totalPages }).map((_, pageIndex) => (
+                  <span
+                    key={pageIndex}
+                    className={`w-2 h-2 rounded-full ${
+                      pageIndex === currentPage ? "bg-blue-500" : "bg-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="flex flex-row items-center gap-x-2 text-sm mt-2">
+                <button
+                  className="bg-blue-300 px-2 py-1 rounded"
+                  onClick={handlePrev}
+                  disabled={currentPage === 0}
+                >
+                  Prev
+                </button>
+
+                <button
+                  className="bg-blue-300 px-2 py-1 rounded"
+                  onClick={handleNext}
+                  disabled={currentPage >= totalPages - 1}
+                >
+                  Next
+                </button>
+              </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-    )}
     </>
   );
 }
