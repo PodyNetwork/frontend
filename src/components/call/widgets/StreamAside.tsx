@@ -7,7 +7,8 @@ import { useChatContext } from "../utils/ChatContext";
 import { useGiftMenu } from "../utils/GiftMenuContext";
 
 const StreamAside = () => {
-  const { isParticipantBarVisible, participantBarIsExpanded } = useParticipantBar();
+  const { isParticipantBarVisible, participantBarIsExpanded } =
+    useParticipantBar();
   const { isChatOpen } = useChatContext();
   const { isGiftOpen } = useGiftMenu();
 
@@ -15,8 +16,11 @@ const StreamAside = () => {
 
   return (
     <div
-      className={`__pd_bg_gradient z-40 dark:bg-pody-dark h-full relative flex-col gap-y-2 flex-1 md:flex-none flex ${participantBarIsExpanded || isChatOpen || isGiftOpen
-        ? "md:w-[20rem]": "md:w-16"}`}
+      className={`__pd_bg_gradient z-40 dark:bg-pody-dark h-full relative flex-col gap-y-2 flex-1 md:flex-none flex ${
+        participantBarIsExpanded || isChatOpen || isGiftOpen
+          ? "md:w-[20rem]"
+          : "md:w-16"
+      }`}
     >
       {/* Participant Panel */}
       {isParticipantBarVisible && (
@@ -25,7 +29,9 @@ const StreamAside = () => {
         </div>
       )}
       {/* Chat Room */}
-      {isChatOpen && <ChatRoom />}
+      <div className={`absolute top-0 w-full h-full ${isChatOpen ? "translate-y-0" : "translate-y-full"}`}>
+        <ChatRoom />
+      </div>
       {/* Gift Tile */}
       {isGiftOpen && <GiftTile />}
     </div>
