@@ -5,9 +5,11 @@ import type { MessageFormatter } from "@livekit/components-react";
 import { useChat } from "@livekit/components-react";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import GiftUI from "../widgets/GiftCard";
-import { useGiftMenu } from "../utils/GiftMenuContext";
 import useProfile from "@/hooks/user/useProfile";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useUnreadMessageContext } from "../utils/unreadMessageCount";
 import { useChatContext } from "../utils/ChatContext";
+import { useGiftMenu } from "../utils/GiftMenuContext";
 
 export interface ChatProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -25,7 +27,7 @@ export default function ChatTile({
   const inputRef = React.useRef<HTMLInputElement>(null);
   const ulRef = React.useRef<HTMLUListElement>(null);
   const lastReadMsgAt = React.useRef<ChatMessage["timestamp"]>(0);
-  const unreadMessageCount = React.useRef(0);
+  // const unreadMessageCount = React.useRef(0);
   const notifiedParticipants = React.useRef(new Set<string>());
 
   const chatOptions = React.useMemo(
@@ -39,6 +41,9 @@ export default function ChatTile({
   const { isGiftOpen, openGiftMenu } = useGiftMenu();
 
   const { profile } = useProfile();
+
+  const { unreadMessageCount, setUnreadMessageCount } =
+    useUnreadMessageContext(); // Access context
 
   const playNotificationSound = React.useCallback(() => {
     const audio = new Audio("/audio/podynotif.mp3");
@@ -60,11 +65,11 @@ export default function ChatTile({
     [send]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     ulRef.current?.scrollTo({ top: ulRef.current.scrollHeight });
   }, [chatMessages]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!layoutContext || chatMessages.length === 0) return;
 
     const unreadCount = chatMessages.reduce((count, msg) => {
@@ -86,18 +91,9 @@ export default function ChatTile({
     if (isChatOpen) {
       lastReadMsgAt.current =
         chatMessages[chatMessages.length - 1]?.timestamp || 0;
-      unreadMessageCount.current = 0;
+      setUnreadMessageCount(0);
     } else {
-      if (
-        unreadCount > 0 &&
-        layoutContext.widget.state?.unreadMessages !== unreadCount
-      ) {
-        layoutContext.widget.dispatch?.({
-          msg: "unread_msg",
-          count: unreadCount,
-        });
-      }
-      unreadMessageCount.current = unreadCount;
+      setUnreadMessageCount(unreadCount);
     }
   }, [
     chatMessages,
@@ -105,59 +101,63 @@ export default function ChatTile({
     layoutContext,
     playNotificationSound,
     profile?.username,
+    setUnreadMessageCount,
   ]);
+  const chatHeader = useRef<HTMLDivElement>(null);
+  const chatInput = useRef<HTMLDivElement>(null);
 
-  const gifts = [
-    {
-      id: "1",
-      name: "PodyToken",
-      icon: "/icon/Pody.jpg",
-      price: 1,
-      isAvailable: true,
-    },
-    {
-      id: "2",
-      name: "EDUCHAIN",
-      icon: "/icon/educhain.png",
-      price: 5,
-      isHot: true,
-      isAvailable: false,
-    },
-  ];
+  const calculateHeights = useCallback(() => {
+    if (chatHeader.current && chatInput.current) {
+      const chatHeaderHeight = chatHeader.current.offsetHeight;
+      const chatInputHeight = chatInput.current.offsetHeight;
 
-  const handleGiftSend = (gift: any) => {
-    console.log("Gift sent:", gift);
-  };
+      const totalHeaderInputHeight = chatHeaderHeight + chatInputHeight;
+      const availableHeight = window.innerHeight - totalHeaderInputHeight;
+
+      document.documentElement.style.setProperty(
+        "--max-available-chat-height",
+        `${availableHeight}px`
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    calculateHeights();
+
+    const handleResize = () => {
+      calculateHeights();
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [calculateHeights]);
 
   return (
     <div
-      className={`fixed bottom-0 right-0 z-50 w-[20rem] __chat_full h-screen overflow-y-auto bg-white dark:bg-slate-800 __shadow_pody transition-all duration-300 ease-in-out ${
-        isChatOpen ? "translate-y-0" : "translate-y-full"
-      }`}
+      className={`z-50 w-full relative __chat_full h-full bg-white dark:bg-slate-800 __shadow_pody transition-all duration-300 ease-in-out`}
       {...props}
     >
       <div className="flex flex-col h-full">
         <div
-          className="px-4 py-3 border-b dark:border-slate-700 cursor-pointer"
+          className="px-4 py-4 border-b dark:border-slate-700 cursor-pointer"
           onClick={toggleChat}
+          ref={chatHeader}
         >
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-x-2">
               <h2 className="font-semibold text-base md:text-sm text-slate-800 dark:text-white">
                 Chat
               </h2>
-              {!isChatOpen && unreadMessageCount.current > 0 && (
-                <p className="bg-red-500 w-5 h-5 flex items-center justify-center text-slate-300 rounded-full text-xs">
-                  {unreadMessageCount.current}
-                </p>
-              )}
             </div>
             <ChevronIcon isOpen={isChatOpen} />
           </div>
         </div>
-        <div className={`flex-col h-full ${isGiftOpen ? "hidden" : "flex"}`}>
+        <div className="flex-col __chat_max_height flex flex-1">
           <ul
-            className="flex-grow overflow-y-auto px-4 py-3 flex flex-col"
+            className="flex-grow overflow-y-auto px-4 pt-2 flex flex-col"
             ref={ulRef}
           >
             {chatMessages.map((msg, idx, allMsg) => {
@@ -187,7 +187,7 @@ export default function ChatTile({
                       </div>
                     )}
                     <div
-                      className={`flex flex-col ${
+                      className={`flex flex-col w-10/12 break-words ${
                         isCurrentUser ? "items-end" : "items-start"
                       }`}
                     >
@@ -198,22 +198,25 @@ export default function ChatTile({
                             : "bg-[#f8fafd] text-left text-slate-700"
                         }`}
                         style={{
-                          width: "fit-content",
+                          width: "fit-content", // Keeps the width based on content size
+                          maxWidth: "100%",
                         }}
                       >
                         <p className="text-sm md:text-xs">{msg.message}</p>
                       </div>
-                      <div className="w-full flex flow-row gap-x-2">
-                        {!isCurrentUser && isLastFromSender && (
-                          <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-                            <h3>{msg.from?.name ?? msg.from?.identity}</h3>
-                          </div>
-                        )}
-                        {showTimestamp && (
-                          <div className="text-xs text-slate-600 dark:text-slate-300 mt-1">
-                            <span className="opacity-75">{time}</span>
-                          </div>
-                        )}
+                      <div className="block">
+                        <div className="w-full flex flow-row gap-x-2">
+                          {!isCurrentUser && isLastFromSender && (
+                            <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">
+                              <h3>{msg.from?.name ?? msg.from?.identity}</h3>
+                            </div>
+                          )}
+                          {showTimestamp && (
+                            <div className="text-xs text-slate-600 dark:text-slate-300 mt-1">
+                              <span className="opacity-75">{time}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                     {isCurrentUser && (
@@ -228,14 +231,18 @@ export default function ChatTile({
               );
             })}
           </ul>
-
-          <div className="px-2.5 py-3 border-t dark:border-slate-700 flex flex-row items-center gap-x-2">
+        </div>
+        <div className="relative w-full max-w-full">
+          <div
+            className="px-2.5 py-3 w-full max-w-full bg-white/10 border-t dark:border-slate-700 flex flex-row items-center gap-x-2"
+            ref={chatInput}
+          >
             <form onSubmit={handleSubmit} className="relative flex-1">
               <div className="flex items-center">
                 <input
                   type="text"
                   placeholder="Type a message..."
-                  className="w-full px-3 py-2 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white outline-none text-sm pr-10"
+                  className="w-full px-3 h-10 py-2 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white outline-none text-sm pr-10"
                   disabled={isSending}
                   ref={inputRef}
                 />
@@ -247,11 +254,6 @@ export default function ChatTile({
             </div>
           </div>
         </div>
-        {isChatOpen && isGiftOpen && (
-          <div className="px-4">
-            <GiftUI gifts={gifts} onGiftSend={handleGiftSend} />
-          </div>
-        )}
       </div>
     </div>
   );

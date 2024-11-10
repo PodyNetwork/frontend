@@ -18,7 +18,7 @@ interface Participant {
     participantBarToggle,
   }: HeaderParticipantProps) => (
     <div
-      className={`hidden md:flex flex-row justify-between mb-3.5 text-slate-600 dark:text-slate-400 ${
+      className={`hidden md:flex flex-row px-4 py-4 justify-between mb-3.5 text-slate-600 dark:text-slate-400 border-b dark:border-slate-700 ${
         !enabled && "md:justify-center"
       }`}
     >

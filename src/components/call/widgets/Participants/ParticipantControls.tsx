@@ -40,7 +40,6 @@ export const ParticipantControls: React.FC<ParticipantControlsProps> = ({
   participantBarToggleExpanded,
   role,
 }) => {
-  // Access the first audio track publication (this could be a remote track)
   return (
     <div
       className={`hidden md:flex flex-row items-center gap-x-2.5 ${

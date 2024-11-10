@@ -1,7 +1,9 @@
 "use client"; // Enable client-side rendering
 import MeetLayout from "@/components/call/meetLayout";
+import { ActiveMenuProvider } from "@/components/call/utils/ActiveMenuContext";
 import { ChatContextProvider } from "@/components/call/utils/ChatContext";
 import { FullscreenProvider } from "@/components/call/utils/FullscreenContext";
+import { GiftMenuProvider } from "@/components/call/utils/GiftMenuContext";
 import { ParticipantBarProvider } from "@/components/call/utils/ParticipantBarContext";
 import Head from "next/head";
 
@@ -45,11 +47,15 @@ const Call = () => {
         aria-label="Meeting"
       >
         <FullscreenProvider>
-          <ParticipantBarProvider>
-            <ChatContextProvider>
-              <MeetLayout />
-            </ChatContextProvider>
-          </ParticipantBarProvider>
+          <ActiveMenuProvider>
+            <ParticipantBarProvider>
+              <ChatContextProvider>
+                <GiftMenuProvider>
+                  <MeetLayout />
+                </GiftMenuProvider>
+              </ChatContextProvider>
+            </ParticipantBarProvider>
+          </ActiveMenuProvider>
         </FullscreenProvider>
       </main>
     </>

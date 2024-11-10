@@ -307,7 +307,6 @@ body {
     }
 }
 
-
 .__participant_message_container {
     overflow-y: auto;
 }
@@ -315,7 +314,6 @@ body {
 .__shadow_pody {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-
 
 .__dashheader_icon_info>li {
     position: relative;
@@ -1052,4 +1050,12 @@ body {
     .__chat_full{
         @apply w-full max-w-full;
     }
+}
+.__chat_max_height{
+    height: var(--max-available-chat-height);
+    max-height: var(--max-available-chat-height);
+}
+.__gift_height_max{
+    height: var(--max-available-giftCard-height);
+    max-height: var(--max-available-giftCard-height);
 }

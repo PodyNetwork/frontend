@@ -16,11 +16,13 @@ import { useParams } from "next/navigation";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useEffect, useState } from "react";
 import useProfile from "@/hooks/user/useProfile";
-import { useChatContext } from "../../utils/ChatContext";
 import { useCustomDisconnectButton } from "../../livekitcustom/CustomDisconnect";
 import Reaction from "./Reaction";
 import MenuExtra from "./MenuExtra";
 import { useFullscreen } from "../../utils/FullscreenContext";
+import { useUnreadMessageContext } from "../../utils/unreadMessageCount";
+import { useChatContext } from "../../utils/ChatContext";
+
 
 export type ControlBarControls = {
   microphone?: boolean;
@@ -129,9 +131,11 @@ const Controls = ({
 
   const [showControls, setShowControls] = useState(true);
 
+  const { unreadMessageCount } = useUnreadMessageContext();
+
   useEffect(() => {
     let hideTimeout: ReturnType<typeof setTimeout> | undefined;
-  
+
     const handleMouseMove = () => {
       if (isFullscreen) {
         setShowControls(true);
@@ -139,9 +143,9 @@ const Controls = ({
         hideTimeout = setTimeout(() => setShowControls(false), 3000);
       }
     };
-  
+
     document.addEventListener("mousemove", handleMouseMove);
-  
+
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       clearTimeout(hideTimeout);
@@ -151,7 +155,9 @@ const Controls = ({
   return (
     <div
       className={`hidden h-10 md:flex flex-wrap justify-center items-center gap-x-3 text-sm controls ${
-        isFullscreen ? "bottom-0 __glass-effect py-2 box-content absolute w-full" : "relative"
+        isFullscreen
+          ? "bottom-0 __glass-effect py-2 box-content absolute w-full"
+          : "relative"
       } ${
         showControls ? "visible" : "opacity-0"
       } transition-opacity duration-300`}
@@ -299,17 +305,28 @@ const Controls = ({
         </div>
       )}
       {/* chat */}
-      <div className="bg-white h-10 w-10 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5"
-          viewBox="0 -960 960 960"
-          style={{ msFilter: "" }}
-          fill="currentColor"
-          onClick={toggleChat}
+      <div className="bg-white p-1 rounded-full flex justify-center items-center gap-x-1 text-slate-400 cursor-pointer">
+        <div
+          className={`w-8 h-8 flex items-center justify-center rounded-full ${
+            unreadMessageCount > 0 ? "bg-slate-100" : "bg-transparent"
+          }`}
         >
-          <path d="M250-410h300v-60H250v60Zm0-120h460v-60H250v60Zm0-120h460v-60H250v60ZM100-118.46v-669.23Q100-818 121-839q21-21 51.31-21h615.38Q818-860 839-839q21 21 21 51.31v455.38Q860-302 839-281q-21 21-51.31 21H241.54L100-118.46ZM216-320h571.69q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-455.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H172.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v523.08L216-320Zm-56 0v-480 480Z" />
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-5 h-5"
+            viewBox="0 -960 960 960"
+            style={{ msFilter: "" }}
+            fill="currentColor"
+            onClick={toggleChat}
+          >
+            <path d="M250-410h300v-60H250v60Zm0-120h460v-60H250v60Zm0-120h460v-60H250v60ZM100-118.46v-669.23Q100-818 121-839q21-21 51.31-21h615.38Q818-860 839-839q21 21 21 51.31v455.38Q860-302 839-281q-21 21-51.31 21H241.54L100-118.46ZM216-320h571.69q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-455.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H172.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v523.08L216-320Zm-56 0v-480 480Z" />
+          </svg>
+        </div>
+        {unreadMessageCount > 0 && (
+          <p className="text-sm font-medium text-red-500 px-1">
+            {unreadMessageCount > 99 ? "99+" : unreadMessageCount}
+          </p>
+        )}
       </div>
       {/* Reaction */}
       <MenuExtra username={profile?.username || ""} />
