@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import type { TrackReferenceOrPlaceholder } from "@livekit/components-core";
 import { ParticipantCustomTile } from "./ParticipantCustomTile";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +8,10 @@ export interface EnhancedGridLayoutProps
   extends React.HTMLAttributes<HTMLDivElement> {
   tracks: TrackReferenceOrPlaceholder[];
   onParticipantClick?: (index: number) => void;
+}
+interface CustomCSSProperties extends CSSProperties {
+  '--max-video-height'?: string;
+  '--video-count'?: number;
 }
 
 export function EnhancedGridLayout({
@@ -133,20 +137,23 @@ export function EnhancedGridLayout({
 
       {/* Desktop view (Grid Layout) */}
       <div
-        className={`hidden __video_layout_main sm:grid gap-2 mx-auto text-center justify-center ${
-          currentTracks.length === 1
-            ? "grid-cols-1"
-            : "sm:grid-cols-2 lg:grid-cols-2"
-        }`}
-      >
-        {currentTracks.map((track, index) => (
-          <ParticipantCustomTile
-            key={index}
-            trackRef={track}
-            onClick={() => onParticipantClick?.(index)}
-          />
-        ))}
-      </div>
+      className={`hidden __video_layout_main sm:grid gap-2 mx-auto text-center justify-center ${
+        currentTracks.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-2'
+      }`}
+      style={
+        {
+          '--video-count': currentTracks.length,
+        } as CustomCSSProperties
+      }
+    >
+      {currentTracks.map((track, index) => (
+        <ParticipantCustomTile
+          key={index}
+          trackRef={track}
+          onClick={() => onParticipantClick?.(index)}
+        />
+      ))}
+    </div>
 
       <div className="hidden">
         {/* Pagination Buttons */}

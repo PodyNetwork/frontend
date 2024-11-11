@@ -191,7 +191,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts }) => {
   return (
     <>
       <div
-        className="px-4 py-4 border-b dark:border-slate-700 cursor-pointer"
+        className="px-4 py-4 border-b border-slate-200 dark:border-slate-800 cursor-pointer"
         ref={giftHeader}
         onClick={closeGiftMenu}
       >
@@ -217,7 +217,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts }) => {
             placeholder="Search participants..."
             value={searchQuery}
             onChange={handleSearchChange}
-            className="mb-3 text-xs w-full px-3 py-2 h-10 rounded-md outline-none bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
+            className="mb-3 text-xs w-full px-3 py-2 h-10 rounded-md outline-none bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
           />
 
           <div className="flex flex-nowrap max-w-sm relative overflow-x-auto gap-2">
@@ -247,12 +247,12 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts }) => {
             Select Gift
           </h3>
           <Select onValueChange={handleChangeToken}>
-            <SelectTrigger className="w-full mt-2 h-10 dark:border-slate-500">
+            <SelectTrigger className="w-full mt-2 h-10 dark:border-slate-500 text-slate-600 dark:text-slate-300 text-sm">
               <SelectValue placeholder="Select a Gift" />
             </SelectTrigger>
             <SelectContent className="dark:bg-slate-600 dark:border-slate-500">
               <SelectGroup>
-                <SelectLabel className="text-slate-300">Token</SelectLabel>
+                <SelectLabel className="text-slate-600 dark:text-slate-300">Token</SelectLabel>
                 {gifts.map((data: GiftItem, index: number) => (
                   <SelectItem
                     key={index}
@@ -281,7 +281,7 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts }) => {
           </Select>
         </div>
 
-        <div className="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg flex flex-col items-center text-center my-5">
+        <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg flex flex-col items-center text-center my-5">
           <SendGiftHeader
             selectedParticipant={selectedParticipant}
             participants={participants}

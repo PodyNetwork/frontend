@@ -12,24 +12,17 @@ import StreamAside from "./widgets/StreamAside";
 import { useChatContext } from "./utils/ChatContext";
 import { useGiftMenu } from "./utils/GiftMenuContext";
 import { useParticipantBar } from "./utils/ParticipantBarContext";
+import { Fullscreen } from "lucide-react";
 
 const MeetLayout = () => {
   const { isFullscreen, exitFullscreen } = useFullscreen();
 
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--radius",
-      isFullscreen ? "0" : null
-    );
-  }, [isFullscreen]);
-
   const sidebarClasses = isFullscreen ? "hidden" : "hidden md:block";
 
-  const { isParticipantBarVisible, participantBarIsExpanded } = useParticipantBar();
+  const { isParticipantBarVisible, participantBarIsExpanded } =
+    useParticipantBar();
   const { isChatOpen } = useChatContext();
   const { isGiftOpen } = useGiftMenu();
-
-  const mainScreenClasses = `md:h-full flex flex-col __main-screen __pd_bg_gradient dark:bg-pody-dark relative float-left w-full md:w-[calc(100vw-25rem)] px-1.5 md:px-5" ${participantBarIsExpanded || isChatOpen || isGiftOpen ? "md:w-[calc(100vw-25rem)]": "md:w-[calc(100vw-9rem)]"}`;
 
   return (
     <UnreadMessageProvider>
@@ -44,13 +37,19 @@ const MeetLayout = () => {
                 <StreamSidebar />
               </div>
               {/* Main Stream Screen */}
-              <div className={mainScreenClasses}>
+              <div
+                className={`md:h-full flex flex-col __main-screen relative float-left w-full px-1.5 md:px-5" ${isFullscreen ? "bg-[#202124]" : "__pd_bg_gradient dark:bg-pody-dark"} ${
+                  (participantBarIsExpanded || isChatOpen || isGiftOpen) && !isFullscreen
+                    ? "md:w-[calc(100vw-25rem)]"
+                    : isFullscreen 
+                    ? "md:w-full px-5"
+                    : "md:w-[calc(100vw-9rem)]"
+                }`}
+              >
                 <StreamScreen />
               </div>
               {/* stream aside */}
-              <div>
-                <StreamAside />
-              </div>
+              <StreamAside />
             </div>
             <ControlsMobile />
             <ParticipantMobileManage />

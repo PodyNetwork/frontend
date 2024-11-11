@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useActiveMenu } from './ActiveMenuContext';
+import { useFullscreen } from './FullscreenContext';
 
 interface ParticipantBarContextType {
   participantBarIsExpanded: boolean;
@@ -15,6 +16,8 @@ const ParticipantBarProvider: React.FC<{ children: ReactNode }> = ({ children })
   const { activeMenu, setActiveMenu } = useActiveMenu(); 
   const [participantBarIsExpanded, setParticipantBarIsExpanded] = useState(false);
   const [isParticipantBarVisible, setIsParticipantBarVisible] = useState(true);
+
+  const { isFullscreen } = useFullscreen();
 
   const toggleParticipantBar = () => {
     const newState = !participantBarIsExpanded;
@@ -36,14 +39,13 @@ const ParticipantBarProvider: React.FC<{ children: ReactNode }> = ({ children })
     setActiveMenu('participantBar'); 
   };
 
-  // Effect to close participant bar if activeMenu isn't 'participantBar'
   React.useEffect(() => {
     if (activeMenu !== 'participantBar') {
-      setIsParticipantBarVisible(false); // Close participant bar if another menu is open
+      setIsParticipantBarVisible(false); 
     }
 
-    if (!activeMenu) {
-      setIsParticipantBarVisible(true); // Ensure it's visible
+    if (!activeMenu && (isFullscreen && isParticipantBarVisible)) {
+      setIsParticipantBarVisible(true); 
     }
   }, [activeMenu]);
 

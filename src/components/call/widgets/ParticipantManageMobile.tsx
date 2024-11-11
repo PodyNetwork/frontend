@@ -40,7 +40,7 @@ const ParticipantMobileManage = () => {
 
   return (
     <div
-      className={`__pd_bg_gradient md:hidden h-screen z-50 fixed right-0 w-full max-w-[19rem] __shadow_pody flex-1 dark:bg-pody-dark pb-[20px] overflow-y-auto overflow-hidden p-4 pt-5 flex flex-col gap-y-2 ${
+      className={`__pd_bg_gradient md:hidden h-screen z-50 fixed right-0 w-full max-w-[19rem] __shadow_pody flex-1 pb-[20px] overflow-y-auto overflow-hidden p-4 pt-5 flex flex-col gap-y-2 ${
         isMenuOpen ? "block" : "hidden"
       }`}
     >

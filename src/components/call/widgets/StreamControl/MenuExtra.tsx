@@ -13,6 +13,7 @@ import {
   AudioLines,
   ChartArea,
   CircleDollarSign,
+  Gift,
   Maximize,
   Minimize,
   Presentation,
@@ -22,11 +23,12 @@ import {
 } from "lucide-react";
 import { useFullscreen } from "../../utils/FullscreenContext";
 import { useParticipantBar } from "../../utils/ParticipantBarContext";
+import { useGiftMenu } from "../../utils/GiftMenuContext";
 
 const MenuExtra = ({ username }: { username: string }) => {
   const { isFullscreen, enterFullscreen, exitFullscreen } = useFullscreen();
-  const { isParticipantBarVisible, hideParticipantBar, showParticipantBar } =
-    useParticipantBar();
+  const { isParticipantBarVisible, hideParticipantBar, showParticipantBar } = useParticipantBar();
+  const {isGiftOpen, openGiftMenu, closeGiftMenu} = useGiftMenu();
 
   return (
     <DropdownMenu>
@@ -51,6 +53,11 @@ const MenuExtra = ({ username }: { username: string }) => {
             <UserPlus />
             <span>Share Classroom</span>
             <DropdownMenuShortcut>⌘+S</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={isGiftOpen ? closeGiftMenu : openGiftMenu}>
+            <Gift />
+            <span>Gift Participant</span>
+            <DropdownMenuShortcut>⌘+G</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={isFullscreen ? exitFullscreen : enterFullscreen}

@@ -46,13 +46,13 @@ const Participant = () => {
   // }
 
   return (
-    <div className="w-full md:h-full md:overflow-y-auto">
+    <div className="w-full md:h-full md:overflow-y-auto pb-[100px] md:pb-0 pt-4 px-1.5 md:px-0 md:pt-0">
       <HeaderParticipant
         enabled={participantBarIsExpanded}
         participants={participants}
         participantBarToggle={toggleParticipantBar}
       />
-      <div className="grid grid-cols-3 xs:grid-cols-4 gap-3 md:mb-[20px] md:gap-0 md:px-4 md:flex flex-row flex-wrap md:flex-col relative __participant_list">
+      <div className="grid grid-cols-3 xs:grid-cols-4 gap-3 md:py-4 md:gap-0 md:px-4 md:flex flex-row flex-wrap md:flex-col relative __participant_list">
         {participants.map((participant, index) => {
           const { identity, permissions } = participant;
           const profileScan = users.find((user) => user.username === identity);
@@ -61,8 +61,8 @@ const Participant = () => {
           const role = isSpeaker ? (isHost ? "Host" : "Speaker") : "Listener";
           return (
             <div
-              className={`md:flex flex-row justify-between md:gap-x-2 py-0 text-sm text-slate-700 ${
-                !participantBarIsExpanded ? "md:justify-center md:py-2" : "md:bg-slate-100 rounded-full md:p-1.5"
+              className={`md:flex flex-row justify-between md:gap-x-2 py-0 text-sm text-slate-700 dark:text-slate-400 ${
+                !participantBarIsExpanded ? "md:justify-center md:py-2" : "md:bg-slate-100 md:dark:bg-pody-dark_secondary rounded-full md:p-1.5 mb-2.5"
               }`}
               key={index}
             >

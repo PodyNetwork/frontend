@@ -157,7 +157,7 @@ const StreamInfo = () => {
       <div
         className={`flex flex-col gap-y-1 ${
           isFullscreen
-            ? "absolute top-0 z-50 px-3 w-full __dark_veil py-3"
+            ? "absolute top-0 z-50 w-full __dark_veil py-3"
             : "relative"
         } ${
           showInfo ? "visible" : "opacity-0"

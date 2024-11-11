@@ -137,12 +137,12 @@ export default function ChatTile({
 
   return (
     <div
-      className={`z-50 w-full relative __chat_full h-full bg-white dark:bg-slate-800 __shadow_pody transition-all duration-300 ease-in-out`}
+      className={`w-full relative __chat_full h-full bg-white dark:bg-pody-dark_secondary __shadow_pody transition-all duration-300 ease-in-out`}
       {...props}
     >
       <div className="flex flex-col h-full">
         <div
-          className="px-4 py-4 border-b dark:border-slate-700 cursor-pointer"
+          className="px-4 py-4 border-b border-slate-200 dark:border-slate-800 cursor-pointer"
           onClick={toggleChat}
           ref={chatHeader}
         >
@@ -234,7 +234,7 @@ export default function ChatTile({
         </div>
         <div className="relative w-full max-w-full">
           <div
-            className="px-2.5 py-3 w-full max-w-full bg-white/10 border-t dark:border-slate-700 flex flex-row items-center gap-x-2"
+            className="px-2.5 py-3 w-full max-w-full bg-white dark:bg-pody-dark border-t border-slate-200 dark:border-slate-800 flex flex-row items-center gap-x-2"
             ref={chatInput}
           >
             <form onSubmit={handleSubmit} className="relative flex-1">
@@ -242,7 +242,7 @@ export default function ChatTile({
                 <input
                   type="text"
                   placeholder="Type a message..."
-                  className="w-full px-3 h-10 py-2 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white outline-none text-sm pr-10"
+                  className="w-full px-3 h-10 py-2 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white outline-none text-sm pr-10"
                   disabled={isSending}
                   ref={inputRef}
                 />

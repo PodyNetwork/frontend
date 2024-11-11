@@ -20,18 +20,20 @@ const StreamScreen = () => {
 
       const availableHeight = window.innerHeight - (infoHeight + controlsHeight);
       const availableHeightCarousel = (window.innerHeight - (infoHeight + controlsHeight)) / 3;
+      const availableHeightPotrait = (window.innerHeight - (infoHeight + controlsHeight + 100)) / 2;
   
       const calculatedMaxWidth = `calc(${availableHeight}px * 16 / 9)`;
       const calculatedMaxHeight = `calc(${availableHeight}px)`;
       const calculatedMaxHeightCarousel = `calc(${availableHeightCarousel}px)`;
       const calculatedFullMaxWidth = `calc(${window.innerHeight}px * 16 / 9)`;
-      const calculatedMaxWidthPortrait = `calc((${availableHeight}px * 9 / 16 * 2) - ${infoHeight + controlsHeight}px)`;
+      const calculatedMaxHeightPortrait = `calc((${availableHeightPotrait}px * 9 / 16 * 2))`;
+
+      console.log(calculatedMaxHeightPortrait, availableHeight)
   
       const maxWidth = isFullscreen ? calculatedFullMaxWidth : calculatedMaxWidth;
-      const maxWidthPortrait = isFullscreen ? "100%" : calculatedMaxWidthPortrait;
   
       document.documentElement.style.setProperty('--max-video-width', maxWidth);
-      document.documentElement.style.setProperty('--max-video-width-potrait', maxWidthPortrait);
+      document.documentElement.style.setProperty('--max-video-height-potrait', calculatedMaxHeightPortrait);
       document.documentElement.style.setProperty('--max-video-height', calculatedMaxHeight);
       document.documentElement.style.setProperty('--max-video-height-carousel', calculatedMaxHeightCarousel);
     }
