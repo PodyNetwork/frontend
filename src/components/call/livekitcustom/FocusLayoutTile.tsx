@@ -10,8 +10,8 @@ export interface EnhancedGridLayoutProps
   onParticipantClick?: (index: number) => void;
 }
 interface CustomCSSProperties extends CSSProperties {
-  '--max-video-height'?: string;
-  '--video-count'?: number;
+  "--max-video-height"?: string;
+  "--video-count"?: number;
 }
 
 export function EnhancedGridLayout({
@@ -58,6 +58,8 @@ export function EnhancedGridLayout({
     currentPage * tracksPerPage,
     (currentPage + 1) * tracksPerPage
   );
+
+  const limitedVideoCount = Math.min(currentTracks.length, 4);
 
   if (noTracksAvailable) {
     return (
@@ -137,23 +139,25 @@ export function EnhancedGridLayout({
 
       {/* Desktop view (Grid Layout) */}
       <div
-      className={`hidden __video_layout_main sm:grid gap-2 mx-auto text-center justify-center ${
-        currentTracks.length === 1 ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-2'
-      }`}
-      style={
-        {
-          '--video-count': currentTracks.length,
-        } as CustomCSSProperties
-      }
-    >
-      {currentTracks.map((track, index) => (
-        <ParticipantCustomTile
-          key={index}
-          trackRef={track}
-          onClick={() => onParticipantClick?.(index)}
-        />
-      ))}
-    </div>
+        className={`hidden __video_layout_main sm:grid gap-2 mx-auto text-center justify-center ${
+          currentTracks.length === 1
+            ? "grid-cols-1"
+            : "sm:grid-cols-2 lg:grid-cols-2"
+        }`}
+        style={
+          {
+            "--video-count": limitedVideoCount,
+          } as CustomCSSProperties
+        }
+      >
+        {currentTracks.map((track, index) => (
+          <ParticipantCustomTile
+            key={index}
+            trackRef={track}
+            onClick={() => onParticipantClick?.(index)}
+          />
+        ))}
+      </div>
 
       <div className="hidden">
         {/* Pagination Buttons */}

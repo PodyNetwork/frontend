@@ -17,15 +17,22 @@ const StreamAside = () => {
   return (
     <div
       className={`__pd_bg_gradient overflow-y-auto md:overflow-visible w-full h-full relative flex-col gap-y-2 flex-1 md:flex-none flex ${
-        participantBarIsExpanded || isChatOpen || isGiftOpen
+        (isParticipantBarVisible && participantBarIsExpanded && isFullscreen) ||
+        (participantBarIsExpanded && !isFullscreen) ||
+        isChatOpen ||
+        isGiftOpen
           ? "md:w-[20rem]"
-          : !isParticipantBarVisible && isFullscreen
+          : (isFullscreen && !isParticipantBarVisible) 
           ? "hidden"
           : "md:w-16"
       }`}
     >
       {/* Participant Panel */}
-      <div className={`w-full relative h-full __pd_bg_gradient transition-all duration-300 ease-in-out flex flex-col gap-y-2 flex-1 md:flex-none ${!isParticipantBarVisible && isFullscreen && "hidden"}`}>
+      <div
+        className={`w-full relative h-full __pd_bg_gradient transition-all duration-300 ease-in-out flex flex-col gap-y-2 flex-1 md:flex-none ${
+          !isParticipantBarVisible && isFullscreen && "hidden"
+        }`}
+      >
         <Participant />
       </div>
       {/* Chat Room */}
