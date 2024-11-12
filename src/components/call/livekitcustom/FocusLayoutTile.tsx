@@ -127,7 +127,7 @@ export function EnhancedGridLayout({
             <motion.div
               key={index}
               className={`w-1 h-1 rounded-full ${
-                index === currentIndex ? "bg-slate-700" : "bg-gray-400"
+                index === currentIndex ? "bg-slate-700" : "bg-slate-400"
               }`}
               initial={{ scale: 0.8 }}
               animate={{ scale: index === currentIndex ? 1.2 : 1 }}
@@ -158,20 +158,19 @@ export function EnhancedGridLayout({
           />
         ))}
       </div>
-
-      <div className="hidden">
+      <div>
         {/* Pagination Buttons */}
-        <div className="flex justify-center space-x-4 mt-4">
+        <div className="flex justify-center space-x-1.5 text-sm">
           <button
             onClick={handlePrevPage}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-400"
+            className="px-4 py-1.5 bg-blue-500 text-white rounded-md cursor-pointer disabled:bg-slate-200"
             disabled={currentPage === 0}
           >
             Previous
           </button>
           <button
             onClick={handleNextPage}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-400"
+            className="px-4 py-1.5 bg-blue-500 text-white rounded-md cursor-pointer disabled:bg-slate-200"
             disabled={currentPage === totalPages - 1}
           >
             Next
@@ -179,15 +178,15 @@ export function EnhancedGridLayout({
         </div>
 
         {/* Dots Navigation for Desktop */}
-        <div className="left-0 right-0 flex justify-center space-x-2">
+        <div className="left-0 right-0 flex justify-center space-x-2 mt-1.5">
           {Array.from({ length: totalPages }).map((_, pageIndex) => (
             <motion.div
               key={pageIndex}
-              className={`w-2 h-2 rounded-full ${
-                pageIndex === currentPage ? "bg-blue-500" : "bg-gray-400"
+              className={`w-1.5 h-1.5 rounded-full ${
+                pageIndex === currentPage ? "bg-slate-500" : "bg-slate-400"
               }`}
               initial={{ scale: 0.8 }}
-              animate={{ scale: pageIndex === currentPage ? 1.2 : 1 }}
+              animate={{ scale: pageIndex === currentPage ? 1.12 : 1 }}
               transition={{ duration: 0.3 }}
             />
           ))}

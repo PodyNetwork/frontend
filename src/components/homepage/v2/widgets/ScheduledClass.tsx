@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import Image from "next/image";
+import bannerImage from "/public/illustration/friends_together.png";
+import BlockiesSvg from "blockies-react-svg";
+import CurvedCircleImage from "/public/illustration/circular_ring.png";
 
 const reports = [
   {
@@ -54,103 +58,204 @@ const ScheduledClass = () => {
   };
   return (
     <section className="w-full relative">
-      <div className="px-3 md:px-10 flex flex-col max-w-7xl mx-auto py-16">
-        <div className="flex flex-col items-center mb-6">
-          <div className="max-w-xl text-center flex flex-col gap-y-2.5">
-            <h2 className="text-4xl font-semibold text-pody-dark">
-              Add Scheduled Classroom to calendar
-            </h2>
-            <p className="text-base mt-1.5 text-slate-700">
-              You can add sechuled classroom to your calendar to ensure
-              you don&apos;t miss them. This way, you can easily plan your schedule
-              and stay informed.
-            </p>
+      <div className="w-full min-h-screen flex flex-row __scheduled_container_layout">
+        <div className="flex-1 __scheduled_layout_lft bg-pody-primary min-h-screen relative overflow-hidden">
+          <div className="absolute -bottom-12 -right-12">
+            <Image
+              src={CurvedCircleImage}
+              className="w-[35rem] mix-blend-hard-light blur-lg"
+              width={300}
+              height={300}
+              alt="pody background ring"
+            />
           </div>
-        </div>
-        <div className="w-full mt-6">
-          <div className="__schedule_wrapper __pd_main_veil rounded-3xl relative text-slate-100 p-6">
-            <div className="relative z-50 flex flex-col min-h-[550px]">
-              <div className="flex flex-row items-center gap-x-2">
-                <div className="flex justify-center items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    viewBox="0 -960 960 960"
-                    fill="#e8eaed"
-                  >
-                    <path d="m618.92-298.92 42.16-42.16L510-492.16V-680h-60v212.15l168.92 168.93ZM480.07-100q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100ZM480-480Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z" />
-                  </svg>
+          <div className="w-full h-full flex flex-row z-40 relative">
+            <div className="h-full w-full px-3 md:px-12 py-7 flex flex-col">
+              <div className="mb-40">
+                <p>Scheduled Classroom</p>
+                <div className="max-w-lg">
+                  <p className="text-4xl font-bold mt-1.5 text-slate-900 py-12">
+                    Add scheduled classrooms to your calendar to stay organized
+                    and never miss a session.
+                  </p>
                 </div>
-                <h2 className="text-sm font-medium">Scheduled Classroom</h2>
               </div>
-              <div className="relative mt-auto pt-12">
-                <div className="flex flex-col relative w-full py-6">
-                  <div className="flex ml-auto items-center flex-row gap-x-2 __nav_crd_gls relative">
-                    <button
-                      onClick={handlePrevious}
-                      disabled={currentPage === 0}
-                      className="w-14 h-14 rounded-full items-center justify-center flex bg-slate-100/20 disabled:bg-slate-100/10"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24px"
-                        viewBox="0 -960 960 960"
-                        width="24px"
-                        fill="#e8eaed"
+              <div className="mt-auto relative py-9">
+                <div className="max-w-sm">
+                  <div className="flex flex-col gap-y-1 text-slate-800">
+                    <div className="text-lg font-semibold">
+                      <p>Nov 3, 2024 8:330 PM</p>
+                    </div>
+                    <div className="py-2">
+                      <p className="text-sm">Emmy Brian</p>
+                      <h2 className="text-xl">Untitled Classroom</h2>
+                    </div>
+                    <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2">
+                      <div className="flex flex-row items-center gap-x-2 sm:gap-x-3">
+                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full relative bg-black/20">
+                          <BlockiesSvg
+                            address={"012345"}
+                            className="w-full h-full rounded-full"
+                          />
+                        </div>
+                        <div className="text-xs sm:text-sm flex-1">
+                          <h3 className="font-medium">648-3838-9282</h3>
+                          <p className="text-xs capitalize">
+                            Instant Classroom
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        className={`bg-white cursor-pointer text-slate-800 rounded-full px-4 py-1.5 flex items-center`}
                       >
-                        <path d="M400-107.69 27.69-480 400-852.31l42.54 42.54L112.77-480l329.77 329.77L400-107.69Z" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={handleNext}
-                      disabled={currentPage === totalPages - 1}
-                      className="w-14 h-14 rounded-full items-center justify-center flex bg-slate-100/20 disabled:bg-slate-100/10"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24px"
-                        viewBox="0 -960 960 960"
-                        width="24px"
-                        fill="#e8eaed"
-                      >
-                        <path d="m320.23-107.69-42.54-42.54L607.46-480 277.69-809.77l42.54-42.54L692.54-480 320.23-107.69Z" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {currentItems.map((report) => (
-                    <div
-                      key={report.id}
-                      className="flex flex-row items-start relative"
-                    >
-                      <div className="bg-pody-secondary text-slate-200 rounded-full p-1.5 me-2.5">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="w-5 h-5"
+                          className="w-5 h-5 me-2"
                           viewBox="0 -960 960 960"
                           fill="currentColor"
                         >
-                          <path d="M700-100v-120H580v-40h120v-120h40v120h120v40H740v120h-40ZM224.62-200q-27.62 0-46.12-18.5Q160-237 160-264.62v-430.76q0-27.62 18.5-46.12Q197-760 224.62-760h70.76v-89.23h43.08V-760h206.16v-89.23h40V-760h70.76q27.62 0 46.12 18.5Q720-723 720-695.38v228.61q-10-.69-20-.69t-20 .69v-68.61H200v270.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h266.92q0 10 .69 20t2.54 20H224.62ZM200-575.39h480v-119.99q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v119.99Zm0 0V-720-575.39Z"/>
+                          <path d="M690-90v-120H570v-60h120v-120h60v120h120v60H750v120h-60Zm-477.69-90Q182-180 161-201q-21-21-21-51.31v-455.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h223.08v-84.61h60V-780h55.38Q698-780 719-759q21 21 21 51.31v236.31q-15-1.85-30-1.85t-30 1.85v-76.31H200v295.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h273.46q0 15 1.85 30 1.84 15 6.76 30H212.31ZM200-607.69h480v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Z" />
                         </svg>
-                      </div>
-                      <div className="pt-1">
-                        <h3 className="text-base font-medium">
-                          {report.title}
-                        </h3>
-                        <div className="text-sm flex flex-col mt-1.5 text-slate-300">
-                          <p>Host: {report.host}</p>
-                          <div className="flex items-center flex-row gap-x-3 text-xs mt-1.5">
-                            <p>Call ID: {report.callId}</p>
-                            <div className="border-l-2 border-slate-300 h-3"></div>
-                            <p>{report.time}</p>
-                          </div>
-                        </div>
-                      </div>
+                        Add to Calendar
+                      </button>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-[25rem] __scheduled_layout_rgt bg-white min-h-screen">
+          <div className="w-full h-full flex flex-col">
+            <div className="bg-slate-50 flex-1 px-3 md:px-9 py-8">
+              <div className="w-full flex flex-col gap-y-8">
+                <div className="flex flex-col gap-y-1 text-slate-800 pb-8 border-b border-slate-300">
+                  <div className="text-lg font-medium">
+                    <p>Nov 3, 2024 8:330 PM</p>
+                  </div>
+                  <div className="py-2 flex flex-row items-center gap-2 justify-between">
+                    <div className="flex-1 relative overflow-hidden">
+                      <p className="text-sm truncate">Emmy Brian</p>
+                      <h2 className="text-xl truncate whitespace-nowrap">
+                        Untitled Classroom
+                      </h2>
+                    </div>
+                    <div className="w-9 h-8 relative bg-black/20">
+                      <BlockiesSvg
+                        address={"012345"}
+                        className="w-9 h-9 object-cover rounded-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium">
+                    <button
+                      className={`cursor-pointer text-slate-800 rounded-full flex items-center`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-5 h-5 me-2"
+                        viewBox="0 -960 960 960"
+                        fill="currentColor"
+                      >
+                        <path d="M690-90v-120H570v-60h120v-120h60v120h120v60H750v120h-60Zm-477.69-90Q182-180 161-201q-21-21-21-51.31v-455.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h223.08v-84.61h60V-780h55.38Q698-780 719-759q21 21 21 51.31v236.31q-15-1.85-30-1.85t-30 1.85v-76.31H200v295.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h273.46q0 15 1.85 30 1.84 15 6.76 30H212.31ZM200-607.69h480v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Z" />
+                      </svg>
+                      Add to Calendar
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-1 text-slate-800 pb-8 border-b border-slate-300">
+                  <div className="text-lg font-medium">
+                    <p>Nov 3, 2024 8:330 PM</p>
+                  </div>
+                  <div className="py-2 flex flex-row items-center gap-2 justify-between">
+                    <div className="flex-1 relative overflow-hidden">
+                      <p className="text-sm truncate">Emmy Brian</p>
+                      <h2 className="text-xl truncate whitespace-nowrap">
+                        Untitled Classroom
+                      </h2>
+                    </div>
+                    <div className="w-9 h-8 relative bg-black/20">
+                      <BlockiesSvg
+                        address={"012345"}
+                        className="w-9 h-9 object-cover rounded-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium">
+                    <button
+                      className={`cursor-pointer text-slate-800 rounded-full flex items-center`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-5 h-5 me-2"
+                        viewBox="0 -960 960 960"
+                        fill="currentColor"
+                      >
+                        <path d="M690-90v-120H570v-60h120v-120h60v120h120v60H750v120h-60Zm-477.69-90Q182-180 161-201q-21-21-21-51.31v-455.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h223.08v-84.61h60V-780h55.38Q698-780 719-759q21 21 21 51.31v236.31q-15-1.85-30-1.85t-30 1.85v-76.31H200v295.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h273.46q0 15 1.85 30 1.84 15 6.76 30H212.31ZM200-607.69h480v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Z" />
+                      </svg>
+                      Add to Calendar
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-1 text-slate-800 pb-8 border-b border-slate-300">
+                  <div className="text-lg font-medium">
+                    <p>Nov 3, 2024 8:330 PM</p>
+                  </div>
+                  <div className="py-2 flex flex-row items-center gap-2 justify-between">
+                    <div className="flex-1 relative overflow-hidden">
+                      <p className="text-sm truncate">Emmy Brian</p>
+                      <h2 className="text-xl truncate whitespace-nowrap">
+                        Untitled Classroom
+                      </h2>
+                    </div>
+                    <div className="w-9 h-8 relative bg-black/20">
+                      <BlockiesSvg
+                        address={"012345"}
+                        className="w-9 h-9 object-cover rounded-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium">
+                    <button
+                      className={`cursor-pointer text-slate-800 rounded-full flex items-center`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-5 h-5 me-2"
+                        viewBox="0 -960 960 960"
+                        fill="currentColor"
+                      >
+                        <path d="M690-90v-120H570v-60h120v-120h60v120h120v60H750v120h-60Zm-477.69-90Q182-180 161-201q-21-21-21-51.31v-455.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h223.08v-84.61h60V-780h55.38Q698-780 719-759q21 21 21 51.31v236.31q-15-1.85-30-1.85t-30 1.85v-76.31H200v295.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h273.46q0 15 1.85 30 1.84 15 6.76 30H212.31ZM200-607.69h480v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Z" />
+                      </svg>
+                      Add to Calendar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="relative mt-auto bg-pody-dark text-slate-200 p-7 md:p-9 gap-y-4 flex flex-col">
+              <div className="py-2">
+                <h2 className="text-2xl font-medium">
+                  Host Public Classroom to Earn Points
+                </h2>
+                <p className="text-sm text-slate-300 mt-2">
+                  Earn an Extra 10% of Students' Points
+                </p>
+              </div>
+              <button className="flex flex-row gap-x-2 items-center justify-between w-full py-5 font-medium border-t border-slate-100/30">
+                <span>Host your classroom</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 ms-2"
+                  viewBox="0 -960 960 960"
+                  fill="currentColor"
+                >
+                  <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
