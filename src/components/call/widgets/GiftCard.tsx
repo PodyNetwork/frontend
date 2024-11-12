@@ -3,7 +3,7 @@ import useProfile from "@/hooks/user/useProfile";
 import { useDataChannel, useParticipants } from "@livekit/components-react";
 import { motion } from "framer-motion";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { gift } from "@/utils/gift";
+import { etherGift, gift } from "@/utils/gift";
 import useBulkUserByUsername from "@/hooks/user/useGetBulkParticipantByusername";
 import Image from "next/image";
 
@@ -37,7 +37,26 @@ type GiftUIProps = {
   gifts: GiftItem[];
 };
 
-const GiftUI: React.FC<GiftUIProps> = ({ gifts }) => {
+const gifts = [
+  {
+    id: "1",
+    name: "PodyToken",
+    icon: "/icon/Pody.jpg",
+    price: 1,
+    isAvailable: true,
+  },
+  {
+    id: "2",
+    name: "EDUCHAIN",
+    icon: "/icon/educhain.png",
+    price: 5,
+    isHot: true,
+    isAvailable: false,
+  },
+];
+
+
+const GiftUI: React.FC = () => {
   const [selectedParticipant, setSelectedParticipant] = useState<string | null>(
     null
   );
@@ -88,11 +107,18 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts }) => {
 
     try {
       const amountInWei = parseEther(amount.toString());
-      await gift(
-        senderAddress as `0x${string}`,
+
+      if(selectedGift === "EDUCHAIN") {
+       await etherGift(senderAddress as `0x${string}`,
         recipientAddress as `0x${string}`,
-        amountInWei
-      );
+        amountInWei)
+      } else { 
+        await gift(
+          senderAddress as `0x${string}`,
+          recipientAddress as `0x${string}`,
+          amountInWei
+        );
+      }
 
       const newGiftData = {
         participantId: selectedParticipant,
