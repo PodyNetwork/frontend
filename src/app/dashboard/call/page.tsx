@@ -5,7 +5,7 @@ import React from "react";
 import useGetCalls from "@/hooks/call/useGetCalls";
 
 const Page = () => {
-  const {calls, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetCalls()
+  const {calls, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetCalls({limit: 6})
   return (
     <main className="w-full">
       <div className="w-full bg-pody-primary/20 p-6 md:p-12">

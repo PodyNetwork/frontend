@@ -214,7 +214,7 @@ const CallHistory = ({
             disabled={isFetchingNextPage}
             className="text-sm bg-pody-primary/40 px-3 py-1.5 rounded-full"
           >
-            {isFetchingNextPage ? "Loading more..." : "Fetch More"}
+            {isFetchingNextPage ? "Loading more..." : "Load More"}
           </button>
         </div>
       )}

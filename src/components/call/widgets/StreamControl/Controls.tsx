@@ -134,23 +134,39 @@ const Controls = ({
   const { unreadMessageCount } = useUnreadMessageContext();
 
   useEffect(() => {
-    let hideTimeout: ReturnType<typeof setTimeout> | undefined;
-
-    const handleMouseMove = () => {
-      if (isFullscreen) {
-        setShowControls(true);
+    let hideTimeout: ReturnType<typeof setTimeout> | null = null;
+  
+    const showControlsTemporarily = () => {
+      setShowControls(true);
+      if (hideTimeout) {
         clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(() => setShowControls(false), 3000);
+      }
+      if (isFullscreen) {
+        hideTimeout = setTimeout(() => setShowControls(false), 2000);
       }
     };
-
+  
+    const handleMouseMove = () => {
+      showControlsTemporarily();
+    };
+  
+    if (!isFullscreen) {
+      setShowControls(true);
+    } else {
+      showControlsTemporarily();
+    }
+  
     document.addEventListener("mousemove", handleMouseMove);
-
+  
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      clearTimeout(hideTimeout);
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
     };
   }, [isFullscreen]);
+  
+  
 
   return (
     <div

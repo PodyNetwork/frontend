@@ -83,7 +83,6 @@ const StreamInfo = () => {
       setCallId(call._id);
     }
   }, [call]);
-  // end call ends here
 
   const { openMenu } = useParticipantMenu();
 
@@ -92,23 +91,44 @@ const StreamInfo = () => {
   const [showInfo, setshowInfo] = useState(true);
 
   useEffect(() => {
-    let hideTimeout: ReturnType<typeof setTimeout> | undefined;
-
+    let hideTimeout: ReturnType<typeof setTimeout> | null = null;
+  
+    const showInfoTemporarily = () => {
+      setshowInfo(true);
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+      hideTimeout = setTimeout(() => {
+        if (isFullscreen) {
+          setshowInfo(false);
+        }
+      }, 2000);
+    };
+  
     const handleMouseMove = () => {
       if (isFullscreen) {
+        showInfoTemporarily();
+      } else {
         setshowInfo(true);
-        clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(() => setshowInfo(false), 3000);
       }
     };
-
+  
+    if (!isFullscreen) {
+      setshowInfo(true);
+    } else {
+      showInfoTemporarily();
+    }
+  
     document.addEventListener("mousemove", handleMouseMove);
-
+  
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      clearTimeout(hideTimeout);
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
     };
   }, [isFullscreen]);
+  
   
 
   return (

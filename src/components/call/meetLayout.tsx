@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import ControlsMobile from "./widgets/StreamControl/ControlsMobile";
 import StreamSidebar from "./widgets/StreamSidebar";
 import StreamScreen from "./widgets/StreamScreen";
@@ -12,7 +11,6 @@ import StreamAside from "./widgets/StreamAside";
 import { useChatContext } from "./utils/ChatContext";
 import { useGiftMenu } from "./utils/GiftMenuContext";
 import { useParticipantBar } from "./utils/ParticipantBarContext";
-import { Fullscreen } from "lucide-react";
 
 const MeetLayout = () => {
   const { isFullscreen, exitFullscreen } = useFullscreen();

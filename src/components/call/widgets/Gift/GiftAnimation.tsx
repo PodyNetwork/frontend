@@ -8,11 +8,11 @@ const GiftAnimationPage: React.FC = () => {
   const { animationData } = useGiftAnimation();
   const { profile } = useProfile();
 
-  useEffect(() => {
-    if (animationData) {
-      console.log("Gift received:", animationData);
-    }
-  }, [animationData]);
+  // useEffect(() => {
+  //   if (animationData) {
+  //     console.log("Gift received:", animationData);
+  //   }
+  // }, [animationData]);
 
   const animationVariants = {
     initial: { opacity: 0, y: 50 },

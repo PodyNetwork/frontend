@@ -162,8 +162,6 @@ const GiftUI: React.FC<GiftUIProps> = ({ gifts }) => {
       const giftHeaderHeight = giftHeader.current.offsetHeight;
       const giftCloseButtonHeight = giftCloseButton.current.offsetHeight;
 
-      console.log(giftHeaderHeight, giftCloseButtonHeight)
-
       const totalHeaderInputHeight = giftHeaderHeight + giftCloseButtonHeight;
       const availableHeight = window.innerHeight - totalHeaderInputHeight;
 

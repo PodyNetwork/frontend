@@ -3,26 +3,24 @@ import { motion } from "framer-motion";
 import useGetPointsBalance from "@/hooks/point/useGetPointsBalance";
 import { formatUnits } from "viem";
 import useClaimPoint from "@/hooks/point/useClaimPoints";
-import approx from 'approximate-number' 
+import approx from "approximate-number";
 
 const RewardStatistic = () => {
   const { pointsBalance } = useGetPointsBalance();
 
   const { points, claimedPoints } = pointsBalance ?? {};
 
-  const claimedPointsInEther = (
-    Number(formatUnits(BigInt(claimedPoints ?? 0), 18))
+  const claimedPointsInEther = Number(
+    formatUnits(BigInt(claimedPoints ?? 0), 18)
   );
-  const unclaimedPointsInEther = (
-    Number(formatUnits(BigInt(points ?? 0), 18))
-  );
+  const unclaimedPointsInEther = Number(formatUnits(BigInt(points ?? 0), 18));
   const totalPoints = unclaimedPointsInEther + claimedPointsInEther;
 
-  const FormatedclaimedPointsInEther = (
-    (Number(formatUnits(BigInt(claimedPoints ?? 0), 18)))
+  const FormatedclaimedPointsInEther = Number(
+    formatUnits(BigInt(claimedPoints ?? 0), 18)
   );
-  const FormatedunclaimedPointsInEther = (
-    (Number(formatUnits(BigInt(points ?? 0), 18)))
+  const FormatedunclaimedPointsInEther = Number(
+    formatUnits(BigInt(points ?? 0), 18)
   );
 
   const rewardData = [
@@ -64,21 +62,23 @@ const RewardStatistic = () => {
         >
           Reward Points
         </motion.h1>
-        <div>
-          <button
-            onClick={() => {
-              claimPoint.mutate();
-            }}
-            disabled={loading}
-            className={`text-xs px-4 py-1.5 ${
-              loading ? "bg-pody-primary/50" : "bg-pody-primary"
-            } text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto ${
-              loading ? "cursor-not-allowed" : ""
-            }`}
-          >
-            {loading ? "Claiming..." : "Claim Points"}
-          </button>
-        </div>
+        {(points ?? 0) > 0 && (
+          <div>
+            <button
+              onClick={() => {
+                claimPoint.mutate();
+              }}
+              disabled={loading}
+              className={`text-xs px-4 py-1.5 ${
+                loading ? "bg-pody-primary/50" : "bg-pody-primary"
+              } text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto ${
+                loading ? "cursor-not-allowed" : ""
+              }`}
+            >
+              {loading ? "Claiming..." : "Claim Points"}
+            </button>
+          </div>
+        )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {rewardData.map((item, index) => (

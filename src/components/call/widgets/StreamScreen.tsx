@@ -27,8 +27,6 @@ const StreamScreen = () => {
       const calculatedMaxHeightCarousel = `calc(${availableHeightCarousel}px)`;
       const calculatedFullMaxWidth = `calc(${window.innerHeight}px * 16 / 9)`;
       const calculatedMaxHeightPortrait = `calc((${availableHeightPotrait}px * 9 / 16 * 2))`;
-
-      console.log(calculatedMaxHeightPortrait, availableHeight)
   
       const maxWidth = isFullscreen ? calculatedFullMaxWidth : calculatedMaxWidth;
   
@@ -55,11 +53,11 @@ const StreamScreen = () => {
 
   return (
     <>
-      <div ref={infoRef} className="md:py-5 py-4">
+      <div ref={infoRef} className={`${isFullscreen ? "md:py-0 py-0" : "md:py-5 py-4"}`}>
         <StreamInfo />
       </div>
       <StreamVideo />
-      <div ref={controlsRef} className="md:py-4">
+      <div ref={controlsRef} className={`${isFullscreen ? "md:py-0" : "md:py-4"}`}>
         <div className="relative mx-auto">
           <GiftAnimationPage />
         </div>

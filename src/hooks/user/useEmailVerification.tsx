@@ -32,7 +32,6 @@ const useEmailVerification = () => {
     onSuccess: (data) => {
       clearErrorMessage();
       router.push(`/dashboard`);
-      console.log(data)
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
