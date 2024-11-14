@@ -95,7 +95,7 @@ export const CustomMediaDeviceSelect: (
             data-lk-active={isActive(device.deviceId, activeDeviceId, index)}
             aria-selected={isActive(device.deviceId, activeDeviceId, index)}
             role="option"
-            className={`hover:bg-slate-200 hover:text-slate-500 transition-all ${isActive(device.deviceId, activeDeviceId, index) ? 'text-blue-500' : ''}`} 
+            className={`hover:bg-slate-200 hover:text-slate-500 transition-all ${isActive(device.deviceId, activeDeviceId, index) ? 'text-slate-700' : ''}`} 
           >
             <button className="lk-button" onClick={() => handleActiveDeviceChange(device.deviceId)}>
               {device.label}

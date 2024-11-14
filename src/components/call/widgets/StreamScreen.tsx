@@ -51,6 +51,15 @@ const StreamScreen = () => {
     };
   }, [calculateHeights]); 
 
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.style.setProperty(
+        "--widthMobile",
+        isFullscreen ? "100vh" : "65vh"
+      );
+    }
+  }, [isFullscreen]);
+
   return (
     <>
       <div ref={infoRef} className={`${isFullscreen ? "md:py-0 py-0" : "md:py-5 py-4"}`}>

@@ -15,25 +15,63 @@ import {
   CircleDollarSign,
   Gift,
   Maximize,
+  MessageSquareText,
   Minimize,
+  Moon,
+  PhoneOff,
   Presentation,
+  ScreenShare,
   Settings,
+  Smile,
+  Sun,
   UserPlus,
   Users,
 } from "lucide-react";
 import { useFullscreen } from "../../utils/FullscreenContext";
 import { useParticipantBar } from "../../utils/ParticipantBarContext";
 import { useGiftMenu } from "../../utils/GiftMenuContext";
+import { useState, useEffect } from "react";
 
-const MenuExtra = ({ username }: { username: string }) => {
+interface MenuExtraProps {
+  username: string;
+  overflowItem: any[];
+}
+
+const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
   const { isFullscreen, enterFullscreen, exitFullscreen } = useFullscreen();
-  const { isParticipantBarVisible, hideParticipantBar, showParticipantBar } = useParticipantBar();
-  const {isGiftOpen, openGiftMenu, closeGiftMenu} = useGiftMenu();
+  const { isParticipantBarVisible, hideParticipantBar, showParticipantBar } =
+    useParticipantBar();
+  const { isGiftOpen, openGiftMenu, closeGiftMenu } = useGiftMenu();
+
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      setIsDarkMode(false);
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+    if (newDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
+    }
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="bg-white h-10 w-10 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
+        <div className="bg-white dark:bg-[#202124] flex-shrink-0 h-10 w-10 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5"
@@ -49,6 +87,55 @@ const MenuExtra = ({ username }: { username: string }) => {
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          {overflowItem.length > 0 &&
+            overflowItem.map((overflowItem, index) => {
+              switch (overflowItem) {
+                case "chat":
+                  return (
+                    <DropdownMenuItem key={index}>
+                      <MessageSquareText />
+                      <span>Chat</span>
+                    </DropdownMenuItem>
+                  );
+                case "ShareScreen":
+                  return (
+                    <DropdownMenuItem key={index}>
+                      <ScreenShare />
+                      <span>Share Screen</span>
+                    </DropdownMenuItem>
+                  );
+                case "endCall":
+                  return (
+                    <DropdownMenuItem key={index}>
+                      <PhoneOff />
+                      <span>End Call</span>
+                    </DropdownMenuItem>
+                  );
+                case "LeaveCall":
+                  return (
+                    <DropdownMenuItem key={index}>
+                      <span>Leave Call</span>
+                    </DropdownMenuItem>
+                  );
+                case "reaction":
+                  return (
+                    <DropdownMenuItem key={index}>
+                      <Smile />
+                      <span>Reaction</span>
+                    </DropdownMenuItem>
+                  );
+                default:
+                  return null;
+              }
+            })}
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={toggleDarkMode}>
+            {isDarkMode ? <Sun /> : <Moon />}
+            <span>{isDarkMode ? "Day Class" : "Night Class"}</span>
+            <DropdownMenuShortcut>⌘+S</DropdownMenuShortcut>
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <UserPlus />
             <span>Share Classroom</span>
@@ -88,29 +175,10 @@ const MenuExtra = ({ username }: { username: string }) => {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <AudioLines />
-            <span>Noise Suppression</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Presentation />
-            <span>WhiteBoard</span>
-            <DropdownMenuShortcut>⌘+B</DropdownMenuShortcut>
+            Noise cancellation
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem disabled>
-          <CircleDollarSign />
-          <span>Earning Stats</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem disabled>
-          <ChartArea />
-          <span>Participant Stats</span>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Settings />
-          <span>Settings</span>
-          <DropdownMenuShortcut>⇧⌘S</DropdownMenuShortcut>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

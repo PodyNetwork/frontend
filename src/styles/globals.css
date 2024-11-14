@@ -298,14 +298,30 @@ body {
     @apply flex flex-row-reverse;
 }
 
-@media (max-width: 300px) {
-    .__participant_list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-        justify-content: center;
+@media (min-width: 768px) {
+    .__pd_name_max{
+        max-width: inherit;
+        overflow: hidden;
     }
 }
-
+@media (max-width: 767px) {
+    .__pd_name_max{
+        max-width: 80px;
+        overflow: hidden;
+    }
+    .__pd_participant_list_grd {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    .__mobile_controls{
+        position: fixed !important;
+        bottom: 0;
+        @apply z-50 mx-auto px-1 py-5 bg-slate-50 dark:bg-black w-full text-[0.7rem];
+        left: 0;
+        width: 100%;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+}
 .__participant_message_container {
     overflow-y: auto;
 }
@@ -1025,6 +1041,7 @@ body {
 .lk-participant-media-video {
     @apply bg-slate-200 dark:bg-slate-800 !important;
     border-radius: calc(var(--radius) - 2px) !important;
+    position: relative;
 }
 
 .__video_layout_main {
@@ -1032,7 +1049,7 @@ body {
 }
 @media (max-width: 767px) {
     .__video_layout_main {
-        max-width: 65vh;
+        max-width: var(--widthMobile);
     }
 }
 @media (min-width: 768px) {
@@ -1112,4 +1129,9 @@ body {
     .__scheduled_layout_rgt{
         @apply w-full;
     }
+}
+.__nav {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
 }

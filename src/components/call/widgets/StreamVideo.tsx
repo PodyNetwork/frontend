@@ -1,7 +1,7 @@
 import { RoomAudioRenderer, useTracks } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import React, { useState, useMemo } from 'react';
-import { EnhancedGridLayout } from '../livekitcustom/FocusLayoutTile';
+import { EnhancedGridLayout } from '../livekitcustom/GridLayoutTile';
 
 
 const MyVideoConference = () => {

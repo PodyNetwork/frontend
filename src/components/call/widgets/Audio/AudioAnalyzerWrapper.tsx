@@ -4,7 +4,7 @@ import AudioAnalyzer from "../Audio/AudioAnalyzerPody";
 
 interface Participant {
   identity: string;
-  audioTrackPublications: Map<string, TrackPublication>; // Use TrackPublication for more specific typing
+  audioTrackPublications: Map<string, TrackPublication>; 
   permissions?: {
     canPublish?: boolean;
   };
@@ -20,7 +20,6 @@ const AudioAnalyzerWrapper: React.FC<AudioAnalyzerWrapperProps> = ({
 }) => {
   const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>(null);
 
-  // Access the first audio track publication
   const audioTrackPublication = Array.from(
     participant.audioTrackPublications.values()
   )[0];
@@ -29,7 +28,6 @@ const AudioAnalyzerWrapper: React.FC<AudioAnalyzerWrapperProps> = ({
   useEffect(() => {
     setCurrentTrack(audioTrack ?? null);
 
-    // If audioTrack is a remote track, listen for its state changes
     if (audioTrack instanceof RemoteAudioTrack) {
       const handleTrackMuted = () => setCurrentTrack(null);
       const handleTrackUnmuted = () => setCurrentTrack(audioTrack);

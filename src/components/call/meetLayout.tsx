@@ -26,7 +26,7 @@ const MeetLayout = () => {
     <UnreadMessageProvider>
       <ParticipanMenuProvider>
         <GiftAnimationProvider>
-          <section className="w-full flex flex-col bg-white dark:bg-[#111114]">
+          <section className="w-full flex flex-col bg-white dark:bg-[#111114] select-none">
             <div className="flex flex-col md:flex-row gap-x-2 h-screen max-h-screen md:justify-between relative">
               {/* Sidebar */}
               <div
@@ -40,7 +40,7 @@ const MeetLayout = () => {
                   (participantBarIsExpanded || isChatOpen || isGiftOpen) && !isFullscreen
                     ? "md:w-[calc(100vw-25rem)]"
                     : isFullscreen 
-                    ? "md:w-full px-5"
+                    ? "md:w-full px-1.5 md:px-5 h-full"
                     : "md:w-[calc(100vw-9rem)]"
                 }`}
               >
@@ -49,7 +49,6 @@ const MeetLayout = () => {
               {/* stream aside */}
               <StreamAside />
             </div>
-            <ControlsMobile />
             <ParticipantMobileManage />
           </section>
         </GiftAnimationProvider>

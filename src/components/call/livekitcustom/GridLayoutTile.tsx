@@ -28,6 +28,9 @@ export function EnhancedGridLayout({
   const [currentPage, setCurrentPage] = useState(0);
   const tracksPerPage = 4;
   const totalPages = Math.ceil(tracks.length / tracksPerPage);
+  const [focusedTrackIndex, setFocusedTrackIndex] = useState<number | null>(
+    null
+  );
 
   const noTracksAvailable = tracks.length === 0;
 
@@ -118,7 +121,7 @@ export function EnhancedGridLayout({
     const handleMouseMove = () => resetControlsTimeout();
     window.addEventListener("mousemove", handleMouseMove);
 
-    resetControlsTimeout(); 
+    resetControlsTimeout();
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -127,6 +130,12 @@ export function EnhancedGridLayout({
       }
     };
   }, []);
+
+  const handleFocusToggle = (index: number) => {
+    setFocusedTrackIndex((prev) => {
+      return prev !== null ? null : index;
+    });
+  };
 
   if (noTracksAvailable) {
     return (
@@ -184,6 +193,8 @@ export function EnhancedGridLayout({
             <ParticipantCustomTile
               trackRef={tracks[currentIndex]}
               onClick={handleParticipantClick}
+              onFocusToggle={() => handleFocusToggle(0)}
+              isFocused={focusedTrackIndex !== null}
             />
           </motion.div>
         </AnimatePresence>
@@ -208,7 +219,7 @@ export function EnhancedGridLayout({
       {/* Desktop view (Grid Layout) */}
       <div
         className={`hidden __video_layout_main sm:grid gap-2 mx-auto text-center justify-center ${
-          currentTracks.length === 1
+          currentTracks.length === 1 || focusedTrackIndex !== null
             ? "grid-cols-1"
             : "sm:grid-cols-2 lg:grid-cols-2"
         }`}
@@ -218,12 +229,20 @@ export function EnhancedGridLayout({
           } as CustomCSSProperties
         }
       >
-        {currentTracks.map((track, index) => (
+        {(focusedTrackIndex !== null
+          ? [tracks[focusedTrackIndex]]
+          : currentTracks
+        ).map((track, index) => (
           <ParticipantCustomTile
-            key={index}
-            trackRef={track}
-            onClick={() => onParticipantClick?.(index)}
-          />
+              key={index}
+              trackRef={track}
+              onClick={() => {
+                onParticipantClick?.(index);
+                handleFocusToggle(index); // Ensure toggle is triggered here
+              }}
+              onFocusToggle={() => handleFocusToggle(index)}
+              isFocused={focusedTrackIndex !== null}
+            />
         ))}
       </div>
       {/* Pagination & controls desktop */}

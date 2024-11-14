@@ -1,14 +1,17 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useDataChannel } from "@livekit/components-react";
 
 type ReactionType = {
-  id: string; 
+  id: string;
   emoji: string;
   offset: { x: number; y: number };
 };
-
 const emojis = [
   "1F44D",
   "1F44E",
@@ -19,13 +22,14 @@ const emojis = [
   "1F639",
   "1F389",
 ];
-
 const Reaction = () => {
   const [reactions, setReactions] = useState<ReactionType[]>([]);
   const popoverRef = useRef<HTMLDivElement>(null);
-  
+
   const { send } = useDataChannel("reaction", (msg) => {
-    const reaction: ReactionType = JSON.parse(new TextDecoder().decode(msg.payload));
+    const reaction: ReactionType = JSON.parse(
+      new TextDecoder().decode(msg.payload)
+    );
     setReactions((prev) => [...prev, reaction]);
 
     setTimeout(() => {
@@ -38,9 +42,9 @@ const Reaction = () => {
 
     if (popoverRect) {
       const newReaction: ReactionType = {
-        id: crypto.randomUUID(), 
+        id: crypto.randomUUID(),
         emoji,
-        offset: { x: 0, y: -30 }, 
+        offset: { x: 0, y: -30 },
       };
 
       send(new TextEncoder().encode(JSON.stringify(newReaction)), {});
@@ -48,8 +52,10 @@ const Reaction = () => {
       setReactions((prev) => [...prev, newReaction]);
 
       setTimeout(() => {
-        setReactions((prev) => prev.filter((reaction) => reaction.id !== newReaction.id));
-      }, 1500); 
+        setReactions((prev) =>
+          prev.filter((reaction) => reaction.id !== newReaction.id)
+        );
+      }, 1500);
     }
   };
 
@@ -59,7 +65,7 @@ const Reaction = () => {
         <PopoverTrigger asChild>
           <div
             ref={popoverRef}
-            className="bg-white h-10 w-10 rounded-full flex justify-center items-center text-slate-400 cursor-pointer"
+            className="bg-white dark:bg-[#202124] h-10 w-10 rounded-full flex justify-center items-center text-slate-400 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -71,12 +77,16 @@ const Reaction = () => {
             </svg>
           </div>
         </PopoverTrigger>
-        <PopoverContent className="rounded-full px-3 py-2 flex w-auto border-none shadow-none __shadow_pody mb-1.5">
-          <div className="flex flex-row items-center gap-x-4 cursor-pointer">
+        <PopoverContent className="rounded-full px-3 py-2 flex w-auto border-none shadow-none dark:bg-[#202124] __shadow_pody mb-1.5">
+          <div
+            className="flex flex-row items-center gap-x-4 cursor-pointer select-none"
+            onContextMenu={(e) => e.preventDefault()}
+            style={{ userSelect: 'none' }}
+          >
             {emojis.map((hex, index) => (
               <p
                 key={index}
-                className="text-[1.4rem] text-muted-foreground"
+                className="text-[1.45rem] text-muted-foreground"
                 onClick={() =>
                   handleEmojiClick(String.fromCodePoint(parseInt(hex, 16)))
                 }
@@ -96,14 +106,14 @@ const Reaction = () => {
               initial={{ opacity: 1, x: offset.x, y: offset.y }}
               animate={{
                 opacity: 1,
-                x: offset.x + (Math.random() * 60 - 30), 
-                y: offset.y - 100, // Move upwards
-                scale: 1.4, 
+                x: offset.x + (Math.random() * 60 - 30),
+                y: offset.y - 100,
+                scale: 1.4,
               }}
               exit={{
                 opacity: 0,
                 scale: 1,
-                transition: { duration: 0.5 }, // Adjust duration for exit
+                transition: { duration: 0.5 },
               }}
               style={{
                 position: "absolute",
@@ -112,7 +122,7 @@ const Reaction = () => {
               }}
               transition={{ duration: 1.5 }}
             >
-              <span className="text-[1.5rem]">{emoji}</span>
+              <span className="text-[1.6rem]">{emoji}</span>
             </motion.div>
           ))}
         </AnimatePresence>

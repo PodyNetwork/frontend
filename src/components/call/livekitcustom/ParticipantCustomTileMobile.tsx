@@ -68,7 +68,7 @@ export interface ParticipantTileProps
   isFocused: boolean;
 }
 
-export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
+export const ParticipantCustomTileMobile: React.FC<ParticipantTileProps> =
   /* @__PURE__ */ React.forwardRef<HTMLDivElement, ParticipantTileProps>(
     function ParticipantTile(
       {
@@ -261,7 +261,7 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
               )}
               {/* Focus Toggle Button */}
               <button
-                className="absolute hidden sm:block top-[10px] cursor-pointer z-50 right-[10px] text-slate-500"
+                className="absolute top-[10px] cursor-pointer z-50 right-[10px] text-slate-500"
                 onClick={onFocusToggle}
               >
                 <svg
