@@ -24,7 +24,7 @@ const Page = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [otp]);
+  }, [otp, verifyOtpMutation]);
 
   return (
     <main className="w-full relative" aria-label="verify otp">

@@ -12,7 +12,7 @@ const StreamAside = () => {
     useParticipantBar();
   const { isChatOpen } = useChatContext();
   const { isGiftOpen } = useGiftMenu();
-  const { isFullscreen, exitFullscreen } = useFullscreen();
+  const { isFullscreen } = useFullscreen();
 
   return (
     <div

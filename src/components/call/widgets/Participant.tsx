@@ -16,8 +16,8 @@ import { useParticipantBar } from "../utils/ParticipantBarContext";
 
 const Participant = () => {
   const { url } = useParams();
-  const { call, isLoading: callLoading } = useGetCallByURL(url as string);
-  const { profile, isLoading: profileLoading } = useProfile();
+  const { call } = useGetCallByURL(url as string);
+  const { profile } = useProfile();
   const participants = useParticipants();
   const { updateCallParticipantPermission } =
     useUpdateCallParticipantPermission();

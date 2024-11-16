@@ -1,55 +1,73 @@
 import React from "react";
+import Image from "next/image";
+import user from "/public/avatar/user1.webp";
+import user2 from "/public/avatar/user2.webp";
+import user3 from "/public/avatar/user3.jpeg";
 
 const RewardSystem = () => {
   return (
     <section className="w-full relative">
-      <div className="px-3 md:px-10 flex flex-col max-w-7xl mx-auto pt-16 pb-40">
-        <div className="w-full mt-6">
-          <div className="__schedule_wrapper __pd_main_veil rounded-3xl relative text-slate-100 p-6">
-            <div className="relative z-50 flex flex-col min-h-[550px]">
-              <div className="flex flex-row items-center gap-x-2">
-                <div className="flex justify-center items-center">
+      <div className="flex flex-col max-w-7xl mx-auto px-4 md:px-10 pt-16 pb-40">
+        <div className="flex flex-col md:flex-row justify-between gap-6">
+          <div className="flex-1 flex flex-col">
+            <div className="relative max-w-xl">
+              <h2 className="text-6xl leading-[1.12] font-extrabold">
+                <span className="text-pody-secondary">Reward</span> system for
+                Student and Teacher
+              </h2>
+              <p className="text-base mt-10 text-slate-500">
+                Students earn points based on their total time spent in a
+                meeting. The longer you stay and engage, the more points you
+                accumulate. Additionally, hosts receive a 10% bonus of the
+                points accumulated by their students.
+              </p>
+            </div>
+            <div className="relative flex flex-row gap-x-4 items-center mt-auto">
+              <div>
+                <h2 className="text-3xl font-bold">4.5M</h2>
+                <p className="text-sm font-medium mt-1">
+                  Total Points <br /> accumulated by User
+                </p>
+              </div>
+              <div className="flex flex-row items-center bg-slate-100 rounded-full p-1.5">
+                <div className="flex flex-row items-center -space-x-4 __img_participant_rwd">
+                  <Image
+                    src={user}
+                    width={483}
+                    height={516}
+                    className="z-50"
+                    alt="pody users avatar"
+                  />
+                  <Image
+                    src={user2}
+                    width={483}
+                    height={516}
+                    className="z-40"
+                    alt="pody users avatar"
+                  />
+                  <Image
+                    src={user3}
+                    width={483}
+                    height={516}
+                    alt="pody users avatar"
+                  />
+                </div>
+                <button className="w-12 h-12 ms-4 bg-slate-300 rounded-full">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    viewBox="0 -960 960 960"
-                    fill="#e8eaed"
+                    className="w-7 h-7 m-auto"
+                    fill="rgba(0, 0, 0, 1)"
+                    viewBox="0 0 24 24"
                   >
-                    <path d="m618.92-298.92 42.16-42.16L510-492.16V-680h-60v212.15l168.92 168.93ZM480.07-100q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100ZM480-480Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z" />
+                    <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path>
                   </svg>
-                </div>
-                <h2 className="text-sm font-medium">
-                  Overview of the Reward System
-                </h2>
+                </button>
               </div>
-              <div className="relative mt-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex flex-col items-start relative max-w-md">
-                    <div className="pt-1">
-                      <h3 className="text-xl font-medium">Host</h3>
-                      <div className="text-base flex flex-col mt-2 text-slate-300">
-                        <p>
-                          In addition to the points earned, hosts are rewarded
-                          10% of the points accumulated points by their
-                          students.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-start relative max-w-md">
-                    <div className="pt-1">
-                      <h3 className="text-xl font-medium">Participant</h3>
-                      <div className="text-base flex flex-col mt-2 text-slate-300">
-                        <p>
-                          Students earn points for the total time spent in a
-                          meeting. The longer you stay and engage, the more
-                          points you earn.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            </div>
+          </div>
+          <div className="w-full md:w-[23rem] md:min-h-[600px]">
+            <div className="bg-slate-100 h-full rounded-[2rem] p-6">
+              <Image src="/abstract/abstract09.png" width={400} height={600} alt="pody reward system" />
             </div>
           </div>
         </div>

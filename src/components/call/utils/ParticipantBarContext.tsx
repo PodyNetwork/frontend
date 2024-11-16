@@ -47,7 +47,7 @@ const ParticipantBarProvider: React.FC<{ children: ReactNode }> = ({ children })
     if (!activeMenu && (isFullscreen && isParticipantBarVisible)) {
       setIsParticipantBarVisible(true); 
     }
-  }, [activeMenu]);
+  }, [activeMenu, isFullscreen, isParticipantBarVisible]);
 
   return (
     <ParticipantBarContext.Provider

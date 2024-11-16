@@ -13,7 +13,7 @@ const RoadmapTrack = () => {
                     <div className='__ring_line'></div>
                 </div>
             </div>
-            <div className='roadmap_list bg-tel-400 mt-[100px] md:mt-[200px] w-11/12'>
+            <div className='mt-[100px] md:mt-[200px] w-11/12'>
                 <ul className='text-sm flex flex-col gap-y-2 __list_ring_small'>
                     <li>Develop initial prototype</li>
                     <li>System improvements</li>
@@ -29,7 +29,7 @@ const RoadmapTrack = () => {
                     <div className='__ring_line'></div>
                 </div>
             </div>
-            <div className='roadmap_list bg-tel-400 mt-[100px] w-11/12'>
+            <div className='mt-[100px] w-11/12'>
                 <ul className='text-sm flex flex-col gap-y-2 __list_ring_small'>
                     <li>Deploy Beta version</li>
                     <li>System Auditing</li>
@@ -45,7 +45,7 @@ const RoadmapTrack = () => {
                     <div className='__ring_line'></div>
                 </div>
             </div>
-            <div className='roadmap_list bg-tel-400 mt-[100px] md:mt-[200px] w-11/12'>
+            <div className='mt-[100px] md:mt-[200px] w-11/12'>
                 <ul className='text-sm flex flex-col gap-y-2 __list_ring_small'>
                     <li>Deploy on Mainnet</li>
                     <li>Tokenomics and Token Auditing</li>
@@ -61,7 +61,7 @@ const RoadmapTrack = () => {
                     <div className='__ring_line'></div>
                 </div>
             </div>
-            <div className='roadmap_list bg-tel-400 mt-[100px] w-11/12'>
+            <div className='mt-[100px] w-11/12'>
                 <ul className='text-sm flex flex-col gap-y-2 __list_ring_small'>
                     <li>Reward Allocation</li>
                     <li>Reward Distribution</li>

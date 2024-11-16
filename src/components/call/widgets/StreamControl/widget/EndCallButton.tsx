@@ -9,7 +9,7 @@ const EndCallButton = () => {
   const { call } = useGetCallByURL(url as string);
   // end call
   const [callId, setCallId] = useState<string | undefined>(call?._id);
-  const { endCall, errorMessage } = useEndCall();
+  const { endCall } = useEndCall();
 
   const handleEndCall = () => {
     if (callId) {

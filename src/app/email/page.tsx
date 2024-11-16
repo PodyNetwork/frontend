@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import Image from "next/image";
 import logo from "/public/logo/pody logo dark.png";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
@@ -24,7 +24,7 @@ const Page = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [email]);
+  }, [email, setEmailMutation]);
 
   return (
     <main className="w-full relative" aria-label="set email">

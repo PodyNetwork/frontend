@@ -12,15 +12,18 @@ const CameraControl = ({ onDeviceError, saveUserChoices }: CameraControlProps) =
   const { localParticipant } = useLocalParticipant();
 
   const {
-    saveAudioInputEnabled,
     saveVideoInputEnabled,
-    saveAudioInputDeviceId,
     saveVideoInputDeviceId,
   } = usePersistentUserChoices({ preventSave: !saveUserChoices });
 
   const cameraOnChange = (enabled: boolean, isUserInitiated: boolean) => {
     if (isUserInitiated) {
+      saveVideoInputEnabled?.(enabled);
     }
+  };
+
+  const handleDeviceChange = (_kind: string, deviceId: string | undefined) => {
+    saveVideoInputDeviceId?.(deviceId ?? "");
   };
 
   return (
@@ -55,9 +58,7 @@ const CameraControl = ({ onDeviceError, saveUserChoices }: CameraControlProps) =
       <div>
         <CustomMediaDeviceMenu
           kind="videoinput"
-          onActiveDeviceChange={(_kind, deviceId) =>
-            saveVideoInputDeviceId(deviceId ?? "")
-          }
+          onActiveDeviceChange={handleDeviceChange}
         />
       </div>
     </div>

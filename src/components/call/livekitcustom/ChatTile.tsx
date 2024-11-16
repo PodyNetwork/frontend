@@ -1,24 +1,21 @@
-import type { ChatMessage, ChatOptions } from "@livekit/components-core";
+import type { ChatMessage, ChatOptions, MessageDecoder, MessageEncoder } from "@livekit/components-core";
 import * as React from "react";
 import { useMaybeLayoutContext } from "@livekit/components-react";
-import type { MessageFormatter } from "@livekit/components-react";
 import { useChat } from "@livekit/components-react";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
-import GiftUI from "../widgets/GiftCard";
 import useProfile from "@/hooks/user/useProfile";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useUnreadMessageContext } from "../utils/unreadMessageCount";
 import { useChatContext } from "../utils/ChatContext";
 import { useGiftMenu } from "../utils/GiftMenuContext";
 
-export interface ChatProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    ChatOptions {
-  messageFormatter?: MessageFormatter;
+export interface ChatProps extends React.HTMLAttributes<HTMLDivElement>, ChatOptions {
+  messageDecoder?: MessageDecoder;
+  messageEncoder?: MessageEncoder;
+  channelTopic?: string;
 }
 
 export default function ChatTile({
-  messageFormatter,
   messageDecoder,
   messageEncoder,
   channelTopic,
@@ -38,11 +35,11 @@ export default function ChatTile({
   const { send, chatMessages, isSending } = useChat(chatOptions);
   const layoutContext = useMaybeLayoutContext();
   const { isChatOpen, toggleChat } = useChatContext();
-  const { isGiftOpen, openGiftMenu } = useGiftMenu();
+  const { openGiftMenu } = useGiftMenu();
 
   const { profile } = useProfile();
 
-  const { unreadMessageCount, setUnreadMessageCount } =
+  const { setUnreadMessageCount } =
     useUnreadMessageContext(); // Access context
 
   const playNotificationSound = React.useCallback(() => {

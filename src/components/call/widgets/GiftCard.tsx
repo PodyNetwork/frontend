@@ -1,7 +1,6 @@
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import useProfile from "@/hooks/user/useProfile";
-import { useDataChannel, useParticipants } from "@livekit/components-react";
-import { motion } from "framer-motion";
+import { useParticipants } from "@livekit/components-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { etherGift, gift } from "@/utils/gift";
 import useBulkUserByUsername from "@/hooks/user/useGetBulkParticipantByusername";
@@ -33,9 +32,6 @@ type GiftItem = {
   isHot?: boolean;
 };
 
-type GiftUIProps = {
-  gifts: GiftItem[];
-};
 
 const gifts = [
   {
@@ -173,12 +169,6 @@ const GiftUI: React.FC = () => {
     .slice(0, visibleParticipants);
 
   const { isGiftOpen, closeGiftMenu } = useGiftMenu();
-
-  const animationVariants = {
-    initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, y: -50, transition: { duration: 0.5 } },
-  };
 
   const giftHeader = useRef<HTMLDivElement>(null);
   const giftCloseButton = useRef<HTMLDivElement>(null);

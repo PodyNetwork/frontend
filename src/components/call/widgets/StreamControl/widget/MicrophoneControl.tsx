@@ -5,24 +5,32 @@ import { SourceToggle } from "@/components/call/livekitcustom/SourceToggle";
 import { useCallback } from "react";
 
 interface AudioControlProps {
-    onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
-    saveUserChoices?: boolean;
+  onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
+  saveUserChoices?: boolean;
 }
 
-const MicrophoneControl = ({saveUserChoices, onDeviceError}: AudioControlProps) => {
+const MicrophoneControl = ({ saveUserChoices, onDeviceError }: AudioControlProps) => {
   const { localParticipant } = useLocalParticipant();
 
   const {
     saveAudioInputEnabled,
-    saveVideoInputEnabled,
     saveAudioInputDeviceId,
-    saveVideoInputDeviceId,
   } = usePersistentUserChoices({ preventSave: !saveUserChoices });
 
   const microphoneOnChange = useCallback(
-    (enabled: boolean, isUserInitiated: boolean) =>
-      isUserInitiated ? saveAudioInputEnabled(enabled) : null,
+    (enabled: boolean, isUserInitiated: boolean) => {
+      if (isUserInitiated) {
+        saveAudioInputEnabled?.(enabled);
+      }
+    },
     [saveAudioInputEnabled]
+  );
+
+  const handleDeviceChange = useCallback(
+    (_kind: string, deviceId: string | undefined) => {
+      saveAudioInputDeviceId?.(deviceId ?? "");
+    },
+    [saveAudioInputDeviceId]
   );
 
   return (
@@ -57,9 +65,7 @@ const MicrophoneControl = ({saveUserChoices, onDeviceError}: AudioControlProps) 
       <div>
         <CustomMediaDeviceMenu
           kind="audioinput"
-          onActiveDeviceChange={(_kind, deviceId) =>
-            saveAudioInputDeviceId(deviceId ?? "")
-          }
+          onActiveDeviceChange={handleDeviceChange}
         />
       </div>
     </div>

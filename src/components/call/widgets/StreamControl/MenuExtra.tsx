@@ -10,27 +10,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import {
-  AudioLines,
-  ChartArea,
-  CircleDollarSign,
-  Gift,
+  AudioLines, Gift,
   Maximize,
   MessageSquareText,
   Minimize,
   Moon,
-  PhoneOff,
-  Presentation,
-  ScreenShare,
-  Settings,
-  Smile,
+  PhoneOff, ScreenShare, Smile,
   Sun,
   UserPlus,
-  Users,
+  Users
 } from "lucide-react";
 import { useFullscreen } from "../../utils/FullscreenContext";
 import { useParticipantBar } from "../../utils/ParticipantBarContext";
 import { useGiftMenu } from "../../utils/GiftMenuContext";
 import { useState, useEffect } from "react";
+import { useKrispNoiseFilter } from "@livekit/components-react/krisp";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 interface MenuExtraProps {
   username: string;
@@ -67,6 +63,8 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
       localStorage.setItem("darkMode", "false");
     }
   };
+
+  const krisp = useKrispNoiseFilter();
 
   return (
     <DropdownMenu>
@@ -176,6 +174,12 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
           <DropdownMenuItem>
             <AudioLines />
             Noise cancellation
+            <input
+              type="checkbox"
+              onChange={(ev) => krisp.setNoiseFilterEnabled(ev.target.checked)}
+              checked={krisp.isNoiseFilterEnabled}
+              disabled={krisp.isNoiseFilterPending}
+            />
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
@@ -185,3 +189,4 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
 };
 
 export default MenuExtra;
+

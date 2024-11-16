@@ -20,20 +20,16 @@ interface Call {
   privacy?: string;
 }
 
-interface Calls {
-  calls: Call[];
-}
-
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
 const SkeletonCard = () => {
   return (
     <>
-      {Array.from({ length: 3 }).map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <motion.div
           key={index}
-          className="bg-pody-dark p-5 rounded-3xl xs:rounded-[1.7rem] text-slate-200 flex flex-col"
+          className="bg-slate-100 p-5 rounded-3xl xs:rounded-[1.7rem] flex flex-col"
           transition={{
             repeat: Infinity,
             repeatType: "mirror",
@@ -50,12 +46,12 @@ const SkeletonCard = () => {
               duration: 1.5,
             }}
           >
-            <div className="bg-[#262626] rounded-full px-4 py-2 w-32 h-5"></div>
-            <div className="bg-[#262626] rounded-full px-4 py-2 w-20 h-5"></div>
+            <div className="bg-slate-200 rounded-full px-4 py-2 w-32 h-5"></div>
+            <div className="bg-slate-200 rounded-full px-4 py-2 w-20 h-5"></div>
           </motion.div>
           <div className="py-6">
             <motion.div
-              className="h-6 bg-slate-700 w-40 rounded mb-2"
+              className="h-6 bg-slate-300 w-40 rounded mb-2"
               initial={{ width: "60%" }}
               animate={{ width: "100%" }}
               transition={{
@@ -65,7 +61,7 @@ const SkeletonCard = () => {
               }}
             ></motion.div>
             <motion.div
-              className="h-4 bg-slate-700 w-60 rounded"
+              className="h-4 bg-slate-300 w-60 rounded"
               initial={{ opacity: 0.4 }}
               animate={{ opacity: 0.8 }}
               transition={{
@@ -88,7 +84,7 @@ const SkeletonCard = () => {
           >
             <div className="flex flex-row items-center gap-x-2 sm:gap-x-3 mt-auto">
               <motion.div
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-700"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-400"
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 transition={{
@@ -99,7 +95,7 @@ const SkeletonCard = () => {
               ></motion.div>
               <div className="flex-1">
                 <motion.div
-                  className="h-4 bg-slate-700 w-32 rounded mb-1"
+                  className="h-4 bg-slate-300 w-32 rounded mb-1"
                   initial={{ width: "50%" }}
                   animate={{ width: "75%" }}
                   transition={{
@@ -109,7 +105,7 @@ const SkeletonCard = () => {
                   }}
                 ></motion.div>
                 <motion.div
-                  className="h-3 bg-slate-700 w-24 rounded"
+                  className="h-3 bg-slate-300 w-24 rounded"
                   initial={{ opacity: 0.5 }}
                   animate={{ opacity: 1 }}
                   transition={{
@@ -121,7 +117,7 @@ const SkeletonCard = () => {
               </div>
             </div>
             <motion.div
-              className="bg-slate-700 rounded-full px-4 py-3 flex items-center w-32 justify-center"
+              className="bg-slate-300 rounded-full px-4 py-3 flex items-center w-32 justify-center"
               initial={{ opacity: 0.6 }}
               animate={{ opacity: 1 }}
               transition={{
@@ -130,7 +126,7 @@ const SkeletonCard = () => {
                 duration: 1.5,
               }}
             >
-              <div className="h-6 w-6 bg-slate-600 rounded-full"></div>
+              <div className="h-6 w-6 bg-slate-300 rounded-full"></div>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -145,7 +141,7 @@ const Inactivecall = () => {
       <div className="flex flex-col items-start relative max-w-lg">
         <div className="pt-1">
           <h3 className="text-2xl font-medium">Public Classroom</h3>
-          <div className="text-base flex flex-col mt-1.5 text-slate-300">
+          <div className="text-base flex flex-col mt-1.5 text-slate-500">
             <p>
               You can join public classroom and earn rewards, Public classrooms
               will be posted here as soon as they become available.
@@ -168,11 +164,10 @@ const Publiccall = () => {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-    isError,
     refetch,
   } = useGetPublicCalls({
     type: activeTab === "all" ? undefined : activeTab,
-    limit: 3,
+    limit: 4,
     sortDirection: "desc",
   });
 
@@ -189,19 +184,23 @@ const Publiccall = () => {
     router.push(fullUrl);
   }
 
+  function goToDashboard() {
+    const fullUrl = `/dashboard`;
+    router.push(fullUrl);
+  }
+
   const renderCalls = () => (
     <>
-      {isError && <Inactivecall />}
       {calls.length === 0 && !isLoading && <Inactivecall />}
-      <div className="__container_grid gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {isLoading && <SkeletonCard />}
         {calls?.map((call: Call) => (
           <div
             key={call._id}
-            className="bg-pody-dark p-5 rounded-3xl xs:rounded-[1.7rem] text-slate-300"
+            className="bg-slate-100 p-5 rounded-3xl xs:rounded-[1.7rem] text-slate-600"
           >
             <div className="flex flex-wrap items-center mb-4 text-xs xs:text-sm">
-              <span className="bg-[#262626] rounded-full px-4 py-2">
+              <span className="bg-slate-200 rounded-full px-4 py-2">
                 {(() => {
                   if (!call || !call?.scheduledTime) {
                     return "";
@@ -215,7 +214,7 @@ const Publiccall = () => {
                   return scheduledDate.format("MMM D, YYYY");
                 })()}
               </span>
-              <span className="bg-[#262626] rounded-full px-4 py-2">
+              <span className="bg-slate-200 rounded-full px-4 py-2">
                 {(() => {
                   if (!call || !call?.scheduledTime) {
                     return "";
@@ -229,7 +228,9 @@ const Publiccall = () => {
             <div className="py-6">
               <h2 className="text-xl">{call.title || "Untitled Meeting"}</h2>
               <div className="text-xs mt-1 flex items-center gap-x-1 capitalize">
-                {call.status === "ongoing" && <p className="live-dot bg-pody-success"></p>}
+                {call.status === "ongoing" && (
+                  <p className="live-dot bg-pody-success"></p>
+                )}
                 {call.status}
               </div>
             </div>
@@ -251,11 +252,11 @@ const Publiccall = () => {
               <button
                 onClick={() => goToMeeting(call.url)}
                 disabled={call?.status === "ended"}
-                className={`bg-white cursor-pointer text-slate-800 text-sm rounded-full px-4 py-1.5 flex items-center ${
-                  call?.status === "ended" && "opacity-20"
+                className={`bg-slate-300 cursor-pointer text-slate-700 text-sm rounded-full px-4 py-1.5 flex items-center ${
+                  call?.status === "ended" && "opaciy-30"
                 }`}
               >
-                Join Call
+                {call?.status === "ended" ? "Ended" : "Join Call"}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-5 h-5 ms-2"
@@ -272,11 +273,10 @@ const Publiccall = () => {
       </div>
       {hasNextPage && (
         <button
-          onClick={() => fetchNextPage()}
-          disabled={isFetchingNextPage}
-          className="mt-4 bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 text-sm hover:opacity-80 transition-all duration-300"
+          className="mt-4 bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300"
+          onClick={goToDashboard}
         >
-          {isFetchingNextPage ? "Loading more..." : "Load More"}
+          Explore More
         </button>
       )}
     </>
@@ -286,7 +286,7 @@ const Publiccall = () => {
     <Tabs
       defaultValue="all"
       className="w-full mt-6"
-      onValueChange={(value) => setActiveTab(value as any)}
+      onValueChange={(value) => setActiveTab(value as "instant" | "scheduled" | "all")}
     >
       <TabsList className="w-full xs:w-auto xs:rounded-full h-auto p-2 flex-col xs:flex-row">
         <TabsTrigger value="all" className={pd_tabs_class}>
@@ -327,21 +327,25 @@ const OngoingClass = () => {
   return (
     <section className="w-full relative">
       <div
-        className="px-3 md:px-10 flex flex-col max-w-7xl mx-auto py-24"
+        className="flex flex-col max-w-7xl mx-auto pt-6 pb-24 px-3 md:px-0"
         id="publicClassroom"
       >
-        <div className="flex flex-col items-center mb-6">
-          <div className="max-w-xl text-center flex flex-col gap-y-2.5">
-            <h2 className="text-2xl xs:text-4xl font-semibold text-pody-dark">
-              Get Reward Instantly when you join active classroom
-            </h2>
-            <p className="text-base mt-1.5 text-slate-700">
-              Your reward is calculated when you join a classroom starts when
-              you join
-            </p>
+        <div className="flex flex-col md:flex-row w-full">
+          <div className="w-full">
+            <div className="flex flex-col items-centr mb-6">
+              <div className="max-w-xl text-centr flex flex-col gap-y-2.5">
+                <h2 className="text-2xl xs:text-4xl font-semibold text-pody-dark">
+                  Get Reward Instantly when you join active classroom
+                </h2>
+                <p className="text-base mt-1.5 text-slate-700">
+                  Your reward is calculated when you join a classroom starts
+                  when you join
+                </p>
+              </div>
+            </div>
+            <Publiccall />
           </div>
         </div>
-        <Publiccall />
       </div>
     </section>
   );

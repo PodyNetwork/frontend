@@ -5,9 +5,9 @@ import React, {
   useRef,
   useState,
 } from "react";
-import type { TrackReferenceOrPlaceholder } from "@livekit/components-core";
+import { TrackReferenceOrPlaceholder } from "@livekit/components-core";
 import { ParticipantCustomTile } from "./ParticipantCustomTile";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import Image from "next/image";
 
 export interface EnhancedGridLayoutProps
@@ -43,7 +43,7 @@ export function EnhancedGridLayout({
     }
   };
 
-  const handleDragEnd = (event: any, info: { offset: { x: number } }) => {
+  const handleDragEnd = (event: MouseEvent | TouchEvent, info: PanInfo) => {
     const swipeThreshold = 100;
     if (info.offset.x > swipeThreshold) {
       setCurrentIndex((prev) => (prev === 0 ? tracks.length - 1 : prev - 1));
@@ -80,15 +80,10 @@ export function EnhancedGridLayout({
   const limitedVideoCount = Math.min(currentTracks.length, 4);
 
   const paginationRef = useRef<HTMLDivElement>(null);
-  const [paginationHeight, setPaginationHeight] = useState(0);
 
   const calculateHeights = useCallback(() => {
     if (paginationRef.current) {
       const height = paginationRef.current.offsetHeight;
-      setPaginationHeight(height);
-
-      console.log(height);
-
       document.documentElement.style.setProperty(
         "--pagination-height",
         `${height}px`

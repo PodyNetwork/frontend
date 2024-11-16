@@ -5,12 +5,21 @@ import useProfile from "@/hooks/user/useProfile";
 import { useGiftAnimation } from "../../utils/GiftanimationContext";
 import Image from "next/image";
 
+type ConfettiItem = {
+  id: string;
+  x: number;
+  y: number;
+  rotation: number;
+  scale: number;
+  duration: number;
+};
+
 const GiftAnimationPage: React.FC = () => {
   const { animationData } = useGiftAnimation();
   const { profile } = useProfile();
   const [showAnimation, setShowAnimation] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [confetti, setConfetti] = useState<any[]>([]);
+  const [confetti, setConfetti] = useState<ConfettiItem[]>([]);
 
   const giftRef = useRef<HTMLDivElement | null>(null);
 

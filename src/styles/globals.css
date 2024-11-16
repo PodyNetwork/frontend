@@ -231,7 +231,7 @@ body {
 
 .__list_ring_small>li {
     padding-left: 18px;
-    @apply text-slate-400;
+    @apply text-slate-600;
     position: relative;
     display: flex;
     align-items: center;
@@ -299,21 +299,24 @@ body {
 }
 
 @media (min-width: 768px) {
-    .__pd_name_max{
+    .__pd_name_max {
         max-width: inherit;
         overflow: hidden;
     }
 }
+
 @media (max-width: 767px) {
-    .__pd_name_max{
+    .__pd_name_max {
         max-width: 80px;
         overflow: hidden;
     }
+
     .__pd_participant_list_grd {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     }
-    .__mobile_controls{
+
+    .__mobile_controls {
         position: fixed !important;
         bottom: 0;
         @apply z-50 mx-auto px-1 py-5 bg-slate-50 dark:bg-black w-full text-[0.7rem];
@@ -322,6 +325,7 @@ body {
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     }
 }
+
 .__participant_message_container {
     overflow-y: auto;
 }
@@ -785,7 +789,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url("/publiccall/woman-is-sitting-desk-with-laptop-her-family-photos-wall-her.jpg");
+    background-image: url("/publiccall/minimalist-digital-tools-online-teaching-video-conferencing.jpg");
 }
 
 
@@ -836,7 +840,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(7, 7, 10, 0.55);
+    background-color: rgba(7, 7, 10, 0.75);
     border-radius: inherit;
 }
 
@@ -1047,18 +1051,21 @@ body {
 .__video_layout_main {
     max-width: var(--max-video-width, 100%);
 }
+
 @media (max-width: 767px) {
     .__video_layout_main {
         max-width: var(--widthMobile);
     }
 }
+
 @media (min-width: 768px) {
     .__video_layout_main {
         display: grid;
         grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
         max-height: calc(var(--max-video-height) * var(--video-count));
     }
-    .__video_layout_main > * {
+
+    .__video_layout_main>* {
         max-height: var(--max-video-height);
         aspect-ratio: 16/9;
     }
@@ -1100,38 +1107,88 @@ body {
     }
 }
 
-.__container_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-@media (max-width: 250px) {
-    .__container_grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (max-width: 768px) {
-    .__scheduled_layout_lft{
+    .__scheduled_layout_lft {
         @apply w-1/2;
     }
-    .__scheduled_layout_rgt{
+
+    .__scheduled_layout_rgt {
         @apply w-1/2;
     }
 }
+
 @media (max-width: 650px) {
-    .__scheduled_container_layout{
+    .__scheduled_container_layout {
         flex-direction: column;
     }
-    .__scheduled_layout_lft{
+
+    .__scheduled_layout_lft {
         @apply w-full;
     }
-    .__scheduled_layout_rgt{
+
+    .__scheduled_layout_rgt {
         @apply w-full;
     }
 }
+
 .__nav {
     display: flex;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.__img_participant_dsc>img {
+    @apply rounded-full object-cover relative w-9 h-9;
+}
+
+.__img_participant_rwd>img {
+    @apply rounded-full object-cover relative w-12 h-12 border-2 border-slate-300;
+}
+
+.highlight {
+    display: inline-block;
+    background-color: #ffc700;
+    padding: 0.2rem;
+}
+@media (min-width: 1300px) {
+    .__discover_lyout{
+        @apply grid-cols-[1fr_350px_1fr];
+    }
+}
+@media (max-width: 1299px) {
+    .__discover_lyout{
+        @apply grid-cols-[1fr_1fr_1fr];
+    }
+}
+@media (max-width: 992px) {
+    .__discover_lyout{
+        @apply grid-cols-[1fr_1fr];
+    }
+}
+@media (max-width: 575px) {
+    .__discover_lyout{
+        @apply grid-cols-[1fr];
+    }
+    .__discover_img > img{
+        max-height: 50vh !important;
+    }
+}
+@media (min-width: 500px) and (max-width: 992px) {
+    .__span-2 {
+        grid-column: span 2;
+        word-break: break-word;
+    }
+    .__ml_zero{
+        margin-left: 0 !important;
+    }
+    .__flex_row_fts{
+        flex-direction: row;
+        @apply pt-12 gap-x-12;
+    }
+}
+@media (max-width: 499px) {
+    .__feature_card_x_wid{
+        min-width: 100%;
+        max-width: 100%;
+    }
 }

@@ -1,25 +1,17 @@
 import { Track } from "livekit-client";
 import * as React from "react";
 import {
-  useLocalParticipantPermissions,
-  useLocalParticipant,
-  usePersistentUserChoices,
+  useLocalParticipantPermissions
 } from "@livekit/components-react";
 import { supportsScreenSharing } from "@livekit/components-core";
 
-import { SourceToggle } from "../../livekitcustom/SourceToggle";
-import { CustomMediaDeviceMenu } from "../../livekitcustom/CustomMediaMenu";
-import useEndCall from "@/hooks/call/useEndCall";
 import { useParams } from "next/navigation";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useEffect, useRef, useState } from "react";
 import useProfile from "@/hooks/user/useProfile";
-import { useCustomDisconnectButton } from "../../livekitcustom/CustomDisconnect";
 import Reaction from "./Reaction";
 import MenuExtra from "./MenuExtra";
 import { useFullscreen } from "../../utils/FullscreenContext";
-import { useUnreadMessageContext } from "../../utils/unreadMessageCount";
-import { useChatContext } from "../../utils/ChatContext";
 import CameraControl from "./widget/CameraControl";
 import MicrophoneControl from "./widget/MicrophoneControl";
 import LeaveCallButton from "./widget/LeaveCallButton";
@@ -38,17 +30,12 @@ export type ControlBarControls = {
 
 export interface ControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
   onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
-  variation?: "minimal" | "verbose" | "textOnly";
   controls?: ControlBarControls;
-  saveUserChoices?: boolean;
 }
 
 const Controls = ({
-  variation,
   controls,
-  saveUserChoices = true,
   onDeviceError,
-  ...props
 }: ControlBarProps) => {
   const visibleControls = { leave: true, ...controls };
   const localPermissions = useLocalParticipantPermissions();
@@ -67,26 +54,6 @@ const Controls = ({
 
   const browserSupportsScreenSharing = supportsScreenSharing();
 
-  const {
-    saveAudioInputEnabled,
-    saveVideoInputEnabled,
-    saveAudioInputDeviceId,
-    saveVideoInputDeviceId,
-  } = usePersistentUserChoices({ preventSave: !saveUserChoices });
-
-  const microphoneOnChange = React.useCallback(
-    (enabled: boolean, isUserInitiated: boolean) =>
-      isUserInitiated ? saveAudioInputEnabled(enabled) : null,
-    [saveAudioInputEnabled]
-  );
-
-  const cameraOnChange = React.useCallback(
-    (enabled: boolean, isUserInitiated: boolean) =>
-      isUserInitiated ? saveVideoInputEnabled(enabled) : null,
-    [saveVideoInputEnabled]
-  );
-
-  const { localParticipant } = useLocalParticipant();
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();

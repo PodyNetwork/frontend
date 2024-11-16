@@ -41,7 +41,7 @@ const claimPoints = async (args: ClaimPointsArgs): Promise<void> => {
   await writeContract(config, request);
 };
 
-const getLevelFee = async (args: { level: BigInt}): Promise<bigint> => {
+const getLevelFee = async (args: { level: bigint}): Promise<bigint> => {
 
   const result = await readContract(config, {
     abi: podyPassportAbi,

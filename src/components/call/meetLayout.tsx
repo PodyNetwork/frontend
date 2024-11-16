@@ -1,5 +1,4 @@
 "use client";
-import ControlsMobile from "./widgets/StreamControl/ControlsMobile";
 import StreamSidebar from "./widgets/StreamSidebar";
 import StreamScreen from "./widgets/StreamScreen";
 import ParticipantMobileManage from "./widgets/ParticipantManageMobile";
@@ -13,11 +12,11 @@ import { useGiftMenu } from "./utils/GiftMenuContext";
 import { useParticipantBar } from "./utils/ParticipantBarContext";
 
 const MeetLayout = () => {
-  const { isFullscreen, exitFullscreen } = useFullscreen();
+  const { isFullscreen } = useFullscreen();
 
   const sidebarClasses = isFullscreen ? "hidden" : "hidden md:block";
 
-  const { isParticipantBarVisible, participantBarIsExpanded } =
+  const { participantBarIsExpanded } =
     useParticipantBar();
   const { isChatOpen } = useChatContext();
   const { isGiftOpen } = useGiftMenu();

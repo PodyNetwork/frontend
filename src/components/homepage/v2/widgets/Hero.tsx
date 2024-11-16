@@ -7,10 +7,10 @@ const Hero = () => {
       <div className="__class_wrapper_bg __pd_main_veil px-3 md:px-10 flex flex-col">
         <Nav />
         <div className="w-full my-auto relative flex flex-col items-center py-24">
-          <div className="flex items-center justify-center flex-col text-slate-100 max-w-3xl text-center gap-y-3.5">
+          <div className="flex items-center justify-center flex-col text-slate-100 max-w-2xl text-center gap-y-3.5">
             <p className="font-medium text-xl">Pody Classroom</p>
             <h1 className="font-extrabold text-6xl leading-[1.15]">
-              Join Ongoing Classroom and Earn Rewards
+              Join Classroom and Earn Rewards
             </h1>
             <Link href="#publicClassroom">
               <button className="bg-pody-primary rounded-full px-5 py-1 text-slate-800 text-base font-medium">

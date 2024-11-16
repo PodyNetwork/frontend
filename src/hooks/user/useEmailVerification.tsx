@@ -1,7 +1,7 @@
 "use client"
 import { useMutation } from '@tanstack/react-query';
 import { useCallback } from 'react';
-import axios from "@/network/axios"
+import axios from "@/network/axios";
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../useErrorMessage';
 import type { CallResponse } from '../../app/call/types';
@@ -29,7 +29,7 @@ const useEmailVerification = () => {
 
   const verifyEmail = useMutation({
     mutationFn: verifyEmailHandler,
-    onSuccess: (data) => {
+    onSuccess: () => {
       clearErrorMessage();
       router.push(`/dashboard`);
     },

@@ -1,11 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
-import Image from "next/image";
-import WormiesConversations from "/public/illustration/Wormies - Conversations.png"
 
 const CallEndPage = () => {
   const { url } = useParams();
@@ -99,9 +97,6 @@ const CallEndPage = () => {
               </p>
             </>
           )}
-        </div>
-        <div className="w-[450px] max-w-[450px] flex-1">
-          <Image src={WormiesConversations} className="w-full object-cover h-full" width={300} height={300} alt="pody image" />
         </div>
       </div>
     </div>

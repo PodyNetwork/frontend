@@ -9,11 +9,13 @@ import RewardSystem from "@/components/homepage/v2/widgets/RewardSystem";
 import PodyNFT from "@/components/homepage/v2/widgets/PodyNFT";
 import PodyRoadmap from "@/components/homepage/v2/widgets/PodyRoadmap";
 import PodyFaq from "@/components/homepage/v2/widgets/PodyFaq";
+import PartnerSection from "@/components/homepage/Partner";
 
 const page = () => {
   return (
     <main className="relaive flex flex-col w-full" aria-label="class">
       <Hero />
+      <PartnerSection />
       <OngoingClass />
       <ScheduledClass />
       <PodyFeatures />

@@ -4,7 +4,7 @@ const LeaveCallButton = () => {
   const { buttonProps } = useCustomDisconnectButton({
     stopTracks: true,
   });
-  const { stopTracks, ...restButtonProps } = buttonProps;
+  const { ...restButtonProps } = buttonProps;
   return (
     <button {...restButtonProps} className="flex-shrink-0">
       <label className="sr-only">LeaveCall</label>

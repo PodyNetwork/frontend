@@ -1,12 +1,9 @@
-import React from 'react'
-import Heading2 from '../../global/heading2'
-import Paragraph from '../../global/paragraph'
 
 const RoadmapHeader = () => {
   return (
     <div className='text-center flex flex-col gap-y-4 mb-24'>
-        <Heading2 className="font-bold">Roadmap</Heading2>
-        <Paragraph>Ready to ride with us? Get to know Our Vision and Milestones</Paragraph>
+        <h2 className="font-bold text-2xl xs:text-3xl text-slate-700">Roadmap</h2>
+        <p className='text-base text-slate-600'>Ready to ride with us? Get to know Our Vision and Milestones</p>
     </div>
   )
 }
