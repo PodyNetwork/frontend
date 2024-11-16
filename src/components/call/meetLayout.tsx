@@ -29,13 +29,13 @@ const MeetLayout = () => {
             <div className="flex flex-col md:flex-row gap-x-2 h-screen max-h-screen md:justify-between relative">
               {/* Sidebar */}
               <div
-                className={`w-16 max-w-16 py-5 __pd_bg_gradient dark:bg-pody-dark h-full ${sidebarClasses}`}
+                className={`w-16 max-w-16 py-5 bg-[#F7F7F7] dark:bg-pody-dark h-full ${sidebarClasses}`}
               >
                 <StreamSidebar />
               </div>
               {/* Main Stream Screen */}
               <div
-                className={`md:h-full flex flex-col __main-screen relative float-left w-full px-1.5 md:px-5" ${isFullscreen ? "bg-[#202124]" : "__pd_bg_gradient dark:bg-pody-dark"} ${
+                className={`md:h-full flex flex-col __main-screen relative float-left w-full px-1.5 md:px-5" ${isFullscreen ? "bg-[#202124]" : "bg-[#F7F7F7] dark:bg-pody-dark"} ${
                   (participantBarIsExpanded || isChatOpen || isGiftOpen) && !isFullscreen
                     ? "md:w-[calc(100vw-25rem)]"
                     : isFullscreen 

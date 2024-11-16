@@ -1,4 +1,3 @@
-import { RoomAudioRenderer } from "@livekit/components-react";
 import { LayoutContextProvider } from "@livekit/components-react";
 import { CustomLiveKitRoom } from "./livekitcustom/CustomLivekitRoom";
 import { type ReactNode } from "react";
@@ -22,7 +21,6 @@ const CustomLiveKit = ({
           token={token}
           serverUrl={serverUrl}
         >
-          <RoomAudioRenderer />
           {children}
         </CustomLiveKitRoom>
       </UserProvider>

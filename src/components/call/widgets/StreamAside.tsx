@@ -16,7 +16,7 @@ const StreamAside = () => {
 
   return (
     <div
-      className={`__pd_bg_gradient overflow-y-auto md:overflow-visible w-full h-full relative flex-col gap-y-2 flex-1 md:flex-none flex ${
+      className={`bg-[#F7F7F7] overflow-y-auto md:overflow-visible w-full h-full relative flex-col gap-y-2 flex-1 md:flex-none flex ${
         (isParticipantBarVisible && participantBarIsExpanded && isFullscreen) ||
         (participantBarIsExpanded && !isFullscreen) ||
         isChatOpen ||
@@ -29,7 +29,7 @@ const StreamAside = () => {
     >
       {/* Participant Panel */}
       <div
-        className={`w-full relative h-full __pd_bg_gradient md:bg-white md:dark:bg-pody-dark_secondary __shadow_pody transition-all duration-300 ease-in-out flex flex-col gap-y-2 flex-1 md:flex-none ${
+        className={`w-full relative h-full bg-[#F7F7F7] dark:bg-pody-dark_secondary __shadow_pody transition-all duration-300 ease-in-out flex flex-col gap-y-2 flex-1 md:flex-none ${
           !isParticipantBarVisible && isFullscreen && "hidden"
         }`}
       >

@@ -83,7 +83,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 border-none shadow-none __shadow_pody mb-1.5 text-slate-500">
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        {overflowItem.length > 0 && <DropdownMenuSeparator /> }
         <DropdownMenuGroup>
           {overflowItem.length > 0 &&
             overflowItem.map((overflowItem, index) => {
@@ -169,20 +169,6 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
             </DropdownMenuItem>
           )}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <AudioLines />
-            Noise cancellation
-            <input
-              type="checkbox"
-              onChange={(ev) => krisp.setNoiseFilterEnabled(ev.target.checked)}
-              checked={krisp.isNoiseFilterEnabled}
-              disabled={krisp.isNoiseFilterPending}
-            />
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
       </DropdownMenuContent>
     </DropdownMenu>
   );
