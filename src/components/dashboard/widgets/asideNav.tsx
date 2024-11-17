@@ -49,7 +49,7 @@ const AsideNav = () => {
   return (
     <>
       {/* Desktop menu */}
-      <aside className="hidden md:flex flex-col items-center w-full bg-pody-primary/20">
+      <aside className="hidden md:flex flex-col items-center w-full bg-pody-primary/50">
         <div className="md:flex w-full items-center justify-between py-6 px-12 gap-x-4 xl:max-w-[1300px]">
           <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
             <Link href="/">
@@ -63,7 +63,7 @@ const AsideNav = () => {
               {dashlink.map((data, index) => (
                 <li
                   key={index}
-                  className="py-2 hover:text-slate-500 hover:transition-all rounded-full text-slate-700"
+                  className="py-2 hover:text-slate-600 hover:transition-all rounded-full text-slate-800"
                 >
                   <Link
                     onClick={(e) => {
@@ -87,7 +87,7 @@ const AsideNav = () => {
               {isLoading || isError ? (
                 <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>
               ) : (
-                <h3 className="text-sm text-slate-500">
+                <h3 className="text-sm text-slate-800">
                   Hello, {profile?.username}
                 </h3>
               )}
@@ -119,7 +119,7 @@ const AsideNav = () => {
       </aside>
 
       {/* Mobile menu button */}
-      <div className="md:hidden bg-pody-primary/20 w-full py-6 px-6 gap-x-4 relative">
+      <div className="md:hidden bg-pody-primary/50 w-full py-6 px-6 gap-x-4 relative">
         <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
           <Link href="/">
             <Image

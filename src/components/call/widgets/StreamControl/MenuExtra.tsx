@@ -10,21 +10,32 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import {
-  AudioLines, Gift,
+  Gift,
+  LogOut,
   Maximize,
   MessageSquareText,
   Minimize,
   Moon,
-  PhoneOff, ScreenShare, Smile,
+  PhoneOff,
+  ScreenShare,
+  Smile,
   Sun,
   UserPlus,
-  Users
+  Users,
 } from "lucide-react";
 import { useFullscreen } from "../../utils/FullscreenContext";
 import { useParticipantBar } from "../../utils/ParticipantBarContext";
 import { useGiftMenu } from "../../utils/GiftMenuContext";
 import { useState, useEffect } from "react";
-import { useKrispNoiseFilter } from "@livekit/components-react/krisp";
+import StreamShare from "../share/StreamShare";
+import { shareOnMobile } from "react-mobile-share";
+import useGetCallByURL from "@/hooks/call/useGetCallByURL";
+import useProfile from "@/hooks/user/useProfile";
+import { useParams } from "next/navigation";
+import { useUnreadMessageContext } from "../../utils/unreadMessageCount";
+import { useChatContext } from "../../utils/ChatContext";
+import LeaveCallButton from "./widget/LeaveCallButton";
+import EndCallButton from "./widget/EndCallButton";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -40,6 +51,10 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
   const { isGiftOpen, openGiftMenu, closeGiftMenu } = useGiftMenu();
 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+  const { url } = useParams();
+  const { call } = useGetCallByURL(url as string);
+  const { profile, isLoading, isError } = useProfile();
 
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
@@ -64,7 +79,8 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
     }
   };
 
-  const krisp = useKrispNoiseFilter();
+  const { unreadMessageCount } = useUnreadMessageContext();
+  const { toggleChat } = useChatContext();
 
   return (
     <DropdownMenu>
@@ -83,37 +99,41 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 border-none shadow-none __shadow_pody mb-1.5 text-slate-500">
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
-        {overflowItem.length > 0 && <DropdownMenuSeparator /> }
+        {overflowItem.length > 0 && <DropdownMenuSeparator />}
         <DropdownMenuGroup>
           {overflowItem.length > 0 &&
             overflowItem.map((overflowItem, index) => {
               switch (overflowItem) {
                 case "chat":
                   return (
-                    <DropdownMenuItem key={index}>
+                    <DropdownMenuItem key={index} onClick={toggleChat}>
                       <MessageSquareText />
                       <span>Chat</span>
                     </DropdownMenuItem>
                   );
                 case "ShareScreen":
                   return (
-                    <DropdownMenuItem key={index}>
+                    <DropdownMenuItem className="hidden" key={index}>
                       <ScreenShare />
                       <span>Share Screen</span>
                     </DropdownMenuItem>
                   );
                 case "endCall":
                   return (
-                    <DropdownMenuItem key={index}>
-                      <PhoneOff />
-                      <span>End Call</span>
-                    </DropdownMenuItem>
+                    <EndCallButton className="w-full">
+                      <DropdownMenuItem key={index}>
+                        <PhoneOff />
+                        <span>End Call</span> 
+                      </DropdownMenuItem>
+                    </EndCallButton>
                   );
                 case "LeaveCall":
                   return (
-                    <DropdownMenuItem key={index}>
-                      <span>Leave Call</span>
-                    </DropdownMenuItem>
+                    <LeaveCallButton className="w-full">
+                      <DropdownMenuItem key={index}>
+                        <span>Leave Call</span>
+                      </DropdownMenuItem>
+                    </LeaveCallButton>
                   );
                 case "reaction":
                   return (
@@ -134,7 +154,15 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
             <span>{isDarkMode ? "Day Class" : "Night Class"}</span>
             <DropdownMenuShortcut>⌘+S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() =>
+              shareOnMobile({
+                text: `Hey, ${profile?.username} has invited you to their classroom on Pody`,
+                url: call?.url,
+                title: "Pody Classroom",
+              })
+            }
+          >
             <UserPlus />
             <span>Share Classroom</span>
             <DropdownMenuShortcut>⌘+S</DropdownMenuShortcut>
@@ -175,4 +203,3 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
 };
 
 export default MenuExtra;
-

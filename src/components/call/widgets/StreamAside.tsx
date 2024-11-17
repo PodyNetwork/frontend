@@ -1,7 +1,7 @@
 import React from "react";
-import ChatRoom from "./ChatRoom";
+import ChatRoom from "./chat/ChatRoom";
 import GiftTile from "./Gift/GiftTile";
-import Participant from "./Participant";
+import Participant from "./Participants/Participant";
 import { useParticipantBar } from "../utils/ParticipantBarContext";
 import { useChatContext } from "../utils/ChatContext";
 import { useGiftMenu } from "../utils/GiftMenuContext";

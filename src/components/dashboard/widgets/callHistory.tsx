@@ -112,7 +112,16 @@ const CallsCard = ({ calls }: Calls) => {
                   className="w-full h-full rounded-full"
                 />
               </div>
-              <div className={`text-xs sm:text-sm flex-1 ${call?.status === "ended" && "opacity-50"}`} onClick={() => goToMeeting(call.url)}>
+              <div
+                className={`text-xs sm:text-sm flex-1 ${
+                  call?.status === "ended" && "opacity-50"
+                }`}
+                onClick={() => {
+                  if (call.status !== "ended") {
+                    goToMeeting(call.url);
+                  }
+                }}
+              >
                 <h3 className="font-medium">{call?.url}</h3>
                 <p className="text-xs capitalize">{call?.privacy} Call</p>
               </div>
@@ -183,11 +192,11 @@ const CallHistory = ({
     <div className="relative flex pb-4 w-full flex-col rounded-3xl __shadow_pody cursor-pointer">
       <div className="flex h-fit w-full items-center justify-between rounded-t-2xl bg-white px-4 sm:px-6 pb-[20px] pt-4">
         <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
-          Meeting
+          Classroom
         </h4>
         {pathname !== "/dashboard/call" && (
           <Link href="/dashboard/call">
-            <button className="text-xs bg-pody-primary/40 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full">
+            <button className="bg-pody-dark text-sm rounded-full px-6 py-2.5 text-slate-200 hover:opacity-80 transition-all duration-300">
               Show All
             </button>
           </Link>
@@ -212,7 +221,7 @@ const CallHistory = ({
           <button
             onClick={handleFetchMore}
             disabled={isFetchingNextPage}
-            className="text-sm bg-pody-primary/40 px-3 py-1.5 rounded-full"
+            className="bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300"
           >
             {isFetchingNextPage ? "Loading more..." : "Load More"}
           </button>

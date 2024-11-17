@@ -6,13 +6,14 @@ import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import useUpdateCallParticipantPermission from "@/hooks/call/useUpdateCallParticipantPermission";
-import { useUserContext } from "../utils/UserContext";
-import { ParticipantControls } from "./Participants/ParticipantControls";
-import { HeaderParticipant } from "./Participants/HeaderParticipants";
-import { MobileParticipantInfo } from "./Participants/MobileparticipantInfo";
-import { AvatarParticipant } from "../../Avatar/AvatarParticipant";
-import { ParticipantNamePody } from "./Participants/ParticipantName";
-import { useParticipantBar } from "../utils/ParticipantBarContext";
+import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
+import { useParticipantBar } from "../../utils/ParticipantBarContext";
+import { useUserContext } from "../../utils/UserContext";
+import { HeaderParticipant } from "./HeaderParticipants";
+import { MobileParticipantInfo } from "./MobileparticipantInfo";
+import { ParticipantControls } from "./ParticipantControls";
+import { ParticipantNamePody } from "./ParticipantName";
+
 
 const Participant = () => {
   const { url } = useParams();

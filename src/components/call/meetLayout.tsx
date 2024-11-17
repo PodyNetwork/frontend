@@ -1,7 +1,7 @@
 "use client";
 import StreamSidebar from "./widgets/StreamSidebar";
 import StreamScreen from "./widgets/StreamScreen";
-import ParticipantMobileManage from "./widgets/ParticipantManageMobile";
+import ParticipantMobileManage from "./widgets/Participants/ParticipantManageMobile";
 import { ParticipanMenuProvider } from "./utils/ParticipantMenuContext";
 import { useFullscreen } from "./utils/FullscreenContext";
 import { GiftAnimationProvider } from "./utils/GiftanimationContext";
@@ -35,7 +35,7 @@ const MeetLayout = () => {
               </div>
               {/* Main Stream Screen */}
               <div
-                className={`md:h-full flex flex-col __main-screen relative float-left w-full px-1.5 md:px-5" ${isFullscreen ? "bg-[#202124]" : "bg-[#F7F7F7] dark:bg-pody-dark"} ${
+                className={`md:h-full flex flex-col __main-screen relative float-left w-full px-1.5 md:px-5" ${isFullscreen ? "bg-[#181A1D]" : "bg-[#F7F7F7] dark:bg-pody-dark"} ${
                   (participantBarIsExpanded || isChatOpen || isGiftOpen) && !isFullscreen
                     ? "md:w-[calc(100vw-25rem)]"
                     : isFullscreen 

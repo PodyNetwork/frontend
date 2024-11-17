@@ -16,8 +16,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { parseEther } from "viem";
-import { useGiftAnimation } from "../utils/GiftanimationContext";
-import { useGiftMenu } from "../utils/GiftMenuContext";
+import { useGiftAnimation } from "../../utils/GiftanimationContext";
+import { useGiftMenu } from "../../utils/GiftMenuContext";
 
 type Participant = {
   id: string;
@@ -57,7 +57,7 @@ const GiftUI: React.FC = () => {
     null
   );
   const [selectedGift, setSelectedGift] = useState<string | null>(null);
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<string>('');
   const [visibleParticipants, setVisibleParticipants] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -79,7 +79,9 @@ const GiftUI: React.FC = () => {
   const { setAnimationData, send } = useGiftAnimation();
 
   const handleSendGift = async () => {
-    if (!selectedParticipant || !selectedGift || amount <= 0) {
+    const numericAmount = parseFloat(amount) || 0;
+
+    if (!selectedParticipant || !selectedGift || numericAmount <= 0) {
       setErrorMessage("Please select a participant and enter a valid amount.");
       return;
     }
@@ -129,7 +131,7 @@ const GiftUI: React.FC = () => {
 
       setAnimationData(newGiftData);
 
-      setAmount(0);
+      setAmount("0");
     } catch (error) {
       alert(
         (error as Error).message || "An error occurred while sending the gift."
@@ -138,12 +140,25 @@ const GiftUI: React.FC = () => {
       setIsLoading(false);
     }
   };
-
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value;
-    const validCryptoNumber = /^(\d*(\.\d{0,18})?|\.\d{1,18})$/;
-    if (validCryptoNumber.test(rawValue) || rawValue === "") {
-      setAmount(rawValue ? parseFloat(rawValue) : 0);
+    let rawValue = e.target.value;
+    const validCryptoNumber = /^(\d*(\.\d{0,18})?|\.\d{1,18})?$/;
+  
+    if (rawValue === "") {
+      setAmount("0");
+      return;
+    }
+  
+    if (rawValue !== "0" && !rawValue.startsWith("0.")) {
+      rawValue = rawValue.replace(/^0+/, "");
+    }
+  
+    if (rawValue === "") {
+      rawValue = "0";
+    }
+  
+    if (validCryptoNumber.test(rawValue)) {
+      setAmount(rawValue);
     }
   };
 
@@ -292,6 +307,7 @@ const GiftUI: React.FC = () => {
                 ))}
               </SelectGroup>
             </SelectContent>
+            <label>hello</label>
           </Select>
         </div>
 
@@ -306,13 +322,13 @@ const GiftUI: React.FC = () => {
             value={amount.toString()}
             onChange={handleAmountChange}
             className="text-4xl font-semibold text-center bg-transparent border-none focus:outline-none mb-3 block w-full dark:text-slate-300"
-            placeholder="0.00"
+            placeholder="10"
           />
 
           <button
             onClick={handleSendGift}
             disabled={
-              isLoading || getParticipantLoading || !selectedGift || amount <= 0
+              isLoading || getParticipantLoading || !selectedGift || parseFloat(amount) <= 0
             }
             className="bg-pody-secondary text-white px-4 py-2.5 rounded-md font-medium flex items-center text-xs disabled:opacity-40 cursor-pointer"
           >

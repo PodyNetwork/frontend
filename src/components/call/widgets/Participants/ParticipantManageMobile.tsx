@@ -4,12 +4,13 @@ import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import useUpdateCallParticipantPermission from "@/hooks/call/useUpdateCallParticipantPermission";
-import { useUserContext } from "../utils/UserContext";
-import { AvatarParticipant } from "../../Avatar/AvatarParticipant";
-import { ParticipantNamePody } from "./Participants/ParticipantName";
-import { MicrophoneIcon } from "./Participants/MicrophoneIcon";
-import { VideoIcon } from "./Participants/VideoIcon";
-import { useParticipantMenu } from "../utils/ParticipantMenuContext";
+import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
+import { useParticipantMenu } from "../../utils/ParticipantMenuContext";
+import { useUserContext } from "../../utils/UserContext";
+import { MicrophoneIcon } from "./MicrophoneIcon";
+import { ParticipantNamePody } from "./ParticipantName";
+import { VideoIcon } from "./VideoIcon";
+
 
 const ParticipantMobileManage = () => {
   const { url } = useParams();

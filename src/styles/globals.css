@@ -428,15 +428,6 @@ body {
     }
 }
 
-@layer base {
-    * {
-        @apply border-border;
-    }
-
-    body {
-        @apply bg-background text-foreground;
-    }
-}
 
 #__scheduled_meet::-webkit-scrollbar {
     width: 4px;

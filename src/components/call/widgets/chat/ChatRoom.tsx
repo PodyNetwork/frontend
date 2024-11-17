@@ -1,5 +1,5 @@
 "use client";
-import ChatTile  from "../livekitcustom/ChatTile";
+import ChatTile  from "../../livekitcustom/ChatTile";
 
 const ChatRoom = () => {
 

@@ -23,7 +23,7 @@ const Page = () => {
 
   return (
     <main className="w-full">
-      <div className="w-full bg-pody-primary/20 p-6 md:p-12">
+      <div className="w-full bg-pody-primary/50 p-6 md:p-12">
         <div className="max-w-2xl mx-auto flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6">
           <div className="w-full sm:w-6/12 mb-6 sm:mb-0">
             <motion.div
@@ -94,7 +94,7 @@ const Page = () => {
               <button
                 onClick={handleLoadMore}
                 disabled={isFetchingNextPage}
-                className="bg-pody-primary text-white px-4 py-2 rounded-md hover:bg-pody-primary/80 transition-colors duration-300"
+                className="bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300"
               >
                 {isFetchingNextPage ? "Loading..." : "Load More"}
               </button>

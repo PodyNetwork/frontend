@@ -2,7 +2,7 @@ import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useParticipants } from "@livekit/components-react";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import StreamShare from "./StreamShare";
+import StreamShare from "./share/StreamShare";
 import { getHashRate } from "@/utils/passport";
 import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";

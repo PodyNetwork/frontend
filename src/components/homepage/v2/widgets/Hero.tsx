@@ -13,7 +13,7 @@ const Hero = () => {
               Join Classroom and Earn Rewards
             </h1>
             <Link href="#publicClassroom">
-              <button className="bg-pody-primary rounded-full px-5 py-1 text-slate-800 text-base font-medium">
+              <button className="bg-pody-dark rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300 text-base font-medium">
                 Explore
               </button>
             </Link>

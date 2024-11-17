@@ -1,5 +1,5 @@
 import React from "react";
-import GiftUI from "../GiftCard";
+import GiftUI from "./GiftCard";
 
 
 

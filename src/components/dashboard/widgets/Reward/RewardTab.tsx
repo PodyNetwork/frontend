@@ -97,7 +97,7 @@ const RewardTab = () => {
           <button
             onClick={handleLoadMore}
             disabled={isFetchingNextPage}
-            className="text-xs px-4 py-1.5 bg-pody-primary text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto"
+            className="bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300 w-full xs:w-auto"
           >
             {isFetchingNextPage ? "Loading..." : "Load More"}
           </button>

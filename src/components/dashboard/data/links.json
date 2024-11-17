@@ -4,8 +4,12 @@
         "url": "/dashboard/"
     },
     {
-        "title": "Meeting",
+        "title": "Classroom",
         "url": "/dashboard/call"
+    },
+    {
+        "title": "Explore",
+        "url": "/dashboard/explore"
     },
     {
         "title": "NFT",

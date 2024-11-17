@@ -20,7 +20,7 @@ const Loader = () => {
             fill="currentFill"
           />
         </svg>
-        <p className="text-sm text-slate-700 dark:text-slate-200 mt-1">
+        <p className="text-base text-slate-700 dark:text-slate-200 mt-2">
           Loading...
         </p>
       </div>
