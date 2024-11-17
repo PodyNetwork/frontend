@@ -152,7 +152,7 @@ export default function ChatTile({
             <ChevronIcon isOpen={isChatOpen} />
           </div>
         </div>
-        <div className="flex-col __chat_max_height flex flex-1">
+        <div className="flex-col __chat_max_height flex flex-1 select-text">
           <ul
             className="flex-grow overflow-y-auto px-4 pt-2 flex flex-col"
             ref={ulRef}

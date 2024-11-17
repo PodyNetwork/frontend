@@ -64,8 +64,6 @@ export interface ParticipantTileProps
   trackRef?: TrackReferenceOrPlaceholder;
   disableSpeakingIndicator?: boolean;
   onParticipantClick?: (event: ParticipantClickEvent) => void;
-  onFocusToggle: () => void;
-  isFocused: boolean;
 }
 
 export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
@@ -76,8 +74,6 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
         children,
         onParticipantClick,
         disableSpeakingIndicator,
-        onFocusToggle,
-        isFocused,
         ...htmlProps
       }: ParticipantTileProps,
       ref
@@ -169,10 +165,7 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
 
           return () => {
             currentVideoRef.removeEventListener("playing", updateOrientation);
-            currentVideoRef.removeEventListener(
-              "loadeddata",
-              updateOrientation
-            );
+            currentVideoRef.removeEventListener("loadeddata", updateOrientation);
             window.removeEventListener("resize", handleResize);
           };
         }
@@ -259,20 +252,6 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
                   )}
                 </>
               )}
-              {/* Focus Toggle Button */}
-              <button
-                className="absolute hidden sm:block top-[10px] cursor-pointer z-50 right-[10px] text-slate-500"
-                onClick={onFocusToggle}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  className="w-5 h-5"
-                  fill="currentColor"
-                >
-                  {isFocused ? (<path d="M240-120v-120H120v-80h200v200h-80Zm400 0v-200h200v80H720v120h-80ZM120-640v-80h120v-120h80v200H120Zm520 0v-200h80v120h120v80H640Z"/>) : (<path d="M120-120v-200h80v120h120v80H120Zm520 0v-80h120v-120h80v200H640ZM120-640v-200h200v80H200v120h-80Zm640 0v-120H640v-80h200v200h-80Z"/>)}
-                </svg>
-              </button>
             </ParticipantContextIfNeeded>
           </TrackRefContextIfNeeded>
         </div>

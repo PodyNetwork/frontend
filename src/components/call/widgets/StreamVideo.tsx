@@ -21,7 +21,7 @@ const MyVideoConference = () => {
   );
 
   const handleFocusChange = (index: number) => {
-    console.log(`Participant at index ${index} was clicked`);
+    return "";
   };
 
   return (

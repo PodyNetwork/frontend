@@ -651,7 +651,10 @@ body {
     @apply bg-slate-200 dark:bg-slate-800;
     border-radius: calc(var(--radius) - 2px);
 }
-
+.__bg_screen__card{
+    @apply bg-slate-200 dark:bg-slate-800;
+    border-radius: calc(var(--radius) - 2px);
+}
 .__active_pd_lk::after {
     content: "";
     width: 4px;
