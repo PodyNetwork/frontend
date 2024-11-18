@@ -29,7 +29,7 @@ const StreamAside = () => {
     >
       {/* Participant Panel */}
       <div
-        className={`w-full relative h-full bg-[#F7F7F7] dark:bg-pody-dark_secondary __shadow_pody transition-all duration-300 ease-in-out flex flex-col gap-y-2 flex-1 md:flex-none ${
+        className={`w-full relative h-full bg-[#F7F7F7] dark:bg-pody-dark __shadow_pody transition-all duration-300 ease-in-out flex flex-col gap-y-2 flex-1 md:flex-none ${
           !isParticipantBarVisible && isFullscreen && "hidden"
         }`}
       >

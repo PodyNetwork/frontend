@@ -97,7 +97,7 @@ const ControlsMobile = ({
     stopTracks: true,
   });
 
-  const { stopTracks, ...restButtonProps } = buttonProps;
+  const { ...restButtonProps } = buttonProps;
 
   return (
     <div className="md:hidden block fixed p-5 bottom-0 bg-white dark:bg-black w-full __shadow_pody text-[0.7rem]">

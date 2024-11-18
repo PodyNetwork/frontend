@@ -67,7 +67,7 @@ const StreamScreen = () => {
         <StreamInfo />
       </div>
       <StreamVideo />
-      <div ref={controlsRef} className={`${isFullscreen ? "md:py-0" : "md:py-4"}`}>
+      <div ref={controlsRef} className={`z-40 ${isFullscreen ? "md:py-0" : "md:py-4"}`}>
         <div className="relative mx-auto">
           <GiftAnimationPage />
         </div>

@@ -23,7 +23,10 @@ const config: Config = {
   				gray: '#A6A7AD',
   				border: '#CFD3DA',
   				danger: '#F1414F',
-				success: '#2AD38D'
+				success: '#2AD38D',
+				oilblack: '#0C0C0C',
+				oxfordblue: '#212A37',
+				gunmetal: '#1D1F21',
   			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

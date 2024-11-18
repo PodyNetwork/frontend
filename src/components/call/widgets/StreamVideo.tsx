@@ -1,10 +1,10 @@
-import { RoomAudioRenderer, useTracks } from '@livekit/components-react';
-import { Track } from 'livekit-client';
-import React, { useMemo } from 'react';
-import { EnhancedGridLayout } from '../livekitcustom/GridLayoutTile';
-import { CustomRoomAudioRenderer } from '../livekitcustom/CustomAudioRenderVolume';
-import { CustomStartAudio } from '../livekitcustom/CustomStartAudio';
-
+import { RoomAudioRenderer, useTracks } from "@livekit/components-react";
+import { Track } from "livekit-client";
+import React, { useMemo } from "react";
+import { EnhancedGridLayout } from "../livekitcustom/GridLayoutTile";
+import { CustomRoomAudioRenderer } from "../livekitcustom/CustomAudioRenderVolume";
+import { CustomStartAudio } from "../livekitcustom/CustomStartAudio";
+import Image from "next/image";
 
 const MyVideoConference = () => {
   const tracks = useTracks(
@@ -16,7 +16,7 @@ const MyVideoConference = () => {
   );
 
   const filteredTracks = useMemo(
-    () => tracks.filter(track => track.participant.permissions?.canPublish),
+    () => tracks.filter((track) => track.participant.permissions?.canPublish),
     [tracks]
   );
 
@@ -34,7 +34,7 @@ const MyVideoConference = () => {
 
 const StreamVideo = () => {
   return (
-    <div className="w-full flex flex-wrap gap-3 my-auto">
+    <div className="w-full flex flex-wrap gap-3 my-auto relative">
       <MyVideoConference />
       <CustomRoomAudioRenderer />
       <CustomStartAudio label="Click to allow audio playback" />

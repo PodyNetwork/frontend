@@ -199,7 +199,7 @@ const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
           {/* leave button */}
           {visibleControls.leave && (
             <LeaveCallButton>
-              <div className="bg-pody-danger/90 flex-shrink-0 h-10 w-10 rounded-full flex justify-center items-center text-slate-100 cursor-pointer">
+              <div className="bg-pody-danger/80 flex-shrink-0 h-10 w-10 rounded-full flex justify-center items-center text-slate-100 cursor-pointer">
                 <label className="sr-only">LeaveCall</label>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
