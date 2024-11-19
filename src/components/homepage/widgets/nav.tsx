@@ -5,6 +5,7 @@ import navlink from "../data/link.json";
 import logo from "/public/logo/pody logo dark.png";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import JoinDrawer from "./JoinDrawer";
 
 type FloatingElement = {
   id: number;
@@ -57,9 +58,7 @@ const Nav = () => {
           <li className="bg-pody-secondary/40 hover:transition-all duration-100 h-10 rounded-full px-8 flex items-center">
             <Link href="/login">Login</Link>
           </li>
-          <li className="bg-pody-primary hover:transition-all duration-100 h-10 rounded-full px-8 flex items-center">
-            <Link href="/login">Join Classroom</Link>
-          </li>
+          <JoinDrawer />
         </ul>
       </div>
 
