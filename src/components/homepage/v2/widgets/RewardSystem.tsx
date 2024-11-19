@@ -7,7 +7,7 @@ import user3 from "/public/avatar/user3.jpeg";
 const RewardSystem = () => {
   return (
     <section className="w-full relative">
-      <div className="flex flex-col max-w-7xl mx-auto px-4 md:px-10 pt-16 pb-40">
+      <div className="flex flex-col max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-16 pb-40">
         <div className="flex flex-col md:flex-row justify-between gap-6">
           <div className="flex-1 flex flex-col">
             <div className="relative max-w-xl">
@@ -67,7 +67,6 @@ const RewardSystem = () => {
           </div>
           <div className="w-full md:w-[23rem] md:min-h-[600px]">
             <div className="bg-slate-100 h-full rounded-[2rem] p-6">
-              <Image src="/abstract/abstract09.png" width={400} height={600} alt="pody reward system" />
             </div>
           </div>
         </div>

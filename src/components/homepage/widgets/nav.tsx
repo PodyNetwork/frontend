@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import navlink from "../data/link.json";
-import logo from "/public/logo/pody logo 1.png";
+import logo from "/public/logo/pody logo dark.png";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -34,10 +34,10 @@ const Nav = () => {
   });
   return (
     <>
-      <div className="w-full hidden md:flex flex-row justify-between items-center text-sm text-slate-600 my-4 relative gap-x-3" aria-label="Navigation Menu" >
-        <div className="rounded-full gap-x-5 h-11 p-3.5 flex-row flex flex-1 justify-between items-center">
+      <div className="w-full hidden md:flex flex-row justify-between items-center text-sm text-slate-600 my-4 relative gap-x-3 font-medium" aria-label="Navigation Menu" >
+        <div className="rounded-full gap-x-5 h-11 py-3.5 me-3.5 flex-row flex flex-1 justify-between items-center">
           <Link href="/">
-            <Image src={logo} alt="Pody" className="w-14 object-contain" />
+            <Image src={logo} alt="Pody Logo" className="w-16 object-contain" />
           </Link>
           <ul
             className="flex flex-row justify-between items-center gap-x-5"
@@ -54,17 +54,17 @@ const Nav = () => {
           </ul>
         </div>
         <ul className="flex flex-row items-center">
-          <li className="hover:text-pody-primary bg-pody-secondary/40 hover:transition-all duration-100 h-11 rounded-full px-8 flex items-center">
+          <li className="bg-pody-secondary/40 hover:transition-all duration-100 h-10 rounded-full px-8 flex items-center">
             <Link href="/login">Login</Link>
           </li>
-          <li className="hover:text-pody-primary bg-red-50 hover:transition-all duration-100 h-11 rounded-full px-8 flex items-center">
+          <li className="bg-pody-primary hover:transition-all duration-100 h-10 rounded-full px-8 flex items-center">
             <Link href="/login">Join Classroom</Link>
           </li>
         </ul>
       </div>
 
       {/* Mobile menu button */}
-      <div className="md:hidden w-full py-6 px-5 gap-x-4 relative">
+      <div className="md:hidden w-full py-6 gap-x-4 relative">
         <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
           <Link href="/">
             <Image

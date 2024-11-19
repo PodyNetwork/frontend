@@ -57,7 +57,7 @@ const GiftUI: React.FC = () => {
     null
   );
   const [selectedGift, setSelectedGift] = useState<string | null>(null);
-  const [amount, setAmount] = useState<string>('');
+  const [amount, setAmount] = useState<string>('0');
   const [visibleParticipants, setVisibleParticipants] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -81,8 +81,14 @@ const GiftUI: React.FC = () => {
   const handleSendGift = async () => {
     const numericAmount = parseFloat(amount) || 0;
 
-    if (!selectedParticipant || !selectedGift || numericAmount <= 0) {
-      setErrorMessage("Please select a participant and enter a valid amount.");
+    if (!selectedParticipant) {
+      setErrorMessage("Please select a participant.");
+      return;
+    } else if (!selectedGift) {
+      setErrorMessage("Please select a gift.");
+      return;
+    } else if (numericAmount <= 0) {
+      setErrorMessage("Please enter a valid amount.");
       return;
     }
     setErrorMessage("");
@@ -307,7 +313,7 @@ const GiftUI: React.FC = () => {
                 ))}
               </SelectGroup>
             </SelectContent>
-            <label className="text-xs text-slate-600 dark:text-slate-300">bhv</label>
+            <label className="text-xs text-slate-600 dark:text-slate-500">Only tokens whitelisted by the Pody Network are currently supported.</label>
           </Select>
         </div>
 

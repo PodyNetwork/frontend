@@ -46,7 +46,7 @@ const PodyFeatures = () => {
   ];
   return (
     <section className="w-full relative">
-      <div className="flex flex-col py-24 w-full text-slate-900 max-w-7xl mx-auto px-4 md:px-10">
+      <div className="flex flex-col py-24 w-full text-slate-900 max-w-7xl mx-auto px-4 md:px-8 lg:px-10">
         <div className="grid __discover_lyout gap-6 justify-between">
           <div className="flex flex-col gap-y-4">
             <div>

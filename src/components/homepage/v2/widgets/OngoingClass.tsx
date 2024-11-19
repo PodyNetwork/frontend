@@ -192,7 +192,7 @@ const Publiccall = () => {
   const renderCalls = () => (
     <>
       {calls.length === 0 && !isLoading && <Inactivecall />}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {isLoading && <SkeletonCard />}
         {calls?.map((call: Call) => (
           <div
@@ -327,7 +327,7 @@ const OngoingClass = () => {
   return (
     <section className="w-full relative">
       <div
-        className="flex flex-col max-w-7xl mx-auto pt-6 pb-24 px-3 md:px-0"
+        className="flex flex-col max-w-7xl mx-auto pt-6 pb-24 px-4 md:px-8 lg:px-10"
         id="publicClassroom"
       >
         <div className="flex flex-col md:flex-row w-full">

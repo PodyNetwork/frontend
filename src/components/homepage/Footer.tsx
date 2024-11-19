@@ -9,11 +9,11 @@ const Footer = () => {
   const year = new Date().getFullYear();
   return (
     <section
-      className="bg-pody-dark relative py-4 px-5 md:px-0 flex flex-col justify-center text-slate-400 text-sm"
+      className="bg-pody-dark relative py-4 flex flex-col justify-center text-slate-400 text-sm"
       aria-label="Footer"
     >
       <div>
-        <div className="max-w-5xl 2xl:max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto px-4 md:px-8 lg:px-10">
           <div className="w-full relative">
             <div className="text-xs text-slate-500 flex flex-col gap-y-3 w-full md:w-10/12 py-7">
               <p>
