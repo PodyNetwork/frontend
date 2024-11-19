@@ -58,7 +58,7 @@ const Participant = () => {
         participantBarToggle={toggleParticipantBar}
       />
       <div className="max-w-md relative mx-auto md:w-full md:mx-0">
-        <div className="gap-3 md:py-4 md:gap-0 md:px-4 md:flex flex-row flex-wrap md:flex-col relative __pd_participant_list_grd">
+        <div className="gap-3 grid grid-cols-4 md:py-4 md:gap-0 md:px-4 md:flex flex-row flex-wrap md:flex-col relative __pd_participant_list_grd">
           <div className="hidden md:block">
             {participantBarIsExpanded && (
               <input

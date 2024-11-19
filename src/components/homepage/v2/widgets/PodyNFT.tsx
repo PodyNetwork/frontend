@@ -8,7 +8,7 @@ const PodyNFT = () => {
       <div className="max-w-7xl mx-auto flex flex-col justify-between gap-x-6 pt-8 pb-24">
         {/* Left Side */}
         <div className="w-full items-center flex flex-col py-7">
-          <div className="max-w-2xl text-center space-y-4">
+          <div className="max-w-4xl text-center space-y-4">
             <span className="text-sm font-medium text-gray-500">Pody NFT</span>
             <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-snug">
               Mint <span className="text-pody-primary">Unique NFT</span> to
@@ -97,21 +97,6 @@ const PodyNFT = () => {
                 </div>
               </div>
             </motion.div>
-          </div>
-          {/* Stats Section */}
-          <div className="absolute right-0 space-y-4 text-right text-indigo-900">
-            <div>
-              <span className="text-2xl font-bold">5</span>
-              <p>Total NFT</p>
-            </div>
-            <div>
-              <span className="text-2xl font-bold">x0.5</span>
-              <p>Power</p>
-            </div>
-            <div>
-              <span className="text-2xl font-bold">45K+</span>
-              <p>Base</p>
-            </div>
           </div>
         </div>
       </div>

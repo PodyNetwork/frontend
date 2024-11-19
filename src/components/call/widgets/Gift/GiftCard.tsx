@@ -307,7 +307,7 @@ const GiftUI: React.FC = () => {
                 ))}
               </SelectGroup>
             </SelectContent>
-            <label>hello</label>
+            <label className="text-xs text-slate-600 dark:text-slate-300">bhv</label>
           </Select>
         </div>
 

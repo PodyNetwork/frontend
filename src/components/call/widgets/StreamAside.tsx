@@ -37,7 +37,7 @@ const StreamAside = () => {
       </div>
       {/* Chat Room */}
       <div
-        className={`md:absolute fixed right-0 z-30 top-0 w-[20rem] __chat_full h-full ${
+        className={`md:absolute fixed right-0 z-50 top-0 w-[20rem] __chat_full h-full ${
           isChatOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >

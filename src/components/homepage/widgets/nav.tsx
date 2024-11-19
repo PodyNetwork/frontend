@@ -34,23 +34,31 @@ const Nav = () => {
   });
   return (
     <>
-      <div className="w-full hidden max-w-7xl mx-auto md:flex flex-row items-center justify-between py-4 text-sm text-slate-100 my-2 rounded-md relative" aria-label="Navigation Menu">
-        <ul className="flex flex-row items-center gap-x-5" aria-label="Menu">
+      <div className="w-full hidden md:flex flex-row justify-between items-center text-sm text-slate-600 my-4 relative gap-x-3" aria-label="Navigation Menu" >
+        <div className="rounded-full gap-x-5 h-11 p-3.5 flex-row flex flex-1 justify-between items-center">
           <Link href="/">
-            <Image src={logo} alt="Pody" className="w-14 object-contain me-1" />
+            <Image src={logo} alt="Pody" className="w-14 object-contain" />
           </Link>
-          {navlink.mainLink.map((link, index) => (
-            <li
-              key={index}
-              className="hover:text-pody-primary hover:transition-all duration-100 px-1"
-            >
-              <Link href={link.url}>{link.title}</Link>
-            </li>
-          ))}
-        </ul>
-        <ul className="flex flex-row items-center gap-5">
-          <li className="px-2 hover:text-pody-primary hover:transition-all duration-100">
+          <ul
+            className="flex flex-row justify-between items-center gap-x-5"
+            aria-label="Menu"
+          >
+            {navlink.mainLink.map((link, index) => (
+              <li
+                key={index}
+                className="hover:text-pody-primary hover:transition-all duration-100 px-1"
+              >
+                <Link href={link.url}>{link.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <ul className="flex flex-row items-center">
+          <li className="hover:text-pody-primary bg-pody-secondary/40 hover:transition-all duration-100 h-11 rounded-full px-8 flex items-center">
             <Link href="/login">Login</Link>
+          </li>
+          <li className="hover:text-pody-primary bg-red-50 hover:transition-all duration-100 h-11 rounded-full px-8 flex items-center">
+            <Link href="/login">Join Classroom</Link>
           </li>
         </ul>
       </div>
