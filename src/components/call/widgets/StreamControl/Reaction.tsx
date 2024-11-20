@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useReducer, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Popover,
@@ -24,11 +24,25 @@ const emojis = [
   "1F389",
 ];
 
-const REACTION_DURATION = 2000; 
+const REACTION_DURATION = 2000;
+const DEBOUNCE_DURATION = 200;
+
+// Reducer for managing reactions
+const reactionsReducer = (state: ReactionType[], action: any) => {
+  switch (action.type) {
+    case "ADD":
+      return [...state, action.payload];
+    case "REMOVE":
+      return state.filter((reaction) => reaction.id !== action.payload);
+    default:
+      return state;
+  }
+};
 
 const Reaction = () => {
-  const [reactions, setReactions] = useState<ReactionType[]>([]);
+  const [reactions, dispatch] = useReducer(reactionsReducer, []);
   const popoverRef = useRef<HTMLDivElement>(null);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   const { send } = useDataChannel("reaction", (msg) => {
     const reaction: ReactionType = JSON.parse(
@@ -38,9 +52,9 @@ const Reaction = () => {
   });
 
   const addReaction = (reaction: ReactionType) => {
-    setReactions((prev) => [...prev, reaction]);
+    dispatch({ type: "ADD", payload: reaction });
     setTimeout(() => {
-      setReactions((prev) => prev.filter((r) => r.id !== reaction.id));
+      dispatch({ type: "REMOVE", payload: reaction.id });
     }, REACTION_DURATION);
   };
 
@@ -53,7 +67,14 @@ const Reaction = () => {
       offset: { x: 0, y: -30 },
     };
 
-    send(new TextEncoder().encode(JSON.stringify(newReaction)), {});
+    // Debounce the send function
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    debounceRef.current = setTimeout(() => {
+      send(new TextEncoder().encode(JSON.stringify(newReaction)), {});
+    }, DEBOUNCE_DURATION);
+
     addReaction(newReaction);
   };
 
@@ -81,17 +102,18 @@ const Reaction = () => {
             onContextMenu={(e) => e.preventDefault()}
             style={{ userSelect: "none" }}
           >
-            {emojis.map((hex) => (
-              <p
-                key={hex}
-                className="text-[1.45rem] text-muted-foreground"
-                onClick={() =>
-                  handleEmojiClick(String.fromCodePoint(parseInt(hex, 16)))
-                }
-              >
-                {String.fromCodePoint(parseInt(hex, 16))}
-              </p>
-            ))}
+            {emojis.map((hex) => {
+              const emoji = String.fromCodePoint(parseInt(hex, 16));
+              return (
+                <p
+                  key={hex}
+                  className="text-[1.45rem] text-muted-foreground"
+                  onClick={() => handleEmojiClick(emoji)}
+                >
+                  {emoji}
+                </p>
+              );
+            })}
           </div>
         </PopoverContent>
       </Popover>
@@ -99,7 +121,7 @@ const Reaction = () => {
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <AnimatePresence>
           {reactions.map(({ id, emoji, offset }) => {
-            const randomX = Math.random() * 60 - 30; 
+            const randomX = Math.random() * 60 - 30;
             return (
               <motion.div
                 key={id}
