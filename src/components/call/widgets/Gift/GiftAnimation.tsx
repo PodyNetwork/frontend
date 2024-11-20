@@ -20,18 +20,19 @@ const GiftAnimationPage: React.FC = () => {
   const [showAnimation, setShowAnimation] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [confetti, setConfetti] = useState<ConfettiItem[]>([]);
+  const [giftQueue, setGiftQueue] = useState<any[]>([]); // Queue to hold gifts
 
   const giftRef = useRef<HTMLDivElement | null>(null);
   const confettiTimeoutRef = useRef<any>(null);
 
   const generateConfetti = useCallback(() => {
     const newConfetti = [];
-    for (let i = 0; i < 30; i++) {
-      const randomX = gsap.utils.random(-250, 250);
+    for (let i = 0; i < 50; i++) {
+      const randomX = gsap.utils.random(-200, 200);
       const randomY = gsap.utils.random(-150, 150);
       const randomRotation = gsap.utils.random(0, 360);
-      const randomScale = gsap.utils.random(0.6, 1.2);
-      const duration = gsap.utils.random(2.5, 4);
+      const randomScale = gsap.utils.random(0.5, 1.5);
+      const duration = gsap.utils.random(2, 3);
 
       newConfetti.push({
         id: crypto.randomUUID(),
@@ -45,11 +46,14 @@ const GiftAnimationPage: React.FC = () => {
     setConfetti(newConfetti);
   }, []);
 
-  useEffect(() => {
-    if (animationData) {
-      setShowAnimation(true);
-
-      const tl = gsap.timeline();
+  const processGiftQueue = useCallback(() => {
+    if (giftQueue.length > 0 && animationData) {
+      const currentGift = giftQueue[0];
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setGiftQueue((prevQueue) => prevQueue.slice(1));
+        },
+      });
 
       tl.fromTo(
         giftRef.current,
@@ -60,27 +64,28 @@ const GiftAnimationPage: React.FC = () => {
         },
         {
           opacity: 1,
-          scale: 1.15,
-          y: -50, 
-          duration: 2,
-          ease: "power3.out",
+          scale: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "elastic.out(1, 0.75)",
           onComplete: () => {
             setShowConfetti(true);
-            // Hide confetti after 3 seconds
-            setTimeout(() => setShowConfetti(false), 3000);
+            setTimeout(() => setShowConfetti(false), 4000);
           },
         }
-      );
-
-      tl.to(giftRef.current, {
-        opacity: 0, 
+      )
+      .to(giftRef.current, {
+        opacity: 0,
         y: -150, 
-        duration: 2, 
-        ease: "power1.in",  
-        delay: 3,  
-        onComplete: () => {
-          setShowAnimation(false);
-        },
+        duration: 1.5,
+        ease: "power1.in",
+      })
+      .to(giftRef.current, {
+        opacity: 0,
+        y: -200, 
+        duration: 2,
+        ease: "power1.out",
+        delay: 4,
       });
 
       const timer = setTimeout(() => {
@@ -93,6 +98,13 @@ const GiftAnimationPage: React.FC = () => {
         tl.kill(); 
       };
     }
+  }, [giftQueue, animationData]);
+
+  useEffect(() => {
+    if (animationData) {
+      setGiftQueue((prevQueue) => [...prevQueue, animationData]); 
+      setShowAnimation(true); 
+    }
   }, [animationData]);
 
   useEffect(() => {
@@ -101,17 +113,21 @@ const GiftAnimationPage: React.FC = () => {
     }
   }, [showConfetti, generateConfetti]);
 
-  if (!animationData || !showAnimation) return null;
+  useEffect(() => {
+    processGiftQueue();
+  }, [giftQueue, processGiftQueue]); 
 
-  const isSender = animationData.senderId === profile?.username;
-  const isReceiver = animationData.participantId === profile?.username;
+  if (!showAnimation || giftQueue.length === 0) return null;
+
+  const isSender = animationData?.senderId === profile?.username;
+  const isReceiver = animationData?.participantId === profile?.username;
 
   return (
     <>
-      {showAnimation && (
+      {showAnimation && animationData && (
         <div
           ref={giftRef}
-          className="fixed bottom-16 left-1/2 transform -translate-x-1/2 bg-gradient-to-b bg-slate-400 text-white p-2 text-xs rounded-full shadow-xl flex items-center gap-x-2 z-50"
+          className="fixed bottom-16 left-1/2 transform -translate-x-1/2 bg-gradient-to-b bg-slate-400 text-white p-1.5 text-xs rounded-full shadow-xl flex items-center gap-x-2 z-50"
         >
           <Image
             src="/icon/pody.jpg"
@@ -124,10 +140,10 @@ const GiftAnimationPage: React.FC = () => {
             {isSender ? (
               "You"
             ) : (
-              <span className="capitalize">{animationData.senderId}</span>
+              <span className="capitalize">{animationData?.senderId}</span>
             )}{" "}
-            sent {animationData.amount} {animationData.giftId} to{" "}
-            {isReceiver ? "You" : animationData.participantId}!
+            sent {animationData?.amount} {animationData?.giftId} to{" "}
+            {isReceiver ? "You" : animationData?.participantId}!
           </div>
         </div>
       )}
@@ -147,18 +163,19 @@ const GiftAnimationPage: React.FC = () => {
                 }}
                 animate={{
                   opacity: 1,
-                  x: x + gsap.utils.random(-350, 350),
-                  y: y - gsap.utils.random(400, 700),
-                  rotate: rotation + 720,
+                  x: x + gsap.utils.random(-400, 400),
+                  y: y - gsap.utils.random(600, 1000),
+                  rotate: rotation + 1080,
                   scale: scale,
+                  filter: "brightness(1.5)",
                 }}
                 exit={{
-                  opacity: 0, // Fade out as it exits
-                  y: "-50vh", // Move it up at a moderate pace (adjust this as needed)
-                  scale: 0.6,
+                  opacity: 0,
+                  y: "-100vh", 
+                  scale: 0.5,
                   transition: {
-                    duration: 2, // Slow down the duration of the fade and movement
-                    ease: "easeOut", // Smooth easing for the movement
+                    duration: 2,
+                    ease: "easeOut",
                   },
                 }}
                 style={{

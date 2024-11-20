@@ -32,7 +32,6 @@ type GiftItem = {
   isHot?: boolean;
 };
 
-
 const gifts = [
   {
     id: "1",
@@ -51,13 +50,12 @@ const gifts = [
   },
 ];
 
-
 const GiftUI: React.FC = () => {
   const [selectedParticipant, setSelectedParticipant] = useState<string | null>(
     null
   );
   const [selectedGift, setSelectedGift] = useState<string | null>(null);
-  const [amount, setAmount] = useState<string>('0');
+  const [amount, setAmount] = useState<string>("0");
   const [visibleParticipants, setVisibleParticipants] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -112,11 +110,13 @@ const GiftUI: React.FC = () => {
     try {
       const amountInWei = parseEther(amount.toString());
 
-      if(selectedGift === "EDUCHAIN") {
-       await etherGift(senderAddress as `0x${string}`,
-        recipientAddress as `0x${string}`,
-        amountInWei)
-      } else { 
+      if (selectedGift === "EDUCHAIN") {
+        await etherGift(
+          senderAddress as `0x${string}`,
+          recipientAddress as `0x${string}`,
+          amountInWei
+        );
+      } else {
         await gift(
           senderAddress as `0x${string}`,
           recipientAddress as `0x${string}`,
@@ -149,20 +149,20 @@ const GiftUI: React.FC = () => {
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let rawValue = e.target.value;
     const validCryptoNumber = /^(\d*(\.\d{0,18})?|\.\d{1,18})?$/;
-  
+
     if (rawValue === "") {
       setAmount("0");
       return;
     }
-  
+
     if (rawValue !== "0" && !rawValue.startsWith("0.")) {
       rawValue = rawValue.replace(/^0+/, "");
     }
-  
+
     if (rawValue === "") {
       rawValue = "0";
     }
-  
+
     if (validCryptoNumber.test(rawValue)) {
       setAmount(rawValue);
     }
@@ -287,7 +287,9 @@ const GiftUI: React.FC = () => {
             </SelectTrigger>
             <SelectContent className="dark:bg-slate-600 dark:border-slate-500">
               <SelectGroup>
-                <SelectLabel className="text-slate-600 dark:text-slate-300">Token</SelectLabel>
+                <SelectLabel className="text-slate-600 dark:text-slate-300">
+                  Token
+                </SelectLabel>
                 {gifts.map((data: GiftItem, index: number) => (
                   <SelectItem
                     key={index}
@@ -313,7 +315,9 @@ const GiftUI: React.FC = () => {
                 ))}
               </SelectGroup>
             </SelectContent>
-            <label className="text-xs text-slate-600 dark:text-slate-500 leading-none">Only tokens whitelisted by Pody Network are currently supported.</label>
+            <label className="text-xs text-slate-600 dark:text-slate-500 leading-none">
+              Only tokens whitelisted by Pody Network are currently supported.
+            </label>
           </Select>
         </div>
 
@@ -334,7 +338,10 @@ const GiftUI: React.FC = () => {
           <button
             onClick={handleSendGift}
             disabled={
-              isLoading || getParticipantLoading || !selectedGift || parseFloat(amount) <= 0
+              isLoading ||
+              getParticipantLoading ||
+              !selectedGift ||
+              parseFloat(amount) <= 0
             }
             className="bg-pody-secondary text-white px-4 py-2.5 rounded-md font-medium flex items-center text-xs disabled:opacity-40 cursor-pointer"
           >
@@ -379,15 +386,15 @@ const ParticipantItem: React.FC<{
   <div className="max-w-10 flex flex-col items-center">
     <div
       onClick={() => setSelectedParticipant(participant.id)}
-      className={`min-w-10 max-w-10 h-10 rounded-full border ${
+      className={`min-w-10 max-w-10 h-10 rounded-full border-2 ${
         selectedParticipant === participant.id
-          ? "border-blue-500"
+          ? "border-pody-primary"
           : "border-slate-200"
       } relative cursor-pointer`}
     >
       <AvatarParticipant name={participant.name || "Unknown"} />
       {selectedParticipant === participant.id && (
-        <div className="absolute top-0 right-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-white z-50" />
+        <div className="absolute top-0 right-0 w-3 h-3 bg-pody-success rounded-full border-2 border-white z-50" />
       )}
     </div>
     <div className="text-xs truncate max-w-10 text-slate-700 dark:text-slate-300 mt-1">
