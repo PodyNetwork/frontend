@@ -175,8 +175,6 @@ export function EnhancedGridLayout({
       const newHeight = divRef.current.clientHeight;
       setHeight(newHeight);
 
-      console.log(newHeight);
-
       divRef.current.style.setProperty(
         "--video-height-card",
         `${newHeight.toFixed(2)}px`
@@ -225,7 +223,7 @@ export function EnhancedGridLayout({
             <div className="w-full h-full absolute top-0 left-0 flex flex-col items-center justify-center">
               <div className="max-w-md px-3 flex flex-col items-center justify-center text-center">
                 <motion.div
-                  className="w-20 h-20 object-contain"
+                  className="w-9 h-9 object-contain"
                   initial={{ scale: 0.8, opacity: 0.5 }}
                   animate={{ scale: [1, 0.8], opacity: [1, 0.5] }}
                   transition={{
@@ -237,12 +235,13 @@ export function EnhancedGridLayout({
                 >
                   <Image
                     src="/logo/Logo Icon Varient.png"
+                    className="w-full h-full object-contain"
                     width={200}
                     height={200}
                     alt="Pody Logo"
                   />
                 </motion.div>
-                <span className="text-[0.6rem] xs:text-xs text-slate-800 dark:text-slate-300">
+                <span className="text-[0.6rem] xs:text-xs mt-1 text-slate-800 dark:text-slate-300">
                   Waiting for the host to join or someone to present, but you
                   can still earn rewards while staying in the call!
                 </span>

@@ -41,8 +41,6 @@ function ResponsiveNav() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  console.log(overflowItems)
-
   return (
     <div className="nav-container">
       <div className="nav" ref={navRef}>

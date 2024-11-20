@@ -46,7 +46,7 @@ const PodyFeatures = () => {
   ];
   return (
     <section className="w-full relative">
-      <div className="flex flex-col py-24 w-full text-slate-900 max-w-7xl mx-auto px-4 md:px-6">
+      <div className="flex flex-col py-24 w-full text-slate-900 max-w-7xl mx-auto px-5 md:px-6">
         <div className="grid __discover_lyout gap-6 justify-between">
           <div className="flex flex-col gap-y-4">
             <div>
@@ -60,14 +60,14 @@ const PodyFeatures = () => {
                     src={user}
                     width={483}
                     height={516}
-                    className="z-50"
+                    className="z-20"
                     alt="pody users avatar"
                   />
                   <Image
                     src={user2}
                     width={483}
                     height={516}
-                    className="z-40"
+                    className="z-10"
                     alt="pody users avatar"
                   />
                   <Image
@@ -123,11 +123,11 @@ const PodyFeatures = () => {
                   : "md:flex-[0.75] bg-gradient-to-b from-[#dbd1fb] via-[#dbd1fb] to-[#E9EADB]"
               }`}
             >
-              <span className="text-2xl font-medium text-slate-800 z-50 relative">{`0${
+              <span className="text-2xl font-medium text-slate-800 z-40 relative">{`0${
                 index + 1
               }`}</span>
 
-              <div className="mt-4 flex flex-col gap-3 z-50 relative">
+              <div className="mt-4 flex flex-col gap-3 z-40 relative">
                 <h3 className="text-xl font-medium">{card.title}</h3>
 
                 {card.content && activeCard === index && (

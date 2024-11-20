@@ -1151,7 +1151,7 @@ body {
 }
 
 .__img_participant_rwd>img {
-    @apply rounded-full object-cover relative w-12 h-12 border-2 border-slate-300;
+    @apply rounded-full object-cover relative w-10 h-10 border-2 border-slate-300;
 }
 
 .highlight {

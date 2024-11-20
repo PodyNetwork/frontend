@@ -85,7 +85,7 @@ const CallsCard = ({ calls }: Calls) => {
                 </p>
                 <p className="text-xs capitalize">{call?.type}</p>
               </div>
-              <h3 className="text-base sm:text-lg font-medium text-slate-800">
+              <h3 className="text-base sm:text-lg font-medium text-slate-800 truncate">
                 {call?.title}
               </h3>
               <div>

@@ -16,6 +16,7 @@ import LeaveCallButton from "./widget/LeaveCallButton";
 import EndCallButton from "./widget/EndCallButton";
 import ScreenShareControl from "./widget/ScreenShareControl";
 import ChatControlMenu from "./widget/ChatControlMenu";
+import RaiseHand from "./RaiseHand";
 
 export type ControlBarControls = {
   microphone?: boolean;
@@ -236,6 +237,11 @@ const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
           )}
           {/* chat */}
           <ChatControlMenu />
+          {/* Raise Hand */}
+          <div>
+            <label className="sr-only">raisehand</label>
+            <RaiseHand />
+          </div>
           {/* Extra Menu */}
         </div>
         <MenuExtra

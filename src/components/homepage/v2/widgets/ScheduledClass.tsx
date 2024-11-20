@@ -80,13 +80,14 @@ const ScheduledCall = () => {
       </div>
       <div className="flex relative justify-between mt-auto pt-4">
         {/* <button>Previous</button> */}
-        {hasNextPage && <button
-          onClick={handleFetchMore}
-          disabled={!hasNextPage || isFetchingNextPage}
-        >
-          Next
-        </button>}
-        
+        {hasNextPage && (
+          <button
+            onClick={handleFetchMore}
+            disabled={!hasNextPage || isFetchingNextPage}
+          >
+            Next
+          </button>
+        )}
       </div>
     </>
   );
@@ -95,9 +96,9 @@ const ScheduledCall = () => {
 const ScheduledClass = () => {
   return (
     <section className="w-full relative">
-      <div className="w-full min-h-screen flex flex-row __scheduled_container_layout max-w-7xl px-0 md:px-6 mx-auto">
+      <div className="w-full flex flex-row __scheduled_container_layout max-w-7xl px-0 md:px-6 mx-auto">
         <div className="flex-1 __scheduled_layout_lft bg-pody-primary relative overflow-hidden">
-          <div className="absolute -bottom-12 -right-12">
+          <div className="absolute bottom-0 -right-12">
             <Image
               src={CurvedCircleImage}
               className="w-[35rem] mix-blend-hard-light blur-2xl"
@@ -106,8 +107,8 @@ const ScheduledClass = () => {
               alt="pody background ring"
             />
           </div>
-          <div className="w-full h-full flex flex-row z-40 relative">
-            <div className="h-full w-full px-4 md:px-6 py-7 flex flex-col">
+          <div className="w-full flex flex-row z-40 relative">
+            <div className="min-h-screen w-full px-5 md:px-6 py-7 flex flex-col">
               <div className="mb-40">
                 <div className="max-w-lg">
                   <p className="text-3xl font-semibold text-slate-900">
@@ -133,30 +134,32 @@ const ScheduledClass = () => {
           </div>
         </div>
         <div className="w-[25rem] __scheduled_layout_rgt bg-white">
-          <div className="w-full h-full flex flex-col">
-            <div className="bg-slate-50 flex-1 flex flex-col px-4 md:px-6 py-7">
+          <div className="w-full min-h-screen flex flex-col">
+            <div className="bg-slate-50 flex-1 flex flex-col px-5 md:px-6 py-7">
               <ScheduledCall />
             </div>
-            <div className="relative mt-auto bg-pody-dark text-slate-200 p-5 md:p-9 gap-y-4 flex flex-col">
-              <div className="py-2">
-                <h2 className="text-2xl font-medium">
-                  Host Public Classroom to Earn Points
-                </h2>
-                <p className="text-sm text-slate-300 mt-2">
-                  Earn an Extra 10% of Students&apos; Points
-                </p>
+            <div className="relative mt-auto bg-pody-dark min-h-72 text-slate-200 p-5 md:p-9 flex items-center">
+              <div className="gap-y-4 flex flex-col">
+                <div className="py-2">
+                  <h2 className="text-2xl font-medium">
+                    Host Public Classroom to Earn Points
+                  </h2>
+                  <p className="text-sm text-slate-300 mt-2">
+                    Earn an Extra 10% of Students&apos; Points
+                  </p>
+                </div>
+                <button className="flex flex-row gap-x-2 items-center justify-between w-full py-5 font-medium border-t border-slate-100/30">
+                  <span>Host your classroom</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 ms-2"
+                    viewBox="0 -960 960 960"
+                    fill="currentColor"
+                  >
+                    <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
+                  </svg>
+                </button>
               </div>
-              <button className="flex flex-row gap-x-2 items-center justify-between w-full py-5 font-medium border-t border-slate-100/30">
-                <span>Host your classroom</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 ms-2"
-                  viewBox="0 -960 960 960"
-                  fill="currentColor"
-                >
-                  <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
-                </svg>
-              </button>
             </div>
           </div>
         </div>

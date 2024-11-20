@@ -12,7 +12,7 @@ const Footer = () => {
       aria-label="Footer"
     >
       <div>
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="max-w-7xl mx-auto px-5 md:px-6">
           <div className="w-full relative">
             <div className="text-xs text-slate-500 flex flex-col gap-y-3 w-full md:w-10/12 py-7">
               <p>
@@ -42,7 +42,7 @@ const Footer = () => {
                 boost their point-earning capabilities.
               </p>
             </div>
-            <div className="flex md:flex-row flex-col gap-10 py-7 text-pody-secondary">
+            <div className="flex md:flex-row flex-col gap-y-10 gap-x-16 py-7 text-pody-secondary">
               <div className="relative">
                 <div className="flex flex-row items-center gap-x-1">
                   <Link href="/">
@@ -125,7 +125,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="pt-7 flex flex-row justify-between gap-3">
-              <p className="text-8xl font-medium text-pody-secondary">PODY NETWORK</p>
+              <p className="text-6xl md:text-8xl font-semibold text-pody-secondary/5">PODY NETWORK</p>
             </div>
           </div>
         </div>

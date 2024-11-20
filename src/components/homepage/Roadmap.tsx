@@ -6,7 +6,7 @@ const Roadmap = () => {
   return (
     <section
       id="roadmap"
-      className="relative text-slate-600 py-32 px-4 md:px-6 flex flex-col justify-center"
+      className="relative text-slate-600 py-32 px-5 md:px-6 flex flex-col justify-center"
       aria-label="roadmapo"
     >
       <div>

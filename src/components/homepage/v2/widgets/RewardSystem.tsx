@@ -7,11 +7,11 @@ import user3 from "/public/avatar/user3.jpeg";
 const RewardSystem = () => {
   return (
     <section className="w-full relative">
-      <div className="flex flex-col max-w-7xl mx-auto px-4 md:px-6 pt-16 pb-40">
+      <div className="flex flex-col max-w-7xl mx-auto px-5 md:px-6 pt-16 pb-40">
         <div className="flex flex-col md:flex-row justify-between gap-6">
           <div className="flex-1 flex flex-col">
             <div className="relative max-w-xl">
-              <h2 className="text-6xl leading-[1.12] font-extrabold">
+              <h2 className="text-5xl md:text-6xl leading-[1.12] font-extrabold">
                 <span className="text-pody-secondary">Reward</span> system for
                 Student and Teacher
               </h2>
@@ -26,7 +26,7 @@ const RewardSystem = () => {
               <div>
                 <h2 className="text-3xl font-bold">4.5M</h2>
                 <p className="text-sm font-medium mt-1">
-                  Total Points <br /> accumulated by User
+                  Total Points <br /> accumulated
                 </p>
               </div>
               <div className="flex flex-row items-center bg-slate-100 rounded-full p-1.5">
@@ -35,14 +35,14 @@ const RewardSystem = () => {
                     src={user}
                     width={483}
                     height={516}
-                    className="z-50"
+                    className="z-30"
                     alt="pody users avatar"
                   />
                   <Image
                     src={user2}
                     width={483}
                     height={516}
-                    className="z-40"
+                    className="z-20"
                     alt="pody users avatar"
                   />
                   <Image
@@ -52,7 +52,7 @@ const RewardSystem = () => {
                     alt="pody users avatar"
                   />
                 </div>
-                <button className="w-12 h-12 ms-4 bg-slate-300 rounded-full">
+                <button className="w-10 h-10 ms-3 bg-slate-300 rounded-full">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-7 h-7 m-auto"

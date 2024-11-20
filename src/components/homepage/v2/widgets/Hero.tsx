@@ -36,7 +36,7 @@ const Hero = () => {
 
   return (
     <section className="w-full relative bg-[#E9EADB]/80">
-      <div className="flex flex-col max-w-7xl h-full mx-auto px-4 md:px-6">
+      <div className="flex flex-col max-w-7xl h-full mx-auto px-5 md:px-6">
         <Nav />
         <div className="w-full py-16 relative">
           {/* Hero Text */}

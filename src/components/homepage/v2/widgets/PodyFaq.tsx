@@ -11,7 +11,7 @@ const PodyFaq = () => {
   };
   return (
     <section className="w-full relative">
-      <div className="px-4 md:px-6 flex flex-col max-w-3xl mx-auto py-24">
+      <div className="px-5 md:px-6 flex flex-col max-w-3xl mx-auto py-24">
         <div className="flex flex-col items-center mb-6">
           <div className="max-w-xl text-center flex flex-col gap-y-2.5">
             <h2 className="text-4xl font-semibold text-pody-dark">
@@ -20,7 +20,7 @@ const PodyFaq = () => {
           </div>
         </div>
         <motion.div
-          className="py-7 relative rounded-md overflow-hidden w-full z-50"
+          className="py-7 relative rounded-md overflow-hidden w-full z-40"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -33,7 +33,7 @@ const PodyFaq = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
                 <button
-                  className={`w-full text-left p-4 font-medium text-sm focus:outline-none transition-colors bg-slate-100 rounded-2xl ${
+                  className={`w-full text-left p-4 font-semibold text-sm focus:outline-none transition-colors bg-slate-100 rounded-2xl ${
                     activeIndex === index ? "text-slate-500" : "text-slate-700"
                   }`}
                   onClick={() => toggleFAQ(index)}

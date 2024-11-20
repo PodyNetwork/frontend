@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Popover,
@@ -12,6 +12,7 @@ type ReactionType = {
   emoji: string;
   offset: { x: number; y: number };
 };
+
 const emojis = [
   "1F44D",
   "1F44E",
@@ -22,6 +23,9 @@ const emojis = [
   "1F639",
   "1F389",
 ];
+
+const REACTION_DURATION = 2000; 
+
 const Reaction = () => {
   const [reactions, setReactions] = useState<ReactionType[]>([]);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -30,33 +34,27 @@ const Reaction = () => {
     const reaction: ReactionType = JSON.parse(
       new TextDecoder().decode(msg.payload)
     );
-    setReactions((prev) => [...prev, reaction]);
-
-    setTimeout(() => {
-      setReactions((prev) => prev.filter((r) => r.id !== reaction.id));
-    }, 1500);
+    addReaction(reaction);
   });
 
+  const addReaction = (reaction: ReactionType) => {
+    setReactions((prev) => [...prev, reaction]);
+    setTimeout(() => {
+      setReactions((prev) => prev.filter((r) => r.id !== reaction.id));
+    }, REACTION_DURATION);
+  };
+
   const handleEmojiClick = (emoji: string) => {
-    const popoverRect = popoverRef.current?.getBoundingClientRect();
+    if (!popoverRef.current) return;
 
-    if (popoverRect) {
-      const newReaction: ReactionType = {
-        id: crypto.randomUUID(),
-        emoji,
-        offset: { x: 0, y: -30 },
-      };
+    const newReaction: ReactionType = {
+      id: crypto.randomUUID(),
+      emoji,
+      offset: { x: 0, y: -30 },
+    };
 
-      send(new TextEncoder().encode(JSON.stringify(newReaction)), {});
-
-      setReactions((prev) => [...prev, newReaction]);
-
-      setTimeout(() => {
-        setReactions((prev) =>
-          prev.filter((reaction) => reaction.id !== newReaction.id)
-        );
-      }, 1500);
-    }
+    send(new TextEncoder().encode(JSON.stringify(newReaction)), {});
+    addReaction(newReaction);
   };
 
   return (
@@ -81,11 +79,11 @@ const Reaction = () => {
           <div
             className="flex flex-row items-center gap-x-4 cursor-pointer select-none"
             onContextMenu={(e) => e.preventDefault()}
-            style={{ userSelect: 'none' }}
+            style={{ userSelect: "none" }}
           >
-            {emojis.map((hex, index) => (
+            {emojis.map((hex) => (
               <p
-                key={index}
+                key={hex}
                 className="text-[1.45rem] text-muted-foreground"
                 onClick={() =>
                   handleEmojiClick(String.fromCodePoint(parseInt(hex, 16)))
@@ -100,31 +98,34 @@ const Reaction = () => {
 
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <AnimatePresence>
-          {reactions.map(({ id, emoji, offset }) => (
-            <motion.div
-              key={id}
-              initial={{ opacity: 1, x: offset.x, y: offset.y }}
-              animate={{
-                opacity: 1,
-                x: offset.x + (Math.random() * 60 - 30),
-                y: offset.y - 100,
-                scale: 1.4,
-              }}
-              exit={{
-                opacity: 0,
-                scale: 1,
-                transition: { duration: 0.5 },
-              }}
-              style={{
-                position: "absolute",
-                left: `calc(50% + ${offset.x}px)`,
-                top: `calc(50% + ${offset.y}px)`,
-              }}
-              transition={{ duration: 1.5 }}
-            >
-              <span className="text-[1.6rem]">{emoji}</span>
-            </motion.div>
-          ))}
+          {reactions.map(({ id, emoji, offset }) => {
+            const randomX = Math.random() * 60 - 30; 
+            return (
+              <motion.div
+                key={id}
+                initial={{ opacity: 1, x: offset.x, y: offset.y }}
+                animate={{
+                  opacity: 1,
+                  x: offset.x + randomX,
+                  y: offset.y - 100,
+                  scale: 1.4,
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 1,
+                  transition: { duration: 0.5 },
+                }}
+                style={{
+                  position: "absolute",
+                  left: `calc(50% + ${offset.x}px)`,
+                  top: `calc(50% + ${offset.y}px)`,
+                }}
+                transition={{ duration: 1.5 }}
+              >
+                <span className="text-[1.6rem]">{emoji}</span>
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </div>
     </div>

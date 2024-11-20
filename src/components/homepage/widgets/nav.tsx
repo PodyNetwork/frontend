@@ -74,7 +74,7 @@ const Nav = () => {
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`${mobileMenuOpen && "fixed z-50 right-8"}`}
+            className={`${mobileMenuOpen && "fixed z-[60] right-8"}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@ const Nav = () => {
 
       {/* Pody Mobile menu */}
       <div
-        className={`md:hidden fixed inset-0 bg-pody-secondary z-40 transition-all duration-300 ease-in-out ${
+        className={`md:hidden fixed inset-0 bg-pody-secondary z-50 transition-all duration-300 ease-in-out ${
           mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
