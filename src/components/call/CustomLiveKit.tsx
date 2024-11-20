@@ -13,18 +13,16 @@ const CustomLiveKit = ({
   const serverUrl = process.env.NEXT_PUBLIC_LIVEKIT_URL;
 
   return (
-    <LayoutContextProvider>
-      <UserProvider>
-        <CustomLiveKitRoom
-          video={true}
-          audio={true}
-          token={token}
-          serverUrl={serverUrl}
-        >
-          {children}
-        </CustomLiveKitRoom>
-      </UserProvider>
-    </LayoutContextProvider>
+    <UserProvider>
+      <CustomLiveKitRoom
+        video={true}
+        audio={true}
+        token={token}
+        serverUrl={serverUrl}
+      >
+        {children}
+      </CustomLiveKitRoom>
+    </UserProvider>
   );
 };
 

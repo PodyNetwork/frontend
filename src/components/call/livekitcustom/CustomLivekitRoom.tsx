@@ -5,7 +5,7 @@ import {
   useLiveKitRoom,
 } from "@livekit/components-react";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import CallEndPage from "../widgets/Status/Callend";
 import useFetchBulkUsers from "@/hooks/user/useFetchBulkUsers";
 import { useUserContext } from "../utils/UserContext";
@@ -23,13 +23,26 @@ export const CustomLiveKitRoom: React.FC<
     const [isRoomConnected, setIsRoomConnected] = useState<boolean>(false);
 
     const { setUsers } = useUserContext();
-    
+
     const shouldFetchUsers =
       isRoomConnected && participantIdentities.length > 0;
-   
-      const { data: participantsData } = useFetchBulkUsers(
+
+    const { data: participantsData } = useFetchBulkUsers(
       shouldFetchUsers ? participantIdentities : []
     );
+
+    const updateParticipantIdentities = useCallback(() => {
+      if (room) {
+        const identities = [
+          room.localParticipant?.identity,
+          ...Array.from(room.remoteParticipants.values()).map(
+            (p) => p.identity
+          ),
+        ].filter(Boolean) as string[];
+
+        setParticipantIdentities(identities);
+      }
+    }, [room]);
 
     useEffect(() => {
       if (participantsData) {
@@ -39,17 +52,6 @@ export const CustomLiveKitRoom: React.FC<
 
     useEffect(() => {
       if (!room) return;
-
-      const updateParticipantIdentities = () => {
-        const identities = [
-          room.localParticipant?.identity,
-          ...Array.from(room.remoteParticipants.values()).map(
-            (p) => p.identity
-          ),
-        ].filter(Boolean) as string[];
-
-        setParticipantIdentities(identities);
-      };
 
       const handleRoomConnected = () => {
         setIsRoomConnected(true);
@@ -77,21 +79,25 @@ export const CustomLiveKitRoom: React.FC<
         room.off("participantDisconnected", handleParticipantChange);
         room.off("disconnected", handleDisconnected);
       };
-    }, [room]);
+    }, [room, updateParticipantIdentities]);
 
     if (isDisconnected) {
       return <CallEndPage />;
     }
 
+    const memoizedRoomContext = useMemo(() => {
+      return room ? (
+        <RoomContext.Provider value={room}>
+          <LKFeatureContext.Provider value={props.featureFlags}>
+            {props.children}
+          </LKFeatureContext.Provider>
+        </RoomContext.Provider>
+      ) : null;
+    }, [room, props.featureFlags, props.children]);
+
     return (
       <div ref={ref} {...htmlProps}>
-        {room && (
-          <RoomContext.Provider value={room}>
-            <LKFeatureContext.Provider value={props.featureFlags}>
-              {props.children}
-            </LKFeatureContext.Provider>
-          </RoomContext.Provider>
-        )}
+        {memoizedRoomContext}
       </div>
     );
   }

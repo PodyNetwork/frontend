@@ -313,7 +313,7 @@ const GiftUI: React.FC = () => {
                 ))}
               </SelectGroup>
             </SelectContent>
-            <label className="text-xs text-slate-600 dark:text-slate-500">Only tokens whitelisted by the Pody Network are currently supported.</label>
+            <label className="text-xs text-slate-600 dark:text-slate-500 leading-none">Only tokens whitelisted by Pody Network are currently supported.</label>
           </Select>
         </div>
 
