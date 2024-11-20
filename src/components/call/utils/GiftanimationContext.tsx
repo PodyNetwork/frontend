@@ -6,6 +6,7 @@ type AnimationData = {
   participantId: string;
   senderId: string;
   giftId: string;
+  giftIcon: string;
   amount: number;
 };
 

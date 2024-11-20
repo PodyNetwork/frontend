@@ -124,10 +124,13 @@ const GiftUI: React.FC = () => {
         );
       }
 
+      const selectedGiftIcon = gifts.find(gift => gift.name === selectedGift);
+
       const newGiftData = {
         participantId: selectedParticipant,
         senderId: profile?.username || "Pody user",
         giftId: selectedGift,
+        giftIcon: selectedGiftIcon?.icon || "/icon/default.png",
         amount: Number(amount),
       };
 

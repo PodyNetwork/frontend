@@ -14,7 +14,7 @@ const StreamSidebar = () => {
   return (
     <div className="h-full flex flex-col justify-between items-center gap-3 text-slate-600 dark:text-slate-400 overflow-hidden">
       <div>
-        <Image src={podyLogo} alt="Pody" className="w-6 object-contain" />
+        <Image src={podyLogo} alt="Pody Logo" className="w-5 object-contain" />
       </div>
       <div className="w-full">
         <ul className="flex flex-col items-center justify-center gap-y-8">

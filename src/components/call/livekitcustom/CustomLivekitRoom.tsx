@@ -81,10 +81,6 @@ export const CustomLiveKitRoom: React.FC<
       };
     }, [room, updateParticipantIdentities]);
 
-    if (isDisconnected) {
-      return <CallEndPage />;
-    }
-
     const memoizedRoomContext = useMemo(() => {
       return room ? (
         <RoomContext.Provider value={room}>
@@ -97,7 +93,7 @@ export const CustomLiveKitRoom: React.FC<
 
     return (
       <div ref={ref} {...htmlProps}>
-        {memoizedRoomContext}
+        {isDisconnected ? <CallEndPage /> : memoizedRoomContext}
       </div>
     );
   }

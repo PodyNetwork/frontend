@@ -26,84 +26,71 @@ const GiftAnimationPage: React.FC = () => {
   const confettiTimeoutRef = useRef<any>(null);
 
   const generateConfetti = useCallback(() => {
-    const newConfetti = [];
+    const newConfetti: ConfettiItem[] = [];
     for (let i = 0; i < 50; i++) {
-      const randomX = gsap.utils.random(-200, 200);
-      const randomY = gsap.utils.random(-150, 150);
-      const randomRotation = gsap.utils.random(0, 360);
-      const randomScale = gsap.utils.random(0.5, 1.5);
-      const duration = gsap.utils.random(2, 3);
-
       newConfetti.push({
         id: crypto.randomUUID(),
-        x: randomX,
-        y: randomY,
-        rotation: randomRotation,
-        scale: randomScale,
-        duration,
+        x: gsap.utils.random(-200, 200),
+        y: gsap.utils.random(-150, 150),
+        rotation: gsap.utils.random(0, 360),
+        scale: gsap.utils.random(0.5, 1.5),
+        duration: gsap.utils.random(2, 3),
       });
     }
     setConfetti(newConfetti);
   }, []);
 
   const processGiftQueue = useCallback(() => {
-    if (giftQueue.length > 0 && animationData) {
-      const currentGift = giftQueue[0];
-      const tl = gsap.timeline({
-        onComplete: () => {
-          setGiftQueue((prevQueue) => prevQueue.slice(1));
-        },
-      });
+    if (giftQueue.length === 0 || !animationData) return;
 
-      tl.fromTo(
-        giftRef.current,
-        {
-          opacity: 0,
-          scale: 0.8,
-          y: 100,
+    const currentGift = giftQueue[0];
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setGiftQueue((prevQueue) => prevQueue.slice(1));
+      },
+    });
+
+    tl.fromTo(
+      giftRef.current,
+      { opacity: 0, scale: 0.8, y: 100 },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 1.5,
+        ease: "elastic.out(1, 0.75)",
+        onComplete: () => {
+          setShowConfetti(true);
+          confettiTimeoutRef.current = setTimeout(() => {
+            setShowConfetti(false);
+          }, 4000);
         },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 1.5,
-          ease: "elastic.out(1, 0.75)",
-          onComplete: () => {
-            setShowConfetti(true);
-            setTimeout(() => setShowConfetti(false), 4000);
-          },
-        }
-      )
+      }
+    )
       .to(giftRef.current, {
         opacity: 0,
-        y: -150, 
+        y: -150,
         duration: 1.5,
         ease: "power1.in",
       })
       .to(giftRef.current, {
         opacity: 0,
-        y: -200, 
+        y: -200,
         duration: 2,
         ease: "power1.out",
         delay: 4,
       });
 
-      const timer = setTimeout(() => {
-        setShowAnimation(false);
-      }, 8000);
-
-      return () => {
-        clearTimeout(timer);
-        clearTimeout(confettiTimeoutRef.current);
-        tl.kill(); 
-      };
-    }
+    return () => {
+      clearTimeout(confettiTimeoutRef.current);
+      tl.kill();
+    };
   }, [giftQueue, animationData]);
 
   useEffect(() => {
     if (animationData) {
-      setGiftQueue((prevQueue) => [...prevQueue, animationData]); 
-      setShowAnimation(true); 
+      setGiftQueue((prevQueue) => [...prevQueue, animationData]);
+      setShowAnimation(true);
     }
   }, [animationData]);
 
@@ -115,7 +102,7 @@ const GiftAnimationPage: React.FC = () => {
 
   useEffect(() => {
     processGiftQueue();
-  }, [giftQueue, processGiftQueue]); 
+  }, [giftQueue, processGiftQueue]);
 
   if (!showAnimation || giftQueue.length === 0) return null;
 
@@ -130,7 +117,7 @@ const GiftAnimationPage: React.FC = () => {
           className="fixed bottom-16 left-1/2 transform -translate-x-1/2 bg-gradient-to-b bg-slate-400 text-white p-1.5 text-xs rounded-full shadow-xl flex items-center gap-x-2 z-50"
         >
           <Image
-            src="/icon/pody.jpg"
+            src={animationData.giftIcon}
             width={50}
             height={50}
             alt="Gift"
@@ -171,23 +158,25 @@ const GiftAnimationPage: React.FC = () => {
                 }}
                 exit={{
                   opacity: 0,
-                  y: "-100vh", 
+                  y: "-100vh",
                   scale: 0.5,
-                  transition: {
-                    duration: 2,
-                    ease: "easeOut",
-                  },
+                  transition: { duration: 2, ease: "easeOut" },
                 }}
-                style={{
-                  position: "absolute",
-                  left: `50%`,
-                  top: `50%`,
-                }}
+                style={{ position: "absolute", left: "50%", top: "50%" }}
                 transition={{
                   duration: duration,
                   ease: "easeOut",
                 }}
               >
+                {animationData && (
+                  <Image
+                    src={animationData.giftIcon}
+                    width={50}
+                    height={50}
+                    alt="Gift"
+                    className="h-4 w-4 rounded-full object-cover"
+                  />
+                )}
                 <span className="text-xl">🎁</span>
               </motion.div>
             ))}
