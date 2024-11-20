@@ -58,7 +58,7 @@ const ScheduledClass = () => {
 
   return (
     <section className="w-full relative">
-      <div className="w-full min-h-screen flex flex-row __scheduled_container_layout max-w-7xl mx-auto">
+      <div className="w-full min-h-screen flex flex-row __scheduled_container_layout max-w-7xl px-0 md:px-6 mx-auto">
         <div className="flex-1 __scheduled_layout_lft bg-pody-primary relative overflow-hidden">
           <div className="absolute -bottom-12 -right-12">
             <Image
@@ -70,7 +70,7 @@ const ScheduledClass = () => {
             />
           </div>
           <div className="w-full h-full flex flex-row z-40 relative">
-            <div className="h-full w-full px-4 md:px-8 lg:px-10 py-7 flex flex-col">
+            <div className="h-full w-full px-4 md:px-6 py-7 flex flex-col">
               <div className="mb-40">
                 <p>Scheduled Classroom</p>
                 <div className="max-w-lg">
@@ -98,7 +98,7 @@ const ScheduledClass = () => {
         </div>
         <div className="w-[25rem] __scheduled_layout_rgt bg-white">
           <div className="w-full h-full flex flex-col">
-            <div className="bg-slate-50 flex-1 flex flex-col px-4 md:px-8 lg:px-10 py-7">
+            <div className="bg-slate-50 flex-1 flex flex-col px-4 md:px-6 py-7">
               <div className="w-full flex flex-col gap-y-8">
                 {currentItems.map((report) => (
                   <div

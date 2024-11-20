@@ -7,7 +7,7 @@ import user3 from "/public/avatar/user3.jpeg";
 const RewardSystem = () => {
   return (
     <section className="w-full relative">
-      <div className="flex flex-col max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-16 pb-40">
+      <div className="flex flex-col max-w-7xl mx-auto px-4 md:px-6 pt-16 pb-40">
         <div className="flex flex-col md:flex-row justify-between gap-6">
           <div className="flex-1 flex flex-col">
             <div className="relative max-w-xl">

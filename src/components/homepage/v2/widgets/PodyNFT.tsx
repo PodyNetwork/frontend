@@ -6,7 +6,7 @@ import Link from "next/link";
 const PodyNFT = () => {
   return (
     <section className="w-full relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 flex flex-col justify-between gap-x-6 pt-8 pb-24">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-col justify-between gap-x-6 pt-8 pb-24">
         <div className="w-full items-center flex flex-col py-7">
           <div className="max-w-4xl text-center space-y-4">
             <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-snug">

@@ -327,7 +327,7 @@ const OngoingClass = () => {
   return (
     <section className="w-full relative">
       <div
-        className="flex flex-col max-w-7xl mx-auto pt-6 pb-24 px-4 md:px-8 lg:px-10"
+        className="flex flex-col max-w-7xl mx-auto pt-6 pb-24 px-4 md:px-6"
         id="publicClassroom"
       >
         <div className="flex flex-col md:flex-row w-full">

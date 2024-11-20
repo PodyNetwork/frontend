@@ -35,8 +35,8 @@ const Hero = () => {
   };
 
   return (
-    <section className="w-full relative bg-pody-secondary/5">
-      <div className="flex flex-col max-w-7xl h-full mx-auto px-4 md:px-8 lg:px-10">
+    <section className="w-full relative bg-[#E9EADB]/80">
+      <div className="flex flex-col max-w-7xl h-full mx-auto px-4 md:px-6">
         <Nav />
         <div className="w-full py-16 relative">
           {/* Hero Text */}
@@ -46,7 +46,7 @@ const Hero = () => {
             initial="hidden"
             animate="visible"
           >
-            <motion.h1 className="font-bold text-4xl xs:text-5xl md:text-6xl leading-none" variants={itemVariants}>
+            <motion.h1 className="font-bold text-4xl xs:text-5xl md:text-7xl leading-none" variants={itemVariants}>
               Join Classroom and Earn Rewards
             </motion.h1>
             <motion.p className="font-medium text-lg" variants={itemVariants}>
