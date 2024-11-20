@@ -120,15 +120,13 @@ const PodyFeatures = () => {
               className={`flex flex-col relative overflow-hidden justify-between min-h-[300px] p-6 rounded-2xl cursor-pointer transition-all duration-300 ${
                 activeCard === index
                   ? "md:flex-[1.8] bg-gradient-to-br from-white via-slate-100 via-opacity-90 to-slate-100"
-                  : "md:flex-[0.75] bg-[#dbd1fb]"
+                  : "md:flex-[0.75] bg-gradient-to-b from-[#dbd1fb] via-[#dbd1fb] to-[#E9EADB]"
               }`}
             >
-              {/* Card Number */}
               <span className="text-2xl font-medium text-slate-800 z-50 relative">{`0${
                 index + 1
               }`}</span>
 
-              {/* Card Title and Content */}
               <div className="mt-4 flex flex-col gap-3 z-50 relative">
                 <h3 className="text-xl font-medium">{card.title}</h3>
 
@@ -155,7 +153,7 @@ const PodyFeatures = () => {
               {/* Learn More Button */}
               {activeCard === index && (
                 <motion.button
-                  className="self-start bg-pody-primary text-white text-sm px-5 py-2.5 rounded-[20px] border-none cursor-pointer transition-colors duration-200 hover:bg-pody-secondary"
+                  className="self-start bg-pody-secondary text-white text-sm px-5 py-2 rounded-full border-none cursor-pointer transition-colors duration-200 hover:bg-pody-secondary/80"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}

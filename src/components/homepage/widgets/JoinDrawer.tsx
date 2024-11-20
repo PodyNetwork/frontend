@@ -39,7 +39,7 @@ const JoinDrawer = () => {
         </DrawerTrigger>
         <DrawerContent className="z-50">
           <div className="mx-auto w-full max-w-sm">
-            <DrawerHeader>
+            <DrawerHeader className="pt-6">
               <DrawerTitle>Join Classroom</DrawerTitle>
               <DrawerDescription>Enter your classroom ID</DrawerDescription>
               <div className="mt-1">
@@ -53,10 +53,10 @@ const JoinDrawer = () => {
                 {errorMessage && <span className="text-xs text-red-500">Invalid Classroom ID</span>}
               </div>
             </DrawerHeader>
-            <DrawerFooter className="py-0">
-              <Button onClick={handleSubmit}>Submit</Button>
+            <DrawerFooter className="pb-10 pt-0">
+              <Button onClick={handleSubmit}>{classroomId ? "Join Classroom" : "Provide Classroom ID"}</Button>
               <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">Close</Button>
               </DrawerClose>
             </DrawerFooter>
           </div>

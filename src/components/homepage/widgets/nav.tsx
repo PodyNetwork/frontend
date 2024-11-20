@@ -54,7 +54,7 @@ const Nav = () => {
             ))}
           </ul>
         </div>
-        <ul className="flex flex-row items-center">
+        <ul className="flex flex-row items-center gap-x-2">
           <li className="bg-pody-secondary/40 hover:transition-all duration-100 h-10 rounded-full px-8 flex items-center">
             <Link href="/login">Login</Link>
           </li>
