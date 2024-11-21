@@ -5,11 +5,12 @@ import useProfile from "@/hooks/user/useProfile";
 
 type HandRaiseType = {
   id: string;
-  raisedBy: string;
+  raisedBy: string; 
 };
 
-const HAND_RAISE_DURATION = 2500; 
+const HAND_RAISE_DURATION = 4500; 
 const HAND_RAISE_COOLDOWN = 60000;
+const MAX_VISIBLE_HANDS = 3; 
 
 const handRaiseReducer = (state: HandRaiseType[], action: any) => {
   switch (action.type) {
@@ -25,8 +26,8 @@ const handRaiseReducer = (state: HandRaiseType[], action: any) => {
 const RaiseHand = () => {
   const { profile } = useProfile();
   
-  const [handQueue, dispatch] = useReducer(handRaiseReducer, []);
-  const [currentHand, setCurrentHand] = useState<HandRaiseType | null>(null); 
+  const [handQueue, dispatch] = useReducer(handRaiseReducer, []); 
+  const [visibleHands, setVisibleHands] = useState<HandRaiseType[]>([]); 
   const [isCooldown, setIsCooldown] = useState(false); 
 
   const { send } = useDataChannel("hand-raise", (msg) => {
@@ -37,22 +38,19 @@ const RaiseHand = () => {
   });
 
   useEffect(() => {
-    if (!currentHand && handQueue.length > 0) {
-      setCurrentHand(handQueue[0]); 
-      dispatch({ type: "REMOVE" });
-    }
+    if (visibleHands.length < MAX_VISIBLE_HANDS && handQueue.length > 0) {
+      const nextHand = handQueue[0]; 
+      setVisibleHands((prev) => [...prev, nextHand]); 
+      dispatch({ type: "REMOVE" }); 
 
-    if (currentHand) {
-      const timeout = setTimeout(() => {
-        setCurrentHand(null);
+      setTimeout(() => {
+        setVisibleHands((prev) => prev.filter((hand) => hand.id !== nextHand.id));
       }, HAND_RAISE_DURATION);
-
-      return () => clearTimeout(timeout);
     }
-  }, [currentHand, handQueue]);
+  }, [visibleHands, handQueue]);
 
   const handleRaiseHand = () => {
-    if (isCooldown) return;
+    if (isCooldown) return; 
 
     const newHandRaise: HandRaiseType = {
       id: crypto.randomUUID(),
@@ -71,8 +69,8 @@ const RaiseHand = () => {
       {/* Raise Hand Button */}
       <div
         onClick={handleRaiseHand}
-        className={`bg-white dark:bg-[#202124] h-10 w-10 rounded-full flex justify-center items-center text-slate-400 cursor-pointer relative ${
-          isCooldown ? "opacity-50 cursor-not-allowed" : ""
+        className={`bg-white dark:bg-[#202124] h-10 w-10 rounded-full flex justify-center items-center cursor-pointer relative ${
+          isCooldown ? "opacity-50 cursor-not-allowed text-red-500" : "text-slate-400"
         }`}
       >
         <svg
@@ -86,20 +84,20 @@ const RaiseHand = () => {
       </div>
 
       {/* Hand Raise Notifications */}
-      <div className="fixed bottom-16 left-1/2 transform -translate-x-1/2">
+      <div className="fixed bottom-16 left-1/2 transform -translate-x-1/2 space-y-px">
         <AnimatePresence>
-          {currentHand && (
+          {visibleHands.map(({ id, raisedBy }) => (
             <motion.div
-              key={currentHand.id}
+              key={id}
               className="bg-slate-400 text-white p-1.5 text-xs rounded-full shadow-xl block px-3 py-2"
               initial={{ opacity: 0, y: 0 }}
               animate={{ opacity: 1, y: -10 }}
               exit={{ opacity: 0, y: 5 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              {currentHand.raisedBy} Raised their Hand
+              {raisedBy} raised their hand
             </motion.div>
-          )}
+          ))}
         </AnimatePresence>
       </div>
     </div>
