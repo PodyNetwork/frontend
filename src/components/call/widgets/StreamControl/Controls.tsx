@@ -176,7 +176,7 @@ const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
     <>
       <div
         className={`__mobile_controls flex flex-row items-center justify-center gap-x-3 ${
-          isFullscreen ? "bottom-0 py-2 box-content fixed left-0 w-full" : ""
+          isFullscreen ? "bottom-0 py-2 box-content fixed left-0 w-full __mobile_controls_fulscreen" : ""
         } ${
           showControls ? "visible" : "opacity-0"
         } transition-opacity duration-300`}
