@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParticipants } from "@livekit/components-react";
 import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
@@ -49,6 +49,24 @@ const Participant = () => {
     const { identity } = participant;
     return identity.toLowerCase().includes(searchQuery.toLowerCase());
   });
+
+   const joinSound = new Audio("/audio/podynotifjoin.mp3");
+   const leaveSound = new Audio("/audio/podynotifjoin.mp3");
+ 
+   useEffect(() => {
+     const remoteParticipants = participants.filter(participant => !participant.isLocal);  
+ 
+     const firstRemoteParticipantJoined = remoteParticipants.length === 1;
+     const lastRemoteParticipantLeft = remoteParticipants.length === 0;
+ 
+     if (firstRemoteParticipantJoined) {
+       joinSound.play();
+     }
+ 
+     if (lastRemoteParticipantLeft) {
+       leaveSound.play();
+     }
+   }, [participants]); 
 
   return (
     <div className="sm:w-full md:h-full md:overflow-y-auto pb-[100px] md:pb-0 pt-4 px-1.5 md:px-0 md:pt-0">
