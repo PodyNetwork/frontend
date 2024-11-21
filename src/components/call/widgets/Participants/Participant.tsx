@@ -50,23 +50,31 @@ const Participant = () => {
     return identity.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
-   const joinSound = new Audio("/audio/podynotifjoin.mp3");
-   const leaveSound = new Audio("/audio/podynotifjoin.mp3");
- 
-   useEffect(() => {
-     const remoteParticipants = participants.filter(participant => !participant.isLocal);  
- 
-     const firstRemoteParticipantJoined = remoteParticipants.length === 1;
-     const lastRemoteParticipantLeft = remoteParticipants.length === 0;
- 
-     if (firstRemoteParticipantJoined) {
-       joinSound.play();
-     }
- 
-     if (lastRemoteParticipantLeft) {
-       leaveSound.play();
-     }
-   }, [participants]); 
+  const joinSound = new Audio("/audio/podynotifjoin.mp3");
+  const leaveSound = new Audio("/audio/podynotifjoin.mp3");
+
+  const [prevRemoteParticipants, setPrevRemoteParticipants] = useState<any[]>([]);
+
+  useEffect(() => {
+    const remoteParticipants = participants.filter(participant => !participant.isLocal);
+    const remoteCount = remoteParticipants.length;
+
+    console.log("Current remote participants:", remoteParticipants);
+    console.log("Previous remote participants:", prevRemoteParticipants);
+
+    if (remoteCount === 1 && prevRemoteParticipants.length === 0) {
+      console.log("First remote participant has joined.");
+      joinSound.play();
+    }
+
+    if (remoteCount === 0 && prevRemoteParticipants.length === 1) {
+      console.log("Last remote participant has left.");
+      leaveSound.play();
+    }
+
+    setPrevRemoteParticipants(remoteParticipants);
+
+  }, [participants]);
 
   return (
     <div className="sm:w-full md:h-full md:overflow-y-auto pb-[100px] md:pb-0 pt-4 px-1.5 md:px-0 md:pt-0">
