@@ -1229,3 +1229,7 @@ body {
     height: 100vh;
     background-color: red;
 }
+
+.icon-logo-star .star-path {
+    fill: url(#orange-to-pink);
+}
