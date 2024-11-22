@@ -30,6 +30,7 @@ type GiftItem = {
   icon: string;
   price: number;
   isHot?: boolean;
+  isAvailable: boolean;
 };
 
 const gifts = [
@@ -44,6 +45,14 @@ const gifts = [
     id: "2",
     name: "EDUCHAIN",
     icon: "/icon/educhain.png",
+    price: 5,
+    isHot: true,
+    isAvailable: true,
+  },
+  {
+    id: "3",
+    name: "CapyNFT",
+    icon: "/icon/nft/capy.png",
     price: 5,
     isHot: true,
     isAvailable: false,
@@ -124,7 +133,7 @@ const GiftUI: React.FC = () => {
         );
       }
 
-      const selectedGiftIcon = gifts.find(gift => gift.name === selectedGift);
+      const selectedGiftIcon = gifts.find((gift) => gift.name === selectedGift);
 
       const newGiftData = {
         participantId: selectedParticipant,
@@ -297,11 +306,12 @@ const GiftUI: React.FC = () => {
                   <SelectItem
                     key={index}
                     value={data.name}
-                    className="dark:hover:bg-slate-500 dark:focus:bg-slate-500"
+                    disabled={!data.isAvailable}
+                    className="dark:hover:bg-slate-500 dark:focus:bg-slate-500 w-full"
                   >
                     <button
                       type="button"
-                      className="inline-flex w-full py-1 text-xs text-slate-500 dark:text-slate-300"
+                      className="inline-flex py-1 text-xs text-slate-500 dark:text-slate-300"
                     >
                       <div className="inline-flex items-center">
                         <Image
@@ -313,14 +323,19 @@ const GiftUI: React.FC = () => {
                         />
                         {data.name}
                       </div>
+                      {!data.isAvailable && (
+                        <div className="rounded px-1 py-px ms-1.5 bg-slate-500 text-slate-200 inline-block text-[0.7rem]">
+                          Coming Soon
+                        </div>
+                      )}
                     </button>
                   </SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>
-            <label className="text-xs text-slate-600 dark:text-slate-500 leading-none">
+            <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">
               Only tokens whitelisted by Pody Network are currently supported.
-            </label>
+            </p>
           </Select>
         </div>
 

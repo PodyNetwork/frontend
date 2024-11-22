@@ -324,6 +324,9 @@ body {
         width: 100%;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     }
+    .__mobile_controls_fulscreen{
+        @apply bg-black;
+    }
 }
 
 .__participant_message_container {
@@ -1200,4 +1203,11 @@ body {
         min-width: 100%;
         max-width: 100%;
     }
+}
+.__testy{
+    background-image: url("../../public/material/material1.png");
+    width: 100%;
+    background-size: cover;
+    height: 100vh;
+    background-color: red;
 }

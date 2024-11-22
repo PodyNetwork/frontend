@@ -7,15 +7,15 @@ import user3 from "/public/avatar/user3.jpeg";
 const RewardSystem = () => {
   return (
     <section className="w-full relative">
-      <div className="flex flex-col max-w-7xl mx-auto px-5 md:px-6 pt-16 pb-40">
+      <div className="flex flex-col max-w-7xl mx-auto px-5 md:px-6 pt-16 pb-32">
         <div className="flex flex-col md:flex-row justify-between gap-6">
-          <div className="flex-1 flex flex-col">
+          <div className="w-1/2 flex flex-col">
             <div className="relative max-w-xl">
               <h2 className="text-5xl md:text-6xl leading-[1.12] font-extrabold">
                 <span className="text-pody-secondary">Reward</span> system for
                 Student and Teacher
               </h2>
-              <p className="text-base mt-10 text-slate-500">
+              <p className="text-base mt-10 text-slate-500 max-w-lg">
                 Students earn points based on their total time spent in a
                 meeting. The longer you stay and engage, the more points you
                 accumulate. Additionally, hosts receive a 10% bonus of the
@@ -65,8 +65,9 @@ const RewardSystem = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-[23rem] md:min-h-[600px]">
-            <div className="bg-slate-100 h-full rounded-[2rem] p-6">
+          <div className="w-full md:w-1/2">
+            <div className="h-full">
+              <Image src="/abstract/rewardsystem.png" width={400} height={400} alt="reward system image" className="w-10/12 mx-auto" />
             </div>
           </div>
         </div>

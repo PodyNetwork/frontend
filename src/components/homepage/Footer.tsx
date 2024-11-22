@@ -8,7 +8,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
   return (
     <section
-      className="bg-[#E9EADB] relative py-4 flex flex-col justify-center text-slate-400 text-sm"
+      className="bg-[#E9EADB] relative py-4 flex flex-col justify-center text-slate-400 text-sm overflow-hidden"
       aria-label="Footer"
     >
       <div>
@@ -129,6 +129,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="absolute -right-10 -bottom-10">
+        <Image src="/abstract/start_abstract.png" width={400} height={400} alt="footer image" className="w-72 opacity-10" />
       </div>
     </section>
   );

@@ -127,7 +127,7 @@ const GiftAnimationPage: React.FC = () => {
             {isSender ? (
               "You"
             ) : (
-              <span className="capitalize">{animationData?.senderId}</span>
+              <span>{animationData?.senderId}</span>
             )}{" "}
             sent {animationData?.amount} {animationData?.giftId} to{" "}
             {isReceiver ? "You" : animationData?.participantId}!

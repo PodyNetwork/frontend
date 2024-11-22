@@ -68,22 +68,6 @@ const StreamInfo = () => {
     }
   }, [participants]);
 
-  const [callId, setCallId] = useState<string | undefined>(call?._id);
-  const { endCall } = useEndCall();
-
-  const handleEndCall = () => {
-    if (callId) {
-      endCall.mutate({ callId });
-    } else {
-      console.error("No call ID available to end the call.");
-    }
-  };
-  useEffect(() => {
-    if (call?._id) {
-      setCallId(call._id);
-    }
-  }, [call]);
-
   const { openMenu } = useParticipantMenu();
 
   const { isFullscreen } = useFullscreen();
@@ -170,15 +154,6 @@ const StreamInfo = () => {
                 </svg>
               </p>
             </StreamShare>
-            {profile?.id === call?.userId && (
-              <button
-                onClick={handleEndCall}
-                aria-label="end call"
-                className="text-red-500 text-sm"
-              >
-                End Call
-              </button>
-            )}
           </div>
         </div>
         <h2 className="font-semibold text-base md:text-xl text-slate-600 dark:text-slate-200 truncate">
