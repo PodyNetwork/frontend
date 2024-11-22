@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import footlink from "./data/footlink.json";
 import React, { useEffect, useRef } from "react";

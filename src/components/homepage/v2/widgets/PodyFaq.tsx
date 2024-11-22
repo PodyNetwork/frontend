@@ -10,7 +10,7 @@ const PodyFaq = () => {
     
   };
   return (
-    <section className="w-full relative">
+    <section className="w-full relative" id="faq">
       <div className="px-5 md:px-6 flex flex-col max-w-3xl mx-auto py-24">
         <div className="flex flex-col items-center mb-6">
           <div className="max-w-xl text-center flex flex-col gap-y-2.5">

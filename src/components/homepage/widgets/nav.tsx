@@ -35,7 +35,10 @@ const Nav = () => {
   });
   return (
     <>
-      <div className="w-full hidden md:flex flex-row justify-between items-center text-sm text-slate-600 my-4 relative gap-x-3 font-medium" aria-label="Navigation Menu" >
+      <div
+        className="w-full hidden md:flex flex-row justify-between items-center text-sm text-slate-600 my-4 relative gap-x-3 font-medium"
+        aria-label="Navigation Menu"
+      >
         <div className="rounded-full gap-x-5 h-11 py-3.5 me-3.5 flex-row flex flex-1 justify-between items-center">
           <Link href="/">
             <Image src={logo} alt="Pody Logo" className="w-16 object-contain" />
@@ -55,9 +58,11 @@ const Nav = () => {
           </ul>
         </div>
         <ul className="flex flex-row items-center gap-x-2">
-          <li className="bg-pody-secondary/40 hover:transition-all duration-100 h-10 rounded-full px-8 flex items-center">
-            <Link href="/login">Login</Link>
-          </li>
+          <Link href="/login">
+            <li className="bg-pody-secondary/40 hover:transition-all duration-100 h-10 rounded-full px-8 flex items-center cursor-pointer">
+              Login
+            </li>
+          </Link>
           <JoinDrawer />
         </ul>
       </div>
