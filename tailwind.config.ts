@@ -27,6 +27,7 @@ const config: Config = {
 				oilblack: '#0C0C0C',
 				oxfordblue: '#212A37',
 				gunmetal: '#1D1F21',
+				mintgreen: '#E9EADB',
   			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

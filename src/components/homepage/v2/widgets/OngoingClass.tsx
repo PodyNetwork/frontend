@@ -184,8 +184,8 @@ const Publiccall = () => {
     router.push(fullUrl);
   }
 
-  function goToDashboard() {
-    const fullUrl = `/dashboard`;
+  function goToExplore() {
+    const fullUrl = `/dashboard/explore`;
     router.push(fullUrl);
   }
 
@@ -274,7 +274,7 @@ const Publiccall = () => {
       {hasNextPage && (
         <button
           className="mt-4 bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300"
-          onClick={goToDashboard}
+          onClick={goToExplore}
         >
           Explore More
         </button>

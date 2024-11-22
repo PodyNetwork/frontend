@@ -20,7 +20,7 @@ const CreateMeeting = () => {
         <div className="text-sm mt-2 flex flex-col xs:flex-row flex-wrap text-nowrap gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger className="outline-none">
-              <button
+              <div
                 className={`px-6 py-2 bg-pody-primary outline-none text-slate-900 rounded-md hover:bg-pody-primary/80 flex-1 hover:transition-all w-full xs:w-auto ${
                   loading ? "opacity-50" : "opacity-100"
                 }`}
@@ -48,7 +48,7 @@ const CreateMeeting = () => {
                 ) : (
                   <span>Create Classroom</span>
                 )}
-              </button>
+              </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem

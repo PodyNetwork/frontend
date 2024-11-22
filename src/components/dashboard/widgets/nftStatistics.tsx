@@ -9,7 +9,7 @@ const NftStatistics = () => {
       transition={{ duration: 0.5 }}
       className="bg-pody-dark rounded-xl relative flex flex-col w-full"
     >
-      <div className="__bg_nftcontainer w-full min-h-96 rounded-2xl flex flex-col justify-center">
+      <div className="__bg_nftcontainer w-full min-h-60 rounded-2xl flex flex-col justify-center">
         <div className="p-8 max-w-md">
           <motion.div
             initial={{ opacity: 0 }}
@@ -31,7 +31,7 @@ const NftStatistics = () => {
               transition={{ delay: 0.4, duration: 0.5 }}
               className="text-white text-base mt-2"
             >
-              Unlock unique NFTs, each NFT upgrade your points power
+              Unlock unique NFTs, each NFT increase your Points earnings per second.
             </motion.p>
           </motion.div>
         </div>

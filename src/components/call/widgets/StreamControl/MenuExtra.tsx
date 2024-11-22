@@ -37,8 +37,6 @@ import { useChatContext } from "../../utils/ChatContext";
 import LeaveCallButton from "./widget/LeaveCallButton";
 import EndCallButton from "./widget/EndCallButton";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 interface MenuExtraProps {
   username: string;
   overflowItem: any[];
@@ -80,7 +78,33 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
   };
 
   const { unreadMessageCount } = useUnreadMessageContext();
-  const { toggleChat } = useChatContext();
+  const { isChatOpen, openChat, closeChat, toggleChat } = useChatContext();
+
+  const isMac = navigator.platform.toUpperCase().includes('MAC');
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey)) {
+        if (event.key === 'g') {
+          event.preventDefault();
+          isGiftOpen ? closeGiftMenu() : openGiftMenu();
+        } else if (event.key === 'f') {
+          event.preventDefault();
+          isFullscreen ? exitFullscreen() : enterFullscreen();
+        } else if (event.key === 'c') {
+          event.preventDefault();
+          isChatOpen ? closeChat() : openChat();
+        }
+      }
+    };
+  
+    document.addEventListener('keydown', handleKeyDown);
+  
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isGiftOpen, openGiftMenu, closeGiftMenu, isFullscreen, enterFullscreen, exitFullscreen, isChatOpen, openChat, closeChat]);
+  
 
   return (
     <DropdownMenu>
@@ -106,38 +130,56 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
               switch (overflowItem) {
                 case "chat":
                   return (
-                    <DropdownMenuItem key={index} onClick={toggleChat}>
+                    <DropdownMenuItem
+                      key={`${overflowItem}-${index}`}
+                      onClick={toggleChat}
+                    >
                       <MessageSquareText />
                       <span>Chat</span>
+                      {unreadMessageCount > 0 && <span className="bg-red-500 text-slate-100 text-xs rounded-sm px-1 py-px">{unreadMessageCount}</span>}
+                      <DropdownMenuShortcut>{isMac ? "⌘":"ctrl"}+C</DropdownMenuShortcut>
                     </DropdownMenuItem>
                   );
                 case "ShareScreen":
                   return (
-                    <DropdownMenuItem className="hidden" key={index}>
+                    <DropdownMenuItem
+                      className="hidden"
+                      key={`${overflowItem}-${index}`}
+                    >
                       <ScreenShare />
                       <span>Share Screen</span>
                     </DropdownMenuItem>
                   );
                 case "endCall":
                   return (
-                    <EndCallButton className="w-full">
-                      <DropdownMenuItem key={index}>
+                    <EndCallButton
+                      className="w-full"
+                      key={`${overflowItem}-${index}`}
+                    >
+                      <DropdownMenuItem
+                        key={`${overflowItem}-endCall-${index}`}
+                      >
                         <PhoneOff />
-                        <span>End Call</span> 
+                        <span>End Call</span>
                       </DropdownMenuItem>
                     </EndCallButton>
                   );
                 case "LeaveCall":
                   return (
-                    <LeaveCallButton className="w-full">
-                      <DropdownMenuItem key={index}>
+                    <LeaveCallButton
+                      className="w-full"
+                      key={`${overflowItem}-${index}`}
+                    >
+                      <DropdownMenuItem
+                        key={`${overflowItem}-LeaveCall-${index}`}
+                      >
                         <span>Leave Call</span>
                       </DropdownMenuItem>
                     </LeaveCallButton>
                   );
                 case "reaction":
                   return (
-                    <DropdownMenuItem key={index}>
+                    <DropdownMenuItem key={`${overflowItem}-${index}`}>
                       <Smile />
                       <span>Reaction</span>
                     </DropdownMenuItem>
@@ -147,12 +189,12 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
               }
             })}
         </DropdownMenuGroup>
+
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={toggleDarkMode}>
             {isDarkMode ? <Sun /> : <Moon />}
             <span>{isDarkMode ? "Day Class" : "Night Class"}</span>
-            <DropdownMenuShortcut>⌘+S</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
@@ -165,19 +207,18 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
           >
             <UserPlus />
             <span>Share Classroom</span>
-            <DropdownMenuShortcut>⌘+S</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={isGiftOpen ? closeGiftMenu : openGiftMenu}>
             <Gift />
             <span>Gift Participant</span>
-            <DropdownMenuShortcut>⌘+G</DropdownMenuShortcut>
+            <DropdownMenuShortcut>{isMac ? "⌘":"ctrl"}+G</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={isFullscreen ? exitFullscreen : enterFullscreen}
           >
             {isFullscreen ? <Minimize /> : <Maximize />}
             <span>{isFullscreen ? "Exit Fullscreen" : "Fullscreen"}</span>
-            <DropdownMenuShortcut>⌘+F</DropdownMenuShortcut>
+            <DropdownMenuShortcut>{isMac ? "⌘":"ctrl"}+F</DropdownMenuShortcut>
           </DropdownMenuItem>
           {isFullscreen && (
             <DropdownMenuItem
@@ -193,7 +234,6 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
                   ? "Hide Participants"
                   : "Show Participants"}
               </span>
-              <DropdownMenuShortcut>⌘+P</DropdownMenuShortcut>
             </DropdownMenuItem>
           )}
         </DropdownMenuGroup>

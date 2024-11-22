@@ -59,16 +59,11 @@ const Participant = () => {
     const remoteParticipants = participants.filter(participant => !participant.isLocal);
     const remoteCount = remoteParticipants.length;
 
-    console.log("Current remote participants:", remoteParticipants);
-    console.log("Previous remote participants:", prevRemoteParticipants);
-
     if (remoteCount === 1 && prevRemoteParticipants.length === 0) {
-      console.log("First remote participant has joined.");
       joinSound.play();
     }
 
     if (remoteCount === 0 && prevRemoteParticipants.length === 1) {
-      console.log("Last remote participant has left.");
       leaveSound.play();
     }
 

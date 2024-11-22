@@ -10,10 +10,10 @@ interface ParticipantNamePodyProps {
 export const ParticipantNamePody: React.FC<ParticipantNamePodyProps> = ({
   participant,
 }) => (
-  <p className="text-sm text-slate-700 dark:text-slate-400 flex items-center flex-row __pd_name_max">
-    <div className="truncate max-w-fit">
+  <div className="text-sm text-slate-700 dark:text-slate-400 flex items-center flex-row __pd_name_max">
+    <p className="truncate max-w-fit">
       <span className="font-medium">{participant.name}</span>
-    </div>
+    </p>
     <Image
       src="/milestone/verified.svg"
       alt="badge"
@@ -21,5 +21,5 @@ export const ParticipantNamePody: React.FC<ParticipantNamePodyProps> = ({
       width={100}
       height={100}
     />
-  </p>
+  </div>
 );

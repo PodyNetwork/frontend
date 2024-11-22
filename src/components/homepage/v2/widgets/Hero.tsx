@@ -35,7 +35,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="w-full relative bg-[#E9EADB]/80 overflow-hidden">
+    <section className="w-full relative bg-pody-mintgreen/80 overflow-hidden">
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
         {/* First Image */}
         <motion.div
