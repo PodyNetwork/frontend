@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { formatUnits } from "viem";
+import approx from 'approximate-number'
 
 export const PointCounter = ({
   accumulatedPoints,
@@ -45,7 +46,7 @@ export const PointCounter = ({
           ease: "easeInOut",
         }}
       >
-        {formatUnits(BigInt(accumulatedPoints), 18)}
+        {approx(Number(formatUnits(BigInt(accumulatedPoints), 18)), {decimal: false})}
       </motion.span>
     </motion.div>
   );
