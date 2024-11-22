@@ -1065,7 +1065,6 @@ body {
         max-height: calc(var(--max-video-height) * var(--video-count));
     }
 }
-
 @media (min-width: 768px) {
     .__video_controlled_height {
         display: grid;
@@ -1073,14 +1072,12 @@ body {
         max-height: calc(var(--max-video-height) * var(--video-count));
     }
 }
-
 @media (min-width: 640px) {
     .__video_controlled_height>* {
         max-height: var(--max-video-height) !important;
         aspect-ratio: 16/9 !important;
     }
 }
-
 .pd_portrait_vid {
     object-fit: contain !important;
 }
@@ -1233,3 +1230,18 @@ body {
 .icon-logo-star .star-path {
     fill: url(#orange-to-pink);
 }
+
+
+
+/* Stream V2 starts here */
+.__video_layout_container_v2 {
+    margin: auto;
+    width: var(--max-video-width--stream, 100%);
+    background: #000;
+}
+.__video_controlled_height_v2 {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+    max-height: calc(var(--max-video-height--stream) * var(--video-count--v2));
+}
+/* Stream V2 starts ends here */
