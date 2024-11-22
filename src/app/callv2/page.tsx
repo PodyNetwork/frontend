@@ -55,7 +55,7 @@ const page = () => {
       className="w-full h-screen max-h-screen relative bg-[#101214]"
       aria-label="stream layout"
     >
-      <div className="w-full h-full flex flex-row px-5 gap-x-5">
+      <div className="w-full h-full flex flex-row px-10 gap-x-5">
         <div className="w-[calc(100%)] h-full relative flex flex-col">
           <div
             className="flex flex-row items-center justify-between py-4"
