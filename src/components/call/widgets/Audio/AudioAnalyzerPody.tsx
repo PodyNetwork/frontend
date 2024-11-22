@@ -7,22 +7,30 @@ const AudioAnalyzer = ({ track }: { track: LocalAudioTrack | RemoteAudioTrack })
   const { bars } = useAudioWaveform(track, { barCount: 3, volMultiplier: 6 });
   const barsRef = useRef<(HTMLDivElement | null)[]>([]);
 
+  const fallbackBars = bars && bars.length === 3 ? bars : [0, 0, 0];
+
   useEffect(() => {
-    if (barsRef.current.length > 0) {
-      gsap.to(barsRef.current, {
-        duration: 0.5, 
-        stagger: 0.1, 
-        ease: 'power1.out', 
-        height: (i) => `${Math.min(bars[i] * 100, 90)}%`, 
+    if (!fallbackBars || fallbackBars.length === 0) return;
+
+    barsRef.current = barsRef.current.slice(0, fallbackBars.length);
+
+    const validRefs = barsRef.current.filter((ref) => ref !== null);
+
+    if (validRefs.length > 0) {
+      gsap.to(validRefs, {
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power1.out',
+        height: (i) => `${Math.min(fallbackBars[i] * 100, 90)}%`,
       });
     }
-  }, [bars]);
+  }, [fallbackBars]);
 
   return (
     <div className="flex justify-center items-center h-[13px] md:h-[17px]">
-      {bars.map((bar, index) => (
+      {fallbackBars.map((bar, index) => (
         <div
-          key={index}
+          key={`bar-${index}`}
           ref={(el) => {
             barsRef.current[index] = el; 
           }}

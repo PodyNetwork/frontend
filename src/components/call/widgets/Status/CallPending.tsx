@@ -16,8 +16,8 @@ interface TimeLeft {
 
 const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
   const calculateTimeLeft = useCallback((): Partial<TimeLeft> => {
-    const targetTime = new Date(targetDate).getTime(); // Parse target date as timestamp
-    const currentTime = new Date().getTime(); // Current time as timestamp
+    const targetTime = new Date(targetDate).getTime();
+    const currentTime = new Date().getTime(); 
     const difference = targetTime - currentTime;
 
     let timeLeft: Partial<TimeLeft> = {};
@@ -39,31 +39,27 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
     }
 
     return timeLeft;
-  }, [targetDate]); // Add targetDate as a dependency
+  }, [targetDate]); 
 
   const [timeLeft, setTimeLeft] = useState<Partial<TimeLeft>>(
     calculateTimeLeft()
   );
 
   useEffect(() => {
-    // Use setInterval to update every second
     const timer = setInterval(() => {
       const updatedTimeLeft = calculateTimeLeft();
       setTimeLeft(updatedTimeLeft);
       
-      // Check if the countdown has ended
       if (updatedTimeLeft.days === 0 && updatedTimeLeft.hours === 0 && updatedTimeLeft.minutes === 0 && updatedTimeLeft.seconds === 0) {
-        window.location.reload(); // Reload the page
+        window.location.reload(); 
       }
     }, 1000);
 
-    // Clear interval when component is unmounted
     return () => clearInterval(timer);
-  }, [calculateTimeLeft]); // Depend on calculateTimeLeft
+  }, [calculateTimeLeft]); 
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-pody-dark_secondary text-white p-4">
-      {/* Subtle animated icon */}
       <motion.div
         className="mb-8 text-slate-500"
         animate={{ scale: [1, 1.1, 1] }}

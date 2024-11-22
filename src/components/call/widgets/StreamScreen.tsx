@@ -63,7 +63,7 @@ const StreamScreen = () => {
 
   return (
     <>
-      <div ref={infoRef} className={`${isFullscreen ? "md:py-0 py-0" : "md:py-5 py-4"}`}>
+      <div ref={infoRef} className={`${isFullscreen ? "md:py-0 py-0" : "py-4"}`}>
         <StreamInfo />
       </div>
       <StreamVideo />

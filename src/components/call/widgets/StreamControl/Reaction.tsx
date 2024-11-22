@@ -21,7 +21,6 @@ const emojis = [
   "1F608",
   "1F625",
   "1F639",
-  "1F389",
 ];
 
 const REACTION_DURATION = 2000;

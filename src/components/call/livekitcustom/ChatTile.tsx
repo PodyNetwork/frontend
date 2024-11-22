@@ -1,4 +1,9 @@
-import type { ChatMessage, ChatOptions, MessageDecoder, MessageEncoder } from "@livekit/components-core";
+import type {
+  ChatMessage,
+  ChatOptions,
+  MessageDecoder,
+  MessageEncoder,
+} from "@livekit/components-core";
 import * as React from "react";
 import { useMaybeLayoutContext } from "@livekit/components-react";
 import { useChat } from "@livekit/components-react";
@@ -9,7 +14,9 @@ import { useUnreadMessageContext } from "../utils/unreadMessageCount";
 import { useChatContext } from "../utils/ChatContext";
 import { useGiftMenu } from "../utils/GiftMenuContext";
 
-export interface ChatProps extends React.HTMLAttributes<HTMLDivElement>, ChatOptions {
+export interface ChatProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    ChatOptions {
   messageDecoder?: MessageDecoder;
   messageEncoder?: MessageEncoder;
   channelTopic?: string;
@@ -39,8 +46,7 @@ export default function ChatTile({
 
   const { profile } = useProfile();
 
-  const { setUnreadMessageCount } =
-    useUnreadMessageContext(); // Access context
+  const { setUnreadMessageCount } = useUnreadMessageContext(); // Access context
 
   const playNotificationSound = React.useCallback(() => {
     const audio = new Audio("/audio/podynotif.mp3");
@@ -231,15 +237,15 @@ export default function ChatTile({
         </div>
         <div className="relative w-full max-w-full">
           <div
-            className="px-2.5 py-3 w-full max-w-full bg-white dark:bg-pody-dark border-t border-slate-200 dark:border-slate-800 flex flex-row items-center gap-x-2"
+            className="px-2.5 py-4 w-full max-w-full bg-white dark:bg-pody-dark border-t border-slate-100 dark:border-slate-800 flex flex-row items-center gap-x-1.5"
             ref={chatInput}
           >
             <form onSubmit={handleSubmit} className="relative flex-1">
               <div className="flex items-center">
                 <input
                   type="text"
-                  placeholder="Type a message..."
-                  className="w-full px-3 h-10 py-2 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white outline-none text-sm pr-10"
+                  placeholder="Message..."
+                  className="w-full px-3 h-10 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-100 outline-none text-sm pr-10"
                   disabled={isSending}
                   ref={inputRef}
                 />
@@ -270,37 +276,38 @@ const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
 );
 
 const SendButton = ({ isSending }: { isSending: boolean }) => (
-  <button type="submit" disabled={isSending} className="absolute right-2">
+  <button type="submit" disabled={isSending} className="absolute right-3">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-6 w-6 text-blue-500 ${
+      id="fi_2907795"
+      className={`h-5 w-5 text-slate-500 ${
         isSending ? "opacity-30" : "opacity-100"
       }`}
-      viewBox="0 -960 960 960"
+      data-name="Layer 1"
+      viewBox="0 0 24 24"
       fill="currentColor"
     >
-      <path d="M140-190v-580l688.46 290L140-190Zm60-90 474-200-474-200v147.69L416.92-480 200-427.69V-280Zm0 0v-400 400Z" />
+      <path d="M14.76 22.65a2.3 2.3 0 0 1-2-1.23l-3.48-6.36a.8.8 0 0 0-.34-.34l-6.36-3.43A2.34 2.34 0 0 1 3 7l16.57-5.53a2.35 2.35 0 0 1 3 3L17 21.05a2.31 2.31 0 0 1-2 1.59ZM20 2.9 3.43 8.43a.84.84 0 0 0-.58.73.83.83 0 0 0 .44.81l6.36 3.43a2.3 2.3 0 0 1 .95.95l3.4 6.36a.83.83 0 0 0 .81.44.84.84 0 0 0 .73-.58L21.1 4A.84.84 0 0 0 20 2.9"></path>
+      <path d="M9.67 15.08a.7.7 0 0 1-.53-.22.74.74 0 0 1 0-1.06L20.9 2A.75.75 0 0 1 22 3.1L10.2 14.86a.74.74 0 0 1-.53.22"></path>
     </svg>
   </button>
 );
 
 const GiftButtonIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlSpace="preserve"
-    className="w-5 h-5"
-    viewBox="0 0 406.215 406.215"
-  >
-    <defs>
-      <linearGradient id="cool-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style={{ stopColor: "#0ea5e9", stopOpacity: 1 }} />{" "}
-        <stop offset="50%" style={{ stopColor: "#a855f7", stopOpacity: 1 }} />{" "}
-        <stop offset="100%" style={{ stopColor: "#4f46e5", stopOpacity: 1 }} />{" "}
-      </linearGradient>
-    </defs>
-    <path
-      fill="url(#cool-gradient)"
-      d="M226.793 243.186v163.029h134.115c17.431 0 31.568-14.129 31.568-31.57V243.186zM179.374 243.186H13.749v131.459c0 17.441 14.141 31.57 31.57 31.57h134.055zm-122.586 129.9c-6.545 0-11.855-5.311-11.855-11.854v-65.778c0-6.544 5.311-11.854 11.855-11.854s11.855 5.312 11.855 11.854v65.778c0 6.543-5.31 11.854-11.855 11.854M371.176 119.564h-59.293c8.184-3.928 15.049-7.986 19.2-12.133 24.423-24.419 24.423-64.03 0-88.453C318.857 6.768 302.85.664 286.844.664c-16.009 0-32.019 6.104-44.229 18.314-10.141 10.144-19.897 35.182-27.862 60.983-3.72-1.021-7.549-1.736-11.577-1.736-4.014 0-7.844.716-11.547 1.729-7.996-26.034-17.844-51.412-28.08-61.641C151.338 6.103 135.346 0 119.322 0c-16.008 0-32.016 6.104-44.227 18.313-24.422 24.432-24.422 64.035 0 88.453 4.369 4.388 11.73 8.679 20.562 12.798H35.038c-17.43 0-31.553 14.128-31.553 31.556v26.852c0 17.43 14.123 31.551 31.553 31.551h144.336v-88.707h47.419v88.707h144.384c17.428 0 31.553-14.123 31.553-31.552v-26.852c-.001-17.427-14.126-31.555-31.554-31.555M264.971 41.332c5.834-5.838 13.612-9.057 21.873-9.057 8.272 0 16.039 3.219 21.891 9.057 5.834 5.841 9.045 13.607 9.045 21.873s-3.211 16.031-9.016 21.835c-6.531 6.161-32.107 15.76-63.725 24.701a42.3 42.3 0 0 0-3.627-8.716c8.614-29.753 17.661-53.458 23.559-59.693m-167.523-.664c5.836-5.834 13.615-9.053 21.875-9.053 8.273 0 16.039 3.211 21.857 9.037 5.945 6.291 15.098 30.303 23.773 60.365-1.436 2.577-2.576 5.296-3.473 8.158-31.768-8.952-57.502-18.6-64.033-24.758-12.056-12.064-12.056-31.685.001-43.749"
-    ></path>
-  </svg>
+  <div className="h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full flex items-center justify-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlSpace="preserve"
+      id="fi_66834"
+      className="w-5 h-5"
+      x="0"
+      y="0"
+      version="1.1"
+      viewBox="0 0 293.373 293.373"
+      fill="currentColor"
+    >
+      <path d="M130.265 162.904H34.991c-7.549 0-13.726 6.176-13.726 13.725v103.02c0 7.549 6.177 13.725 13.726 13.725h96.876c3.229 0 3.229-3.469 3.229-3.469V167.568c-.001 0-.001-4.664-4.831-4.664M258.383 162.904h-95.177c-5.797 0-4.929 6.037-4.929 6.037v121.076s-.047 3.354 3.44 3.354h96.664c7.549 0 13.726-6.176 13.726-13.725V176.629c.002-7.549-6.175-13.725-13.724-13.725M135.095 81.846s0-4.651-4.596-4.651H19.491c-7.549 0-13.726 6.177-13.726 13.725v42.845c0 7.549 6.177 13.725 13.726 13.725h111.384c4.22 0 4.22-3.66 4.22-3.66zM273.882 77.195H162.52c-4.241 0-4.241 4.041-4.241 4.041v62.679s0 3.575 5.156 3.575h110.447c7.549 0 13.726-6.176 13.726-13.725V90.92c0-7.548-6.177-13.725-13.726-13.725M88.41 67.04c-6.28 0-12.016-.498-17.046-1.481-12.776-2.496-21.557-7.354-26.845-14.85-4.738-6.718-6.188-15-4.311-24.617C43.496 9.266 54.796 0 72.024 0c3.646 0 7.65.421 11.902 1.252 10.816 2.113 24.65 8.315 37.007 16.59 20.965 14.041 22.002 22.77 20.958 28.115-1.535 7.854-8.876 13.466-22.443 17.158-9.166 2.494-20.479 3.925-31.038 3.925M72.025 21.999c-6.672 0-8.965 1.864-10.224 8.311-1.03 5.271.269 7.112.695 7.717 1.784 2.53 6.431 4.64 13.086 5.939 3.591.702 8.028 1.073 12.827 1.073 10.553 0 19.85-1.599 26.019-3.348.449-.127 1.146-.658.399-1.103-8.065-6.57-22.82-15.343-35.119-17.746-2.865-.558-5.451-.843-7.683-.843M205.281 67.04h-.002c-10.559 0-21.871-1.431-31.037-3.925-13.568-3.691-20.908-9.304-22.443-17.157-1.043-5.345-.008-14.074 20.959-28.115 12.355-8.275 26.189-14.477 37.007-16.59 4.252-.831 8.256-1.252 11.899-1.252 17.232 0 28.531 9.267 31.816 26.093 1.879 9.616.43 17.898-4.309 24.616-5.288 7.497-14.068 12.354-26.847 14.85-5.028.981-10.764 1.48-17.043 1.48m-26.242-26.588c-.715.415-.369 1.07.002 1.177 6.166 1.773 15.561 3.411 26.238 3.411 4.801 0 9.236-.371 12.828-1.073 6.654-1.3 11.303-3.409 13.086-5.939.428-.605 1.728-2.446.695-7.717C230.63 23.864 228.336 22 221.663 22c-2.231 0-4.815.284-7.682.844-12.3 2.402-26.877 11.037-34.942 17.608"></path>
+    </svg>
+  </div>
+
 );
