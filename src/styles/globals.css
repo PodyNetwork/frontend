@@ -1218,7 +1218,6 @@ body {
         max-width: 100%;
     }
 }
-
 .__testy {
     background-image: url("../../public/material/material1.png");
     width: 100%;
@@ -1226,7 +1225,6 @@ body {
     height: 100vh;
     background-color: red;
 }
-
 .icon-logo-star .star-path {
     fill: url(#orange-to-pink);
 }
@@ -1243,5 +1241,15 @@ body {
     display: grid;
     grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
     max-height: calc(var(--max-video-height--stream) * var(--video-count--v2));
+}
+.__stream_info_pdT{
+    height: calc(100% - var(--height--stream--info));
+    margin-top: var(--height--stream--info) !important;
+}
+.__chat_max_height_v2 {
+    height: calc(100% - (var(--chatInput-height-v2) + var(--chatHeader-height-v2)));
+}
+.__participant_max_height_v2{
+    height: calc(100% - (var(--chatHeader-height-v2)));
 }
 /* Stream V2 starts ends here */
