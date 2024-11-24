@@ -1,4 +1,4 @@
-import React, { useState, useRef, useReducer, useEffect } from "react";
+import { useState, useReducer, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDataChannel } from "@livekit/components-react";
 import useProfile from "@/hooks/user/useProfile";
@@ -12,7 +12,12 @@ const HAND_RAISE_DURATION = 4500;
 const HAND_RAISE_COOLDOWN = 60000;
 const MAX_VISIBLE_HANDS = 3; 
 
-const handRaiseReducer = (state: HandRaiseType[], action: any) => {
+type HandRaiseAction = 
+  | { type: "ADD"; payload: HandRaiseType }
+  | { type: "REMOVE" };
+
+
+const handRaiseReducer = (state: HandRaiseType[], action: HandRaiseAction) => {
   switch (action.type) {
     case "ADD":
       return [...state, action.payload];

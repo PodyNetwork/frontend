@@ -39,6 +39,7 @@
     "fast-average-color": "^9.4.0",
     "framer-motion": "^11.11.9",
     "gsap": "^3.12.5",
+    "ics": "^3.8.1",
     "jazzicon": "^1.0.2",
     "livekit-client": "^2.5.6",
     "lucide-react": "^0.446.0",

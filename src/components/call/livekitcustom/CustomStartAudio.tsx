@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRoomContext, useStartAudio } from "@livekit/components-react";
 import Image from "next/image";
 
@@ -18,8 +18,6 @@ export const CustomStartAudio = React.forwardRef<
   const room = useRoomContext();
   const { mergedProps, canPlayAudio } = useStartAudio({ room, props });
 
-  const [clicked, setClicked] = useState(false);
-
   useEffect(() => {
     if (!canPlayAudio && mergedProps.onClick) {
       mergedProps.onClick();
@@ -27,7 +25,6 @@ export const CustomStartAudio = React.forwardRef<
   }, [canPlayAudio, mergedProps]);
 
   const handleClick = () => {
-    setClicked(true);
     if (mergedProps.onClick) {
       mergedProps.onClick();
     }

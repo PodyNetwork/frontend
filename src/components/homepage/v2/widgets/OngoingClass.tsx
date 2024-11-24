@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Call {
   _id: string;
@@ -154,30 +153,17 @@ const Inactivecall = () => {
 };
 
 const Publiccall = () => {
-  const [activeTab, setActiveTab] = useState<"instant" | "scheduled" | "all">(
-    "all"
-  );
-
   const {
     calls,
-    fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-    refetch,
   } = useGetPublicCalls({
-    type: activeTab === "all" ? undefined : activeTab,
     limit: 4,
     sortDirection: "desc",
   });
 
   const router = useRouter();
-
-  useEffect(() => {
-    refetch();
-  }, [activeTab, refetch]);
-
-  const pd_tabs_class = `xs:rounded-full w-full xs:w-auto px-4 py-2.5 h-auto shadow-none focus:outline-none data-[state=active]:bg-pody-dark data-[state=active]:text-white`;
 
   function goToMeeting(callUrl: string) {
     const fullUrl = `/call/${callUrl}`;
@@ -225,16 +211,13 @@ const Publiccall = () => {
                 })()}
               </span>
             </div>
-            <div className="py-6">
-              <h2 className="text-xl">{call.title || "Untitled Meeting"}</h2>
-              <div className="text-xs mt-1 flex items-center gap-x-1 capitalize">
-                {call.status === "ongoing" && (
-                  <p className="live-dot bg-pody-success"></p>
-                )}
-                {call.status}
-              </div>
+            <div className="py-5">
+              <h2 className="text-lg font-medium">
+                {call.title || "Untitled Meeting"}
+              </h2>
+              <div className="text-xs mt-1">Host: {call.userId}</div>
             </div>
-            <div className="flex gap-3 justify-between flex-wrap items-center mt-4">
+            <div className="flex gap-3 justify-between flex-wrap items-center mt-2">
               <div className="flex flex-row items-center gap-x-2 sm:gap-x-3">
                 <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full relative bg-black/20">
                   <BlockiesSvg
@@ -244,28 +227,40 @@ const Publiccall = () => {
                 </div>
                 <div className="text-xs sm:text-sm flex-1">
                   <h3 className="font-medium">{call.url}</h3>
-                  <p className="text-xs capitalize">
-                    {call.type ? `${call.type} Classroom` : "Instant Classroom"}
-                  </p>
+                  <div className="text-xs mt-px flex items-center gap-x-1 capitalize">
+                    {call.status === "ongoing" ? (
+                      <>
+                        <p className="live-dot bg-pody-success"></p>
+                        {call.status}
+                      </>
+                    ) : (
+                      <p className="capitalize">
+                        {call.type
+                          ? `${call.type} Classroom`
+                          : "Instant Classroom"}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-              <button
-                onClick={() => goToMeeting(call.url)}
-                disabled={call?.status === "ended"}
-                className={`bg-slate-300 cursor-pointer text-slate-700 text-sm rounded-full px-4 py-1.5 flex items-center ${call?.status === "ended" && "opaciy-30"
-                  }`}
-              >
-                {call?.status === "ended" ? "Ended" : "Join Call"}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 ms-2"
-                  viewBox="0 -960 960 960"
-                  fill="currentColor"
-                >
-                  <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
-                </svg>
-              </button>
             </div>
+            <button
+              onClick={() => goToMeeting(call.url)}
+              disabled={call?.status === "ended"}
+              className={`bg-slate-300 w-full justify-center mt-3 cursor-pointer text-slate-700 text-sm rounded-full px-4 py-2 flex items-center ${
+                call?.status === "ended" && "opaciy-30"
+              }`}
+            >
+              {call?.status === "ended" ? "Ended" : "Join Call"}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 ms-2"
+                viewBox="0 -960 960 960"
+                fill="currentColor"
+              >
+                <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
+              </svg>
+            </button>
           </div>
         ))}
         {isFetchingNextPage && <SkeletonCard />}
@@ -281,34 +276,7 @@ const Publiccall = () => {
     </>
   );
 
-  return (
-    <Tabs
-      defaultValue="all"
-      className="w-full mt-6"
-      onValueChange={(value) => setActiveTab(value as "instant" | "scheduled" | "all")}
-    >
-      <TabsList className="w-full xs:w-auto xs:rounded-full h-auto p-2 flex-col xs:flex-row">
-        <TabsTrigger value="all" className={pd_tabs_class}>
-          All
-        </TabsTrigger>
-        <TabsTrigger value="instant" className={pd_tabs_class}>
-          Instant
-        </TabsTrigger>
-        <TabsTrigger value="scheduled" className={pd_tabs_class}>
-          Scheduled
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent value="all">
-        <div className="w-full mt-4">{renderCalls()}</div>
-      </TabsContent>
-      <TabsContent value="instant">
-        <div className="w-full mt-4">{renderCalls()}</div>
-      </TabsContent>
-      <TabsContent value="scheduled">
-        <div className="w-full mt-4">{renderCalls()}</div>
-      </TabsContent>
-    </Tabs>
-  );
+  return <div className="w-full mt-4">{renderCalls()}</div>;
 };
 
 const OngoingClass = () => {

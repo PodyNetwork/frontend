@@ -14,16 +14,25 @@ type ConfettiItem = {
   duration: number;
 };
 
+type GiftData = {
+  senderId: string;
+  participantId: string;
+  giftIcon: string;
+  giftId: string;
+  amount: number;
+};
+
+
 const GiftAnimationPage: React.FC = () => {
   const { animationData } = useGiftAnimation();
   const { profile } = useProfile();
   const [showAnimation, setShowAnimation] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [confetti, setConfetti] = useState<ConfettiItem[]>([]);
-  const [giftQueue, setGiftQueue] = useState<any[]>([]); // Queue to hold gifts
+  const [giftQueue, setGiftQueue] = useState<GiftData[]>([]);
 
   const giftRef = useRef<HTMLDivElement | null>(null);
-  const confettiTimeoutRef = useRef<any>(null);
+  const confettiTimeoutRef = useRef<number | null>(null);
 
   const generateConfetti = useCallback(() => {
     const newConfetti: ConfettiItem[] = [];
@@ -42,14 +51,13 @@ const GiftAnimationPage: React.FC = () => {
 
   const processGiftQueue = useCallback(() => {
     if (giftQueue.length === 0 || !animationData) return;
-
-    const currentGift = giftQueue[0];
+  
     const tl = gsap.timeline({
       onComplete: () => {
         setGiftQueue((prevQueue) => prevQueue.slice(1));
       },
     });
-
+  
     tl.fromTo(
       giftRef.current,
       { opacity: 0, scale: 0.8, y: 100 },
@@ -61,7 +69,7 @@ const GiftAnimationPage: React.FC = () => {
         ease: "elastic.out(1, 0.75)",
         onComplete: () => {
           setShowConfetti(true);
-          confettiTimeoutRef.current = setTimeout(() => {
+          confettiTimeoutRef.current = window.setTimeout(() => {
             setShowConfetti(false);
           }, 4000);
         },
@@ -80,12 +88,15 @@ const GiftAnimationPage: React.FC = () => {
         ease: "power1.out",
         delay: 4,
       });
-
+  
     return () => {
-      clearTimeout(confettiTimeoutRef.current);
+      if (confettiTimeoutRef.current) {
+        clearTimeout(confettiTimeoutRef.current);
+      }
       tl.kill();
     };
   }, [giftQueue, animationData]);
+  
 
   useEffect(() => {
     if (animationData) {

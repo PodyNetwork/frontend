@@ -7,7 +7,6 @@ import { getHashRate } from "@/utils/passport";
 import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";
 import { PointCounter } from "./StreamScreen/PointCounter";
-import useEndCall from "@/hooks/call/useEndCall";
 import { useParticipantMenu } from "../utils/ParticipantMenuContext";
 import { useFullscreen } from "../utils/FullscreenContext";
 
