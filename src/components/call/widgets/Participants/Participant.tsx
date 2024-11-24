@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParticipants } from "@livekit/components-react";
 import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
@@ -13,9 +13,10 @@ import { HeaderParticipant } from "./HeaderParticipants";
 import { MobileParticipantInfo } from "./MobileparticipantInfo";
 import { ParticipantControls } from "./ParticipantControls";
 import { ParticipantNamePody } from "./ParticipantName";
+import { Participant } from "livekit-client";
 
 
-const Participant = () => {
+const ParticipantPody = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();
@@ -50,10 +51,10 @@ const Participant = () => {
     return identity.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
-  const joinSound = new Audio("/audio/podynotifjoin.mp3");
-  const leaveSound = new Audio("/audio/podynotifjoin.mp3");
+  const joinSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);
+  const leaveSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);
 
-  const [prevRemoteParticipants, setPrevRemoteParticipants] = useState<any[]>([]);
+  const [prevRemoteParticipants, setPrevRemoteParticipants] = useState<Participant[]>([]);
 
   useEffect(() => {
     const remoteParticipants = participants.filter(participant => !participant.isLocal);
@@ -69,7 +70,7 @@ const Participant = () => {
 
     setPrevRemoteParticipants(remoteParticipants);
 
-  }, [participants]);
+  }, [participants, prevRemoteParticipants.length, joinSound, leaveSound]);
 
   return (
     <div className="sm:w-full md:h-full md:overflow-y-auto pb-[100px] md:pb-0 pt-4 px-1.5 md:px-0 md:pt-0">
@@ -158,4 +159,4 @@ const Participant = () => {
   );
 };
 
-export default Participant;
+export default ParticipantPody;

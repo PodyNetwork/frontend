@@ -178,12 +178,7 @@ const SkeletonCard = () => {
       const fullUrl = `/call/${callUrl}`;
       router.push(fullUrl);
     }
-  
-    function goToDashboard() {
-      const fullUrl = `/dashboard`;
-      router.push(fullUrl);
-    }
-  
+
     const renderCalls = () => (
       <>
         {calls.length === 0 && !isLoading && <Inactivecall />}

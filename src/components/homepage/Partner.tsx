@@ -1,4 +1,3 @@
-import { AvatarParticipant } from "../Avatar/AvatarParticipant";
 import Partner from "./widgets/partner";
 
 const PartnerSection = () => {
@@ -7,8 +6,6 @@ const PartnerSection = () => {
       <div className="relative">
         <div className="z-30 relative flex flex-col">
           <Partner />
-          <div className="w-16 h-16">
-          </div>
         </div>
       </div>
     </section>

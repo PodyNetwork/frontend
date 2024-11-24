@@ -1,13 +1,13 @@
 "use client";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
-import React, { CSSProperties, useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-interface CustomCSSProperties extends CSSProperties {
-  "--video-count--v2"?: number;
-}
+// interface CustomCSSProperties extends CSSProperties {
+//   "--video-count--v2"?: number;
+// }
 
-const page = () => {
+const Page = () => {
   const streamInfoElement = useRef<HTMLDivElement>(null);
   const streamControlsElement = useRef<HTMLDivElement>(null);
 
@@ -57,7 +57,7 @@ const page = () => {
     };
   }, [adjustVideoDimensions]);
 
-  const limitedVideoCount = 4;
+  // const limitedVideoCount = 4;
 
   const _tabs__control = `xs:rounded-full w-full xs:w-auto px-4 py-1.5 h-auto shadow-none focus:outline-none data-[state=active]:bg-[#292B2C] data-[state=active]:text-white`;
 
@@ -628,7 +628,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const SendButton = ({ isSending }: { isSending: boolean }) => (
   <button type="submit" disabled={isSending} className="absolute right-3">

@@ -1,29 +1,90 @@
-import { useCallback, useState } from "react";
 import Image from "next/image";
 import BlockiesSvg from "blockies-react-svg";
 import CurvedCircleImage from "/public/illustration/circular_ring.png";
 import useGetPublicCalls from "@/hooks/call/useGetPublicCalls";
-import useProfileById from "@/hooks/user/useGetProfileById";
+import { createEvent, EventAttributes } from "ics";
+import dayjs from "dayjs";
+import isToday from "dayjs/plugin/isToday";
+import isTomorrow from "dayjs/plugin/isTomorrow";
+import { useRouter } from "next/navigation";
+
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
+
+interface EventData {
+  scheduledTime?: number | string | undefined;
+  title: string;
+  userId: string;
+  url: string;
+}
 
 const ScheduledCall = () => {
   const {
     calls,
-    fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    refetch,
   } = useGetPublicCalls({
     limit: 3,
     sortDirection: "desc",
     type: "scheduled",
   });
 
-  const handleFetchMore = useCallback(() => {
-    if (hasNextPage && fetchNextPage) {
-      fetchNextPage();
-    }
-  }, [hasNextPage, fetchNextPage]);
+  const router = useRouter();
+
+  const handleAddToCalendar = (data: EventData) => {
+    const scheduledTime = data.scheduledTime ?? "0";
+    const scheduledDate = new Date(scheduledTime);
+    const alarms = [];
+
+    const eventStart: [number, number, number, number, number] = [
+      scheduledDate.getFullYear(),
+      scheduledDate.getMonth() + 1,
+      scheduledDate.getDate(),
+      scheduledDate.getHours(),
+      scheduledDate.getMinutes(),
+    ];
+
+    alarms.push({
+      action: 'DISPLAY', 
+      description: `Pody Classroom with ${data.userId}`,
+      trigger: {
+        minutes: 10, 
+        before: true, 
+      },
+      repeat: 1, 
+      attachType: 'VALUE=TEXT', 
+      attach: `Reminder: Pody Classroom with ${data.userId}`,
+    });
+
+    const event: EventAttributes = {
+      start: eventStart,
+      duration: { hours: 1, minutes: 0 },
+      title: data.title,
+      description: `Join ${data.userId} Classroom on Pody`,
+      location: "Pody Classroom",
+      url: `https://pody.network/call/${data.url}`,
+      status: "CONFIRMED",
+      busyStatus: 'BUSY',
+    };
+
+    createEvent(event, (error, value) => {
+      if (error) {
+        console.error(error);
+      } else {
+        const blob = new Blob([value], { type: "text/calendar" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${data.title}.ics`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    });
+  };
+
+  function goToExplore() {
+    const fullUrl = `/dashboard/explore`;
+    router.push(fullUrl);
+  }
 
   return (
     <>
@@ -36,20 +97,30 @@ const ScheduledCall = () => {
               className="flex flex-col text-slate-600 pb-8 border-b border-slate-300"
             >
               <div className="text-sm font-medium">
-                <p>{data.scheduledTime}</p>
+                {(() => {
+                  if (!data || !data?.scheduledTime) {
+                    return "";
+                  }
+                  const scheduledDate = dayjs(data.scheduledTime);
+                  if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
+                  if (scheduledDate.isToday())
+                    return "Today - " + scheduledDate.format("HH:mm");
+                  if (scheduledDate.isTomorrow())
+                    return "Tomorrow - " + scheduledDate.format("HH:mm");
+                  if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
+                    return "Yesterday - " + scheduledDate.format("HH:mm");
+                  return scheduledDate.format("MMM D, YYYY HH:mm");
+                })()}
               </div>
               <div className="py-2 flex flex-row items-center gap-2 justify-between">
                 <div className="flex-1 relative overflow-hidden">
                   <h2 className="text-lg truncate whitespace-nowrap font-medium">
                     {data.title}
                   </h2>
-                  {/* {profileLoading ? (
-                    <p className="text-sm text-gray-400">Loading profile...</p>
-                  ) : (
-                    <p className="text-sm truncate">
-                      {profile?.username || data.userId}
-                    </p>
-                  )} */}
+                  <p className="text-sm truncate">
+                    Host:{""}
+                    {data.userId}
+                  </p>
                 </div>
                 <div className="w-9 h-8 relative bg-black/20 rounded-full">
                   <BlockiesSvg
@@ -61,7 +132,8 @@ const ScheduledCall = () => {
 
               <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium">
                 <button
-                  className={`cursor-pointer text-slate-800 rounded-full flex items-center`}
+                  onClick={() => handleAddToCalendar(data)}
+                  className="cursor-pointer text-slate-800 rounded-full flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -81,12 +153,12 @@ const ScheduledCall = () => {
       <div className="flex relative justify-between mt-auto pt-4">
         {/* <button>Previous</button> */}
         {hasNextPage && (
-          <button
-            onClick={handleFetchMore}
-            disabled={!hasNextPage || isFetchingNextPage}
-          >
-            Next
-          </button>
+           <button
+           className="mt-4 bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300"
+           onClick={goToExplore}
+         >
+           Explore More
+         </button>
         )}
       </div>
     </>

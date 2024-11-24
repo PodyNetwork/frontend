@@ -39,12 +39,6 @@ export function EnhancedGridLayout({
   const hideControlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hidePinbarTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleParticipantClick = () => {
-    if (onParticipantClick) {
-      onParticipantClick(currentIndex);
-    }
-  };
-
   // const handleDragEnd = (event: MouseEvent | TouchEvent, info: PanInfo) => {
   //   const swipeThreshold = 100;
   //   if (info.offset.x > swipeThreshold) {
@@ -168,38 +162,9 @@ export function EnhancedGridLayout({
     });
   };
 
-  const divRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState<number>(0);
-  const VidecardcalculateHeights = () => {
-    if (divRef.current) {
-      const newHeight = divRef.current.clientHeight;
-      setHeight(newHeight);
-
-      divRef.current.style.setProperty(
-        "--video-height-card",
-        `${newHeight.toFixed(2)}px`
-      );
-    }
-  };
-
   useEffect(() => {
-    VidecardcalculateHeights();
-
-    const handleResize = () => {
-      VidecardcalculateHeights();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [VidecardcalculateHeights]);
-
-  useEffect(() => {
-    // Handle the case when the current track is unavailable
     if (!availableTracks[currentIndex]) {
-      const nextIndex = availableTracks.length > 0 ? 0 : -1; // Fallback to first available or none
+      const nextIndex = availableTracks.length > 0 ? 0 : -1;
       setCurrentIndex(nextIndex);
     }
   }, [availableTracks, currentIndex]);
@@ -283,7 +248,7 @@ export function EnhancedGridLayout({
           {availableTracks.map((_, index) => (
             <motion.div
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => handleDotClick(index)}
               className={`w-2 h-2 rounded-full cursor-pointer ${
                 index === currentIndex ? "bg-slate-700" : "bg-slate-400"
               }`}
@@ -314,7 +279,6 @@ export function EnhancedGridLayout({
         ).map((track, index) => (
           <div
             className="relative __video_controlled_height items-center grid grid-cols-1 justify-center __bg_screen__card"
-            ref={divRef}
             key={index}
           >
             {track && track.source && track.participant && (

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useReducer, useEffect } from "react";
+import { useRef, useReducer } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Popover,
@@ -12,6 +12,10 @@ type ReactionType = {
   emoji: string;
   offset: { x: number; y: number };
 };
+
+type ReactionAction = 
+  | { type: "ADD"; payload: ReactionType } 
+  | { type: "REMOVE"; payload: string };
 
 const emojis = [
   "1F44D",
@@ -27,7 +31,7 @@ const REACTION_DURATION = 2000;
 const DEBOUNCE_DURATION = 200;
 
 // Reducer for managing reactions
-const reactionsReducer = (state: ReactionType[], action: any) => {
+const reactionsReducer = (state: ReactionType[], action: ReactionAction) => {
   switch (action.type) {
     case "ADD":
       return [...state, action.payload];

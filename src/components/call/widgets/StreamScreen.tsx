@@ -6,7 +6,6 @@ import StreamVideo from "./StreamVideo";
 import StreamInfo from "./StreamInfo";
 import { useFullscreen } from "../utils/FullscreenContext";
 import GiftAnimationPage from "./Gift/GiftAnimation";
-import { StartAudio } from "@livekit/components-react";
 
 const StreamScreen = () => {
   const infoRef = useRef<HTMLDivElement>(null);

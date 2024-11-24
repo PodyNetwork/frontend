@@ -11,7 +11,6 @@ import {
 
 import {
   Gift,
-  LogOut,
   Maximize,
   MessageSquareText,
   Minimize,
@@ -27,7 +26,6 @@ import { useFullscreen } from "../../utils/FullscreenContext";
 import { useParticipantBar } from "../../utils/ParticipantBarContext";
 import { useGiftMenu } from "../../utils/GiftMenuContext";
 import { useState, useEffect } from "react";
-import StreamShare from "../share/StreamShare";
 import { shareOnMobile } from "react-mobile-share";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import useProfile from "@/hooks/user/useProfile";
@@ -37,10 +35,19 @@ import { useChatContext } from "../../utils/ChatContext";
 import LeaveCallButton from "./widget/LeaveCallButton";
 import EndCallButton from "./widget/EndCallButton";
 
-interface MenuExtraProps {
-  username: string;
-  overflowItem: any[];
-}
+type OverflowItem =
+  | "chat"
+  | "ShareScreen"
+  | "endCall"
+  | "LeaveCall"
+  | "reaction";
+
+  interface MenuExtraProps {
+    username: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    overflowItem: any[];
+  }
+  
 
 const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
   const { isFullscreen, enterFullscreen, exitFullscreen } = useFullscreen();
@@ -52,7 +59,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
 
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
-  const { profile, isLoading, isError } = useProfile();
+  const { profile } = useProfile();
 
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
@@ -80,31 +87,108 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
   const { unreadMessageCount } = useUnreadMessageContext();
   const { isChatOpen, openChat, closeChat, toggleChat } = useChatContext();
 
-  const isMac = navigator.platform.toUpperCase().includes('MAC');
+  const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.ctrlKey || event.metaKey)) {
-        if (event.key === 'g') {
+      if (event.ctrlKey || event.metaKey) {
+        if (event.key === "g") {
           event.preventDefault();
-          isGiftOpen ? closeGiftMenu() : openGiftMenu();
-        } else if (event.key === 'f') {
+          if (isGiftOpen) {
+            closeGiftMenu();
+          } else {
+            openGiftMenu();
+          }
+        } else if (event.key === "f") {
           event.preventDefault();
-          isFullscreen ? exitFullscreen() : enterFullscreen();
-        } else if (event.key === 'c') {
+          if (isFullscreen) {
+            exitFullscreen();
+          } else {
+            enterFullscreen();
+          }
+        } else if (event.key === "c") {
           event.preventDefault();
-          isChatOpen ? closeChat() : openChat();
+          if (isChatOpen) {
+            closeChat();
+          } else {
+            openChat();
+          }
         }
       }
     };
-  
-    document.addEventListener('keydown', handleKeyDown);
-  
+
+    document.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isGiftOpen, openGiftMenu, closeGiftMenu, isFullscreen, enterFullscreen, exitFullscreen, isChatOpen, openChat, closeChat]);
-  
+  }, [
+    isGiftOpen,
+    openGiftMenu,
+    closeGiftMenu,
+    isFullscreen,
+    enterFullscreen,
+    exitFullscreen,
+    isChatOpen,
+    openChat,
+    closeChat,
+  ]);
+
+  const renderOverflowItem = (item: OverflowItem, index: number) => {
+    switch (item) {
+      case "chat":
+        return (
+          <DropdownMenuItem
+            key={`${overflowItem}-${index}`}
+            onClick={toggleChat}
+          >
+            <MessageSquareText />
+            <span>Chat</span>
+            {unreadMessageCount > 0 && (
+              <span className="bg-red-500 text-slate-100 text-xs rounded-sm px-1 py-px">
+                {unreadMessageCount}
+              </span>
+            )}
+            <DropdownMenuShortcut>
+              {isMac ? "⌘" : "ctrl"}+C
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+        );
+      case "ShareScreen":
+        return (
+          <DropdownMenuItem className="hidden" key={`${overflowItem}-${index}`}>
+            <ScreenShare />
+            <span>Share Screen</span>
+          </DropdownMenuItem>
+        );
+      case "endCall":
+        return (
+          <EndCallButton className="w-full" key={`${overflowItem}-${index}`}>
+            <DropdownMenuItem key={`${overflowItem}-endCall-${index}`}>
+              <PhoneOff />
+              <span>End Call</span>
+            </DropdownMenuItem>
+          </EndCallButton>
+        );
+      case "LeaveCall":
+        return (
+          <LeaveCallButton className="w-full" key={`${overflowItem}-${index}`}>
+            <DropdownMenuItem key={`${overflowItem}-LeaveCall-${index}`}>
+              <span>Leave Call</span>
+            </DropdownMenuItem>
+          </LeaveCallButton>
+        );
+      case "reaction":
+        return (
+          <DropdownMenuItem key={`${overflowItem}-${index}`}>
+            <Smile />
+            <span>Reaction</span>
+          </DropdownMenuItem>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -125,69 +209,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
         {overflowItem.length > 0 && <DropdownMenuSeparator />}
         <DropdownMenuGroup>
-          {overflowItem.length > 0 &&
-            overflowItem.map((overflowItem, index) => {
-              switch (overflowItem) {
-                case "chat":
-                  return (
-                    <DropdownMenuItem
-                      key={`${overflowItem}-${index}`}
-                      onClick={toggleChat}
-                    >
-                      <MessageSquareText />
-                      <span>Chat</span>
-                      {unreadMessageCount > 0 && <span className="bg-red-500 text-slate-100 text-xs rounded-sm px-1 py-px">{unreadMessageCount}</span>}
-                      <DropdownMenuShortcut>{isMac ? "⌘":"ctrl"}+C</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  );
-                case "ShareScreen":
-                  return (
-                    <DropdownMenuItem
-                      className="hidden"
-                      key={`${overflowItem}-${index}`}
-                    >
-                      <ScreenShare />
-                      <span>Share Screen</span>
-                    </DropdownMenuItem>
-                  );
-                case "endCall":
-                  return (
-                    <EndCallButton
-                      className="w-full"
-                      key={`${overflowItem}-${index}`}
-                    >
-                      <DropdownMenuItem
-                        key={`${overflowItem}-endCall-${index}`}
-                      >
-                        <PhoneOff />
-                        <span>End Call</span>
-                      </DropdownMenuItem>
-                    </EndCallButton>
-                  );
-                case "LeaveCall":
-                  return (
-                    <LeaveCallButton
-                      className="w-full"
-                      key={`${overflowItem}-${index}`}
-                    >
-                      <DropdownMenuItem
-                        key={`${overflowItem}-LeaveCall-${index}`}
-                      >
-                        <span>Leave Call</span>
-                      </DropdownMenuItem>
-                    </LeaveCallButton>
-                  );
-                case "reaction":
-                  return (
-                    <DropdownMenuItem key={`${overflowItem}-${index}`}>
-                      <Smile />
-                      <span>Reaction</span>
-                    </DropdownMenuItem>
-                  );
-                default:
-                  return null;
-              }
-            })}
+        {overflowItem.map(renderOverflowItem)}
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
@@ -199,8 +221,10 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
           <DropdownMenuItem
             onClick={() =>
               shareOnMobile({
-                text: `Hey, ${profile?.username} has invited you to their classroom on Pody`,
-                url: call?.url,
+                text: `Hey, ${
+                  profile?.username || "someone"
+                } has invited you to their classroom on Pody`,
+                url: call?.url || "",
                 title: "Pody Classroom",
               })
             }
@@ -211,14 +235,18 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
           <DropdownMenuItem onClick={isGiftOpen ? closeGiftMenu : openGiftMenu}>
             <Gift />
             <span>Gift Participant</span>
-            <DropdownMenuShortcut>{isMac ? "⌘":"ctrl"}+G</DropdownMenuShortcut>
+            <DropdownMenuShortcut>
+              {isMac ? "⌘" : "ctrl"}+G
+            </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={isFullscreen ? exitFullscreen : enterFullscreen}
           >
             {isFullscreen ? <Minimize /> : <Maximize />}
             <span>{isFullscreen ? "Exit Fullscreen" : "Fullscreen"}</span>
-            <DropdownMenuShortcut>{isMac ? "⌘":"ctrl"}+F</DropdownMenuShortcut>
+            <DropdownMenuShortcut>
+              {isMac ? "⌘" : "ctrl"}+F
+            </DropdownMenuShortcut>
           </DropdownMenuItem>
           {isFullscreen && (
             <DropdownMenuItem

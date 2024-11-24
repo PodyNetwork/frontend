@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { LocalAudioTrack, RemoteAudioTrack } from 'livekit-client';
 import { useAudioWaveform } from '@livekit/components-react';
 import gsap from 'gsap';
@@ -7,7 +7,9 @@ const AudioAnalyzerCircle = ({ track }: { track: LocalAudioTrack | RemoteAudioTr
   const { bars } = useAudioWaveform(track, { barCount: 4, volMultiplier: 8 });
   const barsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  const fallbackBars = bars && bars.length === 4 ? bars : [0, 0, 0, 0];
+  const fallbackBars = useMemo(() => {
+    return bars && bars.length === 4 ? bars : [0, 0, 0, 0];
+  }, [bars]);
 
   useEffect(() => {
     if (!fallbackBars || fallbackBars.length === 0) return;

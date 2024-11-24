@@ -1,7 +1,5 @@
 import Nav from "../../widgets/nav";
 import Image from "next/image";
-import { useEffect } from "react";
-import { gsap } from "gsap";
 import { motion } from "framer-motion";
 
 const Hero = () => {
@@ -37,7 +35,7 @@ const Hero = () => {
   return (
     <section className="w-full relative bg-pody-mintgreen/80 overflow-hidden">
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-        {/* First Image */}
+
         <motion.div
           className="absolute w-[14rem] md:w-[22rem] sm:w-[18rem] -top-32 left-0 blur-xl"
           initial={{ opacity: 0, y: -50 }}
@@ -62,7 +60,6 @@ const Hero = () => {
           />
         </motion.div>
 
-        {/* Second Image */}
         <motion.div
           className="absolute w-[14rem] md:w-[18rem] sm:w-[16rem] -top-10 -right-5 blur-2xl"
           initial={{ opacity: 0, x: 50 }}
@@ -87,7 +84,6 @@ const Hero = () => {
           />
         </motion.div>
 
-        {/* Third Image */}
         <motion.div
           className="absolute -bottom-28 w-full flex justify-center blur-2xl"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -149,7 +145,7 @@ const Hero = () => {
                 variants={itemVariants}
               >
                 <div className="text-sm">
-                  Let's earn <br /> reward together
+                  Let&apos;s earn <br /> reward together
                 </div>
                 <div className="relative mt-auto pt-16">
                   <motion.div
