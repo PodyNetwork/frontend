@@ -192,7 +192,7 @@ const Hero = () => {
                     <div className="p-5">
                       <h3 className="font-medium text-lg">Go Global</h3>
                       <p className="text-sm mt-2 text-slate-600">
-                        Make your classroom accessible to a global audience by setting it to public.
+                        Make your classroom accessible to a global audience by making it public.
                       </p>
                     </div>
                   </motion.div>
