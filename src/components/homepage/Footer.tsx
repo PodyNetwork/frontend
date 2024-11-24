@@ -49,32 +49,10 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-5 md:px-6">
           <div className="w-full relative">
             <div className="text-xs text-slate-500 flex flex-col gap-y-3 w-full md:w-10/12 py-7">
-              <p>
-                Pody Network is a decentralized platform designed for virtual
-                classrooms. Enjoy interactive, virtual environments tailored for
-                education to Meet and Earn rewards for participation in
-                real-time. Participant mint A unique, blockchain-based identity.
-                Pody is Focused on privacy with decentralized data protection.
-              </p>
-              <p>
-                Students on Pody Network are rewarded based on the time they
-                spend in virtual classrooms. Points are calculated in real-time
-                using a hash rate per second system. The longer you participate
-                in a session, the more points you accumulate. However, final
-                point calculations are made when you leave the classroom or the
-                session ends.
-              </p>
-              <p>
-                Teachers (hosts) receive an additional 10% of the total points
-                earned by all participants in their classrooms. This bonus is
-                calculated at the end of the session or when students leave.
-                These points reflect engagement and participation, enhancing the
-                rewards system for both students and hosts.
-              </p>
-              <p>
-                By minting more NFTs directly from the Pody dashboard, users can
-                boost their point-earning capabilities.
-              </p>
+              <p>Pody Network is a decentralized platform built for virtual classrooms, offering interactive environments for education. Users engage in real-time learning while earning rewards for active participation.</p>
+              <p>Students on Pody Network earn rewards based on the time they spend in virtual classrooms. Points are calculated using a hash rate per second system — the longer you stay in a session, the more points you accumulate. Final points are computed once the session ends or when you leave the classroom.</p>
+              <p>Teachers (hosts) earn an additional 10% of the total points accumulated by all participants in their classrooms. This bonus is awarded at the end of the session or upon participants' exit, incentivizing active hosting and engagement.</p>
+              <p>Users can further boost their point-earning potential by minting additional NFTs directly from them NFT section on their dashboard.</p>
             </div>
             <div className="flex md:flex-row flex-col gap-y-10 gap-x-16 py-7 text-pody-secondary">
               <div className="relative">

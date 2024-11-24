@@ -252,9 +252,8 @@ const Publiccall = () => {
               <button
                 onClick={() => goToMeeting(call.url)}
                 disabled={call?.status === "ended"}
-                className={`bg-slate-300 cursor-pointer text-slate-700 text-sm rounded-full px-4 py-1.5 flex items-center ${
-                  call?.status === "ended" && "opaciy-30"
-                }`}
+                className={`bg-slate-300 cursor-pointer text-slate-700 text-sm rounded-full px-4 py-1.5 flex items-center ${call?.status === "ended" && "opaciy-30"
+                  }`}
               >
                 {call?.status === "ended" ? "Ended" : "Join Call"}
                 <svg
@@ -335,11 +334,10 @@ const OngoingClass = () => {
             <div className="flex flex-col items-centr mb-6">
               <div className="max-w-xl text-centr flex flex-col gap-y-2.5">
                 <h2 className="text-2xl xs:text-4xl font-semibold text-pody-dark">
-                  Get Reward Instantly when you join active classroom
+                  Get Rewarded for Joining an Active Classroom.
                 </h2>
                 <p className="text-base mt-1.5 text-slate-700">
-                  Your reward is calculated when you join a classroom starts
-                  when you join
+                Your accumulated reward is shown in real-time when you join a classroom.
                 </p>
               </div>
             </div>
