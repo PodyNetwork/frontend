@@ -11,7 +11,7 @@ const LeaveCallButton = ({children, className}: LeaveCallButtonProps) => {
     stopTracks: true, 
   });
 
-  const { ...restButtonProps } = buttonProps;
+  const { stopTracks, ...restButtonProps } = buttonProps;
 
   return (
     <button {...restButtonProps} className={`flex-shrink-0 ${className}`}>

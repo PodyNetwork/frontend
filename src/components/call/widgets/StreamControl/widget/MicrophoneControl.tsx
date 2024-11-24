@@ -12,26 +12,27 @@ interface AudioControlProps {
 const MicrophoneControl = ({ saveUserChoices, onDeviceError }: AudioControlProps) => {
   const { localParticipant } = useLocalParticipant();
 
-  const {
-    saveAudioInputEnabled,
-    saveAudioInputDeviceId,
-  } = usePersistentUserChoices({ preventSave: !saveUserChoices });
+  const { saveAudioInputEnabled, saveAudioInputDeviceId } = usePersistentUserChoices({ preventSave: !saveUserChoices });
 
-  const microphoneOnChange = useCallback(
-    (enabled: boolean, isUserInitiated: boolean) => {
-      if (isUserInitiated) {
-        saveAudioInputEnabled?.(enabled);
-      }
-    },
-    [saveAudioInputEnabled]
-  );
+// Add a type check before calling the function
+const microphoneOnChange = useCallback(
+  (enabled: boolean, isUserInitiated: boolean) => {
+    if (isUserInitiated && saveAudioInputEnabled) {
+      saveAudioInputEnabled(enabled);
+    }
+  },
+  [saveAudioInputEnabled]
+);
 
-  const handleDeviceChange = useCallback(
-    (_kind: string, deviceId: string | undefined) => {
-      saveAudioInputDeviceId?.(deviceId ?? "");
-    },
-    [saveAudioInputDeviceId]
-  );
+const handleDeviceChange = useCallback(
+  (_kind: string, deviceId: string | undefined) => {
+    if (saveAudioInputDeviceId) {
+      saveAudioInputDeviceId(deviceId ?? "");
+    }
+  },
+  [saveAudioInputDeviceId]
+);
+
 
   return (
     <div className="bg-white dark:bg-[#202124] flex-shrink-0 p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">

@@ -46,7 +46,7 @@ export default function ChatTile({
 
   const { profile } = useProfile();
 
-  const { setUnreadMessageCount } = useUnreadMessageContext(); // Access context
+  const { setUnreadMessageCount } = useUnreadMessageContext(); 
 
   const playNotificationSound = React.useCallback(() => {
     const audio = new Audio("/audio/podynotif.mp3");
@@ -58,7 +58,7 @@ export default function ChatTile({
       event.preventDefault();
       const inputValue = inputRef.current?.value.trim();
       if (inputValue && send) {
-        await send(inputValue); // No prefix
+        await send(inputValue); 
         if (inputRef.current) {
           inputRef.current.value = "";
           inputRef.current.focus();

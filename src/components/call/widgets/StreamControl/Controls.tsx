@@ -102,22 +102,16 @@ const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
     setOverflowItems(overflow);
   };
 
-  // Effect for initial load
   useEffect(() => {
     handleResize();
-
-    // Attach the resize event listener
     window.addEventListener("resize", handleResize);
-
-    // Cleanup listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); // Empty dependency array means this runs only once on initial load
+  }, []); 
 
-  // Effect to handle updates when controls change
   useEffect(() => {
-    handleResize(); // Re-run the resize handler when controls are updated
+    handleResize();
 
     const controlDependencies = [
       visibleControls.camera,
@@ -126,7 +120,6 @@ const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
       visibleControls.screenShare,
     ];
 
-    // Run the resize handler whenever any control visibility changes
     controlDependencies.forEach((control) => {
       if (control !== undefined) {
         handleResize();
@@ -182,9 +175,9 @@ const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
         } transition-opacity duration-300`}
       >
         {/* video source */}
-        {visibleControls.camera && (
+        {/* {visibleControls.camera && (
           <CameraControl onDeviceError={onDeviceError} />
-        )}
+        )} */}
         {/* Microphone */}
         {visibleControls.microphone && <MicrophoneControl />}
         {/* Reaction */}
