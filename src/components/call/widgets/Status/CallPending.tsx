@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useEffect, useState, useCallback } from "react";
+import CallWaiting from "./CallWaiting";
 
 interface CountdownProps {
   targetDate: string;
@@ -17,7 +18,7 @@ interface TimeLeft {
 const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
   const calculateTimeLeft = useCallback((): Partial<TimeLeft> => {
     const targetTime = new Date(targetDate).getTime();
-    const currentTime = new Date().getTime(); 
+    const currentTime = new Date().getTime();
     const difference = targetTime - currentTime;
 
     let timeLeft: Partial<TimeLeft> = {};
@@ -39,7 +40,7 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
     }
 
     return timeLeft;
-  }, [targetDate]); 
+  }, [targetDate]);
 
   const [timeLeft, setTimeLeft] = useState<Partial<TimeLeft>>(
     calculateTimeLeft()
@@ -47,18 +48,17 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const updatedTimeLeft = calculateTimeLeft();
-      setTimeLeft(updatedTimeLeft);
-      
-      if (updatedTimeLeft.days === 0 && updatedTimeLeft.hours === 0 && updatedTimeLeft.minutes === 0 && updatedTimeLeft.seconds === 0) {
-        window.location.reload(); 
-      }
+      setTimeLeft(calculateTimeLeft());
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [calculateTimeLeft]); 
+  }, [calculateTimeLeft]);
 
-  return (
+  const targetTimeCal = new Date(targetDate).getTime();
+    const currentTimeCal = new Date().getTime();
+    const differenceCal = targetTimeCal - currentTimeCal;
+
+  if(differenceCal > 0)  return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-pody-dark_secondary text-white p-4">
       <motion.div
         className="mb-8 text-slate-500"
@@ -78,7 +78,7 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
 
       <div className="mb-4">
         <h2 className="xs:text-xl md:text-xl font-medium">
-            This Call hasn&apos;t started Yet
+          This Call hasn&apos;t started Yet
         </h2>
         <div className="flex flex-col items-center space-y-4">
           <div className="flex space-x-6">
@@ -106,6 +106,8 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
       </div>
     </div>
   );
+
+  return <CallWaiting />;
 };
 
 export default CallPendingPage;

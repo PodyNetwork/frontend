@@ -7,6 +7,9 @@ import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import useProfileById from "@/hooks/user/useGetProfileById";
+import useProfilesByIds from "@/hooks/user/useGetProfileByIds";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
@@ -19,10 +22,7 @@ interface EventData {
 }
 
 const ScheduledCall = () => {
-  const {
-    calls,
-    hasNextPage,
-  } = useGetPublicCalls({
+  const { calls, hasNextPage, isLoading } = useGetPublicCalls({
     limit: 3,
     sortDirection: "desc",
     type: "scheduled",
@@ -44,14 +44,14 @@ const ScheduledCall = () => {
     ];
 
     alarms.push({
-      action: 'DISPLAY', 
+      action: "DISPLAY",
       description: `Pody Classroom with ${data.userId}`,
       trigger: {
-        minutes: 10, 
-        before: true, 
+        minutes: 10,
+        before: true,
       },
-      repeat: 1, 
-      attachType: 'VALUE=TEXT', 
+      repeat: 1,
+      attachType: "VALUE=TEXT",
       attach: `Reminder: Pody Classroom with ${data.userId}`,
     });
 
@@ -63,7 +63,7 @@ const ScheduledCall = () => {
       location: "Pody Classroom",
       url: `https://pody.network/call/${data.url}`,
       status: "CONFIRMED",
-      busyStatus: 'BUSY',
+      busyStatus: "BUSY",
     };
 
     createEvent(event, (error, value) => {
@@ -86,81 +86,140 @@ const ScheduledCall = () => {
     router.push(fullUrl);
   }
 
+  const LoadingSkeleton = () => {
+    const shimmerAnimation = {
+      initial: { backgroundPosition: "-200% 0" },
+      animate: {
+        backgroundPosition: "200% 0",
+        transition: { duration: 1.5, repeat: Infinity, ease: "linear" },
+      },
+    };
+
+    return (
+      <div className="w-full flex flex-col gap-y-8">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div
+            key={index}
+            className="flex flex-col text-slate-600 pb-8 border-b border-slate-300"
+          >
+            {/* Date Placeholder */}
+            <motion.div
+              className="h-4 w-32 bg-gray-300 rounded-md"
+              {...shimmerAnimation}
+            ></motion.div>
+
+            {/* Title and Host Section */}
+            <div className="py-2 flex flex-row items-center gap-2 justify-between">
+              <div className="flex-1">
+                <motion.div
+                  className="h-6 w-3/4 bg-gray-300 rounded-md mb-2"
+                  {...shimmerAnimation}
+                ></motion.div>
+                <motion.div
+                  className="h-4 w-1/2 bg-gray-300 rounded-md"
+                  {...shimmerAnimation}
+                ></motion.div>
+              </div>
+              <motion.div
+                className="w-9 h-9 bg-gray-300 rounded-full"
+                {...shimmerAnimation}
+              ></motion.div>
+            </div>
+
+            {/* Buttons Placeholder */}
+            <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2">
+              <motion.div
+                className="h-8 w-40 bg-gray-300 rounded-full"
+                {...shimmerAnimation}
+              ></motion.div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const userIds = calls.map((call) => Number(call.userId));
+  const { profiles, isLoading: profileLoading } = useProfilesByIds(userIds);
+
   return (
     <>
-      <div className="w-full flex flex-col gap-y-8">
-        {calls.map((data) => {
-          // const { profile, isLoading: profileLoading } = useProfileById(1);
-          return (
-            <div
-              key={data._id}
-              className="flex flex-col text-slate-600 pb-8 border-b border-slate-300"
-            >
-              <div className="text-sm font-medium">
-                {(() => {
-                  if (!data || !data?.scheduledTime) {
-                    return "";
-                  }
-                  const scheduledDate = dayjs(data.scheduledTime);
-                  if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
-                  if (scheduledDate.isToday())
-                    return "Today - " + scheduledDate.format("HH:mm");
-                  if (scheduledDate.isTomorrow())
-                    return "Tomorrow - " + scheduledDate.format("HH:mm");
-                  if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
-                    return "Yesterday - " + scheduledDate.format("HH:mm");
-                  return scheduledDate.format("MMM D, YYYY HH:mm");
-                })()}
-              </div>
-              <div className="py-2 flex flex-row items-center gap-2 justify-between">
-                <div className="flex-1 relative overflow-hidden">
-                  <h2 className="text-lg truncate whitespace-nowrap font-medium">
-                    {data.title}
-                  </h2>
-                  <p className="text-sm truncate">
-                    Host:{""}
-                    {data.userId}
-                  </p>
+      {isLoading ? (
+        <LoadingSkeleton />
+      ) : (
+        <div className="w-full flex flex-col gap-y-8">
+          {calls.map((data) => {
+            const profile = profiles?.find((p) => p.id === data.userId);
+            return (
+              <div
+                key={data._id}
+                className="flex flex-col text-slate-600 pb-8 border-b border-slate-300"
+              >
+                <div className="text-sm font-medium">
+                  {(() => {
+                    if (!data || !data?.scheduledTime) {
+                      return "";
+                    }
+                    const scheduledDate = dayjs(data.scheduledTime);
+                    if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
+                    if (scheduledDate.isToday())
+                      return "Today - " + scheduledDate.format("HH:mm");
+                    if (scheduledDate.isTomorrow())
+                      return "Tomorrow - " + scheduledDate.format("HH:mm");
+                    if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
+                      return "Yesterday - " + scheduledDate.format("HH:mm");
+                    return scheduledDate.format("MMM D, YYYY HH:mm");
+                  })()}
                 </div>
-                <div className="w-9 h-8 relative bg-black/20 rounded-full">
-                  <BlockiesSvg
-                    address={data.url}
-                    className="w-9 h-9 object-cover rounded-full"
-                  />
+                <div className="py-2 flex flex-row items-center gap-2 justify-between">
+                  <div className="flex-1 relative overflow-hidden">
+                    <h2 className="text-lg truncate whitespace-nowrap font-medium">
+                      {data.title}
+                    </h2>
+                    <p className="text-sm truncate">
+                      Host:{""}
+                      {profile?.username}
+                    </p>
+                  </div>
+                  <div className="w-9 h-8 relative bg-black/20 rounded-full">
+                    <BlockiesSvg
+                      address={data.url}
+                      className="w-9 h-9 object-cover rounded-full"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium cursor-pointer">
-                <button
-                  onClick={() => handleAddToCalendar(data)}
-                  className="cursor-pointer text-slate-800 rounded-full flex items-center"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5 me-2"
-                    viewBox="0 -960 960 960"
-                    fill="currentColor"
+                <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium cursor-pointer">
+                  <button
+                    onClick={() => handleAddToCalendar(data)}
+                    className="cursor-pointer text-slate-800 rounded-full flex items-center"
                   >
-                    <path d="M690-90v-120H570v-60h120v-120h60v120h120v60H750v120h-60Zm-477.69-90Q182-180 161-201q-21-21-21-51.31v-455.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h223.08v-84.61h60V-780h55.38Q698-780 719-759q21 21 21 51.31v236.31q-15-1.85-30-1.85t-30 1.85v-76.31H200v295.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h273.46q0 15 1.85 30 1.84 15 6.76 30H212.31ZM200-607.69h480v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Z" />
-                  </svg>
-                  Add to Calendar
-                </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 me-2"
+                      viewBox="0 -960 960 960"
+                      fill="currentColor"
+                    >
+                      <path d="M690-90v-120H570v-60h120v-120h60v120h120v60H750v120h-60Zm-477.69-90Q182-180 161-201q-21-21-21-51.31v-455.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h223.08v-84.61h60V-780h55.38Q698-780 719-759q21 21 21 51.31v236.31q-15-1.85-30-1.85t-30 1.85v-76.31H200v295.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h273.46q0 15 1.85 30 1.84 15 6.76 30H212.31ZM200-607.69h480v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Z" />
+                    </svg>
+                    Add to Calendar
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex relative justify-between mt-auto pt-4">
-        {/* <button>Previous</button> */}
-        {hasNextPage && (
-           <button
-           className="mt-4 bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300"
-           onClick={goToExplore}
-         >
-           Explore More
-         </button>
-        )}
-      </div>
+            );
+          })}
+        </div>
+      )}
+      {hasNextPage && (
+        <div className="flex relative justify-between mt-auto pt-4">
+          <button
+            className="mt-4 bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300"
+            onClick={goToExplore}
+          >
+            Explore More
+          </button>
+        </div>
+      )}
     </>
   );
 };
@@ -193,7 +252,7 @@ const ScheduledClass = () => {
                 <div className="max-w-sm">
                   <div className="flex flex-col gap-y-1 text-slate-800">
                     <div className="font-medium">
-                      <p className="text-sm">Host Tip</p>
+                      <p className="text-sm">Tip of the Day</p>
                       <h2 className="text-lg mt-2">
                         Reach a wider audience and boost your rewards by
                         creating a public, scheduled classroom!

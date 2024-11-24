@@ -37,10 +37,10 @@ export const CustomStartAudio = React.forwardRef<
   return (
     <div className="dark:bg-black/50 bg-black/40 fixed top-0 left-0 w-full h-screen max-h-screen flex flex-col z-50 items-center justify-center overflow-y-auto">
       <div className="w-full p-4">
-        <div className="max-w-xl mx-auto flex flex-col text-center items-center justify-center gap-y-4 my-12 bg-white dark:bg-pody-oxfordblue p-9 rounded-xl text-slate-700 dark:text-slate-400">
+        <div className="max-w-lg mx-auto flex flex-col text-center items-center justify-center gap-y-3 my-12 bg-white dark:bg-pody-oxfordblue p-9 rounded-xl text-slate-700 dark:text-slate-400">
           <Image
             src="/illustration/woman-listening-online.png"
-            className="w-[320px] object-contain mx-auto"
+            className="w-full md:w-[320px] object-contain mx-auto"
             width={1500}
             height={536}
             alt="pody audio playback illustration"
