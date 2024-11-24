@@ -9,7 +9,6 @@ import isTomorrow from "dayjs/plugin/isTomorrow";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import useProfileById from "@/hooks/user/useGetProfileById";
-import useProfilesByIds from "@/hooks/user/useGetProfileByIds";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
@@ -21,14 +20,8 @@ interface EventData {
   url: string;
 }
 
-const ScheduledCall = () => {
-  const { calls, hasNextPage, isLoading } = useGetPublicCalls({
-    limit: 3,
-    sortDirection: "desc",
-    type: "scheduled",
-  });
-
-  const router = useRouter();
+const ScheduledCard = ({ data } : {data: any}) => {
+  const { profile, isLoading: profileLoading } = useProfileById(data.userId);
 
   const handleAddToCalendar = (data: EventData) => {
     const scheduledTime = data.scheduledTime ?? "0";
@@ -45,14 +38,14 @@ const ScheduledCall = () => {
 
     alarms.push({
       action: "DISPLAY",
-      description: `Pody Classroom with ${data.userId}`,
+      description: `Pody Classroom with ${profile?.username}`,
       trigger: {
         minutes: 10,
         before: true,
       },
       repeat: 1,
       attachType: "VALUE=TEXT",
-      attach: `Reminder: Pody Classroom with ${data.userId}`,
+      attach: `Reminder: Pody Classroom with ${profile?.username}`,
     });
 
     const event: EventAttributes = {
@@ -80,6 +73,74 @@ const ScheduledCall = () => {
       }
     });
   };
+
+  return (
+    <div
+      key={data._id}
+      className="flex flex-col text-slate-600 pb-8 border-b border-slate-300"
+    >
+      <div className="text-sm font-medium">
+        {(() => {
+          if (!data || !data?.scheduledTime) {
+            return "";
+          }
+          const scheduledDate = dayjs(data.scheduledTime);
+          if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
+          if (scheduledDate.isToday())
+            return "Today - " + scheduledDate.format("HH:mm");
+          if (scheduledDate.isTomorrow())
+            return "Tomorrow - " + scheduledDate.format("HH:mm");
+          if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
+            return "Yesterday - " + scheduledDate.format("HH:mm");
+          return scheduledDate.format("MMM D, YYYY HH:mm");
+        })()}
+      </div>
+      <div className="py-2 flex flex-row items-center gap-2 justify-between">
+        <div className="flex-1 relative overflow-hidden">
+          <h2 className="text-lg truncate whitespace-nowrap font-medium">
+            {data.title}
+          </h2>
+          <p className="text-sm truncate">
+            Host:{" "}
+            {profile?.username}
+          </p>
+        </div>
+        <div className="w-9 h-8 relative bg-black/20 rounded-full">
+          <BlockiesSvg
+            address={data.url}
+            className="w-9 h-9 object-cover rounded-full"
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium cursor-pointer">
+        <button
+          onClick={() => handleAddToCalendar(data)}
+          className="cursor-pointer text-slate-800 rounded-full flex items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-5 h-5 me-2"
+            viewBox="0 -960 960 960"
+            fill="currentColor"
+          >
+            <path d="M690-90v-120H570v-60h120v-120h60v120h120v60H750v120h-60Zm-477.69-90Q182-180 161-201q-21-21-21-51.31v-455.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h223.08v-84.61h60V-780h55.38Q698-780 719-759q21 21 21 51.31v236.31q-15-1.85-30-1.85t-30 1.85v-76.31H200v295.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h273.46q0 15 1.85 30 1.84 15 6.76 30H212.31ZM200-607.69h480v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Z" />
+          </svg>
+          Add to Calendar
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const ScheduledCall = () => {
+  const { calls, hasNextPage, isLoading } = useGetPublicCalls({
+    limit: 3,
+    sortDirection: "desc",
+    type: "scheduled",
+  });
+
+  const router = useRouter();
 
   function goToExplore() {
     const fullUrl = `/dashboard/explore`;
@@ -139,9 +200,6 @@ const ScheduledCall = () => {
     );
   };
 
-  const userIds = calls.map((call) => Number(call.userId));
-  const { profiles, isLoading: profileLoading } = useProfilesByIds(userIds);
-
   return (
     <>
       {isLoading ? (
@@ -149,64 +207,7 @@ const ScheduledCall = () => {
       ) : (
         <div className="w-full flex flex-col gap-y-8">
           {calls.map((data) => {
-            const profile = profiles?.find((p) => p.id === data.userId);
-            return (
-              <div
-                key={data._id}
-                className="flex flex-col text-slate-600 pb-8 border-b border-slate-300"
-              >
-                <div className="text-sm font-medium">
-                  {(() => {
-                    if (!data || !data?.scheduledTime) {
-                      return "";
-                    }
-                    const scheduledDate = dayjs(data.scheduledTime);
-                    if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
-                    if (scheduledDate.isToday())
-                      return "Today - " + scheduledDate.format("HH:mm");
-                    if (scheduledDate.isTomorrow())
-                      return "Tomorrow - " + scheduledDate.format("HH:mm");
-                    if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
-                      return "Yesterday - " + scheduledDate.format("HH:mm");
-                    return scheduledDate.format("MMM D, YYYY HH:mm");
-                  })()}
-                </div>
-                <div className="py-2 flex flex-row items-center gap-2 justify-between">
-                  <div className="flex-1 relative overflow-hidden">
-                    <h2 className="text-lg truncate whitespace-nowrap font-medium">
-                      {data.title}
-                    </h2>
-                    <p className="text-sm truncate">
-                      Host:{""}
-                      {profile?.username}
-                    </p>
-                  </div>
-                  <div className="w-9 h-8 relative bg-black/20 rounded-full">
-                    <BlockiesSvg
-                      address={data.url}
-                      className="w-9 h-9 object-cover rounded-full"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium cursor-pointer">
-                  <button
-                    onClick={() => handleAddToCalendar(data)}
-                    className="cursor-pointer text-slate-800 rounded-full flex items-center"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 me-2"
-                      viewBox="0 -960 960 960"
-                      fill="currentColor"
-                    >
-                      <path d="M690-90v-120H570v-60h120v-120h60v120h120v60H750v120h-60Zm-477.69-90Q182-180 161-201q-21-21-21-51.31v-455.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h223.08v-84.61h60V-780h55.38Q698-780 719-759q21 21 21 51.31v236.31q-15-1.85-30-1.85t-30 1.85v-76.31H200v295.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h273.46q0 15 1.85 30 1.84 15 6.76 30H212.31ZM200-607.69h480v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Z" />
-                    </svg>
-                    Add to Calendar
-                  </button>
-                </div>
-              </div>
-            );
+            return <ScheduledCard data={data} />;
           })}
         </div>
       )}
@@ -239,7 +240,7 @@ const ScheduledClass = () => {
             />
           </div>
           <div className="w-full flex flex-row z-40 relative h-full">
-            <div className="w-full h-full px-5 md:px-6 py-7 flex flex-col">
+            <div className="w-full min-h-screen px-5 md:px-6 py-7 flex flex-col">
               <div className="mb-40">
                 <div className="max-w-lg">
                   <p className="text-3xl font-semibold text-slate-900">

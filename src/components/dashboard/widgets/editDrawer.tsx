@@ -134,9 +134,9 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
             <DrawerHeader>
-              <DrawerTitle>Edit Meeting</DrawerTitle>
+              <DrawerTitle>Edit Classroom</DrawerTitle>
               <DrawerDescription>
-                Update your meeting details here.
+                Update your Classroom details here.
               </DrawerDescription>
             </DrawerHeader>
             <div className="p-4 pb-0">

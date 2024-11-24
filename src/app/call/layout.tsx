@@ -21,24 +21,18 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (call && !accessToken && (profile?.id === call?.userId)) {
+    if (call && !accessToken) {
       createCallToken.mutate({ callId: call._id });
     }
-  }, [call, accessToken, profile?.id, call?.userId]);
+  }, [call, accessToken]);
 
   if (call?.type === "scheduled" && call?.status === "pending") {
     return (
-      <CallPendingPage
-        targetDate={new Date(call?.scheduledTime ?? Date.now()).toISOString()}
-      />
+      <CallPendingPage targetDate={new Date(call?.scheduledTime ?? Date.now()).toISOString()}/>
     );
   }
 
-  if (call?.type === "instant" && call?.status === "pending") {
-    return (
-      <CallWaiting />
-    );
-  }
+  if (call?.type === "instant" && call?.status === "pending") return <CallWaiting />
 
   if (call?.status === "ended") return <CallEndPage />;
 
@@ -48,7 +42,6 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
 
   return <CustomLiveKit token={accessToken}>{children}</CustomLiveKit>;
 }
-
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return <AuthMiddleware><LayoutComponent>{children}</LayoutComponent></AuthMiddleware>

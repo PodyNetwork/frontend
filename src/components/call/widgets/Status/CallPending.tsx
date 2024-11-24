@@ -3,6 +3,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useEffect, useState, useCallback } from "react";
 import CallWaiting from "./CallWaiting";
+import useCreateCallToken from "@/hooks/call/useCreateCallToken";
+import useGetCallByURL from "@/hooks/call/useGetCallByURL";
+import useProfile from "@/hooks/user/useProfile";
+import { useParams } from "next/navigation";
 
 interface CountdownProps {
   targetDate: string;
@@ -20,6 +24,7 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
     const targetTime = new Date(targetDate).getTime();
     const currentTime = new Date().getTime();
     const difference = targetTime - currentTime;
+
 
     let timeLeft: Partial<TimeLeft> = {};
 
@@ -46,13 +51,33 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
     calculateTimeLeft()
   );
 
+  const { url } = useParams();
+  const { call } = useGetCallByURL(url as string);
+  const { createCallToken, accessToken } = useCreateCallToken();
+  const { profile } = useProfile();
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      const updatedTimeLeft = calculateTimeLeft();
+      setTimeLeft(updatedTimeLeft);
+  
+      if (
+        updatedTimeLeft.days === 0 &&
+        updatedTimeLeft.hours === 0 &&
+        updatedTimeLeft.minutes === 0 &&
+        updatedTimeLeft.seconds === 0
+      ) {
+        if (call && !accessToken && profile?.id === call?.userId) {
+          createCallToken.mutate({ callId: call._id });
+        }
+  
+        clearInterval(timer);
+      }
     }, 1000);
-
-    return () => clearInterval(timer);
-  }, [calculateTimeLeft]);
+  
+    return () => clearInterval(timer); 
+  }, []); 
+  
 
   const targetTimeCal = new Date(targetDate).getTime();
     const currentTimeCal = new Date().getTime();

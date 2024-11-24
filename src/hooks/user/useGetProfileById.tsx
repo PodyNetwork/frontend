@@ -14,7 +14,7 @@ interface ProfileResponse extends BaseResponse {
   data: Profile;
 }
 
-const useProfileById = (id: number) => {
+const useProfileById = (id: string) => {
   const fetchProfile = useCallback(async (): Promise<ProfileResponse> => {
     const response = await axios.get<ProfileResponse>(`/user/profile/${id}`);
     return response.data;
@@ -26,10 +26,11 @@ const useProfileById = (id: number) => {
     isError,
     refetch
   } = useQuery({
-    queryKey: ['profile'],
+    queryKey: ['profile', id],
     queryFn: fetchProfile,
     retry: 2,
     staleTime: 300000, 
+    enabled: !!id,
   });
 
   return { 
@@ -38,6 +39,7 @@ const useProfileById = (id: number) => {
     isError, 
     refetch 
   };
-}
+};
+
 
 export default useProfileById;
