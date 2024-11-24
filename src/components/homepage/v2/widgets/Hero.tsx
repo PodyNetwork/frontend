@@ -145,7 +145,7 @@ const Hero = () => {
                 variants={itemVariants}
               >
                 <div className="text-sm">
-                  Let&apos;s earn <br /> reward together
+                  Let&apos;s earn <br /> Rewards together
                 </div>
                 <div className="relative mt-auto pt-16">
                   <motion.div
@@ -153,8 +153,8 @@ const Hero = () => {
                     variants={imageVariants}
                   >
                     <Image
-                      src="/illustration/host.png"
-                      className="w-full h-36 rounded-3xl object-cover"
+                      src="/illustration/9987365.jpg"
+                      className="w-full h-40 rounded-3xl object-cover"
                       width={300}
                       height={400}
                       alt="Pody Getting started"
@@ -183,8 +183,8 @@ const Hero = () => {
                     variants={imageVariants}
                   >
                     <Image
-                      src="/illustration/participant.png"
-                      className="w-full h-36 rounded-3xl object-cover"
+                      src="/illustration/9090261.jpg"
+                      className="w-full h-40 rounded-3xl object-cover"
                       width={300}
                       height={400}
                       alt="Pody Getting started"

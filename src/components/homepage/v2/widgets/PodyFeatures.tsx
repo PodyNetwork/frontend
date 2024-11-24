@@ -8,16 +8,17 @@ import { motion } from "framer-motion";
 import QuickFeaturesCard from "./QuickFeaturesCard";
 import { useRouter } from "next/navigation";
 import useLoading from "@/hooks/useLoading";
+import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 
 const PodyFeatures = () => {
   const [activeCard, setActiveCard] = useState(0);
-  const navigate = useRouter()
-  const {startLoading, loading} = useLoading()
+  const navigate = useRouter();
+  const { startLoading, loading } = useLoading();
 
-  const navigateToDashboard = useCallback(()=> {
-    startLoading()
-    navigate.push('/dashboard')
-  }, [navigate, startLoading])
+  const navigateToDashboard = useCallback(() => {
+    startLoading();
+    navigate.push("/dashboard");
+  }, [navigate, startLoading]);
 
   const cards = [
     {
@@ -59,49 +60,34 @@ const PodyFeatures = () => {
         <div className="grid __discover_lyout gap-6 justify-between">
           <div className="flex flex-col gap-y-4">
             <div>
-              <h2 className="text-5xl xs:text-7xl md:text-8xl lg:text-8xl font-extrabold">Discover</h2>
+              <h2 className="text-5xl xs:text-7xl md:text-8xl lg:text-8xl font-extrabold">
+                Discover
+              </h2>
               <h3 className="text-xl mt-2">Pody&apos;s Unique Features</h3>
             </div>
             <div className="mt-auto relative">
               <div className="flex flex-row items-center gap-x-2">
                 <div className="flex items-center -space-x-5 __img_participant_dsc">
-                  <Image
-                    src={user}
-                    width={483}
-                    height={516}
-                    className="z-20"
-                    alt="pody users avatar"
-                  />
-                  <Image
-                    src={user2}
-                    width={483}
-                    height={516}
-                    className="z-10"
-                    alt="pody users avatar"
-                  />
-                  <Image
-                    src={user3}
-                    width={483}
-                    height={516}
-                    alt="pody users avatar"
-                  />
+                  {Array.from({ length: 3 }).map((_, index) => (
+                    <div className="w-9 h-9" key={index} style={{ zIndex: 30 - index * 10 }}><AvatarParticipant name={`unknownuser_${index}`} /></div>
+                  ))}
                 </div>
                 <div className="w-28">
-                  <p className="text-xs">1M+ satisified Teacher & Learners</p>
+                  <p className="text-xs">300+ satisified Teacher & Learners</p>
                 </div>
               </div>
             </div>
           </div>
           <motion.div
             className="w-full __discover_img"
-            initial={{ opacity: 0, scale: 0.9, y: 20 }} 
-            animate={{ opacity: 1, scale: 1, y: 0 }} 
-            transition={{ duration: 0.6, ease: "easeOut" }} 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             whileHover={{ scale: 1.1 }}
           >
             <Image
               src={discoverImage}
-              className="w-full object-contain" 
+              className="w-full object-contain"
               width={183}
               height={516}
               alt="discover"
@@ -169,7 +155,7 @@ const PodyFeatures = () => {
                   transition={{ duration: 0.3 }}
                   disabled={loading}
                 >
-                  {loading? '...loading':  "Start Earning"}
+                  {loading ? "...loading" : "Start Earning"}
                 </motion.button>
               )}
 

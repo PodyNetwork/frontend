@@ -1,29 +1,30 @@
-import HeroSection from "@/components/homepage/Hero";
-import FeaturesSection from "@/components/homepage/Features";
-import Roadmap from "@/components/homepage/Roadmap";
-import Cta from "@/components/homepage/Cta";
+"use client";
 import Footer from "@/components/homepage/Footer";
-import RewardSection from "@/components/homepage/PodyReward";
-import Faq from "@/components/homepage/Faq";
+import Hero from "@/components/homepage/v2/widgets/Hero";
+import OngoingClass from "@/components/homepage/v2/widgets/OngoingClass";
+import ScheduledClass from "@/components/homepage/v2/widgets/ScheduledClass";
+import PodyFeatures from "@/components/homepage/v2/widgets/PodyFeatures";
+import RewardSystem from "@/components/homepage/v2/widgets/RewardSystem";
+import PodyNFT from "@/components/homepage/v2/widgets/PodyNFT";
+import PodyRoadmap from "@/components/homepage/v2/widgets/PodyRoadmap";
+import PodyFaq from "@/components/homepage/v2/widgets/PodyFaq";
 import PartnerSection from "@/components/homepage/Partner";
 
-export default function Home() {
+const page = () => {
   return (
-    <>
-      <main
-        className="relative float-left w-full h-full overflow-hidden"
-        aria-label="Homepage"
-      >
-        <HeroSection />
-        <PartnerSection />
-        {/* <Benefits /> */}
-        <FeaturesSection />
-        <RewardSection />
-        <Roadmap />
-        <Faq />
-        <Cta />
-        <Footer />
-      </main>
-    </>
+    <main className="relaive flex flex-col w-full" aria-label="class">
+      <Hero />
+      <PartnerSection />
+      <OngoingClass />
+      <ScheduledClass />
+      <PodyFeatures />
+      <RewardSystem />
+      <PodyNFT />
+      <PodyRoadmap />
+      <PodyFaq />
+      <Footer />
+    </main>
   );
-}
+};
+
+export default page;

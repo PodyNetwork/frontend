@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import footlink from "./data/footlink.json";
 import React, { useEffect, useRef } from "react";
@@ -49,23 +49,41 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-5 md:px-6">
           <div className="w-full relative">
             <div className="text-xs text-slate-500 flex flex-col gap-y-3 w-full md:w-10/12 py-7">
-              <p>Pody Network is a decentralized platform built for virtual classrooms, offering interactive environments for education. Users engage in real-time learning while earning rewards for active participation.</p>
-              <p>Students on Pody Network earn rewards based on the time they spend in virtual classrooms. Points are calculated using a hash rate per second system — the longer you stay in a session, the more points you accumulate. Final points are computed once the session ends or when you leave the classroom.</p>
-              <p>Teachers (hosts) earn an additional 10% of the total points accumulated by all participants in their classrooms. This bonus is awarded at the end of the session or upon participants' exit, incentivizing active hosting and engagement.</p>
-              <p>Users can further boost their point-earning potential by minting additional NFTs directly from them NFT section on their dashboard.</p>
+              <p>
+                Pody Network is a decentralized platform built for virtual
+                classrooms, offering interactive environments for education.
+                Users engage in real-time learning while earning rewards for
+                active participation.
+              </p>
+              <p>
+                Students on Pody Network earn rewards based on the time they
+                spend in virtual classrooms. Points are calculated using a hash
+                rate per second system — the longer you stay in a session, the
+                more points you accumulate. Final points are computed once the
+                session ends or when you leave the classroom.
+              </p>
+              <p>
+                Teachers (hosts) earn an additional 10% of the total points
+                accumulated by all participants in their classrooms. This bonus
+                is awarded at the end of the session or upon participants' exit,
+                incentivizing active hosting and engagement.
+              </p>
+              <p>
+                Users can further boost their point-earning potential by minting
+                additional NFTs directly from them NFT section on their
+                dashboard.
+              </p>
             </div>
             <div className="flex md:flex-row flex-col gap-y-10 gap-x-16 py-7 text-pody-secondary">
               <div className="relative">
-                <div className="flex flex-row items-center gap-x-1">
-                  <Link href="/">
-                    <Image
-                      src={logoIcon}
-                      alt="Pody Logo"
-                      className="w-5 object-contain"
-                    />
-                  </Link>
+                <Link href="/" className="flex flex-row items-center gap-x-1">
+                  <Image
+                    src={logoIcon}
+                    alt="Pody Logo"
+                    className="w-5 object-contain"
+                  />
                   <h5 className="font-bold text-2xl">Pody Network</h5>
-                </div>
+                </Link>
                 <p className="text-xs font-medium mt-1">
                   &#169; {year} All rights reserved.
                 </p>
@@ -75,20 +93,22 @@ const Footer = () => {
                   <p className="pb-5 font-bold">Quick Links</p>
                   <ul className="flex flex-col" aria-label="Quick Links Menu">
                     {footlink.link.map((link, index) => (
-                      <li
-                        key={index}
-                        className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
-                      >
-                        <Link href={link.url}>{link.title}</Link>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-5 h-5"
-                          viewBox="0 -960 960 960"
-                          fill="currentColor"
+                      <Link href={link.url}>
+                        <li
+                          key={index}
+                          className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
                         >
-                          <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
-                        </svg>
-                      </li>
+                          <p>{link.title}</p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5"
+                            viewBox="0 -960 960 960"
+                            fill="currentColor"
+                          >
+                            <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
+                          </svg>
+                        </li>
+                      </Link>
                     ))}
                   </ul>
                 </div>
@@ -96,20 +116,22 @@ const Footer = () => {
                   <p className="pb-5 font-bold">Socials</p>
                   <ul className="flex flex-col" aria-label="Social Links">
                     {footlink.socials.map((link, index) => (
-                      <li
-                        key={index}
-                        className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
-                      >
-                        <Link href={link.url}>{link.name}</Link>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-5 h-5"
-                          viewBox="0 -960 960 960"
-                          fill="currentColor"
+                      <Link href={link.url} target="_blank">
+                        <li
+                          key={index}
+                          className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
                         >
-                          <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
-                        </svg>
-                      </li>
+                          <p>{link.name}</p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5"
+                            viewBox="0 -960 960 960"
+                            fill="currentColor"
+                          >
+                            <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
+                          </svg>
+                        </li>
+                      </Link>
                     ))}
                   </ul>
                 </div>
@@ -117,20 +139,22 @@ const Footer = () => {
                   <p className="pb-5 font-bold">Legal</p>
                   <ul className="flex flex-col" aria-label="Social Links">
                     {footlink.legal.map((link, index) => (
-                      <li
-                        key={index}
-                        className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
-                      >
-                        <Link href={link.url}>{link.title}</Link>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-5 h-5"
-                          viewBox="0 -960 960 960"
-                          fill="currentColor"
+                      <Link href={link.url}>
+                        <li
+                          key={index}
+                          className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
                         >
-                          <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
-                        </svg>
-                      </li>
+                          <p>{link.title}</p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5"
+                            viewBox="0 -960 960 960"
+                            fill="currentColor"
+                          >
+                            <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
+                          </svg>
+                        </li>
+                      </Link>
                     ))}
                   </ul>
                 </div>

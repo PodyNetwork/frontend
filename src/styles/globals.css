@@ -1154,13 +1154,6 @@ body {
     white-space: nowrap;
 }
 
-.__img_participant_dsc>img {
-    @apply rounded-full object-cover relative w-9 h-9;
-}
-
-.__img_participant_rwd>img {
-    @apply rounded-full object-cover relative w-10 h-10 border-2 border-slate-300;
-}
 
 .highlight {
     display: inline-block;

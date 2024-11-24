@@ -130,7 +130,7 @@ const ScheduledCall = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium">
+              <div className="flex items-center gap-3 flex-row flex-wrap justify-between mt-2 text-sm font-medium cursor-pointer">
                 <button
                   onClick={() => handleAddToCalendar(data)}
                   className="cursor-pointer text-slate-800 rounded-full flex items-center"
@@ -179,8 +179,8 @@ const ScheduledClass = () => {
               alt="pody background ring"
             />
           </div>
-          <div className="w-full flex flex-row z-40 relative">
-            <div className="min-h-screen w-full px-5 md:px-6 py-7 flex flex-col">
+          <div className="w-full flex flex-row z-40 relative h-full">
+            <div className="w-full h-full px-5 md:px-6 py-7 flex flex-col">
               <div className="mb-40">
                 <div className="max-w-lg">
                   <p className="text-3xl font-semibold text-slate-900">

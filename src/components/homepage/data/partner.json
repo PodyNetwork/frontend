@@ -1,10 +1,12 @@
 [
     {
         "name": "Open Campus",
-        "src": "/partner/opencampus.png"
+        "src": "/partner/opencampus.png",
+        "url": "https://opencampus.xyz/"
     },
     {
         "name": "Blockchain Innovation Hub",
-        "src": "/partner/blockchain-innovation-hub.png"
+        "src": "/partner/blockchain-innovation-hub.png",
+        "url": "https://bih.com.ng/"
     }
 ]
