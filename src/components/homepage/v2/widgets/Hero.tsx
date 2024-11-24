@@ -40,7 +40,7 @@ const Hero = () => {
           className="absolute w-[14rem] md:w-[22rem] sm:w-[18rem] -top-32 left-0 blur-xl"
           initial={{ opacity: 0, y: -50 }}
           animate={{
-            opacity: [0.8, 1, 0.8], 
+            opacity: [0.8, 1, 0.8],
             scale: [1, 1.1, 1],
             y: 0,
           }}
@@ -122,10 +122,10 @@ const Hero = () => {
               className="font-bold text-4xl xs:text-5xl md:text-7xl leading-none"
               variants={itemVariants}
             >
-              Join Classroom and Earn Rewards
+              Join Classrooms and Earn Rewards.
             </motion.h1>
             <motion.p className="font-medium text-lg" variants={itemVariants}>
-              Your number one Web3 Alternative to Google Meet and X Space
+              Your #1 Web3 Alternative to Google Meet and X Spaces.
             </motion.p>
           </motion.div>
 
@@ -160,10 +160,9 @@ const Hero = () => {
                       alt="Pody Getting started"
                     />
                     <div className="p-5">
-                      <h3 className="font-medium text-lg">Connect Wallet</h3>
+                      <h3 className="font-medium text-lg">Gifting</h3>
                       <p className="text-sm mt-2 text-slate-600">
-                        Connect your wallet and mint a Pody passport to securely
-                        login to your Dashboard
+                        Participants can exchange gifts during classrooms to show support.
                       </p>
                     </div>
                   </motion.div>
@@ -191,10 +190,9 @@ const Hero = () => {
                       alt="Pody Getting started"
                     />
                     <div className="p-5">
-                      <h3 className="font-medium text-lg">Create Classroom</h3>
+                      <h3 className="font-medium text-lg">Go Global</h3>
                       <p className="text-sm mt-2 text-slate-600">
-                        Create or Schedule a Public or Private Classroom and
-                        watch the rewards roll in!
+                        Make your classroom accessible to a global audience by setting it to public.
                       </p>
                     </div>
                   </motion.div>

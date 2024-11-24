@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
 import discoverImage from "/public/abstract/discoverAbstract.png";
 import user from "/public/avatar/user1.webp";
@@ -6,9 +6,18 @@ import user2 from "/public/avatar/user2.webp";
 import user3 from "/public/avatar/user3.jpeg";
 import { motion } from "framer-motion";
 import QuickFeaturesCard from "./QuickFeaturesCard";
+import { useRouter } from "next/navigation";
+import useLoading from "@/hooks/useLoading";
 
 const PodyFeatures = () => {
   const [activeCard, setActiveCard] = useState(0);
+  const navigate = useRouter()
+  const {startLoading, loading} = useLoading()
+
+  const navigateToDashboard = useCallback(()=> {
+    startLoading()
+    navigate.push('/dashboard')
+  }, [navigate, startLoading])
 
   const cards = [
     {
@@ -31,15 +40,15 @@ const PodyFeatures = () => {
       id: 2,
       title: "Reward Boost",
       content: [
-        "You can increase your earnings per second by minting more NFTs directly from the dashboard.",
+        "Increase your earnings per second by minting more NFTs from the dashboard.",
       ],
       img: "/abstract/abstractCircular.png",
     },
     {
       id: 3,
-      title: "Earning Statistics",
+      title: "Gifting",
       content: [
-        "Track your points in real-time, redeem them, and seamlessly transfer them on-chain.",
+        "Send PodyToken and EDU gifts directly to participants' wallets during live classrooms.",
       ],
       img: "/abstract/absrtactRounded.png",
     },
@@ -153,12 +162,14 @@ const PodyFeatures = () => {
               {/* Learn More Button */}
               {activeCard === index && (
                 <motion.button
+                  onClick={navigateToDashboard}
                   className="self-start bg-pody-secondary text-white text-sm px-5 py-2 rounded-full border-none cursor-pointer transition-colors duration-200 hover:bg-pody-secondary/80"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
+                  disabled={loading}
                 >
-                  Start Earning
+                  {loading? '...loading':  "Start Earning"}
                 </motion.button>
               )}
 

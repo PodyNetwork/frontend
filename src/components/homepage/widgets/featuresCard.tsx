@@ -85,8 +85,7 @@ const FeaturesCard = () => {
           <div className="relative z-50 flex flex-col h-full">
             <h3 className="text-xl font-medium text-slate-200">Reward Boost</h3>
             <p className="text-sm mt-2.5 text-slate-400 flex items-center leading-relaxed">
-              You can increase your earnings per second by minting more NFTs
-              directly from the dashboard.
+              Increase your earnings per second by minting more NFTs from the dashboard.
             </p>
             <div className="flex flex-col gap-y-4 text-sm mt-auto pt-36">
               <div className="flex">
