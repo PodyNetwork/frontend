@@ -93,9 +93,8 @@ const Footer = () => {
                   <p className="pb-5 font-bold">Quick Links</p>
                   <ul className="flex flex-col" aria-label="Quick Links Menu">
                     {footlink.link.map((link, index) => (
-                      <Link href={link.url}>
+                      <Link href={link.url} key={index}>
                         <li
-                          key={index}
                           className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
                         >
                           <p>{link.title}</p>
@@ -116,9 +115,8 @@ const Footer = () => {
                   <p className="pb-5 font-bold">Socials</p>
                   <ul className="flex flex-col" aria-label="Social Links">
                     {footlink.socials.map((link, index) => (
-                      <Link href={link.url} target="_blank">
+                      <Link href={link.url} key={index} target="_blank">
                         <li
-                          key={index}
                           className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
                         >
                           <p>{link.name}</p>
@@ -139,9 +137,8 @@ const Footer = () => {
                   <p className="pb-5 font-bold">Legal</p>
                   <ul className="flex flex-col" aria-label="Social Links">
                     {footlink.legal.map((link, index) => (
-                      <Link href={link.url}>
+                      <Link href={link.url} key={index}>
                         <li
-                          key={index}
                           className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
                         >
                           <p>{link.title}</p>

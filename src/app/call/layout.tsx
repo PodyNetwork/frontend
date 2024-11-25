@@ -32,8 +32,6 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (call?.type === "instant" && call?.status === "pending") return <CallWaiting />
-
   if (call?.status === "ended") return <CallEndPage />;
 
   if (typeof call === "undefined" && isError) return <CallNotFound />;

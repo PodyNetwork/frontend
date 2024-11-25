@@ -1,5 +1,5 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -57,6 +57,39 @@ const CallsCard = ({ calls }: Calls) => {
     router.push(fullUrl);
   }
 
+  const ScheduledTimeDisplay = ({ scheduledTime }: { scheduledTime: string | number | undefined }) => {
+    const [currentTime, setCurrentTime] = useState(dayjs()); 
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCurrentTime(dayjs()); 
+      }, 60000); 
+  
+      return () => clearInterval(interval);
+    }, []);
+  
+    const scheduledDate = dayjs(scheduledTime);
+  
+    let timeDisplay = "";
+    if (!scheduledTime) {
+      timeDisplay = "";
+    } else {
+      if (scheduledDate.isSame(currentTime, "minute")) {
+        timeDisplay = "Now";
+      } else if (scheduledDate.isToday()) {
+        timeDisplay = "Today - " + scheduledDate.format("HH:mm");
+      } else if (scheduledDate.isTomorrow()) {
+        timeDisplay = "Tomorrow - " + scheduledDate.format("HH:mm");
+      } else if (scheduledDate.isSame(currentTime.subtract(1, "day"), "day")) {
+        timeDisplay = "Yesterday - " + scheduledDate.format("HH:mm");
+      } else {
+        timeDisplay = scheduledDate.format("MMM D, YYYY HH:mm");
+      }
+    }
+  
+    return <div className="text-xs text-slate-700 capitalize">{timeDisplay}</div>;
+  };
+
   return (
     <>
       {calls.map((call: Call, index: number) => {
@@ -67,22 +100,7 @@ const CallsCard = ({ calls }: Calls) => {
           >
             <div className="flex flex-col gap-y-1.5">
               <div className="flex items-center justify-between gap-2 flex-wrap">
-                <p className="text-xs text-slate-700 capitalize">
-                  {(() => {
-                    if (!call || !call?.scheduledTime) {
-                      return "";
-                    }
-                    const scheduledDate = dayjs(call.scheduledTime);
-                    if (scheduledDate.isSame(dayjs(), "minute")) return "Now";
-                    if (scheduledDate.isToday())
-                      return "Today - " + scheduledDate.format("HH:mm");
-                    if (scheduledDate.isTomorrow())
-                      return "Tomorrow - " + scheduledDate.format("HH:mm");
-                    if (scheduledDate.isSame(dayjs().subtract(1, "day"), "day"))
-                      return "Yesterday - " + scheduledDate.format("HH:mm");
-                    return scheduledDate.format("MMM D, YYYY HH:mm");
-                  })()}
-                </p>
+                <ScheduledTimeDisplay scheduledTime={call.scheduledTime} />
                 <p className="text-xs capitalize">{call?.type}</p>
               </div>
               <h3 className="text-base sm:text-lg font-medium text-slate-800 truncate">

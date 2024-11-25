@@ -66,7 +66,7 @@ const CallEndPage = () => {
             <>
               <div className="flex items-center gap-5 mt-5">
                 <Link
-                  href="https://y3m0z1454rz.typeform.com/to/EdNS35jJ"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScYTZCgfEUd-Rvk8wqUd1SgZHK2LMy42HbwjwXT2oC0Nwz0GQ/viewform?usp=sf_link"
                   target="_blank"
                 >
                   <svg
@@ -79,7 +79,7 @@ const CallEndPage = () => {
                   </svg>
                 </Link>
                 <Link
-                  href="https://y3m0z1454rz.typeform.com/to/EdNS35jJ"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScYTZCgfEUd-Rvk8wqUd1SgZHK2LMy42HbwjwXT2oC0Nwz0GQ/viewform?usp=sf_link"
                   target="_blank"
                 >
                   <svg

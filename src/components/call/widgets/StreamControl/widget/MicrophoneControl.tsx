@@ -2,42 +2,39 @@ import { Track } from "livekit-client";
 import { useLocalParticipant, usePersistentUserChoices } from "@livekit/components-react";
 import { CustomMediaDeviceMenu } from "@/components/call/livekitcustom/CustomMediaMenu";
 import { SourceToggle } from "@/components/call/livekitcustom/SourceToggle";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 
 interface AudioControlProps {
   onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
   saveUserChoices?: boolean;
 }
 
-const MicrophoneControl = ({ saveUserChoices, onDeviceError }: AudioControlProps) => {
+const MicrophoneControl = ({ saveUserChoices = true, onDeviceError }: AudioControlProps) => {
   const { localParticipant } = useLocalParticipant();
-
   const { saveAudioInputEnabled, saveAudioInputDeviceId } = usePersistentUserChoices({ preventSave: !saveUserChoices });
 
-// Add a type check before calling the function
-const microphoneOnChange = useCallback(
-  (enabled: boolean, isUserInitiated: boolean) => {
-    if (isUserInitiated && saveAudioInputEnabled) {
-      saveAudioInputEnabled(enabled);
-    }
-  },
-  [saveAudioInputEnabled]
-);
+  const microphoneOnChange = useCallback(
+    (enabled: boolean, isUserInitiated: boolean) => {
+      if (isUserInitiated && saveAudioInputEnabled) {
+        saveAudioInputEnabled(enabled);
+      }
+    },
+    [saveAudioInputEnabled]
+  );
 
-const handleDeviceChange = useCallback(
-  (_kind: string, deviceId: string | undefined) => {
-    if (saveAudioInputDeviceId) {
-      saveAudioInputDeviceId(deviceId ?? "");
-    }
-  },
-  [saveAudioInputDeviceId]
-);
-
+  const handleDeviceChange = useCallback(
+    (_kind: string, deviceId: string | undefined) => {
+      if (saveAudioInputDeviceId) {
+        saveAudioInputDeviceId(deviceId ?? "");
+      }
+    },
+    [saveAudioInputDeviceId]
+  );
 
   return (
     <div className="bg-white dark:bg-[#202124] flex-shrink-0 p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
       <div className="bg-slate-100 dark:bg-pody-dark_secondary w-8 h-8 flex items-center justify-center rounded-full">
-        <label className="sr-only">microphone</label>
+        <label className="sr-only">Microphone</label>
         <SourceToggle
           source={Track.Source.Microphone}
           showIcon={false}

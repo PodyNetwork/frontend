@@ -9,7 +9,7 @@ import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
-import approx from 'approximate-number';
+import approx from "approximate-number";
 import { formatUnits } from "viem";
 
 const RewardSystem = () => {
@@ -22,9 +22,12 @@ const RewardSystem = () => {
 
   const goToLeaderboard = () => {
     router.push("/dashboard/leaderboard");
-  }
+  };
 
-  const totalPoints = leaderboard.reduce((sum, user) => sum + user.totalPoints, 0);
+  const totalPoints = leaderboard.reduce(
+    (sum, user) => sum + user.totalPoints,
+    0
+  );
 
   return (
     <section className="w-full relative" id="reward">
@@ -45,7 +48,11 @@ const RewardSystem = () => {
             </div>
             <div className="relative flex flex-row gap-x-4 items-center mt-auto">
               <div>
-                <h2 className="text-3xl font-bold">{approx(Number(formatUnits(BigInt(totalPoints ?? 0), 18)), {decimal: false})}</h2>
+                <h2 className="text-3xl font-bold">
+                  {approx(Number(formatUnits(BigInt(totalPoints ?? 0), 18)), {
+                    decimal: false,
+                  })}
+                </h2>
                 <p className="text-xs font-medium mt-1">
                   Total Points <br /> accumulated
                 </p>
@@ -57,10 +64,15 @@ const RewardSystem = () => {
                   ) : (
                     leaderboard
                       .slice(0, 3)
-                      .map((user, index) => <TopUser key={index} data={user} index={index} />)
+                      .map((user, index) => (
+                        <TopUser key={index} data={user} index={index} />
+                      ))
                   )}
                 </div>
-                <button onClick={goToLeaderboard} className="w-10 h-10 ms-3 bg-slate-200 text-slate-700 hover:text-slate-500 rounded-full">
+                <button
+                  onClick={goToLeaderboard}
+                  className="w-10 h-10 ms-3 bg-slate-200 text-slate-700 hover:text-slate-500 rounded-full"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-7 h-7 m-auto"
@@ -92,7 +104,7 @@ const RewardSystem = () => {
 
 export default RewardSystem;
 
-const TopUser = ({ data, index }: { data: any, index: number }) => {
+const TopUser = ({ data, index }: { data: any; index: number }) => {
   return (
     <div className="relative w-10 h-10" style={{ zIndex: 30 - index * 10 }}>
       <AvatarParticipant name={data.username} />
@@ -111,10 +123,10 @@ const LoadingSkeleton = () => {
           transition={{
             duration: 0.3,
             ease: "easeInOut",
-            delay: index * 0.1, 
+            delay: index * 0.1,
           }}
-        >
-        </motion.div>
+          key={index}
+        ></motion.div>
       ))}
     </>
   );

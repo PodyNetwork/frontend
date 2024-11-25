@@ -18,21 +18,28 @@ import ScreenShareControl from "./widget/ScreenShareControl";
 import ChatControlMenu from "./widget/ChatControlMenu";
 import RaiseHand from "./RaiseHand";
 
+export interface ControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
+  controls?: ControlBarControls;
+  saveUserChoices?: boolean;
+  onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
+}
+
 export type ControlBarControls = {
   microphone?: boolean;
   camera?: boolean;
   chat?: boolean;
   screenShare?: boolean;
+  screenRecording?: boolean;
   leave?: boolean;
   settings?: boolean;
 };
 
-export interface ControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
-  onDeviceError?: (error: { source: Track.Source; error: Error }) => void;
-  controls?: ControlBarControls;
-}
-
-const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
+const Controls: React.FC<ControlBarProps> = ({
+  controls = {},
+  saveUserChoices = true,
+  onDeviceError,
+  ...props
+}) => {
   const visibleControls = { leave: true, ...controls };
   const localPermissions = useLocalParticipantPermissions();
 
@@ -108,7 +115,7 @@ const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); 
+  }, []);
 
   useEffect(() => {
     handleResize();
@@ -169,17 +176,21 @@ const Controls = ({ controls, onDeviceError }: ControlBarProps) => {
     <>
       <div
         className={`__mobile_controls flex flex-row items-center justify-center gap-x-3 ${
-          isFullscreen ? "bottom-0 py-2 box-content fixed left-0 w-full __mobile_controls_fulscreen" : ""
+          isFullscreen
+            ? "bottom-0 py-2 box-content fixed left-0 w-full __mobile_controls_fulscreen"
+            : ""
         } ${
           showControls ? "visible" : "opacity-0"
         } transition-opacity duration-300`}
       >
         {/* video source */}
-        {/* {visibleControls.camera && (
+        {visibleControls.camera && (
           <CameraControl onDeviceError={onDeviceError} />
-        )} */}
+        )}
         {/* Microphone */}
-        {visibleControls.microphone && <MicrophoneControl />}
+        {visibleControls.microphone && (
+          <MicrophoneControl onDeviceError={onDeviceError} />
+        )}
         {/* Reaction */}
         <div>
           <label className="sr-only">reaction</label>
