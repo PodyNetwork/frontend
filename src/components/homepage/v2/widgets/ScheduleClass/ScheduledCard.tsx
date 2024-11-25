@@ -3,7 +3,7 @@ import useProfileById from "@/hooks/user/useGetProfileById";
 import BlockiesSvg from "blockies-react-svg";
 import dayjs from "dayjs";
 import { EventAttributes, createEvent } from "ics";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
