@@ -20,22 +20,22 @@ const AudioPlaybackCheck: React.FC = () => {
 
     oscillator.type = "sine";
     oscillator.frequency.setValueAtTime(440, context.currentTime); // 440Hz (A note)
-    gainNode.gain.setValueAtTime(0.001, context.currentTime); // Very low volume
+    gainNode.gain.setValueAtTime(0.001, context.currentTime); 
 
     oscillator.connect(gainNode);
     gainNode.connect(context.destination);
 
     oscillator.start();
-    oscillator.stop(context.currentTime + 1); // Stop after 1 second
+    oscillator.stop(context.currentTime + 1); 
 
     setAudioContext(context);
   };
 
   const enableAudioPlayback = async () => {
     try {
-      playAudioTone(); // Play the tone
+      playAudioTone(); 
       setAudioEnabled(true);
-      localStorage.setItem("audioEnabled", "true"); // Save state to local storage
+      localStorage.setItem("audioEnabled", "true"); 
     } catch (error) {
       console.error("Failed to enable audio playback.", error);
     }
@@ -52,7 +52,7 @@ const AudioPlaybackCheck: React.FC = () => {
 
       const isAudioEnabled = localStorage.getItem("audioEnabled") === "true";
       if (isAudioEnabled) {
-        playAudioTone(); // Automatically play the tone if enabled
+        playAudioTone(); 
         setAudioEnabled(true);
       }
     } catch (error) {
@@ -65,7 +65,6 @@ const AudioPlaybackCheck: React.FC = () => {
     checkAudioPlayback();
   }, []);
 
-  // If audio is already enabled, render nothing
   if (audioEnabled) {
     return null;
   }

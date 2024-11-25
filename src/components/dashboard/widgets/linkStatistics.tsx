@@ -124,7 +124,7 @@ const LinkStatistics = () => {
         animate={{ x: 0 }}
         className="text-xl font-semibold text-slate-200 mb-4"
       >
-        Meeting Statistics
+        Classroom Statistics
       </motion.h1>
       <div className="flex flex-col lg:flex-row gap-6">
         <motion.div

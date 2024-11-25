@@ -1,7 +1,4 @@
-import Image from "next/image";
 
-import ScheduledCall from "./widgets/ScheduleClass/ScheduledCall";
-import ScheduleCTA from "./widgets/ScheduleClass/ScheduleCTA";
 import ScheduleLeft from "./widgets/ScheduleClass/ScheduleLeft";
 import ScheduleRight from "./widgets/ScheduleClass/ScheduleRight";
 

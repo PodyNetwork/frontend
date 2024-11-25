@@ -47,7 +47,7 @@ const CallEndPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-pody-dark_secondary text-white p-4">
       <div className="w-full p-4">
-        <div className="max-w-lg mx-auto flex flex-col text-center items-center justify-center gap-y-3 my-6 bg-white p-9 rounded-xl text-slate-700">
+        <div className="max-w-md mx-auto flex flex-col text-center items-center justify-center gap-y-3 my-6 bg-white p-9 rounded-xl text-slate-700">
           <Image
             src="/illustration/virtual-meeting-group-video-conference-man-desktop.png"
             className="w-full md:w-[320px] object-contain mx-auto"
@@ -105,7 +105,7 @@ const CallEndPage = () => {
             </div>
           )}
           <div>
-            <h4 className="text-sm">Join the Pody Community <span className="web3-gradient-text font-medium">+30,000 Points</span></h4>
+            <h4 className="text-sm">Join Pody Community <span className="web3-gradient-text font-medium">+30,000 Points</span></h4>
             <div className="flex flex-row items-center gap-x-3 justify-center mt-1.5">
               <Link
                 href="https://discord.gg/NncZy3sU"
