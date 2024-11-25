@@ -1,8 +1,8 @@
 "use client"
 import React from "react";
-import Nav from "../homepage/widgets/nav";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Nav from "../homepage/Global/Nav";
 
 const Privacyheader = () => {
   return (

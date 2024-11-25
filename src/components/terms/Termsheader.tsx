@@ -1,8 +1,8 @@
 "use client"
 import React from "react";
-import Nav from "../homepage/widgets/nav";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Nav from "../homepage/Global/Nav";
 const Termsheader = () => {
   return (
     <section className="w-full relative" aria-labelledby="hero">

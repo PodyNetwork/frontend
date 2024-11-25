@@ -1,4 +1,4 @@
-import Footer from "@/components/homepage/Footer";
+import Footer from "@/components/homepage/Global/Footer";
 import TermsContent from "@/components/terms/TermsContent";
 import Termsheader from "@/components/terms/Termsheader";
 

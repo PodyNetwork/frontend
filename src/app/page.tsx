@@ -1,14 +1,14 @@
 "use client";
-import Footer from "@/components/homepage/Footer";
-import Hero from "@/components/homepage/v2/widgets/Hero";
-import OngoingClass from "@/components/homepage/v2/widgets/OngoingClass";
-import ScheduledClass from "@/components/homepage/v2/widgets/ScheduledClass";
-import PodyFeatures from "@/components/homepage/v2/widgets/PodyFeatures";
-import RewardSystem from "@/components/homepage/v2/widgets/RewardSystem";
-import PodyNFT from "@/components/homepage/v2/widgets/PodyNFT";
-import PodyRoadmap from "@/components/homepage/v2/widgets/PodyRoadmap";
-import PodyFaq from "@/components/homepage/v2/widgets/PodyFaq";
-import PartnerSection from "@/components/homepage/Partner";
+import Hero from "@/components/homepage/v2/Hero";
+import OngoingClass from "@/components/homepage/v2/OngoingClass";
+import ScheduledClass from "@/components/homepage/v2/ScheduledClass";
+import PodyFeatures from "@/components/homepage/v2/PodyFeatures";
+import RewardSystem from "@/components/homepage/v2/RewardSystem";
+import PodyNFT from "@/components/homepage/v2/PodyNFT";
+import PodyRoadmap from "@/components/homepage/v2/PodyRoadmap";
+import PodyFaq from "@/components/homepage/v2/PodyFaq";
+import PartnerSection from "@/components/homepage/v2/Partner";
+import Footer from "@/components/homepage/Global/Footer";
 
 const page = () => {
   return (

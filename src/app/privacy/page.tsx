@@ -1,4 +1,4 @@
-import Footer from "@/components/homepage/Footer";
+import Footer from "@/components/homepage/Global/Footer";
 import PrivacyContent from "@/components/privacy/PrivacyContent";
 import Privacyheader from "@/components/privacy/Privacyheader";
 
