@@ -11,6 +11,7 @@ import {
 
 import {
   Gift,
+  Hand,
   Maximize,
   MessageSquareText,
   Minimize,
@@ -32,22 +33,21 @@ import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
 import { useUnreadMessageContext } from "../../utils/unreadMessageCount";
 import { useChatContext } from "../../utils/ChatContext";
-import LeaveCallButton from "./widget/LeaveCallButton";
-import EndCallButton from "./widget/EndCallButton";
+import { useDialog } from "../../utils/DialogContext";
+import { useHandRaise } from "../../utils/HandRaiseContext";
 
 type OverflowItem =
   | "chat"
   | "ShareScreen"
-  | "endCall"
-  | "LeaveCall"
-  | "reaction";
+  | "reaction"
+  | "raisehand"
+  | "disconnect";
 
-  interface MenuExtraProps {
-    username: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    overflowItem: any[];
-  }
-  
+interface MenuExtraProps {
+  username: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  overflowItem: any[];
+}
 
 const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
   const { isFullscreen, enterFullscreen, exitFullscreen } = useFullscreen();
@@ -134,6 +134,9 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
     closeChat,
   ]);
 
+  const { openDialog } = useDialog();
+  const { handleRaiseHand, isCooldown } = useHandRaise();
+
   const renderOverflowItem = (item: OverflowItem, index: number) => {
     switch (item) {
       case "chat":
@@ -161,22 +164,22 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
             <span>Share Screen</span>
           </DropdownMenuItem>
         );
-      case "endCall":
+      case "raisehand":
         return (
-          <EndCallButton className="w-full" key={`${overflowItem}-${index}`}>
-            <DropdownMenuItem key={`${overflowItem}-endCall-${index}`}>
-              <PhoneOff />
-              <span>End Call</span>
-            </DropdownMenuItem>
-          </EndCallButton>
+          <DropdownMenuItem className={`${isCooldown ? "opacity-50 cursor-not-allowed text-red-500" : "text-slate-400"}`} onClick={handleRaiseHand} key={`${overflowItem}-${index}`}>
+            <Hand />
+            <span>Raise Hand</span>
+          </DropdownMenuItem>
         );
-      case "LeaveCall":
+      case "disconnect":
         return (
-          <LeaveCallButton className="w-full" key={`${overflowItem}-${index}`}>
-            <DropdownMenuItem key={`${overflowItem}-LeaveCall-${index}`}>
-              <span>Leave Call</span>
-            </DropdownMenuItem>
-          </LeaveCallButton>
+          <DropdownMenuItem
+            key={`${overflowItem}-endCall-${index}`}
+            onClick={openDialog}
+          >
+            <PhoneOff />
+            <span>Leave Classroom</span>
+          </DropdownMenuItem>
         );
       case "reaction":
         return (
@@ -209,7 +212,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
         {overflowItem.length > 0 && <DropdownMenuSeparator />}
         <DropdownMenuGroup>
-        {overflowItem.map(renderOverflowItem)}
+          {overflowItem.map(renderOverflowItem)}
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />

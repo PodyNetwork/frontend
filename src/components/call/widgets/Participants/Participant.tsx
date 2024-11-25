@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useParticipants } from "@livekit/components-react";
 import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
@@ -14,7 +14,6 @@ import { MobileParticipantInfo } from "./MobileparticipantInfo";
 import { ParticipantControls } from "./ParticipantControls";
 import { ParticipantNamePody } from "./ParticipantName";
 import { Participant } from "livekit-client";
-
 
 const ParticipantPody = () => {
   const { url } = useParams();
@@ -54,10 +53,14 @@ const ParticipantPody = () => {
   const joinSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);
   const leaveSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);
 
-  const [prevRemoteParticipants, setPrevRemoteParticipants] = useState<Participant[]>([]);
+  const [prevRemoteParticipants, setPrevRemoteParticipants] = useState<
+    Participant[]
+  >([]);
 
   useEffect(() => {
-    const remoteParticipants = participants.filter(participant => !participant.isLocal);
+    const remoteParticipants = participants.filter(
+      (participant) => !participant.isLocal
+    );
     const remoteCount = remoteParticipants.length;
 
     if (remoteCount === 1 && prevRemoteParticipants.length === 0) {
@@ -69,8 +72,65 @@ const ParticipantPody = () => {
     }
 
     setPrevRemoteParticipants(remoteParticipants);
-
   }, [participants, prevRemoteParticipants.length, joinSound, leaveSound]);
+
+  const [timeElapsed, setTimeElapsed] = useState(0); 
+  const [notificationSent, setNotificationSent] = useState(false); 
+  const [isOnlyParticipant, setIsOnlyParticipant] = useState(false); 
+  const [autoEndCanceled, setAutoEndCanceled] = useState(false); // to cancel automatic call end for future controls x
+  const [callEnded, setCallEnded] = useState(false);
+
+  const checkIfOnlyParticipant = useCallback(() => {
+    const remoteParticipants = participants.filter(
+      (participant) => !participant.isLocal
+    );
+    const remoteCount = remoteParticipants.length;
+    setIsOnlyParticipant(remoteCount === 0); 
+  }, [participants]);
+
+  useEffect(() => {
+    checkIfOnlyParticipant(); 
+  }, [participants, checkIfOnlyParticipant]);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (isOnlyParticipant) {
+      if (timeElapsed >= 1 && !notificationSent) {
+        console.log("You are the only participant. The call will end in 2 minutes.")
+        setNotificationSent(true);
+      }
+
+      if (timeElapsed >= 2 && !callEnded) {
+        console.log("Ending the call as you're still the only participant.");
+        setCallEnded(true); 
+      } else {
+        intervalId = setInterval(() => {
+          setTimeElapsed((prev) => prev + 1); 
+        }, 60000);
+      }
+    } else {
+      setTimeElapsed(0);
+      setNotificationSent(false);
+      setAutoEndCanceled(true); 
+      setCallEnded(false);
+    }
+
+    return () => clearInterval(intervalId); 
+  }, [isOnlyParticipant, timeElapsed, notificationSent, callEnded]);
+
+  useEffect(() => {
+    if (isOnlyParticipant && timeElapsed === 1 && !callEnded) {
+      const timeoutForEndingCall = setTimeout(() => {
+        if (isOnlyParticipant && timeElapsed >= 2 && !callEnded) {
+          console.log("Ending the call after 2 minutes as no one joined.");
+          setCallEnded(true);
+        }
+      }, 60000); 
+
+      return () => clearTimeout(timeoutForEndingCall);
+    }
+  }, [isOnlyParticipant, timeElapsed, callEnded]);
 
   return (
     <div className="sm:w-full md:h-full md:overflow-y-auto pb-[100px] md:pb-0 pt-4 px-1.5 md:px-0 md:pt-0">

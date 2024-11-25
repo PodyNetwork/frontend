@@ -125,7 +125,7 @@ const GiftAnimationPage: React.FC = () => {
       {showAnimation && animationData && (
         <div
           ref={giftRef}
-          className="fixed bottom-16 left-1/2 transform -translate-x-1/2 bg-slate-400 text-white p-1.5 text-xs rounded-full shadow-xl flex items-center gap-x-2 z-50"
+          className="fixed bottom-20 md:bottom-16 left-1/2 transform -translate-x-1/2 bg-slate-400 text-white p-1.5 text-xs rounded-full shadow-xl flex items-center gap-x-2 z-50"
         >
           <Image
             src={animationData.giftIcon}

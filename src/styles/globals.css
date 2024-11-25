@@ -1221,6 +1221,9 @@ body {
 .icon-logo-star .star-path {
     fill: url(#orange-to-pink);
 }
+.__endleavebtn button{
+    @apply w-full xs:w-auto;
+}
 
 
 
