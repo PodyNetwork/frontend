@@ -17,6 +17,7 @@ import { Participant } from "livekit-client";
 import NoParticipantInCall from "../Notification/NoParticipantInCall";
 import { useDialog } from "../../utils/DialogContext";
 import useEndCall from "@/hooks/call/useEndCall";
+import useBanCallParticipant from "@/hooks/call/useBanCallParticipant";
 
 const ParticipantPody = () => {
   const { url } = useParams();
@@ -29,6 +30,8 @@ const ParticipantPody = () => {
 
   const { participantBarIsExpanded, toggleParticipantBar } =
     useParticipantBar();
+
+  const { banParticipant, errorMessage } = useBanCallParticipant();
 
   const handleAddToSpeak = (username: string) => {
     updateCallParticipantPermission.mutate({
@@ -44,6 +47,20 @@ const ParticipantPody = () => {
       callId: call?._id || "",
       username,
     });
+  };
+
+  const handleBan = (username: string) => {
+    banParticipant.mutate(
+      { callId: call?._id || "", username }, 
+      {
+        onSuccess: () => {
+          alert("Participant banned successfully!");
+        },
+        onError: () => {
+          console.error("Failed to ban participant.");
+        },
+      }
+    );
   };
 
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -155,7 +172,6 @@ const ParticipantPody = () => {
     }
   }, [callState.timeElapsed, callState.isOnlyParticipant]);
 
-
   return (
     <>
       <div className="sm:w-full md:h-full md:overflow-y-auto pb-[100px] md:pb-0 pt-4 px-1.5 md:px-0 md:pt-0">
@@ -229,6 +245,7 @@ const ParticipantPody = () => {
                       participant={participant}
                       handleAddToSpeak={handleAddToSpeak}
                       handleRemoveFromSpeak={handleRemoveFromSpeak}
+                      handleBan={handleBan}
                       profile={profile}
                       call={call}
                       participantBarToggleExpanded={participantBarIsExpanded}
@@ -241,9 +258,7 @@ const ParticipantPody = () => {
           </div>
         </div>
       </div>
-      {isOpen("notifNoParticipant") && (
-        <NoParticipantInCall />
-      )}
+      {isOpen("notifNoParticipant") && <NoParticipantInCall />}
     </>
   );
 };

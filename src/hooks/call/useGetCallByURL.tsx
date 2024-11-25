@@ -25,7 +25,7 @@ const useGetCallByURL = (url: string) => {
     queryFn: fetchCall,
     retry: 2,
     staleTime: 5000,
-    refetchInterval: 5000
+    refetchOnWindowFocus: false,
   });
 
   const call = data?.data;

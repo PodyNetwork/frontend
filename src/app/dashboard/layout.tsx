@@ -23,7 +23,6 @@ const DashboardLayout = ({
   )
 }
 
-
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return <AuthMiddleware><DashboardLayout>{children}</DashboardLayout></AuthMiddleware>
 }

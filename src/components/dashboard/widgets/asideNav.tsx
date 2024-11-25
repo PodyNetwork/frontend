@@ -67,8 +67,8 @@ const AsideNav = () => {
                 >
                   <Link
                     onClick={(e) => {
-                      e.preventDefault(); 
-                      handleClick(data.url); 
+                      e.preventDefault();
+                      handleClick(data.url);
                     }}
                     style={{ opacity: isPending ? 0.5 : 1 }}
                     href={data.url}
@@ -87,32 +87,26 @@ const AsideNav = () => {
               {isLoading || isError ? (
                 <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>
               ) : (
-                <h3 className="text-sm text-slate-800">
+                <h3 className="text-sm text-slate-800 flex items-center">
                   Hello, {profile?.username}
+                  {profile?.isEmailVerified && (
+                    <Image
+                      src="/milestone/verified.svg"
+                      alt="badge"
+                      className="ml-1 w-3.5 h-3.5 object-cover"
+                      width={100}
+                      height={100}
+                    />
+                  )}
                 </h3>
               )}
             </div>
-            <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info hidden">
-              <li>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5"
-                  viewBox="0 -960 960 960"
-                  fill="currentColor"
-                >
-                  <path d="M482.31-160q-133.34 0-226.67-93.33-93.33-93.34-93.33-226.67 0-121.54 79.23-210.77t196.15-105.38q3.23 0 6.35.23 3.11.23 6.11.69-20.23 28.23-32.03 62.81-11.81 34.57-11.81 72.42 0 106.67 74.66 181.33Q555.64-404 662.31-404q38.07 0 72.54-11.81 34.46-11.81 61.92-32.04.46 3 .69 6.12.23 3.11.23 6.35-15.38 116.92-104.61 196.15T482.31-160Zm0-40q88 0 158-48.5t102-126.5q-20 5-40 8t-40 3q-123 0-209.5-86.5T366.31-660q0-20 3-40t8-40q-78 32-126.5 102t-48.5 158q0 116 82 198t198 82Zm-10-270Z" />
-                </svg>
-              </li>
-              <li>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5"
-                  viewBox="0 -960 960 960"
-                  fill="currentColor"
-                >
-                  <path d="M224.62-160q-27.62 0-46.12-18.5Q160-197 160-224.62v-510.76q0-27.62 18.5-46.12Q197-800 224.62-800h256.15v40H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h256.15v40H224.62Zm433.84-178.46-28.08-28.77L723.15-460H367.69v-40h355.46l-92.77-92.77 28.08-28.77L800-480 658.46-338.46Z" />
-                </svg>
-              </li>
+            <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
+              {!profile?.isEmailVerified && (
+                <Link href="/email">
+                  <li>Connect Email</li>
+                </Link>
+              )}
             </ul>
           </header>
         </div>
