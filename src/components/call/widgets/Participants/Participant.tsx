@@ -77,21 +77,36 @@ const ParticipantPody = () => {
     setPrevRemoteParticipants(remoteParticipants);
   }, [participants, prevRemoteParticipants.length, joinSound, leaveSound]);
 
-  const [timeElapsed, setTimeElapsed] = useState(0);
-  const [notificationSent, setNotificationSent] = useState(false);
-  const [isOnlyParticipant, setIsOnlyParticipant] = useState(false);
-  const [autoEndCanceled, setAutoEndCanceled] = useState(false); // to cancel automatic call end for future controls xY ---> later update
-  const [callEnded, setCallEnded] = useState(false);
+  const [callState, setCallState] = useState({
+    timeElapsed: 0,
+    notificationSent: false,
+    isOnlyParticipant: false,
+    autoEndCanceled: false,
+    callEnded: false,
+  });
+
   const { isOpen, openDialog } = useDialog();
-  const [callId, setCallId] = useState<string | undefined>(call?._id);
   const { endCall } = useEndCall();
+  const [callId, setCallId] = useState<string | undefined>(call?._id);
+
+  // Utility to update callState
+  const updateCallState = (
+    updates:
+      | Partial<typeof callState>
+      | ((prev: typeof callState) => Partial<typeof callState>)
+  ) => {
+    setCallState((prev) => {
+      const newState = typeof updates === "function" ? updates(prev) : updates;
+      return { ...prev, ...newState };
+    });
+  };
 
   const checkIfOnlyParticipant = useCallback(() => {
-    const remoteParticipants = participants.filter(
-      (participant) => !participant.isLocal
+    const remoteCount = participants.reduce(
+      (count, participant) => (!participant.isLocal ? count + 1 : count),
+      0
     );
-    const remoteCount = remoteParticipants.length;
-    setIsOnlyParticipant(remoteCount === 0);
+    updateCallState({ isOnlyParticipant: remoteCount === 0 });
   }, [participants]);
 
   useEffect(() => {
@@ -105,51 +120,41 @@ const ParticipantPody = () => {
   }, [call]);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
-    if (isOnlyParticipant) {
-      if (timeElapsed >= 5 && !notificationSent) {
-        openDialog("notifNoParticipant");
-        setNotificationSent(true);
-      }
-      if (timeElapsed >= 10 && !callEnded) {
-        if (callId) {
-          endCall.mutate({ callId });
-        } else {
-          console.error("No call ID available to end the call.");
-        }
-        setCallEnded(true);
-      } else {
-        intervalId = setInterval(() => {
-          setTimeElapsed((prev) => prev + 1);
-        }, 60000);
-      }
-    } else {
-      setTimeElapsed(0);
-      setNotificationSent(false);
-      setAutoEndCanceled(true);
-      setCallEnded(false);
+    if (!callState.isOnlyParticipant) {
+      updateCallState({
+        timeElapsed: 0,
+        notificationSent: false,
+        autoEndCanceled: true,
+        callEnded: false,
+      });
+      return;
     }
+
+    const intervalId = setInterval(() => {
+      updateCallState((prev) => ({ timeElapsed: prev.timeElapsed + 1 }));
+    }, 60000);
 
     return () => clearInterval(intervalId);
-  }, [isOnlyParticipant, timeElapsed, notificationSent, callEnded]);
+  }, [callState.isOnlyParticipant]);
 
   useEffect(() => {
-    if (isOnlyParticipant && timeElapsed === 1 && !callEnded) {
-      const timeoutForEndingCall = setTimeout(() => {
-        if (isOnlyParticipant && timeElapsed >= 2 && !callEnded) {
-          if (callId) {
-            endCall.mutate({ callId });
-          } else {
-            console.error("No call ID available to end the call.");
-          }
-          setCallEnded(true);
-        }
-      }, 60000);
+    if (!callState.isOnlyParticipant) return;
 
-      return () => clearTimeout(timeoutForEndingCall);
+    if (callState.timeElapsed === 5 && !callState.notificationSent) {
+      openDialog("notifNoParticipant");
+      updateCallState({ notificationSent: true });
     }
-  }, [isOnlyParticipant, timeElapsed, callEnded]);
+
+    if (callState.timeElapsed >= 10 && !callState.callEnded) {
+      if (callId) {
+        endCall.mutate({ callId });
+      } else {
+        console.error("No call ID available to end the call.");
+      }
+      updateCallState({ callEnded: true });
+    }
+  }, [callState.timeElapsed, callState.isOnlyParticipant]);
+
 
   return (
     <>
@@ -236,7 +241,7 @@ const ParticipantPody = () => {
           </div>
         </div>
       </div>
-      {notificationSent && isOpen("notifNoParticipant") && (
+      {isOpen("notifNoParticipant") && (
         <NoParticipantInCall />
       )}
     </>
