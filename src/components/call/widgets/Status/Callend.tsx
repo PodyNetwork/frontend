@@ -56,7 +56,7 @@ const CallEndPage = () => {
             alt="pody audio playback illustration"
           />
           <h2 className="text-xl xs:text-2xl font-medium">
-            {isOngoing ? "You've left the call" : "Classroom Ended"}
+            {isOngoing ? "You've left the Classroom" : "Classroom Ended"}
           </h2>
           <p className="text-sm">
             {isOngoing
@@ -105,7 +105,7 @@ const CallEndPage = () => {
             </div>
           )}
           <div>
-            <h4 className="text-sm">Join the Pody Community</h4>
+            <h4 className="text-sm">Join the Pody Community <span className="web3-gradient-text font-medium">+30,000 Points</span></h4>
             <div className="flex flex-row items-center gap-x-3 justify-center mt-1.5">
               <Link
                 href="https://discord.gg/NncZy3sU"

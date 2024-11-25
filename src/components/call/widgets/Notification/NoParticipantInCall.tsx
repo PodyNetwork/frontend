@@ -1,27 +1,28 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
-import EndCallButton from "./EndCallButton";
-import LeaveCallButton from "./LeaveCallButton";
-import { useDialog } from "@/components/call/utils/DialogContext";
+import { useDialog } from "../../utils/DialogContext";
+import EndCallButton from "../StreamControl/widget/EndCallButton";
+import LeaveCallButton from "../StreamControl/widget/LeaveCallButton";
+import StreamShare from "../share/StreamShare";
 
-const EndCallDialog = () => {
+const NoParticipantInCall = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();
   const { closeDialog } = useDialog();
 
-  const dialogRef = useRef<HTMLDivElement | null>(null); 
+  const dialogNotifRef = useRef<HTMLDivElement | null>(null); 
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        dialogRef.current &&
-        !dialogRef.current.contains(event.target as Node)
+        dialogNotifRef.current &&
+        !dialogNotifRef.current.contains(event.target as Node)
       ) {
-        closeDialog("leaveControl");
+        closeDialog("notifNoParticipant");
       }
     };
 
@@ -37,7 +38,7 @@ const EndCallDialog = () => {
       <div className="w-full p-4">
         <div
           className="max-w-md mx-auto flex flex-col text-center items-center justify-center gap-y-3 my-6 bg-white p-9 rounded-xl text-slate-700"
-          ref={dialogRef}
+            ref={dialogNotifRef}
         >
           <Image
             src="/illustration/virtual-meeting-group-video-conference-man-desktop.png"
@@ -47,27 +48,39 @@ const EndCallDialog = () => {
             alt="pody audio playback illustration"
           />
           <h2 className="text-base xs:text-lg font-medium mt-2">
-            {profile?.id === call?.userId
-              ? "Would you like to end the Classroom now, or just step away for a moment?"
-              : "Are you sure you want to leave? Staying means more rewards. Don’t miss out!"}
+            ⏳ To keep things efficient, this Classroom will end in 5 minutes if
+            no one joins.
           </h2>
+          <p className="text-sm">
+            ✨ Great Classroom are just one invite away. Send a quick invite to
+            bring someone into the Classroom!
+          </p>
           <div className="flex gap-2 flex-row flex-wrap __endleavebtn">
-            <LeaveCallButton>
+            <StreamShare>
               <div className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full">
-                Leave Classroom
+                Invite Participant
               </div>
-            </LeaveCallButton>
-            {profile?.id === call?.userId && (
+            </StreamShare>
+            {profile?.id === call?.userId ? (
               <EndCallButton>
                 <div className="px-4 py-3 bg-pody-danger text-slate-100 text-sm rounded-full">
                   End Classroom
                 </div>
               </EndCallButton>
+            ) : (
+              <LeaveCallButton>
+                <div className="px-4 py-3 bg-pody-danger text-slate-300 text-sm rounded-full">
+                  Leave Classroom
+                </div>
+              </LeaveCallButton>
             )}
           </div>
         </div>
       </div>
-      <div className="absolute top-4 right-4" onClick={() => closeDialog('leaveControl')}>
+      <div
+        className="absolute top-4 right-4"
+        onClick={() => closeDialog("notifNoParticipant")}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-6 h-6 text-slate-200"
@@ -81,4 +94,4 @@ const EndCallDialog = () => {
   );
 };
 
-export default EndCallDialog;
+export default NoParticipantInCall;

@@ -1224,6 +1224,30 @@ body {
 .__endleavebtn button{
     @apply w-full xs:w-auto;
 }
+.web3-gradient-text {
+    font-weight: bold;
+    background: linear-gradient(
+      to right,
+      #ff007a,
+      #7b61ff,
+      #00e0ff,
+      #ff007a
+    ); 
+    background-size: 200%; 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 3s linear infinite;
+  }
+  
+  @keyframes gradientMove {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: 0% 0;
+    }
+  }
+  
 
 
 

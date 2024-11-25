@@ -204,7 +204,7 @@ const Controls: React.FC<ControlBarProps> = ({
           aria-label="controls"
           ref={navRef}
         >
-          <div className="bg-pody-danger flex-shrink-0 h-10 w-10 rounded-full flex justify-center items-center text-slate-100 cursor-pointer" onClick={openDialog}>
+          <div className="bg-pody-danger flex-shrink-0 h-10 w-10 rounded-full flex justify-center items-center text-slate-100 cursor-pointer" onClick={() => openDialog('leaveControl')}>
             <label className="sr-only">disconnect</label>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -234,7 +234,7 @@ const Controls: React.FC<ControlBarProps> = ({
           overflowItem={overflowItems}
         />
       </div>
-      {isOpen && <EndCallDialog />}
+      {isOpen("leaveControl") && <EndCallDialog />}
     </>
   );
 };
