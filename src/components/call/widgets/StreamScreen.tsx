@@ -2,10 +2,11 @@
 import { useEffect, useRef, useCallback } from "react";
 import Controls from "./StreamControl/Controls";
 import "@livekit/components-styles";
-import StreamVideo from "./StreamVideo";
-import StreamInfo from "./StreamInfo";
+
 import { useFullscreen } from "../utils/FullscreenContext";
 import GiftAnimationPage from "./Gift/GiftAnimation";
+import StreamVideo from "./StreamScreen/StreamVideo";
+import StreamInfo from "./StreamScreen/StreamInfo";
 
 const StreamScreen = () => {
   const infoRef = useRef<HTMLDivElement>(null);

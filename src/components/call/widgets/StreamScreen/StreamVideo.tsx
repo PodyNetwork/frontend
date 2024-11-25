@@ -1,9 +1,11 @@
 import { useTracks } from "@livekit/components-react";
 import { Track } from "livekit-client";
 import { useMemo } from "react";
-import { EnhancedGridLayout } from "../livekitcustom/GridLayoutTile";
-import { CustomRoomAudioRenderer } from "../livekitcustom/CustomAudioRenderVolume";
-import { CustomStartAudio } from "../livekitcustom/CustomStartAudio";
+import { CustomRoomAudioRenderer } from "../../livekitcustom/CustomAudioRenderVolume";
+import { CustomStartAudio } from "../../livekitcustom/CustomStartAudio";
+import { EnhancedGridLayout } from "../../livekitcustom/GridLayoutTile";
+import AudioPlaybackCheck from "../Audio/AudioPlayback";
+
 
 const MyVideoConference = () => {
   const tracks = useTracks(
@@ -37,6 +39,7 @@ const StreamVideo = () => {
       <MyVideoConference />
       <CustomRoomAudioRenderer />
       <CustomStartAudio label="Click to allow audio playback" />
+      <AudioPlaybackCheck />
     </div>
   );
 };

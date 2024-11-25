@@ -15,9 +15,7 @@ import { HandRaiseProvider } from "./utils/HandRaiseContext";
 
 const MeetLayout = () => {
   const { isFullscreen } = useFullscreen();
-
   const sidebarClasses = isFullscreen ? "hidden" : "hidden md:block";
-
   const { participantBarIsExpanded } = useParticipantBar();
   const { isChatOpen } = useChatContext();
   const { isGiftOpen } = useGiftMenu();

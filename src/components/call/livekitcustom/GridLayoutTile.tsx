@@ -39,15 +39,6 @@ export function EnhancedGridLayout({
   const hideControlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hidePinbarTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // const handleDragEnd = (event: MouseEvent | TouchEvent, info: PanInfo) => {
-  //   const swipeThreshold = 100;
-  //   if (info.offset.x > swipeThreshold) {
-  //     setCurrentIndex((prev) => (prev === 0 ? tracks.length - 1 : prev - 1));
-  //   } else if (info.offset.x < -swipeThreshold) {
-  //     setCurrentIndex((prev) => (prev + 1) % tracks.length);
-  //   }
-  // };
-
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
       setCurrentPage(currentPage + 1);

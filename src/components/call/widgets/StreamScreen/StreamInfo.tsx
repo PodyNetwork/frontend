@@ -2,13 +2,14 @@ import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useParticipants } from "@livekit/components-react";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import StreamShare from "./share/StreamShare";
 import { getHashRate } from "@/utils/passport";
 import useProfile from "@/hooks/user/useProfile";
 import { Address } from "@/types/address";
-import { PointCounter } from "./StreamScreen/PointCounter";
-import { useParticipantMenu } from "../utils/ParticipantMenuContext";
-import { useFullscreen } from "../utils/FullscreenContext";
+import { useFullscreen } from "../../utils/FullscreenContext";
+import { useParticipantMenu } from "../../utils/ParticipantMenuContext";
+import StreamShare from "../share/StreamShare";
+import { PointCounter } from "./PointCounter";
+
 
 const StreamInfo = () => {
   const { url } = useParams();
