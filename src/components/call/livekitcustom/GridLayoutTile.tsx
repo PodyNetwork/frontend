@@ -2,6 +2,7 @@ import React, {
   CSSProperties,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -59,19 +60,18 @@ export function EnhancedGridLayout({
     setCurrentPage(pageIndex);
   };
 
-  const currentTracks = tracks.slice(
-    currentPage * tracksPerPage,
-    (currentPage + 1) * tracksPerPage
-  );
+  const currentTracks = useMemo(() => {
+    return tracks.slice(currentPage * tracksPerPage, (currentPage + 1) * tracksPerPage);
+  }, [tracks, currentPage]);
 
   const limitedVideoCount = Math.min(currentTracks.length, 4);
 
   const paginationRef = useRef<HTMLDivElement>(null);
 
-  const availableTracks = tracks.filter(
-    (track) => track?.source && track?.participant
-  );
-
+  const availableTracks = useMemo(() => {
+    return tracks.filter(track => track?.source && track?.participant);
+  }, [tracks]);
+  
   const calculateHeights = useCallback(() => {
     if (paginationRef.current) {
       const height = paginationRef.current.offsetHeight;
@@ -160,16 +160,14 @@ export function EnhancedGridLayout({
     }
   }, [availableTracks, currentIndex]);
 
-  const handleDragEnd = (event: MouseEvent | TouchEvent, info: PanInfo) => {
+  const handleDragEnd = useCallback((event: MouseEvent | TouchEvent, info: PanInfo) => {
     const swipeThreshold = 100;
     if (info.offset.x > swipeThreshold) {
-      setCurrentIndex((prev) =>
-        prev === 0 ? availableTracks.length - 1 : prev - 1
-      );
+      setCurrentIndex(prev => (prev === 0 ? availableTracks.length - 1 : prev - 1));
     } else if (info.offset.x < -swipeThreshold) {
-      setCurrentIndex((prev) => (prev + 1) % availableTracks.length);
+      setCurrentIndex(prev => (prev + 1) % availableTracks.length);
     }
-  };
+  }, [availableTracks]);
 
   if (noTracksAvailable) {
     return (

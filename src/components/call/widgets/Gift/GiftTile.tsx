@@ -1,8 +1,6 @@
 import React from "react";
 import GiftUI from "./GiftCard";
 
-
-
 const GiftTile = () => {
   return (
     <div

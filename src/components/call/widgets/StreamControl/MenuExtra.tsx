@@ -166,7 +166,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
         );
       case "raisehand":
         return (
-          <DropdownMenuItem className={`${isCooldown ? "opacity-50 cursor-not-allowed text-red-500" : "text-slate-400"}`} onClick={handleRaiseHand} key={`${overflowItem}-${index}`}>
+          <DropdownMenuItem className={`${isCooldown ? "opacity-50 cursor-not-allowed text-red-500" : ""}`} onClick={handleRaiseHand} key={`${overflowItem}-${index}`}>
             <Hand />
             <span>Raise Hand</span>
           </DropdownMenuItem>
@@ -175,7 +175,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
         return (
           <DropdownMenuItem
             key={`${overflowItem}-endCall-${index}`}
-            onClick={openDialog}
+            onClick={() => openDialog("leaveControl")}
           >
             <PhoneOff />
             <span>Leave Classroom</span>

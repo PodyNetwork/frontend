@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { useDialog } from "../../utils/DialogContext";
 
 const AudioPlaybackCheck: React.FC = () => {
-  const [audioEnabled, setAudioEnabled] = useState(false);
-  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+  const [audioEnabled, setAudioEnabled] = useState<boolean | null>(null);
 
   const playAudioTone = () => {
     const AudioContext =
@@ -20,53 +18,48 @@ const AudioPlaybackCheck: React.FC = () => {
 
     oscillator.type = "sine";
     oscillator.frequency.setValueAtTime(440, context.currentTime); // 440Hz (A note)
-    gainNode.gain.setValueAtTime(0.001, context.currentTime); 
+    gainNode.gain.setValueAtTime(0.001, context.currentTime);
 
     oscillator.connect(gainNode);
     gainNode.connect(context.destination);
 
     oscillator.start();
-    oscillator.stop(context.currentTime + 1); 
+    oscillator.stop(context.currentTime + 1);
 
-    setAudioContext(context);
+    // Clean up AudioContext after use
+    oscillator.onended = () => context.close();
   };
 
   const enableAudioPlayback = async () => {
     try {
-      playAudioTone(); 
+      playAudioTone();
       setAudioEnabled(true);
-      localStorage.setItem("audioEnabled", "true"); 
+      localStorage.setItem('audioEnabled', 'true'); // Persist audio state
     } catch (error) {
       console.error("Failed to enable audio playback.", error);
     }
   };
 
-  const checkAudioPlayback = async () => {
-    try {
-      const AudioContext =
-        window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioContext) {
-        console.error("AudioContext is not supported in this browser.");
-        return;
-      }
-
-      const isAudioEnabled = localStorage.getItem("audioEnabled") === "true";
-      if (isAudioEnabled) {
-        playAudioTone(); 
-        setAudioEnabled(true);
-      }
-    } catch (error) {
-      console.error("AudioContext initialization failed.", error);
+  const checkAudioPlayback = () => {
+    const savedAudioEnabled = localStorage.getItem('audioEnabled');
+    if (savedAudioEnabled === 'true') {
+      setAudioEnabled(true);
+    } else {
       setAudioEnabled(false);
     }
   };
 
   useEffect(() => {
-    checkAudioPlayback();
+    checkAudioPlayback(); // Check the audio state when the component mounts
   }, []);
 
-  if (audioEnabled) {
+  // If audio state is not determined yet, return null to prevent flickering
+  if (audioEnabled === null) {
     return null;
+  }
+
+  if (audioEnabled) {
+    return null; // No need to show the prompt if audio is already enabled
   }
 
   return (
