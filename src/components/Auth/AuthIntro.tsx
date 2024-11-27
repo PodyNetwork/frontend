@@ -2,16 +2,16 @@ import Image from "next/image";
 
 const AuthIntro = () => {
   return (
-    <div className="md:w-1/2 justify-center items-center hidden md:flex bg-pody-mintgreen rounded-2xl relative p-5">
+    <div className="flex-1 justify-center items-center hidden md:flex relative p-3">
       <div className="_grad_card_main_login hidden md:block"></div>
-      <div className="w-full flex-1">
-        <div className="relative z-30 flex flex-col gap-y-3">
+      <div className="w-full flex-1 flex-col flex mt-auto relative h-full">
+        <div className="relative z-30 gap-y-3 h-full">
           <Image
-            src="/images/Pody 1123 01.jpg"
+            src="/illustration/remote-study-groups-online-classroomsi.jpg"
             alt="Pody Login Image"
-            width={300}
-            height={300}
-            className="w-full rounded-xl object-contain"
+            width={800}
+            height={900}
+            className="w-full h-full rounded-2xl object-cover"
           />
         </div>
       </div>
