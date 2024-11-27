@@ -32,7 +32,7 @@ const MicrophoneControl = ({ saveUserChoices = true, onDeviceError }: AudioContr
   );
 
   return (
-    <div className="bg-white dark:bg-[#202124] flex-shrink-0 p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
+    <div className="bg-white dark:bg-[#202124] flex-shrink-0 p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer relative">
       <div className="bg-slate-100 dark:bg-pody-dark_secondary w-8 h-8 flex items-center justify-center rounded-full">
         <label className="sr-only">Microphone</label>
         <SourceToggle
@@ -60,7 +60,7 @@ const MicrophoneControl = ({ saveUserChoices = true, onDeviceError }: AudioContr
           </svg>
         </SourceToggle>
       </div>
-      <div>
+      <div className="relative">
         <CustomMediaDeviceMenu
           kind="audioinput"
           onActiveDeviceChange={handleDeviceChange}

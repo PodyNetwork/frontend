@@ -8,6 +8,8 @@ import useProfile from "@/hooks/user/useProfile";
 import { motion } from "framer-motion"; // Import motion from framer-motion
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import { useRouter } from "next/navigation";
+import Loader from "@/components/preloader/Loader";
+import { useNavigate } from "@/components/utils/PageRouter";
 
 type FloatingElement = {
   id: number;
@@ -37,44 +39,36 @@ const AsideNav = () => {
     top: `${Math.random() * 100}%`,
   });
 
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-
-  const handleClick = (href: string) => {
-    startTransition(() => {
-      router.push(href);
-    });
-  };
+  const { handleClick, isPending } = useNavigate();
 
   return (
     <>
+      {isPending && <Loader />}
       {/* Desktop menu */}
       <aside className="hidden md:flex flex-col items-center w-full bg-pody-primary/50">
         <div className="md:flex w-full items-center justify-between py-6 px-12 gap-x-4 xl:max-w-[1300px] font-medium">
           <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
-            <Link href="/">
+            <button onClick={() => handleClick("/")}>
               <Image
                 src={logo}
                 className="w-14 object-contain mb-4 md:mb-0 sm:me-4"
                 alt="Pody"
               />
-            </Link>
+            </button>
             <ul className="text-sm flex flex-wrap justify-center sm:flex-row gap-3 sm:gap-x-6">
               {dashlink.map((data, index) => (
                 <li
                   key={index}
                   className="py-2 hover:text-slate-600 hover:transition-all rounded-full text-slate-800"
                 >
-                  <Link
-                    onClick={(e) => {
-                      e.preventDefault();
+                  <button
+                    onClick={() => {
                       handleClick(data.url);
                     }}
                     style={{ opacity: isPending ? 0.5 : 1 }}
-                    href={data.url}
                   >
                     {data.title}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -104,7 +98,12 @@ const AsideNav = () => {
             <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
               {!profile?.isEmailVerified && (
                 <Link href="/email">
-                  <li>Add Email <sup className="web3-gradient-text font-medium">+10,000</sup></li>
+                  <li>
+                    Add Email{" "}
+                    <sup className="web3-gradient-text font-medium">
+                      +10,000
+                    </sup>
+                  </li>
                 </Link>
               )}
             </ul>
@@ -165,20 +164,21 @@ const AsideNav = () => {
               />
             ))}
           </div>
-          <Link href="/">
+          <button onClick={() => handleClick("/")}>
             <Image src={logo} className="w-20 object-contain mb-6" alt="Pody" />
-          </Link>
+          </button>
           <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
             {dashlink.map((data, index) => (
-              <Link
-                key={index}
-                href={data.url}
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleClick(data.url);
+                }}
               >
                 <li className="py-2 hover:text-pody-primary transition-all rounded-full text-slate-400">
                   {data.title}
                 </li>
-              </Link>
+              </button>
             ))}
           </ul>
           <div className="mt-6 flex flex-col items-center gap-y-4">

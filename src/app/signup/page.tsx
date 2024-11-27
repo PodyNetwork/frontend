@@ -7,6 +7,8 @@ import ConnectOrComponent from "@/components/global/ConnectOrComponent";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AuthHeader from "@/components/Auth/AuthHeader";
+import { useNavigate } from "@/components/utils/PageRouter";
+import Loader from "@/components/preloader/Loader";
 
 const formOpts = formOptions<{ username: string }>({
   defaultValues: {
@@ -23,22 +25,16 @@ const Login = () => {
     },
   });
 
-  const router = useRouter();
-
-  const goToTerms = () => {
-    router.push("/terms");
-  };
-  const goToPrivacy = () => {
-    router.push("/privacy");
-  };
+  const { handleClick, isPending } = useNavigate();
 
   return (
     <main
       className="relative float-left w-full h-full overflow-hidden"
       aria-label="Homepage"
     >
+      {isPending && <Loader />}
       <AuthLayout>
-        <div className="w-full max-w-96 md:px-6 text-center">
+        <div className="w-full max-w-96 md:px-6 text-ceter">
           <AuthHeader />
           <form
             onSubmit={(e) => {
@@ -88,9 +84,9 @@ const Login = () => {
                       />
                     </div>
                     {field.state.meta.errors && (
-                      <span className="text-red-500 text-sm mt-1">
+                      <div className="text-red-500 text-sm mt-1 text-left">
                         {field.state.meta.errors[0]}
-                      </span>
+                      </div>
                     )}
                   </>
                 )}
@@ -131,20 +127,20 @@ const Login = () => {
             </div>
           </form>
           {errorMessage && (
-            <div className="text-red-500 text-sm mt-2">
+            <div className="text-red-500 text-sm mt-2 text-left bg-teal-50">
               {errorMessage.message}
             </div>
           )}
-          <div className="text-sm mt-2">
+          <div className="text-sm mt-2 text-slate-500">
             <span>Minted pody passport?</span>{" "}
-            <Link className="text-blue-500" href="/login">
+            <button className="text-blue-500" onClick={() => handleClick("/login")}>
               Login
-            </Link>
+            </button>
           </div>
-          <p className="text-sm mt-6 text-slate-500">
+          <p className="text-xs mt-6 text-slate-500">
             By minting a Pody Passport, you agree to Pody Network{" "}
-            <button className="text-blue-500" onClick={goToTerms}>Terms</button>,{" "}
-            <button className="text-blue-500" onClick={goToPrivacy}>Privacy Policy</button>
+            <button className="text-blue-500" onClick={() => handleClick("/terms")}>Terms</button>,{" "}
+            <button className="text-blue-500" onClick={() => handleClick("/privacy")}>Privacy Policy</button>
           </p>
         </div>
       </AuthLayout>

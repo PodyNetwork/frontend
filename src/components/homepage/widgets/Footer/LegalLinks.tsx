@@ -1,14 +1,17 @@
 import React from 'react'
 import footlink from "../../data/footlink.json";
 import Link from "next/link";
+import { useNavigate } from '@/components/utils/PageRouter';
 
 const LegalLinks = () => {
+  const { handleClick, isPending } = useNavigate();
+
   return (
     <div className="flex flex-col flex-wrap text-sm w-full">
     <p className="pb-5 font-bold">Legal</p>
     <ul className="flex flex-col" aria-label="Social Links">
       {footlink.legal.map((link, index) => (
-        <Link href={link.url} key={index}>
+        <button onClick={() => handleClick(link.url)} key={index}>
           <li
             className="hover:text-pody-primary flex gap-1 flex-row justify-between items-center hover:transition-all duration-100 font-medium border-t border-pody-secondary/40 p-3.5"
           >
@@ -22,7 +25,7 @@ const LegalLinks = () => {
               <path d="m553.85-253.85-42.16-43.38L664.46-450H180v-60h484.46L511.69-662.77l42.16-43.38L780-480 553.85-253.85Z" />
             </svg>
           </li>
-        </Link>
+        </button>
       ))}
     </ul>
   </div>

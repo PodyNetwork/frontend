@@ -2,11 +2,11 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div className="w-full h-screen absolute top-0 left-0 bg-white dark:bg-black z-50 flex items-center justify-center">
+    <div className="w-full h-screen fixed top-0 left-0 bg-white dark:bg-black z-50 flex items-center justify-center">
       <div role="status" className="flex items-center flex-col justify-center">
         <svg
           aria-hidden="true"
-          className="w-9 h-9 text-gray-200 animate-spin dark:text-gray-600 fill-pody-primary"
+          className="w-9 h-9 text-gray-200 animate-spin dark:text-gray-600 fill-pody-secondary"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ const Loader = () => {
             fill="currentFill"
           />
         </svg>
-        <p className="text-base text-slate-700 dark:text-slate-200 mt-2">
+        <p className="text-base font-semibold text-slate-600 dark:text-slate-200 mt-2">
           Loading...
         </p>
       </div>

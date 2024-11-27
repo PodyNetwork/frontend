@@ -7,8 +7,7 @@ const AuthHeader = () => {
         Get rewarded for your time
       </h2>
       <p className="text-xs mt-2.5 text-slate-400 leading-relaxed">
-        <span className="text-red-400">*</span>It took you 7 seconds to read all
-        this, you could have earned up to 30 points.
+        <span className="text-red-400">*</span>It took you 4 seconds to read that, imagine earning 30 points in that time!
       </p>
     </div>
   );

@@ -177,7 +177,7 @@ const Controls: React.FC<ControlBarProps> = ({
       <div
         className={`__mobile_controls flex flex-row items-center justify-center gap-x-3 ${
           isFullscreen
-            ? "bottom-0 py-2 fixed left-0 w-full __mobile_controls_fulscreen"
+            ? "bottom-0 py-2 absolute left-0 w-full __mobile_controls_fulscreen"
             : ""
         } ${
           showControls ? "visible" : "opacity-0"
@@ -185,11 +185,11 @@ const Controls: React.FC<ControlBarProps> = ({
       >
         {/* video source */}
         {visibleControls.camera && (
-          <CameraControl onDeviceError={onDeviceError} />
+          <div><CameraControl onDeviceError={onDeviceError} /></div>
         )}
         {/* Microphone */}
         {visibleControls.microphone && (
-          <MicrophoneControl onDeviceError={onDeviceError} />
+          <div><MicrophoneControl onDeviceError={onDeviceError} /></div>
         )}
         {/* Reaction */}
         <div>

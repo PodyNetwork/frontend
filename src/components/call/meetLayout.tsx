@@ -26,8 +26,8 @@ const MeetLayout = () => {
         <GiftAnimationProvider>
           <HandRaiseProvider>
             <DialogProvider>
-              <section className="w-full flex flex-col bg-white dark:bg-[#111114] select-none">
-                <div className="flex flex-col md:flex-row gap-x-2 h-screen max-h-screen md:justify-between relative">
+              <section className={`w-full flex flex-col select-none ${isFullscreen ? "bg-[#181A1D]" : "bg-white dark:bg-[#111114]"}`}>
+                <div className={`flex flex-col md:flex-row h-screen max-h-screen md:justify-between relative ${isFullscreen ? "gap-x-0" : "gap-x-2"}`}>
                   {/* Sidebar */}
                   <div
                     className={`w-16 max-w-16 py-5 bg-[#F7F7F7] dark:bg-pody-dark h-full ${sidebarClasses}`}

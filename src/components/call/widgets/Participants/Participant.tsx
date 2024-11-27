@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParticipants } from "@livekit/components-react";
 import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
@@ -14,7 +14,6 @@ import { MobileParticipantInfo } from "./MobileparticipantInfo";
 import { ParticipantControls } from "./ParticipantControls";
 import { ParticipantNamePody } from "./ParticipantName";
 import { Participant } from "livekit-client";
-import NoParticipantInCall from "../Notification/NoParticipantInCall";
 import { useDialog } from "../../utils/DialogContext";
 import useEndCall from "@/hooks/call/useEndCall";
 import useBanCallParticipant from "@/hooks/call/useBanCallParticipant";
@@ -102,7 +101,7 @@ const ParticipantPody = () => {
     callEnded: false,
   });
 
-  const { isOpen, openDialog } = useDialog();
+  const { openDialog } = useDialog();
   const { endCall } = useEndCall();
   const [callId, setCallId] = useState<string | undefined>(call?._id);
 
@@ -258,7 +257,6 @@ const ParticipantPody = () => {
           </div>
         </div>
       </div>
-      {isOpen("notifNoParticipant") && <NoParticipantInCall />}
     </>
   );
 };

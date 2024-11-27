@@ -3,10 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import navlink from "../data/link.json";
 import logo from "/public/logo/pody logo dark.png";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { motion } from "framer-motion";
 import JoinDrawer from "../v1/widgets/JoinDrawer";
-
+import { useRouter } from "next/navigation";
+import Loader from "@/components/preloader/Loader";
+import { useNavigate } from "@/components/utils/PageRouter";
 
 type FloatingElement = {
   id: number;
@@ -34,8 +36,12 @@ const Nav = () => {
     left: `${Math.random() * 100}%`,
     top: `${Math.random() * 100}%`,
   });
+
+  const { handleClick, isPending } = useNavigate();
+
   return (
     <>
+      {isPending && <Loader />}
       <div
         className="w-full hidden md:flex flex-row justify-between items-center text-sm text-slate-600 my-4 relative gap-x-3 font-medium"
         aria-label="Navigation Menu"
@@ -53,17 +59,27 @@ const Nav = () => {
                 key={index}
                 className="hover:text-pody-primary hover:transition-all duration-100 px-1"
               >
-                <Link href={link.url}>{link.title}</Link>
+                <button
+                  onClick={() => {
+                    handleClick(link.url);
+                  }}
+                >
+                  {link.title}
+                </button>
               </li>
             ))}
           </ul>
         </div>
         <ul className="flex flex-row items-center gap-x-2">
-          <Link href="/login">
+          <button
+            onClick={() => {
+              handleClick("/login");
+            }}
+          >
             <li className="bg-pody-secondary/40 hover:transition-all duration-100 h-10 rounded-full px-8 flex items-center cursor-pointer">
               Login
             </li>
-          </Link>
+          </button>
           <JoinDrawer />
         </ul>
       </div>
@@ -126,15 +142,17 @@ const Nav = () => {
           </Link>
           <ul className="flex flex-col items-center gap-y-4 relative z-50">
             {navlink.mainLink.map((data, index) => (
-              <Link
+              <button
                 key={index}
-                href={data.url}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleClick(data.url);
+                }}
               >
                 <li className="py-2 hover:text-pody-primary transition-all rounded-full text-slate-400">
                   {data.title}
                 </li>
-              </Link>
+              </button>
             ))}
           </ul>
           <div className="flex flex-col items-center mt-4 relative z-50">

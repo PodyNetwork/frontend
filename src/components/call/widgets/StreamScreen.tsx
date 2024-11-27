@@ -7,6 +7,8 @@ import { useFullscreen } from "../utils/FullscreenContext";
 import GiftAnimationPage from "./Gift/GiftAnimation";
 import StreamVideo from "./StreamScreen/StreamVideo";
 import StreamInfo from "./StreamScreen/StreamInfo";
+import { useDialog } from "../utils/DialogContext";
+import NoParticipantInCall from "./Notification/NoParticipantInCall";
 
 const StreamScreen = () => {
   const infoRef = useRef<HTMLDivElement>(null);
@@ -61,6 +63,8 @@ const StreamScreen = () => {
     }
   }, [isFullscreen]);
 
+  const { isOpen } = useDialog();
+
   return (
     <>
       <div ref={infoRef} className={`${isFullscreen ? "md:py-0 py-0" : "py-4"}`}>
@@ -73,6 +77,7 @@ const StreamScreen = () => {
         </div>
         <Controls />
       </div>
+      {isOpen("notifNoParticipant") && <NoParticipantInCall />}
     </>
   );
 };

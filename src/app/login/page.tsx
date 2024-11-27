@@ -1,9 +1,6 @@
 "use client";
 
-import React from "react";
 import AuthLayout from "@/layouts/auth";
-import Heading2 from "@/components/global/heading2";
-import Paragraph from "@/components/global/paragraph";
 import { useForm } from "@tanstack/react-form";
 import useLogin from "./hooks/useLogin";
 import ConnectOrComponent from "@/components/global/ConnectOrComponent";
@@ -24,7 +21,7 @@ const Login = () => {
       aria-label="Login"
     >
       <AuthLayout>
-        <div className="w-full max-w-80 md:px-6 text-center">
+        <div className="w-full max-w-96 md:px-6">
           <AuthHeader />
           <form
             onSubmit={(e) => {
@@ -64,12 +61,12 @@ const Login = () => {
               </button>
             </ConnectOrComponent>
             {errorMessage && (
-              <p className="text-red-500 text-sm mt-2">
+              <p className="text-red-500 text-sm mt-2 text-left">
                 {errorMessage.message}
               </p>
             )}
           </form>
-          <div className="text-sm mt-2">
+          <div className="text-sm mt-2 text-slate-500">
             <span>Don&apos;t have pody passport yet?</span>{" "}
             <Link className="text-blue-500" href="/signup">
               Mint Passport

@@ -5,8 +5,6 @@ import CardsAndImage from "./widgets/Hero/CardsAndImage";
 import Nav from "../Global/Nav";
 
 const Hero = () => {
-
-
   return (
     <section className="w-full relative bg-pody-mintgreen/80 overflow-hidden">
       <GradientBackground />
