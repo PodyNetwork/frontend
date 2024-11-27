@@ -1,16 +1,13 @@
-"use client"
+"use client"; // Enable client-side rendering
+import MeetLayout from "@/components/call/meetLayout";
+import { ActiveMenuProvider } from "@/components/call/utils/ActiveMenuContext";
+import { ChatContextProvider } from "@/components/call/utils/ChatContext";
+import { FullscreenProvider } from "@/components/call/utils/FullscreenContext";
+import { GiftMenuProvider } from "@/components/call/utils/GiftMenuContext";
+import { ParticipantBarProvider } from "@/components/call/utils/ParticipantBarContext";
 import Head from "next/head";
-import { useEffect } from "react";
 
 const Call = () => {
-  useEffect(() => {
-    const pathname = window.location.pathname;
-    if (pathname.startsWith('/call/')) {
-      const newPath = pathname.replace('/call/', '/classroom/');
-      window.location.href = newPath;
-    }
-  }, []);
-  
   return (
     <>
       <Head>
@@ -49,7 +46,17 @@ const Call = () => {
         className="relative float-left w-full h-full overflow-hidden"
         aria-label="Meeting"
       >
-      <></>
+        <FullscreenProvider>
+          <ActiveMenuProvider>
+            <ParticipantBarProvider>
+              <ChatContextProvider>
+                <GiftMenuProvider>
+                  <MeetLayout />
+                </GiftMenuProvider>
+              </ChatContextProvider>
+            </ParticipantBarProvider>
+          </ActiveMenuProvider>
+        </FullscreenProvider>
       </main>
     </>
   );

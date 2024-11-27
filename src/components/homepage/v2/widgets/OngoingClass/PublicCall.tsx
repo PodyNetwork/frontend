@@ -1,4 +1,4 @@
-import { Call } from '@/app/call/types';
+import { Call } from '@/app/classroom/types';
 import useGetPublicCalls from '@/hooks/call/useGetPublicCalls';
 import Inactivecall from './Inactivecall';
 import SkeletonCard from './SkeletonCard';

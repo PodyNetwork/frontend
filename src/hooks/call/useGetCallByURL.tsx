@@ -1,7 +1,7 @@
 "use client"
 import { useCallback } from 'react';
 import axios from "@/network/axios"
-import type { Call } from '../../app/call/types';
+import type { Call } from '../../app/classroom/types';
 import { BaseResponse } from '@/types/globals';
 import { useQuery } from '@tanstack/react-query';
 

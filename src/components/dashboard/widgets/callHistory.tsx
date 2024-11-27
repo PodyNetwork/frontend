@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import type { Call } from "@/app/call/types";
+import type { Call } from "@/app/classroom/types";
 import meetingImageError from "/public/illustration/wormies nocall.svg";
 import EditDrawer from "@/components/dashboard/widgets/editDrawer";
 import dayjs from "dayjs";

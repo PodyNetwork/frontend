@@ -24,7 +24,7 @@ import ButtonPody from "@/components/global/button";
 import { useRouter } from "next/navigation";
 import useUpdateCall from "@/hooks/call/useUpdateCall";
 import { formOptions, useForm } from "@tanstack/react-form";
-import { Call } from "@/app/call/types";
+import { Call } from "@/app/classroom/types";
 import { toast, Toaster } from "sonner";
 
 interface ToggleSwitchProps {

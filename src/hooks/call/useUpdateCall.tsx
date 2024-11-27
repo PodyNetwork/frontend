@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../useErrorMessage';
-import type { CallResponse } from '../../app/call/types';
+import type { CallResponse } from '../../app/classroom/types';
 import { ResponseError } from '@/types/globals';
 
 interface CreateMeetingArgs{ scheduledTime?: number, participantsCanPublish: boolean, title: string, _id: string, participantsCanPublishData?: boolean }
