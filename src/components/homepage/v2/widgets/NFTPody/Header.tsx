@@ -1,7 +1,5 @@
 import Link from "next/link";
-import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useNavigate } from "@/components/utils/PageRouter";
 import Loader from "@/components/preloader/Loader";
 

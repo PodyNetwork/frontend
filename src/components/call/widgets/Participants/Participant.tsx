@@ -18,6 +18,7 @@ import { useDialog } from "../../utils/DialogContext";
 import useEndCall from "@/hooks/call/useEndCall";
 import useBanCallParticipant from "@/hooks/call/useBanCallParticipant";
 
+/* eslint-disable react-hooks/exhaustive-deps */
 const ParticipantPody = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
@@ -30,7 +31,7 @@ const ParticipantPody = () => {
   const { participantBarIsExpanded, toggleParticipantBar } =
     useParticipantBar();
 
-  const { banParticipant, errorMessage } = useBanCallParticipant();
+  const { banParticipant } = useBanCallParticipant();
 
   const handleAddToSpeak = (username: string) => {
     updateCallParticipantPermission.mutate({
@@ -123,7 +124,8 @@ const ParticipantPody = () => {
       0
     );
     updateCallState({ isOnlyParticipant: remoteCount === 0 });
-  }, [participants]);
+  }, [participants, updateCallState]);
+  
 
   useEffect(() => {
     checkIfOnlyParticipant();
@@ -155,12 +157,12 @@ const ParticipantPody = () => {
 
   useEffect(() => {
     if (!callState.isOnlyParticipant) return;
-
+  
     if (callState.timeElapsed === 5 && !callState.notificationSent) {
       openDialog("notifNoParticipant");
       updateCallState({ notificationSent: true });
     }
-
+  
     if (callState.timeElapsed >= 10 && !callState.callEnded) {
       if (callId) {
         endCall.mutate({ callId });
@@ -169,7 +171,17 @@ const ParticipantPody = () => {
       }
       updateCallState({ callEnded: true });
     }
-  }, [callState.timeElapsed, callState.isOnlyParticipant]);
+  }, [
+    callState.isOnlyParticipant,
+    callState.timeElapsed,
+    callState.notificationSent,
+    callState.callEnded,
+    callId,
+    endCall,
+    openDialog,
+    updateCallState,
+  ]);
+  
 
   return (
     <>

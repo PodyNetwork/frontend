@@ -3,10 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import navlink from "../data/link.json";
 import logo from "/public/logo/pody logo dark.png";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import JoinDrawer from "../v1/widgets/JoinDrawer";
-import { useRouter } from "next/navigation";
 import Loader from "@/components/preloader/Loader";
 import { useNavigate } from "@/components/utils/PageRouter";
 

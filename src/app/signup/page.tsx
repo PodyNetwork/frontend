@@ -4,8 +4,6 @@ import AuthLayout from "@/layouts/auth";
 import useSignup from "./hooks/useSignup";
 import { formOptions, useForm } from "@tanstack/react-form";
 import ConnectOrComponent from "@/components/global/ConnectOrComponent";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import AuthHeader from "@/components/Auth/AuthHeader";
 import { useNavigate } from "@/components/utils/PageRouter";
 import Loader from "@/components/preloader/Loader";

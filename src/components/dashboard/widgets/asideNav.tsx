@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect } from "react";
 import dashlink from "../data/links.json";
 import Link from "next/link";
 import logo from "/public/logo/pody logo dark.png";
@@ -7,7 +7,6 @@ import Image from "next/image";
 import useProfile from "@/hooks/user/useProfile";
 import { motion } from "framer-motion"; // Import motion from framer-motion
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
-import { useRouter } from "next/navigation";
 import Loader from "@/components/preloader/Loader";
 import { useNavigate } from "@/components/utils/PageRouter";
 
@@ -174,6 +173,7 @@ const AsideNav = () => {
                   setMobileMenuOpen(false);
                   handleClick(data.url);
                 }}
+                key={index}
               >
                 <li className="py-2 hover:text-pody-primary transition-all rounded-full text-slate-400">
                   {data.title}
