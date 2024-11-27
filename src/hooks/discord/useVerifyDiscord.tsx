@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import useLoading from '../useLoading';
 
 
-const useClaimPoint = () => {
+const useVerifyDiscord = () => {
   const router = useRouter(); 
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
   const { startLoading, stopLoading, loading } = useLoading();
@@ -25,11 +25,11 @@ const useClaimPoint = () => {
     }
   }, [startLoading, stopLoading]);
 
-  const claimPoint = useMutation({
+  const verifyDiscord = useMutation({
     mutationFn: claimHandler,
     onSuccess: () => {
       clearErrorMessage();
-      router.push(`/dashboard/reward?claimBox=true`);
+      router.push(`/discord`);
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
@@ -41,7 +41,7 @@ const useClaimPoint = () => {
     },
   });
 
-  return { claimPoint, errorMessage, loading };
+  return { verifyDiscord, errorMessage, loading };
 }
 
-export default useClaimPoint
+export default useVerifyDiscord

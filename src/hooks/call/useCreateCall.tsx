@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../useErrorMessage';
-import type { CallResponse } from '../../app/call/types';
+import type { CallResponse } from '../../app/classroom/types';
 import { ResponseError } from '@/types/globals';
 import { useRouter } from 'next/navigation';
 import useLoading from '../useLoading';
@@ -30,7 +30,7 @@ const useCreateCall = () => {
     mutationFn: createCallHandler,
     onSuccess: (data) => {
       clearErrorMessage();
-      router.push(`/call/${data?.data.url}`);
+      router.push(`/classroom/${data?.data.url}`);
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {

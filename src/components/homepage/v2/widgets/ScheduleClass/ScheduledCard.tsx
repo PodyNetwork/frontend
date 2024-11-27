@@ -1,4 +1,4 @@
-import { Call } from "@/app/call/types";
+import { Call } from "@/app/classroom/types";
 import useProfileById from "@/hooks/user/useGetProfileById";
 import BlockiesSvg from "blockies-react-svg";
 import dayjs from "dayjs";
@@ -53,7 +53,7 @@ const ScheduledCard = ({ data }: { data: Call }) => {
   const scheduledTimeY = dayjs(data.scheduledTime);
 
   const handleJoinEvent = (data: string) => {
-    eventrouter.push(`/call/${data}`);
+    eventrouter.push(`/classroom/${data}`);
     console.log("hello");
   };
 

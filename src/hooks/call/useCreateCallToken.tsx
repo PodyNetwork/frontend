@@ -5,7 +5,7 @@ import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../useErrorMessage';
 import { BaseResponse, ResponseError } from '@/types/globals';
-import type { Call } from '../../app/call/types';
+import type { Call } from '../../app/classroom/types';
 
 interface CreateCallTokenArgs {
   callId: string;

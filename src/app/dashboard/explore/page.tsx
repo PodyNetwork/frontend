@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import videoConfrenceImg from "/public/illustration/video-conference.png";
-import { Call } from "@/app/call/types";
+import { Call } from "@/app/classroom/types";
 import useGetPublicCalls from "@/hooks/call/useGetPublicCalls";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import dayjs from "dayjs";

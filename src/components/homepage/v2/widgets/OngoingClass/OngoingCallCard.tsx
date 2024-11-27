@@ -4,7 +4,7 @@ import BlockiesSvg from "blockies-react-svg";
 import { useRouter } from "next/navigation";
 import useProfileById from "@/hooks/user/useGetProfileById";
 import { handleAddToCalendar } from "../../utils/AddToCalendar";
-import { Call } from "@/app/call/types";
+import { Call } from "@/app/classroom/types";
 import { formatScheduledDate, formatScheduledTime } from "../../utils/FormatScheduleDateAndTime";
 
 const OngoingCallCard = ({ call }: { call: Call }) => {
@@ -14,7 +14,7 @@ const OngoingCallCard = ({ call }: { call: Call }) => {
   const scheduledTimeY = dayjs(call.scheduledTime);
 
   const handleJoinEvent = (url: string) => {
-    router.push(`/call/${url}`);
+    router.push(`/classroom/${url}`);
     console.log("Navigating to call:", url);
   };
 
