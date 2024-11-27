@@ -2,16 +2,11 @@
 import { useCallback } from 'react';
 import axios from "@/network/axios"
 import { useQuery } from '@tanstack/react-query';
-import { BaseResponse } from '@/types/globals';
 
 interface Profile {
   id: string;
   username: string;
   walletAddress: string;
-}
-
-interface ProfileResponse extends BaseResponse {
-  data: Profile;
 }
 
 const useProfilesByIds = (ids: number[]) => {

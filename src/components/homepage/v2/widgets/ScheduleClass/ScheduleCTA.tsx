@@ -1,6 +1,13 @@
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const ScheduleCTA = () => {
+  const router = useRouter();
+  function goTodashboard() {
+    const fullUrl = `/dashboard`;
+    router.push(fullUrl);
+  }
+
   return (
     <div className="relative mt-auto bg-pody-dark min-h-72 text-slate-200 p-5 md:p-9 flex items-center">
       <div className="gap-y-4 flex flex-col">
@@ -12,7 +19,7 @@ const ScheduleCTA = () => {
             Earn an Extra 10% of Students&apos; Points
           </p>
         </div>
-        <button className="flex flex-row gap-x-2 items-center justify-between w-full py-5 font-medium border-t border-slate-100/30">
+        <button onClick={goTodashboard} className="flex flex-row gap-x-2 items-center justify-between w-full py-5 font-medium border-t border-slate-100/30">
           <span>Host your classroom</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"

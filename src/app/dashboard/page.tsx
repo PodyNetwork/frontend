@@ -11,17 +11,17 @@ export default function Page() {
   })
   return (
     <main className="w-full">
-      <div className="bg-pody-primary/50 p-8 px-6 md:p-12">
+      <div className="bg-pody-primary/50 p-8 px-5 md:p-12">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="w-full md:w-5/12">
             <CreateMeeting />
           </div>
           <div className="w-full md:w-6/12 flex justify-center">
-            <Image src={videoConfrenceImg} className="object-contain w-full" alt="" />
+            <Image src={videoConfrenceImg} width={300} height={300} className="object-contain w-full" alt="video conferencing" />
           </div>
         </div>
       </div>
-      <div className="p-8 sm:p-8 px-6 md:p-12">
+      <div className="p-8 sm:p-8 px-5 md:p-12">
         <div className="max-w-4xl mx-auto">
           <CallHistory calls={calls} isLoading={isLoading} isError={isError}/>
         </div>

@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
 import FaqHeader from "./widgets/FAQ/FaqHeader";
 import FaqQuestionAndAnswer from "./widgets/FAQ/FaqQuestionAndAnswer";
 

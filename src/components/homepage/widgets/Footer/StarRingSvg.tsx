@@ -34,12 +34,12 @@ const StarRingSvg = () => {
       );
   }, []);
   return (
-    <div className="absolute -right-16 -bottom-16">
+    <div className="absolute bottom-0 right-0 xs:-bottom-4 xs:-right-4 md:-right-16 md:-bottom-16 z-10">
       <svg
         ref={starRef}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        className="w-80 h-80"
+        className="w-32 h-32 xs:w-56 xs:h-56 md:w-80 md:h-80"
       >
         <defs>
           <linearGradient

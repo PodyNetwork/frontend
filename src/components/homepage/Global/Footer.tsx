@@ -13,8 +13,8 @@ const Footer = () => {
       className="bg-[#E9EADB] relative py-4 flex flex-col justify-center text-slate-400 text-sm overflow-hidden"
       aria-label="Footer"
     >
-      <div>
-        <div className="max-w-7xl mx-auto px-5 md:px-6">
+      <div className="relative z-30">
+        <div className="max-w-7xl mx-auto px-5 md:px-6 relative z-30">
           <div className="w-full relative">
             <PodyTOS />
             <div className="flex md:flex-row flex-col gap-y-10 gap-x-16 py-7 text-pody-secondary">
@@ -25,7 +25,7 @@ const Footer = () => {
                 <LegalLinks />
               </div>
             </div>
-            <div className="pt-7 flex flex-row justify-between gap-3">
+            <div className="pt-7 flex flex-row justify-between gap-3 relative z-30">
               <p className="text-6xl md:text-8xl font-semibold text-pody-secondary/5">
                 PODY NETWORK
               </p>

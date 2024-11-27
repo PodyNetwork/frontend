@@ -9,7 +9,7 @@ const RewardSystem = () => {
     <section className="w-full relative" id="reward">
       <div className="flex flex-col max-w-7xl mx-auto px-5 md:px-6 pt-16 pb-32">
         <div className="flex flex-col md:flex-row justify-between gap-6">
-          <div className="w-1/2 flex flex-col">
+          <div className="w-full md:w-1/2 flex flex-col">
             <RewardContent />
             <RewardStatCTA />
           </div>

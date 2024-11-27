@@ -1,5 +1,5 @@
+import Nav from "../Global/Nav";
 import Hero from "./widgets/hero";
-import Nav from "../Nav";
 
 const HeroSection = () => {
   return (

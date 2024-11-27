@@ -1,8 +1,3 @@
-import React from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import Header from "./widgets/NFTPody/Header";
 import NFTCard from "./widgets/NFTPody/NFTCard";
 

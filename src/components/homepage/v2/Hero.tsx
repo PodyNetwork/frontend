@@ -1,6 +1,4 @@
 
-import Image from "next/image";
-import { motion } from "framer-motion";
 import GradientBackground from "./widgets/Hero/GradientBackground";
 import HeroText from "./widgets/Hero/HeroText";
 import CardsAndImage from "./widgets/Hero/CardsAndImage";

@@ -18,7 +18,7 @@ const PodyTOS = () => {
       <p>
         Teachers (hosts) earn an additional 10% of the total points accumulated
         by all participants in their classrooms. This bonus is awarded at the
-        end of the session or upon participants' exit, incentivizing active
+        end of the session or upon participants&apos; exit, incentivizing active
         hosting and engagement.
       </p>
       <p>

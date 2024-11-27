@@ -4,25 +4,24 @@ import Link from "next/link";
 
 const AuthIntro = () => {
   return (
-    <div className="flex-1 md:w-1/2 flex justify-center items-center relative p-6 md:p-10">
+    <div className="md:w-1/2 justify-center items-center hidden md:flex bg-pody-mintgreen rounded-2xl relative p-6 md:p-10">
       <div className="_grad_card_main_login hidden md:block"></div>
-      <div className="w-full max-w-md bg--200 flex-1">
-        <Link href="/">
-          {" "}
+      <div className="w-full max-w-80 flex-1">
+        <div className="relative z-30 flex flex-col gap-y-3">
           <Image
-            src={logo}
+            src="/images/Pody 1123 02.jpg"
             alt="Pody Logo"
-            className="w-16 sm:w-16 md:w-20 object-contain mb-6 sm:mb-8 md:mb-12"
+            width={300}
+            height={300}
+            className="w-full rounded-xl object-contain"
           />
-        </Link>
-        <div className="relative z-50">
-          <h3 className="text-base md:text-xl font-medium text-slate-200">
-            Get rewarded for your time. the longer you participate, the more
-            points you earn.
-          </h3>
-          <p className="text-xs mt-2.5 text-slate-400 leading-relaxed">
-           <span className="text-red-400">*</span>It took you 4 seconds to read that, you could have earned up to 12 points.
-          </p>
+          <Image
+            src="/images/1103.jpg"
+            alt="Pody Logo"
+            width={300}
+            height={300}
+            className="w-full rounded-xl object-contain"
+          />
         </div>
       </div>
     </div>

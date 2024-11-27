@@ -1,48 +1,64 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
+// Extend the Window interface to include webkitAudioContext
+declare global {
+  interface Window {
+    webkitAudioContext?: AudioContext;
+  }
+}
+
 const AudioPlaybackCheck: React.FC = () => {
   const [audioEnabled, setAudioEnabled] = useState<boolean | null>(null);
 
-  const playAudioTone = () => {
-    const AudioContext =
-      window.AudioContext || (window as any).webkitAudioContext;
+  const playAudioTone = async () => {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) {
       console.error("AudioContext is not supported in this browser.");
       return;
     }
 
     const context = new AudioContext();
-    const oscillator = context.createOscillator();
-    const gainNode = context.createGain();
 
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(440, context.currentTime); // 440Hz (A note)
-    gainNode.gain.setValueAtTime(0.001, context.currentTime);
+    try {
+      // Ensure the AudioContext is resumed after a user gesture
+      if (context.state === "suspended") {
+        await context.resume();
+      }
 
-    oscillator.connect(gainNode);
-    gainNode.connect(context.destination);
+      const oscillator = context.createOscillator();
+      const gainNode = context.createGain();
 
-    oscillator.start();
-    oscillator.stop(context.currentTime + 1);
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(440, context.currentTime); // 440Hz (A note)
+      gainNode.gain.setValueAtTime(0.001, context.currentTime);
 
-    // Clean up AudioContext after use
-    oscillator.onended = () => context.close();
+      oscillator.connect(gainNode);
+      gainNode.connect(context.destination);
+
+      oscillator.start();
+      oscillator.stop(context.currentTime + 1);
+
+      // Clean up AudioContext after use
+      oscillator.onended = () => context.close();
+    } catch (error) {
+      console.error("Failed to play audio tone.", error);
+    }
   };
 
   const enableAudioPlayback = async () => {
     try {
-      playAudioTone();
+      await playAudioTone(); // Ensure the tone is played as part of user interaction
       setAudioEnabled(true);
-      localStorage.setItem('audioEnabled', 'true'); // Persist audio state
+      localStorage.setItem("audioEnabled", "true"); // Persist audio state
     } catch (error) {
       console.error("Failed to enable audio playback.", error);
     }
   };
 
   const checkAudioPlayback = () => {
-    const savedAudioEnabled = localStorage.getItem('audioEnabled');
-    if (savedAudioEnabled === 'true') {
+    const savedAudioEnabled = localStorage.getItem("audioEnabled");
+    if (savedAudioEnabled === "true") {
       setAudioEnabled(true);
     } else {
       setAudioEnabled(false);
@@ -50,16 +66,15 @@ const AudioPlaybackCheck: React.FC = () => {
   };
 
   useEffect(() => {
-    checkAudioPlayback(); // Check the audio state when the component mounts
+    checkAudioPlayback();
   }, []);
 
-  // If audio state is not determined yet, return null to prevent flickering
   if (audioEnabled === null) {
     return null;
   }
 
   if (audioEnabled) {
-    return null; // No need to show the prompt if audio is already enabled
+    return null;
   }
 
   return (

@@ -50,16 +50,16 @@ const AsideNav = () => {
     <>
       {/* Desktop menu */}
       <aside className="hidden md:flex flex-col items-center w-full bg-pody-primary/50">
-        <div className="md:flex w-full items-center justify-between py-6 px-12 gap-x-4 xl:max-w-[1300px]">
+        <div className="md:flex w-full items-center justify-between py-6 px-12 gap-x-4 xl:max-w-[1300px] font-medium">
           <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
             <Link href="/">
               <Image
                 src={logo}
-                className="w-16 object-contain mb-4 md:mb-0 sm:me-6"
+                className="w-14 object-contain mb-4 md:mb-0 sm:me-4"
                 alt="Pody"
               />
             </Link>
-            <ul className="text-sm flex flex-wrap justify-center sm:flex-row gap-4 sm:gap-x-6">
+            <ul className="text-sm flex flex-wrap justify-center sm:flex-row gap-3 sm:gap-x-6">
               {dashlink.map((data, index) => (
                 <li
                   key={index}
@@ -81,7 +81,7 @@ const AsideNav = () => {
           </div>
           <header className="flex flex-col sm:flex-row justify-between gap-4 items-center mt-4 sm:mt-0">
             <div className="flex flex-row items-center gap-x-2">
-              <div className="w-7 h-7 rounded-full bg-black/20">
+              <div className="w-6 h-6 rounded-full bg-black/20">
                 <AvatarParticipant name={profile?.username || "unknown user"} />
               </div>
               {isLoading || isError ? (
@@ -104,7 +104,7 @@ const AsideNav = () => {
             <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
               {!profile?.isEmailVerified && (
                 <Link href="/email">
-                  <li>Connect Email</li>
+                  <li>Add Email <sup className="web3-gradient-text font-medium">+10,000</sup></li>
                 </Link>
               )}
             </ul>
@@ -113,7 +113,7 @@ const AsideNav = () => {
       </aside>
 
       {/* Mobile menu button */}
-      <div className="md:hidden bg-pody-primary/50 w-full py-6 px-6 gap-x-4 relative">
+      <div className="md:hidden bg-pody-primary/50 w-full py-6 px-5 gap-x-4 relative">
         <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
           <Link href="/">
             <Image
@@ -124,11 +124,11 @@ const AsideNav = () => {
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`${mobileMenuOpen && "fixed z-50 right-8"}`}
+            className={`${mobileMenuOpen && "fixed z-[60] right-8"}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-9 h-9"
+              className="w-9 h-9 text-slate-300"
               viewBox="0 -960 960 960"
               fill="currentColor"
             >
@@ -144,11 +144,11 @@ const AsideNav = () => {
 
       {/* Pody Mobile menu */}
       <div
-        className={`md:hidden fixed inset-0 bg-pody-primary z-40 transition-all duration-300 ease-in-out ${
+        className={`md:hidden fixed inset-0 bg-pody-secondary z-50 transition-all duration-300 ease-in-out ${
           mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex flex-col items-center justify-center h-full relative overflow-hidden">
+        <div className="flex flex-col items-center justify-center h-full relative overflow-hidden text-3xl font-extrabold">
           <div className="absolute inset-0 opacity-20">
             {floatingElements.map(({ id, left, top }) => (
               <motion.div
@@ -166,7 +166,7 @@ const AsideNav = () => {
             ))}
           </div>
           <Link href="/">
-            <Image src={logo} className="w-20 object-contain mb-8" alt="Pody" />
+            <Image src={logo} className="w-20 object-contain mb-6" alt="Pody" />
           </Link>
           <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
             {dashlink.map((data, index) => (
@@ -175,14 +175,14 @@ const AsideNav = () => {
                 href={data.url}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <li className="py-2 hover:text-indigo-300 transition-all rounded-full text-slate-700">
+                <li className="py-2 hover:text-pody-primary transition-all rounded-full text-slate-400">
                   {data.title}
                 </li>
               </Link>
             ))}
           </ul>
-          <div className="mt-8 flex flex-col items-center gap-y-4">
-            <div className="flex items-center gap-x-2 bg-pody-secondary/70 p-1.5 rounded-full">
+          <div className="mt-6 flex flex-col items-center gap-y-4">
+            <div className="flex items-center gap-x-1.5 bg-slate-500/50 p-1.5 rounded-full">
               <div className="w-8 h-8 rounded-full bg-pody-secondary overflow-hidden">
                 <AvatarParticipant name={profile?.username || "unknown user"} />
               </div>

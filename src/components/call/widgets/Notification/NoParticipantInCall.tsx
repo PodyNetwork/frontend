@@ -43,8 +43,8 @@ const NoParticipantInCall = () => {
           <Image
             src="/illustration/virtual-meeting-group-video-conference-man-desktop.png"
             className="w-full md:w-[320px] object-contain mx-auto"
-            width={1500}
-            height={536}
+            width={600}
+            height={400}
             alt="pody audio playback illustration"
           />
           <h2 className="text-base xs:text-lg font-medium mt-2">

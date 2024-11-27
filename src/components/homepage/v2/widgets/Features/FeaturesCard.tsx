@@ -1,6 +1,5 @@
-import loading from "@/app/loading";
 import { motion } from "framer-motion";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
 import useLoading from "@/hooks/useLoading";
 import { useRouter } from "next/navigation";

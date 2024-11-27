@@ -3,7 +3,7 @@ import React from "react";
 const RewardContent = () => {
   return (
     <div className="relative max-w-xl">
-      <h2 className="text-5xl md:text-6xl leading-[1.12] font-extrabold">
+      <h2 className="text-4xl md:text-6xl leading-[1.12] font-extrabold">
         <span className="text-pody-secondary">Reward</span> system for Student
         and Teacher
       </h2>

@@ -23,7 +23,7 @@ const Page = () => {
 
   return (
     <main className="w-full">
-      <div className="w-full bg-pody-primary/50 p-6 md:p-12">
+      <div className="w-full bg-pody-primary/50 p-5 md:p-12">
         <div className="max-w-2xl mx-auto flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6">
           <div className="w-full sm:w-6/12 mb-6 sm:mb-0">
             <motion.div

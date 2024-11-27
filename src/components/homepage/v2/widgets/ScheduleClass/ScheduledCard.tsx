@@ -2,130 +2,71 @@ import { Call } from "@/app/call/types";
 import useProfileById from "@/hooks/user/useGetProfileById";
 import BlockiesSvg from "blockies-react-svg";
 import dayjs from "dayjs";
-import { EventAttributes, createEvent } from "ics";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
-
-interface EventData {
-  scheduledTime?: number | string | undefined;
-  title: string;
-  userId: string;
-  url: string;
-}
+import { handleAddToCalendar } from "../../utils/AddToCalendar";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
+const ScheduledTimeDisplay = ({
+  scheduledTime,
+}: {
+  scheduledTime: string | number | undefined;
+}) => {
+  const [currentTime, setCurrentTime] = useState(dayjs());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(dayjs());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const scheduledDate = dayjs(scheduledTime);
+
+  if (!scheduledTime) return null;
+
+  let timeDisplay = "";
+  if (scheduledDate.isSame(currentTime, "minute")) {
+    timeDisplay = "Now";
+  } else if (scheduledDate.isToday()) {
+    timeDisplay = `Today - ${scheduledDate.format("HH:mm")}`;
+  } else if (scheduledDate.isTomorrow()) {
+    timeDisplay = `Tomorrow - ${scheduledDate.format("HH:mm")}`;
+  } else if (scheduledDate.isSame(currentTime.subtract(1, "day"), "day")) {
+    timeDisplay = `Yesterday - ${scheduledDate.format("HH:mm")}`;
+  } else {
+    timeDisplay = scheduledDate.format("MMM D, YYYY HH:mm");
+  }
+
+  return <div className="text-sm font-medium">{timeDisplay}</div>;
+};
 
 const ScheduledCard = ({ data }: { data: Call }) => {
-  const { profile, isLoading: profileLoading } = useProfileById(data.userId);
-
-  const handleAddToCalendar = (data: EventData) => {
-    const scheduledTime = data.scheduledTime ?? "0";
-    const scheduledDate = new Date(scheduledTime);
-    const alarms = [];
-
-    const eventStart: [number, number, number, number, number] = [
-      scheduledDate.getFullYear(),
-      scheduledDate.getMonth() + 1,
-      scheduledDate.getDate(),
-      scheduledDate.getHours(),
-      scheduledDate.getMinutes(),
-    ];
-
-    alarms.push({
-      action: "DISPLAY",
-      description: `Pody Classroom with ${profile?.username}`,
-      trigger: {
-        minutes: 10,
-        before: true,
-      },
-      repeat: 1,
-      attachType: "VALUE=TEXT",
-      attach: `Reminder: Pody Classroom with ${profile?.username}`,
-    });
-
-    const event: EventAttributes = {
-      start: eventStart,
-      duration: { hours: 1, minutes: 0 },
-      title: data.title,
-      description: `Join ${data.userId} Classroom on Pody`,
-      location: "Pody Classroom",
-      url: `https://pody.network/call/${data.url}`,
-      status: "CONFIRMED",
-      busyStatus: "BUSY",
-    };
-
-    createEvent(event, (error, value) => {
-      if (error) {
-        console.error(error);
-      } else {
-        const blob = new Blob([value], { type: "text/calendar" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${data.title}.ics`;
-        a.click();
-        URL.revokeObjectURL(url);
-      }
-    });
-  };
-
+  const { profile } = useProfileById(data.userId);
   const eventrouter = useRouter();
+
+  const nowY = dayjs();
+  const scheduledTimeY = dayjs(data.scheduledTime);
 
   const handleJoinEvent = (data: string) => {
     eventrouter.push(`/call/${data}`);
     console.log("hello");
   };
 
-  const nowY = dayjs();
-  const scheduledTimeY = dayjs(data.scheduledTime);
-
-  const ScheduledTimeDisplay = ({
-    scheduledTime,
-  }: {
-    scheduledTime: string | number | undefined;
-  }) => {
-    const [currentTime, setCurrentTime] = useState(dayjs());
-
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setCurrentTime(dayjs());
-      }, 60000);
-
-      return () => clearInterval(interval);
-    }, []);
-
-    const scheduledDate = dayjs(scheduledTime);
-
-    let timeDisplay = "";
-    if (!scheduledTime) {
-      timeDisplay = "";
-    } else {
-      if (scheduledDate.isSame(currentTime, "minute")) {
-        timeDisplay = "Now";
-      } else if (scheduledDate.isToday()) {
-        timeDisplay = "Today - " + scheduledDate.format("HH:mm");
-      } else if (scheduledDate.isTomorrow()) {
-        timeDisplay = "Tomorrow - " + scheduledDate.format("HH:mm");
-      } else if (scheduledDate.isSame(currentTime.subtract(1, "day"), "day")) {
-        timeDisplay = "Yesterday - " + scheduledDate.format("HH:mm");
-      } else {
-        timeDisplay = scheduledDate.format("MMM D, YYYY HH:mm");
-      }
-    }
-
-    return <div className="text-sm font-medium">{timeDisplay}</div>;
-  };
+  const buttonText =
+    data.status === "ended"
+      ? "Classroom Ended"
+      : scheduledTimeY.isAfter(nowY)
+      ? "Add to Calendar"
+      : "Join Classroom";
 
   return (
-    <div
-      key={data._id}
-      className="flex flex-col text-slate-600 pb-7 border-b border-slate-200"
-    >
-      <ScheduledTimeDisplay scheduledTime={data?.scheduledTime} />
+    <div className="flex flex-col text-slate-600 pb-7 border-b border-slate-200">
+      <ScheduledTimeDisplay scheduledTime={data.scheduledTime} />
       <div className="py-2 flex flex-row items-center gap-2 justify-between">
         <div className="flex-1 relative overflow-hidden">
           <h2 className="text-lg truncate whitespace-nowrap font-medium">
@@ -152,12 +93,11 @@ const ScheduledCard = ({ data }: { data: Call }) => {
               scheduledTimeY.isAfter(nowY) &&
               data.status !== "ongoing"
             ) {
-              handleAddToCalendar(data);
+              handleAddToCalendar({ data, profile: profile || { username: "User" } });
             }
           }}
           className={`cursor-pointer rounded-full flex items-center ${
-            data.status === "ended" &&
-            dayjs(data.scheduledTime).isBefore(dayjs())
+            data.status === "ended" && scheduledTimeY.isBefore(nowY)
               ? "opacity-50 cursor-not-allowed text-pody-danger"
               : "text-slate-700"
           }`}
@@ -177,12 +117,7 @@ const ScheduledCard = ({ data }: { data: Call }) => {
               <path d="M432.31-298.46H281.54q-75.34 0-128.44-53.1Q100-404.65 100-479.98q0-75.33 53.1-128.44 53.1-53.12 128.44-53.12h150.77v60H281.54q-50.39 0-85.96 35.58Q160-530.38 160-480q0 50.38 35.58 85.96 35.57 35.58 85.96 35.58h150.77v60ZM330-450v-60h300v60H330Zm197.69 151.54v-60h150.77q50.39 0 85.96-35.58Q800-429.62 800-480q0-50.38-35.58-85.96-35.57-35.58-85.96-35.58H527.69v-60h150.77q75.34 0 128.44 53.1Q860-555.35 860-480.02q0 75.33-53.1 128.44-53.1 53.12-128.44 53.12H527.69Z" />
             )}
           </svg>
-
-          {data.status === "ended"
-            ? "Classroom Ended"
-            : scheduledTimeY.isAfter(dayjs())
-            ? "Add to Calendar"
-            : "Join Classroom"}
+          {buttonText}
         </button>
       </div>
     </div>

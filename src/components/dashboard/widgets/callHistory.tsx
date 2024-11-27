@@ -57,19 +57,23 @@ const CallsCard = ({ calls }: Calls) => {
     router.push(fullUrl);
   }
 
-  const ScheduledTimeDisplay = ({ scheduledTime }: { scheduledTime: string | number | undefined }) => {
-    const [currentTime, setCurrentTime] = useState(dayjs()); 
-  
+  const ScheduledTimeDisplay = ({
+    scheduledTime,
+  }: {
+    scheduledTime: string | number | undefined;
+  }) => {
+    const [currentTime, setCurrentTime] = useState(dayjs());
+
     useEffect(() => {
       const interval = setInterval(() => {
-        setCurrentTime(dayjs()); 
-      }, 60000); 
-  
+        setCurrentTime(dayjs());
+      }, 60000);
+
       return () => clearInterval(interval);
     }, []);
-  
+
     const scheduledDate = dayjs(scheduledTime);
-  
+
     let timeDisplay = "";
     if (!scheduledTime) {
       timeDisplay = "";
@@ -86,8 +90,10 @@ const CallsCard = ({ calls }: Calls) => {
         timeDisplay = scheduledDate.format("MMM D, YYYY HH:mm");
       }
     }
-  
-    return <div className="text-xs text-slate-700 capitalize">{timeDisplay}</div>;
+
+    return (
+      <div className="text-xs text-slate-700 capitalize">{timeDisplay}</div>
+    );
   };
 
   return (
@@ -97,6 +103,11 @@ const CallsCard = ({ calls }: Calls) => {
           <div
             key={index}
             className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]"
+            onClick={() => {
+              if (call.status !== "ended") {
+                goToMeeting(call.url);
+              }
+            }}
           >
             <div className="flex flex-col gap-y-1.5">
               <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -134,22 +145,22 @@ const CallsCard = ({ calls }: Calls) => {
                 className={`text-xs sm:text-sm flex-1 ${
                   call?.status === "ended" && "opacity-50"
                 }`}
-                onClick={() => {
-                  if (call.status !== "ended") {
-                    goToMeeting(call.url);
-                  }
-                }}
               >
                 <h3 className="font-medium">{call?.url}</h3>
                 <p className="text-xs capitalize">{call?.privacy} Call</p>
               </div>
               {call?.type === "scheduled" && call?.status === "pending" && (
-                <EditDrawer
-                  call={{
-                    ...call,
-                    participantsCanPublish: call.permissions.canPublish,
-                  }}
-                />
+                <div
+                  className="edit-drawer-container cursor-crosshair"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <EditDrawer
+                    call={{
+                      ...call,
+                      participantsCanPublish: call.permissions.canPublish,
+                    }}
+                  />
+                </div>
               )}
             </div>
           </div>

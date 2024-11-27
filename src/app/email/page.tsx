@@ -17,14 +17,17 @@ const Page = () => {
     setEmail(e.target.value);
   }, []);
 
-  const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      await setEmailMutation.mutateAsync({ email });
-    } catch (error) {
-      console.error(error)
-    }
-  }, [email, setEmailMutation]);
+  const handleSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      try {
+        await setEmailMutation.mutateAsync({ email });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [email, setEmailMutation]
+  );
 
   return (
     <main className="w-full relative" aria-label="set email">
@@ -55,8 +58,8 @@ const Page = () => {
                 Set Your Email
               </h2>
               <p className="text-sm text-slate-500">
-                A certified email address guarantees secure and authenticated
-                communication with a digital signature.
+                Don’t miss out on 10,000 bonus points! Verify your email now to
+                secure your rewards and unlock exclusive benefits.
               </p>
               <form onSubmit={handleSubmit}>
                 <div className="mt-2">
@@ -64,37 +67,39 @@ const Page = () => {
                     htmlFor="email"
                     className="block mb-2 text-sm font-medium text-slate-600"
                   >
-                    Email Address <sup className="text-red-500 font-bold">*</sup>
+                    Email Address{" "}
+                    <sup className="text-red-500 font-bold">*</sup>
                   </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                      <svg
-                        className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 -960 960 960"
-                      >
-                        <path d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520ZM160-662.31V-720v467.69q0 5.39 3.46 8.85t8.85 3.46H160v-422.31Z" />
-                      </svg>
+                  <div className="flex flex-row gap-2">
+                    <div className="relative flex-1">
+                      <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                        <svg
+                          className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor"
+                          viewBox="0 -960 960 960"
+                        >
+                          <path d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520ZM160-662.31V-720v467.69q0 5.39 3.46 8.85t8.85 3.46H160v-422.31Z" />
+                        </svg>
+                      </div>
+                      <input
+                        type="text"
+                        id="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        className="bg-slate-50 border h-11 border-slate-300 text-slate-500 text-base rounded-md outline-none block w-full ps-10 p-2.5"
+                        placeholder="name@hello.com"
+                      />
                     </div>
-                    <input
-                      type="text"
-                      id="email"
-                      value={email}
-                      onChange={handleEmailChange}
-                      className="bg-slate-50 border border-slate-300 text-slate-500 text-base rounded-md outline-none block w-full ps-10 p-2.5"
-                      placeholder="name@hello.com"
-                    />
+                    <button className="bg-pody-secondary relative py-2 px-6 h-11 text-sm text-white rounded-md hover:opacity-80 hover:transition-all">
+                      {loading ? "Submitting..." : "Submit"}
+                    </button>
                   </div>
                 </div>
-
-                <div>
-                  <button className="bg-pody-secondary relative py-2 px-6 text-sm text-white rounded-md mt-1 hover:opacity-80 hover:transition-all">
-                    {loading ? 'Submitting...' : 'Submit'}
-                  </button>
-                </div>
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage.message}</p>}
+                {errorMessage && (
+                  <p className="text-sm mt-2 text-pody-danger font-medium">{errorMessage.message}</p>
+                )}
               </form>
             </div>
           </div>

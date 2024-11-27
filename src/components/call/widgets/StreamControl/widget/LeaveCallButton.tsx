@@ -1,6 +1,8 @@
 import { useCustomDisconnectButton } from "@/components/call/livekitcustom/CustomDisconnect";
 import { ReactNode } from "react";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 type LeaveCallButtonProps = {
   children: ReactNode;
   className?: string;

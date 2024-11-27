@@ -76,9 +76,8 @@ const CallPendingPage: React.FC<CountdownProps> = ({ targetDate }) => {
     }, 1000);
   
     return () => clearInterval(timer); 
-  }, []); 
+  }, [accessToken, calculateTimeLeft, call, createCallToken, profile?.id]); 
   
-
   const targetTimeCal = new Date(targetDate).getTime();
     const currentTimeCal = new Date().getTime();
     const differenceCal = targetTimeCal - currentTimeCal;

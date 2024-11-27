@@ -349,7 +349,7 @@ body {
     border-right: 1.5px solid;
     @apply border-slate-600/50;
     position: absolute;
-    height: 100%;
+    height: 80%;
     left: 0;
 }
 
@@ -1237,6 +1237,19 @@ body {
     background-size: 200%; 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: gradientMove 3s linear infinite alternate;
+}
+
+.web3-gradient-bg {
+    font-weight: bold;
+    background: linear-gradient(
+      to right,
+      #ff007a,
+      #7b61ff,
+      #00e0ff,
+      #ff007a
+    ); 
+    background-size: 200%; 
     animation: gradientMove 3s linear infinite alternate;
   }
   

@@ -21,7 +21,7 @@ const NftStatistics = () => {
               initial={{ x: -20 }}
               animate={{ x: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="text-white text-4xl font-semibold mb-3"
+              className="text-white text-3xl font-semibold mb-3"
             >
               Pody NFT
             </motion.h2>
@@ -29,7 +29,7 @@ const NftStatistics = () => {
               initial={{ x: -20 }}
               animate={{ x: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="text-white text-base mt-2"
+              className="text-white text-sm mt-2"
             >
               Unlock unique NFTs, each NFT increase your Points earnings per second.
             </motion.p>

@@ -3,8 +3,6 @@ import * as React from "react";
 import { useLocalParticipantPermissions } from "@livekit/components-react";
 import { supportsScreenSharing } from "@livekit/components-core";
 
-import { useParams } from "next/navigation";
-import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import { useEffect, useRef, useState } from "react";
 import useProfile from "@/hooks/user/useProfile";
 import Reaction from "./Reaction";
@@ -12,13 +10,13 @@ import MenuExtra from "./MenuExtra";
 import { useFullscreen } from "../../utils/FullscreenContext";
 import CameraControl from "./widget/CameraControl";
 import MicrophoneControl from "./widget/MicrophoneControl";
-import LeaveCallButton from "./widget/LeaveCallButton";
-import EndCallButton from "./widget/EndCallButton";
 import ScreenShareControl from "./widget/ScreenShareControl";
 import ChatControlMenu from "./widget/ChatControlMenu";
 import RaiseHand from "./RaiseHand";
 import EndCallDialog from "./widget/EndCallDialog";
 import { useDialog } from "../../utils/DialogContext";
+
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 
 export interface ControlBarProps extends React.HTMLAttributes<HTMLDivElement> {
   controls?: ControlBarControls;
@@ -179,7 +177,7 @@ const Controls: React.FC<ControlBarProps> = ({
       <div
         className={`__mobile_controls flex flex-row items-center justify-center gap-x-3 ${
           isFullscreen
-            ? "bottom-0 py-2 box-content fixed left-0 w-full __mobile_controls_fulscreen"
+            ? "bottom-0 py-2 fixed left-0 w-full __mobile_controls_fulscreen"
             : ""
         } ${
           showControls ? "visible" : "opacity-0"

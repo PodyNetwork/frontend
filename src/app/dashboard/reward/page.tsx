@@ -6,7 +6,7 @@ import RewardStatistic from "@/components/dashboard/widgets/Reward/rewardStatist
 const Page = () => {
   return (
     <main className="w-full">
-      <div className="bg-pody-primary/50 p-6 md:p-12">
+      <div className="bg-pody-primary/50 p-5 md:p-12">
         <div className="w-full md:max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="w-full md:w-4/12">
             <RewardHeader />
@@ -16,7 +16,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="p-6 md:p-6">
+      <div className="p-5 md:p-6">
         <div className="w-full relative flex flex-col md:flex-row gap-6">
           <div className="w-full md:max-w-2xl mx-auto">
             <RewardClaim />

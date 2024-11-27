@@ -85,10 +85,10 @@ const NftList = () => {
           >
             <Image
               src={nftlist[levelIndex * nftsPerLevel].image}
-              layout="fill"
-              objectFit="cover"
+              width={300}
+              height={300}
               alt={`Level ${levelIndex + 1} NFT`}
-              className={`rounded-t-md ${
+              className={`rounded-t-md  w-full h-full object-cover ${
                 BigInt(levelIndex + 1) > level + BigInt(1)
                   ? "filter blur-md"
                   : ""
