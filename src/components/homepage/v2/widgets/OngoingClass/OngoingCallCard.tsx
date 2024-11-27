@@ -14,7 +14,7 @@ const OngoingCallCard = ({ call }: { call: Call }) => {
   const scheduledTimeY = dayjs(call.scheduledTime);
 
   const handleJoinEvent = (url: string) => {
-    router.push(`/call/${url}`);
+    router.push(`/classroom/${url}`);
     console.log("Navigating to call:", url);
   };
 

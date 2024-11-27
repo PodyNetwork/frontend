@@ -53,7 +53,7 @@ const CallsCard = ({ calls }: Calls) => {
   const router = useRouter();
 
   function goToMeeting(callUrl: string) {
-    const fullUrl = `/call/${callUrl}`;
+    const fullUrl = `/classroom/${callUrl}`;
     router.push(fullUrl);
   }
 

@@ -53,7 +53,7 @@ const ScheduledCard = ({ data }: { data: Call }) => {
   const scheduledTimeY = dayjs(data.scheduledTime);
 
   const handleJoinEvent = (data: string) => {
-    eventrouter.push(`/call/${data}`);
+    eventrouter.push(`/classroom/${data}`);
     console.log("hello");
   };
 

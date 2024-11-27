@@ -9,28 +9,27 @@ import { ResponseError } from '@/types/globals';
 import { useRouter } from 'next/navigation';
 import useLoading from '../useLoading';
 
-interface CreateCallArgs{ scheduledTime?: number, participantsCanPublish?: boolean, title?: string, participantsCanPublishData?: boolean, privacy?: string}
 
-const useCreateCall = () => {
+const useVerifyDiscord = () => {
   const router = useRouter(); 
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
   const { startLoading, stopLoading, loading } = useLoading();
 
-  const createCallHandler = useCallback(async (args: CreateCallArgs = {}): Promise<CallResponse|void> => {
+  const claimHandler = useCallback(async (): Promise<CallResponse> => {
     startLoading();
     try {
-      const response = await axios.post<CallResponse>('/call', args);
+      const response = await axios.post<CallResponse>('/point/withdraw');
       return response.data;
-    } catch {
+    } finally {
       stopLoading(); 
     }
   }, [startLoading, stopLoading]);
 
-  const createCall = useMutation({
-    mutationFn: createCallHandler,
-    onSuccess: (data) => {
+  const verifyDiscord = useMutation({
+    mutationFn: claimHandler,
+    onSuccess: () => {
       clearErrorMessage();
-      router.push(`/classroom/${data?.data.url}`);
+      router.push(`/discord`);
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
@@ -42,7 +41,7 @@ const useCreateCall = () => {
     },
   });
 
-  return { createCall, errorMessage, loading };
+  return { verifyDiscord, errorMessage, loading };
 }
 
-export default useCreateCall
+export default useVerifyDiscord

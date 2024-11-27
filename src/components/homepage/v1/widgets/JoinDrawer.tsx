@@ -26,7 +26,7 @@ const JoinDrawer = () => {
     const pattern = /^[a-zA-Z0-9-]+$/;
 
     if (pattern.test(classroomId)) {
-      router.push(`/call/${classroomId}`);
+      router.push(`/classroom/${classroomId}`);
     } else {
       setErrorMessage(true);
     }
