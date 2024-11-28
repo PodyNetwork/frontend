@@ -25,7 +25,6 @@ interface ParticipantControlsProps {
   participant: Participant;
   handleAddToSpeak: (username: string) => void;
   handleRemoveFromSpeak: (username: string) => void;
-  handleBan: (username: string) => void;
   profile?: Profile;
   call?: Call;
   participantBarToggleExpanded: boolean;
@@ -36,7 +35,6 @@ export const ParticipantControls: React.FC<ParticipantControlsProps> = ({
   participant,
   handleAddToSpeak,
   handleRemoveFromSpeak,
-  handleBan,
   call,
   profile,
   participantBarToggleExpanded,
@@ -80,12 +78,6 @@ export const ParticipantControls: React.FC<ParticipantControlsProps> = ({
                 </svg>
               </button>
             )}
-            <button
-              className="text-xs text-pody-danger font-medium"
-              onClick={() => handleBan(participant.identity)}
-            >
-              Ban
-            </button>
           </>
         )}
     

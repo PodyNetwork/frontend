@@ -16,7 +16,6 @@ import { ParticipantNamePody } from "./ParticipantName";
 import { Participant } from "livekit-client";
 import { useDialog } from "../../utils/DialogContext";
 import useEndCall from "@/hooks/call/useEndCall";
-import useBanCallParticipant from "@/hooks/call/useBanCallParticipant";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -37,8 +36,6 @@ const ParticipantPody = () => {
   const { participantBarIsExpanded, toggleParticipantBar } =
     useParticipantBar();
 
-  const { banParticipant } = useBanCallParticipant();
-
   const handleAddToSpeak = (username: string) => {
     updateCallParticipantPermission.mutate({
       participantCanPublish: true,
@@ -53,20 +50,6 @@ const ParticipantPody = () => {
       callId: call?._id || "",
       username,
     });
-  };
-
-  const handleBan = (username: string) => {
-    banParticipant.mutate(
-      { callId: call?._id || "", username }, 
-      {
-        onSuccess: () => {
-          alert("Participant banned successfully!");
-        },
-        onError: () => {
-          console.error("Failed to ban participant.");
-        },
-      }
-    );
   };
 
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -266,7 +249,6 @@ const ParticipantPody = () => {
                       participant={participant}
                       handleAddToSpeak={handleAddToSpeak}
                       handleRemoveFromSpeak={handleRemoveFromSpeak}
-                      handleBan={handleBan}
                       profile={profile}
                       call={call}
                       participantBarToggleExpanded={participantBarIsExpanded}
