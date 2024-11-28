@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import videoConfrenceImg from "/public/illustration/video-conference.png";
+import exploreImg from "/public/illustration/rb_106774.png";
 import { Call } from "@/app/classroom/types";
 import useGetPublicCalls from "@/hooks/call/useGetPublicCalls";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -225,7 +225,7 @@ const Publiccall = () => {
 export default function Page() {
   return (
     <main className="w-full">
-      <div className="bg-pody-primary/50 p-8 px-5 md:p-12">
+      <div className="bg-pody-mintgreen p-8 px-5 md:p-6">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="w-full md:w-5/12">
             <h2 className="text-4xl text-slate-800 font-medium">
@@ -235,10 +235,10 @@ export default function Page() {
           </div>
           <div className="w-full md:w-6/12 flex justify-center">
             <Image
-              src={videoConfrenceImg}
-              className="object-contain w-full"
-              width={300}
-              height={300}
+              src={exploreImg}
+              className="object-cover object-top max-h-80 w-full"
+              width={800}
+              height={600}
               alt="Video Conferencing"
             />
           </div>

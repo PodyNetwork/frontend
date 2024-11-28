@@ -11,7 +11,7 @@ export default function Page() {
   })
   return (
     <main className="w-full">
-      <div className="bg-pody-primary/50 p-8 px-5 md:p-12">
+      <div className="bg-pody-mintgreen p-8 px-5 md:p-12">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="w-full md:w-5/12">
             <CreateMeeting />

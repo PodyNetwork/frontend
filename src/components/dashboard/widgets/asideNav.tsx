@@ -44,7 +44,7 @@ const AsideNav = () => {
     <>
       {isPending && <Loader />}
       {/* Desktop menu */}
-      <aside className="hidden md:flex flex-col items-center w-full bg-pody-primary/50">
+      <aside className="hidden md:flex flex-col items-center w-full bg-pody-mintgreen">
         <div className="md:flex w-full items-center justify-between py-6 px-12 gap-x-4 xl:max-w-[1300px] font-medium">
           <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
             <button onClick={() => handleClick("/")}>
@@ -111,7 +111,7 @@ const AsideNav = () => {
       </aside>
 
       {/* Mobile menu button */}
-      <div className="md:hidden bg-pody-primary/50 w-full py-6 px-5 gap-x-4 relative">
+      <div className="md:hidden bg-pody-mintgreen w-full py-6 px-5 gap-x-4 relative">
         <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
           <Link href="/">
             <Image

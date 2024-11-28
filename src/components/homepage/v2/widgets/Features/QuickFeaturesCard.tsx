@@ -9,9 +9,9 @@ const QuickFeaturesCard = () => {
   const autoScrollRef = useRef<number | null>(null);
 
   const cards = [
-    { id: 1, points: "60,000+", description: "Points Earned", img: "/abstract/avstractSquare.png" },
-    { id: 2, points: "40,000+", description: "Points Earned", img: "/abstract/abstractCubic.png" },
-    { id: 3, points: "20,000+", description: "Points Earned", img: "/abstract/abstractcube.png" },
+    { id: 1, points: "3,000,000+", description: "Points Accumulated", img: "/abstract/avstractSquare.png" },
+    { id: 2, points: "300+", description: "Students & Teacher", img: "/abstract/abstractCubic.png" },
+    { id: 3, points: "2,000+", description: "Classroom Created", img: "/abstract/abstractcube.png" },
   ];
 
   const handlePrev = () => {

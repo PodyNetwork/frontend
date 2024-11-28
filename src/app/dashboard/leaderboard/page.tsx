@@ -23,17 +23,19 @@ const Page = () => {
 
   return (
     <main className="w-full">
-      <div className="w-full bg-pody-primary/50 p-5 md:p-12">
+      <div className="w-full bg-pody-mintgreen p-5 md:p-12">
         <div className="max-w-2xl mx-auto flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6">
           <div className="w-full sm:w-6/12 mb-6 sm:mb-0">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              className="flex flex-col gap-y-4"
             >
-              <h2 className="text-2xl sm:text-3xl text-slate-800 text-center sm:text-left">
-                Top performer on the leaderboard, with points updated in real time.
+              <h2 className="text-2xl sm:text-3xl text-slate-800 text-center sm:text-left font-medium">
+                Top performer on the leaderboard
               </h2>
+              <p className="text-sm text-slate-600 font-normal">📌 Can You Handle the Spotlight? The Leaderboard Awaits Real Time Points. Every Second Counts. Will You Claim the Top Spot or Watch Someone Else Take It?</p>
             </motion.div>
           </div>
           <div className="w-6/12 flex justify-center">

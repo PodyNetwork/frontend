@@ -6,7 +6,7 @@ import React from "react";
 const page = () => {
   return (
     <main className="w-full">
-      <div className="w-full bg-pody-primary/50 px-5 md:px-12 pt-12 pb-24">
+      <div className="w-full bg-pody-mintgreen px-5 md:px-12 pt-12 pb-24">
         <div className="flex flex-row gap-x-4 max-w-3xl mx-auto">
           <NftStatistics />
         </div>

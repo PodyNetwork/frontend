@@ -70,7 +70,7 @@ const RewardStatistic = () => {
               }}
               disabled={loading}
               className={`text-xs px-4 py-1.5 ${
-                loading ? "bg-pody-primary/50" : "bg-pody-primary"
+                loading ? "bg-pody-mintgreen" : "bg-pody-primary"
               } text-slate-900 rounded-md hover:bg-pody-primary/80 hover:transition-all w-full xs:w-auto ${
                 loading ? "cursor-not-allowed" : ""
               }`}
