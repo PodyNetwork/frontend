@@ -1,4 +1,4 @@
-import { useTracks } from "@livekit/components-react";
+import { RoomAudioRenderer, useTracks } from "@livekit/components-react";
 import { Track } from "livekit-client";
 import { useMemo } from "react";
 import { CustomRoomAudioRenderer } from "../../livekitcustom/CustomAudioRenderVolume";
@@ -37,7 +37,7 @@ const StreamVideo = () => {
   return (
     <div className="w-full flex flex-wrap gap-3 my-auto relative">
       <MyVideoConference />
-      <CustomRoomAudioRenderer />
+      <RoomAudioRenderer />
       <CustomStartAudio label="Click to allow audio playback" />
       <AudioPlaybackCheck />
     </div>

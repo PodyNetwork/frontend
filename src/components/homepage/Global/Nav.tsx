@@ -99,7 +99,7 @@ const Nav = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-9 h-9 text-slate-300"
+              className="w-9 h-9 text-slate-200"
               viewBox="0 -960 960 960"
               fill="currentColor"
             >
@@ -128,7 +128,7 @@ const Nav = () => {
                 style={{ left, top }}
                 animate={randomPosition()}
                 transition={{
-                  duration: Math.random() * 30 + 2, // Random duration between 2 and 7 seconds
+                  duration: Math.random() * 30 + 2,
                   repeat: Infinity,
                   repeatType: "mirror",
                   ease: "easeInOut",
