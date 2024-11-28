@@ -1255,6 +1255,35 @@ body {
   border-bottom: 5 solid red;
   border-right: 5 solid red;
 }
+@media (max-width: 450px) {
+  .__nav_mobile_dash{
+    @apply w-full;
+  }
+}
+@media (min-width: 451px) and (max-width: 999px) {
+  .__nav_mobile_dash{
+   @apply max-w-[20rem];
+  } 
+}
+@media (max-width: 999px) {
+  .__nav_lg_dash{
+    @apply hidden;
+  }
+  .__nav_lg_dash_ctrl{
+    @apply block;
+  }
+}
+@media (min-width: 1000px) {
+  .__nav_mobile_dash{
+    @apply hidden;
+  }
+  .__nav_lg_dash{
+    @apply flex;
+  }
+  .__nav_lg_dash_ctrl{
+    @apply hidden;
+  }
+}
 
 /* Stream V2 starts here */
 .__video_layout_container_v2 {

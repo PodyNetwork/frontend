@@ -57,7 +57,7 @@ const AsideNav = () => {
     <>
       {isPending && <Loader />}
       {/* Desktop menu */}
-      <aside className="hidden md:flex flex-col items-center w-full bg-pody-mintgreen">
+      <aside className="__nav_lg_dash flex-col items-center w-full bg-pody-mintgreen">
         <div className="md:flex w-full items-center justify-between py-6 px-12 gap-x-4 xl:max-w-[1300px] font-medium">
           <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
             <button onClick={() => handleClick("/")}>
@@ -115,7 +115,7 @@ const AsideNav = () => {
       </aside>
 
       {/* Mobile menu button */}
-      <div className="md:hidden bg-pody-mintgreen w-full py-6 px-5 gap-x-4 relative">
+      <div className="__nav_lg_dash_ctrl bg-pody-mintgreen w-full py-6 px-5 gap-x-4 relative">
         <div className="flex flex-row items-center justify-between w-full sm:w-auto relative">
           <Link href="/">
             <Image
@@ -148,7 +148,7 @@ const AsideNav = () => {
 
       {/* Pody Mobile menu */}
       <div
-        className={`md:hidden fixed inset-0 bg-pody-secondary z-50 transition-all duration-300 ease-in-out ${
+        className={`fixed h-full right-0 top-0 w-full __shadow_pody bg-pody-secondary __nav_mobile_dash z-50 transition-all duration-300 ease-in-out ${
           mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >

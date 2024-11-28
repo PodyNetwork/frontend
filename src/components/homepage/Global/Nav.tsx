@@ -115,7 +115,7 @@ const Nav = () => {
 
       {/* Pody Mobile menu */}
       <div
-        className={`md:hidden fixed inset-0 bg-pody-secondary z-50 transition-all duration-300 ease-in-out ${
+        className={`md:hidden fixed right-0 top-0 h-full w-full __nav_mobile_dash __shadow_pody bg-pody-secondary z-50 transition-all duration-300 ease-in-out ${
           mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >

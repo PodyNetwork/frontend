@@ -46,7 +46,7 @@ const ScheduledTimeDisplay = ({
 };
 
 const ScheduledCard = ({ data }: { data: Call }) => {
-  const { profile } = useProfileById(data.userId);
+  const { profile, isLoading } = useProfileById(data.userId);
   const eventrouter = useRouter();
 
   const nowY = dayjs();
@@ -72,7 +72,7 @@ const ScheduledCard = ({ data }: { data: Call }) => {
           <h2 className="text-lg truncate whitespace-nowrap font-medium">
             {data.title}
           </h2>
-          <p className="text-sm truncate">Host: {profile?.username}</p>
+          <p className="text-sm truncate flex items-center">Host: {isLoading ? <span className="bg-gray-300 animate-pulse w-[20%] h-4 rounded-full inline-block"></span> : profile?.username}</p>
         </div>
         <div className="w-9 h-8 relative bg-black/20 rounded-full">
           <BlockiesSvg
