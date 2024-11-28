@@ -167,7 +167,6 @@ const CallsCard = ({ calls }: Calls) => {
     </>
   );
 };
-
 const CallMessageDisplay = ({ message }: { message: string }) => {
   return (
     <div className="flex flex-col gap-4 md:flex-row items-center justify-between w-full">
