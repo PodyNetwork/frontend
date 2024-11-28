@@ -22,7 +22,6 @@ const AsideNav = () => {
     []
   );
   const { profile, isLoading, isError } = useProfile();
-
   useEffect(() => {
     const elements = Array.from({ length: 40 }, (_, i) => ({
       id: i,
