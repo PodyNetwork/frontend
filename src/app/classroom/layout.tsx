@@ -10,20 +10,24 @@ import useGetCallByURL from "@/hooks/call/useGetCallByURL";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+import { Call } from "./types";
 
-const isCallPending = (call: any) => call?.type === "scheduled" && call?.status === "pending";
-const isCallOngoing = (call: any) => call?.type === "instant" || (call?.type === "scheduled" && call?.status === "ongoing");
+const isCallPending = (call: Call | undefined): boolean => 
+  call?.type === "scheduled" && call?.status === "pending";
+
+const isCallOngoing = (call: Call | undefined): boolean => 
+  call?.type === "instant" || (call?.type === "scheduled" && call?.status === "ongoing");
 
 const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
   const { url } = useParams();
   const { call, isError } = useGetCallByURL(url as string);
   const { createCallToken, accessToken } = useCreateCallToken();
-
+  
   useEffect(() => {
     if (call && !accessToken && isCallOngoing(call)) {
       createCallToken.mutate({ callId: call._id });
     }
-  }, [call, accessToken]);
+  }, [call, accessToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isCallPending(call)) {
     return <CallPendingPage targetDate={new Date(call?.scheduledTime ?? Date.now()).toISOString()} />;

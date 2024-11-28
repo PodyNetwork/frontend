@@ -28,7 +28,7 @@ const HostLobby = ({ showStartButton, handleStartCall }: Props) => {
               Get the Classroom Session Started
             </h3>
             <p className="text-sm">
-              The classroom session isn't live just yet. Click below to start
+              The classroom session isn&apos;t live just yet. Click below to start
               the session and engage your students!
             </p>
             <div className="flex flex-row items-center flex-wrap gap-2">
