@@ -1210,13 +1210,6 @@ body {
     max-width: 100%;
   }
 }
-.__testy {
-  background-image: url("../../public/material/material1.png");
-  width: 100%;
-  background-size: cover;
-  height: 100vh;
-  background-color: red;
-}
 .icon-logo-star .star-path {
   fill: url(#orange-to-pink);
 }
