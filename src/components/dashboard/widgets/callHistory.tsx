@@ -13,7 +13,6 @@ import BlockiesSvg from "blockies-react-svg";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
-
 interface Calls {
   calls: Array<Call>;
 }
