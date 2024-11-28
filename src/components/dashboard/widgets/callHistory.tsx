@@ -24,7 +24,6 @@ interface CallHistoryProps extends Calls {
   fetchNextPage?: () => void;
   isFetchingNextPage?: boolean;
 }
-
 const CallSkeleton = () => {
   return (
     <div className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]">
