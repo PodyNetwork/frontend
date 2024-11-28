@@ -16,7 +16,7 @@ export const MicrophoneIcon = ({
   return (
     <>
       {enabled ? (
-        <AudioAnalyzerWrapper participant={participant} />
+        <AudioAnalyzerWrapper participant={participant} AnalyzerSize="sm" />
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"

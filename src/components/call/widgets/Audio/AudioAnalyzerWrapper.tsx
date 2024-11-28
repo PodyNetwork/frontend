@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { RemoteAudioTrack, AudioTrack, TrackPublication } from "livekit-client";
 import AudioAnalyzer from "../Audio/AudioAnalyzerPody";
+import AudioAnalyzerCircle from "./AudioAnalyzerCircle";
 
 interface Participant {
   identity: string;
-  audioTrackPublications: Map<string, TrackPublication>; 
+  audioTrackPublications: Map<string, TrackPublication>;
   permissions?: {
     canPublish?: boolean;
   };
@@ -13,10 +14,11 @@ interface Participant {
 
 interface AudioAnalyzerWrapperProps {
   participant: Participant;
+  AnalyzerSize: 'sm' | 'lg'; 
 }
 
 const AudioAnalyzerWrapper: React.FC<AudioAnalyzerWrapperProps> = ({
-  participant,
+  participant, AnalyzerSize
 }) => {
   const [currentTrack, setCurrentTrack] = useState<AudioTrack | null>(null);
 
@@ -34,10 +36,25 @@ const AudioAnalyzerWrapper: React.FC<AudioAnalyzerWrapperProps> = ({
 
       audioTrack.on("muted", handleTrackMuted);
       audioTrack.on("unmuted", handleTrackUnmuted);
+
+      return () => {
+        audioTrack.off("muted", handleTrackMuted);
+        audioTrack.off("unmuted", handleTrackUnmuted);
+      };
     }
   }, [audioTrack]);
 
-  return <>{currentTrack && <AudioAnalyzer track={currentTrack} />}</>;
+  return (
+    <>
+      {currentTrack && (
+        AnalyzerSize === 'sm' ? (
+          <AudioAnalyzer track={currentTrack} />
+        ) : (
+          <AudioAnalyzerCircle track={currentTrack} />
+        )
+      )}
+    </>
+  );
 };
 
 export default AudioAnalyzerWrapper;

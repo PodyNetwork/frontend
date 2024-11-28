@@ -1,13 +1,14 @@
-import {
-  LocalAudioTrack,
-  RemoteAudioTrack,
-  TrackPublication,
-} from "livekit-client";
+import { TrackPublication } from "livekit-client";
 import { AvatarParticipant } from "../../../Avatar/AvatarParticipant";
-import AudioAnalyzerCircle from "../Audio/AudioAnalyzerCircle";
+import AudioAnalyzerWrapper from "../Audio/AudioAnalyzerWrapper";
 
 interface Participant {
   audioTrackPublications: Map<string, TrackPublication>;
+  identity: string;
+  permissions?: {
+    canPublish?: boolean;
+  };
+  isMicrophoneEnabled?: boolean;
 }
 
 const PlaceHolder = ({
@@ -33,26 +34,13 @@ const PlaceHolder = ({
       <div className="w-[20%] md:w-[12%] transition-all duration-300">
         <AvatarParticipant name={name} />
       </div>
-      {hasActiveAudioTrack && (
-        <div
-          className={`w-full max-w-sm ${
-            hasActiveAudioTrack ? "h-[12%] mt-2.5" : "h-0 overflow-hidden"
-          }`}
-        >
-          {audioTrackPublications.map((audioTrackPublication) => {
-            const audioTrack = audioTrackPublication.track;
-            if (audioTrack && "trackSid" in audioTrackPublication) {
-              return (
-                <AudioAnalyzerCircle
-                  key={audioTrackPublication.trackSid}
-                  track={audioTrack as LocalAudioTrack | RemoteAudioTrack}
-                />
-              );
-            }
-            return null;
-          })}
-        </div>
-      )}
+      <div
+        className={`w-full max-w-sm ${
+          hasActiveAudioTrack ? "h-[12%] mt-2.5" : "h-0 overflow-hidden"
+        }`}
+      >
+        <AudioAnalyzerWrapper participant={participant} AnalyzerSize="lg" />
+      </div>
     </div>
   );
 };
