@@ -99,7 +99,7 @@ const CallEndPage = () => {
               </h4>
               <div className="flex flex-row items-center gap-x-3 justify-center mt-1.5">
                 <Link
-                  href="https://discord.gg/NncZy3sU"
+                  href="https://discord.gg/Xk4JR3Pa"
                   className="cursor-pointer"
                 >
                   <svg

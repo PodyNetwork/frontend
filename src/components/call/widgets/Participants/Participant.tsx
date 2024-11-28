@@ -19,6 +19,12 @@ import useEndCall from "@/hooks/call/useEndCall";
 import useBanCallParticipant from "@/hooks/call/useBanCallParticipant";
 
 /* eslint-disable react-hooks/exhaustive-deps */
+
+// update this page with full caution 
+//
+//
+// update this page with full caution  
+
 const ParticipantPody = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
@@ -65,10 +71,12 @@ const ParticipantPody = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const filteredParticipants = participants.filter((participant) => {
-    const { identity } = participant;
-    return identity.toLowerCase().includes(searchQuery.toLowerCase());
-  });
+  const filteredParticipants = useMemo(() => {
+    return participants.filter((participant) =>
+      participant.identity.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [participants, searchQuery]);
+  
 
   const joinSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);
   const leaveSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);
@@ -106,25 +114,30 @@ const ParticipantPody = () => {
   const { endCall } = useEndCall();
   const [callId, setCallId] = useState<string | undefined>(call?._id);
 
-  // Utility to update callState
-  const updateCallState = (
-    updates:
-      | Partial<typeof callState>
-      | ((prev: typeof callState) => Partial<typeof callState>)
-  ) => {
-    setCallState((prev) => {
-      const newState = typeof updates === "function" ? updates(prev) : updates;
-      return { ...prev, ...newState };
-    });
-  };
+  const updateCallState = useCallback(
+    (
+      updates:
+        | Partial<typeof callState>
+        | ((prev: typeof callState) => Partial<typeof callState>)
+    ) => {
+      setCallState((prev) => {
+        const newState = typeof updates === "function" ? updates(prev) : updates;
+        return { ...prev, ...newState };
+      });
+    },
+    []
+  );
+  
 
   const checkIfOnlyParticipant = useCallback(() => {
     const remoteCount = participants.reduce(
       (count, participant) => (!participant.isLocal ? count + 1 : count),
       0
     );
-    updateCallState({ isOnlyParticipant: remoteCount === 0 });
-  }, [participants, updateCallState]);
+    if (remoteCount === 0 !== callState.isOnlyParticipant) {
+      updateCallState({ isOnlyParticipant: remoteCount === 0 });
+    }
+  }, [participants, callState.isOnlyParticipant, updateCallState]);
   
 
   useEffect(() => {
@@ -147,11 +160,17 @@ const ParticipantPody = () => {
       });
       return;
     }
-
+  
     const intervalId = setInterval(() => {
-      updateCallState((prev) => ({ timeElapsed: prev.timeElapsed + 1 }));
+      setCallState((prev) => {
+        if (prev.callEnded) {
+          clearInterval(intervalId); 
+          return prev;
+        }
+        return { ...prev, timeElapsed: prev.timeElapsed + 1 };
+      });
     }, 60000);
-
+  
     return () => clearInterval(intervalId);
   }, [callState.isOnlyParticipant]);
 
@@ -171,16 +190,7 @@ const ParticipantPody = () => {
       }
       updateCallState({ callEnded: true });
     }
-  }, [
-    callState.isOnlyParticipant,
-    callState.timeElapsed,
-    callState.notificationSent,
-    callState.callEnded,
-    callId,
-    endCall,
-    openDialog,
-    updateCallState,
-  ]);
+  }, [callState, callId, endCall, openDialog]);
   
 
   return (

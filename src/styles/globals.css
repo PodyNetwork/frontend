@@ -1246,6 +1246,14 @@ body {
     background-position: 0% 0;
   }
 }
+.__pd_checkmark {
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 24px;
+  width: 10px;
+  border-bottom: 5 solid red;
+  border-right: 5 solid red;
+}
 
 /* Stream V2 starts here */
 .__video_layout_container_v2 {

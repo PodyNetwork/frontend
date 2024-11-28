@@ -1,12 +1,16 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useNavigate } from "@/components/utils/PageRouter";
 import Loader from "@/components/preloader/Loader";
 
-const CallWaiting = () => {
+interface Props {
+  showStartButton: boolean;
+  handleStartCall: () => void;
+}
+
+const HostLobby = ({ showStartButton, handleStartCall }: Props) => {
   const { handleClick, isPending } = useNavigate();
-  
+
   return (
     <>
       {isPending && <Loader />}
@@ -18,18 +22,31 @@ const CallWaiting = () => {
               className="w-full md:w-[320px] object-contain mx-auto"
               width={1500}
               height={536}
-              alt="pody call waiting"
+              alt="pody host lobby"
             />
             <h3 className="text-2xl font-medium">
-              Host hasn&apos;t started the Classroom yet
+              Get the Classroom Session Started
             </h3>
             <p className="text-sm">
-              The Classroom session is not live yet. Please wait for the host to
-              start the session.
+              The classroom session isn't live just yet. Click below to start
+              the session and engage your students!
             </p>
-            <button onClick={() => handleClick("/dashboard")} className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full">
+            <div className="flex flex-row items-center flex-wrap gap-2">
+              {showStartButton && (
+                <button
+                  onClick={handleStartCall}
+                  className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full"
+                >
+                  Start the CLassroom
+                </button>
+              )}
+              <button
+                onClick={() => handleClick("/dashboard")}
+                className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full"
+              >
                 Go To Dashboard
               </button>
+            </div>
           </div>
         </div>
       </div>
@@ -37,4 +54,4 @@ const CallWaiting = () => {
   );
 };
 
-export default CallWaiting;
+export default HostLobby;
