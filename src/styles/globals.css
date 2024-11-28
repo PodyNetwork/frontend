@@ -337,7 +337,7 @@ body {
 .__dashheader_icon_info > li,
 .__dashheader_icon_info > a {
   position: relative;
-  @apply px-3 flex items-center;
+  @apply px-3;
 }
 
 .__dashheader_icon_info > li::before,
@@ -346,7 +346,8 @@ body {
   border-right: 1.5px solid;
   @apply border-slate-600/50;
   position: absolute;
-  height: 80%;
+  height: 70%;
+  top: 15%;
   left: 0;
 }
 

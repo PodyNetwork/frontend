@@ -99,7 +99,7 @@ const Nav = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-9 h-9 text-slate-200"
+              className={`w-9 h-9 ${mobileMenuOpen ? "text-slate-300 " : "text-slate-700"}`}
               viewBox="0 -960 960 960"
               fill="currentColor"
             >

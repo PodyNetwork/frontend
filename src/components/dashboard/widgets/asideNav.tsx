@@ -40,6 +40,19 @@ const AsideNav = () => {
 
   const { handleClick, isPending } = useNavigate();
 
+  const ConnectEmail = () => {
+    return (
+      <>
+        {profile?.isEmailVerified && (
+          <li onClick={() => handleClick("/email")}>
+            Add Email{" "}
+            <sup className="web3-gradient-text font-medium">+10,000</sup>
+          </li>
+        )}
+      </>
+    );
+  };
+
   return (
     <>
       {isPending && <Loader />}
@@ -95,16 +108,7 @@ const AsideNav = () => {
               )}
             </div>
             <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
-              {!profile?.isEmailVerified && (
-                <Link href="/email">
-                  <li>
-                    Add Email{" "}
-                    <sup className="web3-gradient-text font-medium">
-                      +10,000
-                    </sup>
-                  </li>
-                </Link>
-              )}
+              <ConnectEmail />
             </ul>
           </header>
         </div>
@@ -126,7 +130,9 @@ const AsideNav = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-9 h-9 text-slate-300"
+              className={`w-9 h-9 ${
+                mobileMenuOpen ? "text-slate-300 " : "text-slate-700"
+              }`}
               viewBox="0 -960 960 960"
               fill="currentColor"
             >
@@ -166,7 +172,7 @@ const AsideNav = () => {
           <button onClick={() => handleClick("/")}>
             <Image src={logo} className="w-20 object-contain mb-6" alt="Pody" />
           </button>
-          <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50">
+          <ul className="text-lg flex flex-col items-center gap-y-4 relative z-50 text-slate-400">
             {dashlink.map((data, index) => (
               <button
                 onClick={() => {
@@ -175,11 +181,12 @@ const AsideNav = () => {
                 }}
                 key={index}
               >
-                <li className="py-2 hover:text-pody-primary transition-all rounded-full text-slate-400">
+                <li className="py-2 hover:text-pody-primary transition-all rounded-full">
                   {data.title}
                 </li>
               </button>
             ))}
+            <ConnectEmail />
           </ul>
           <div className="mt-6 flex flex-col items-center gap-y-4">
             <div className="flex items-center gap-x-1.5 bg-slate-500/50 p-1.5 rounded-full">
