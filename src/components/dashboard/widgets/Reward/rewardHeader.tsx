@@ -24,9 +24,9 @@ const RewardHeader = () => {
           {" "}
           Reward
         </motion.span>{" "}
-        is Here earn on every Classroom you join
+        is here Earn on every Classroom you Join
       </motion.h2>
-      <p className="text-sm text-slate-600 font-normal">📌 Every Classroom You Join Isn’t Just a Step Forward It’s a Reward Waiting to Be Claimed! Don’t Just Learn, Earn Big.</p>
+      <p className="text-sm text-slate-600 font-normal">📌 Every Classroom You Join Isn&apos;t Just a Step Forward It&apos;s a Reward Waiting to Be Claimed! Don&apos;t Just Learn, Earn Big.</p>
     </motion.div>
   );
 };

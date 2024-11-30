@@ -37,8 +37,8 @@ const CallEndPage = () => {
             <Image
               src="/illustration/virtual-meeting-group-video-conference-man-desktop.png"
               className="w-full md:w-[320px] object-contain mx-auto"
-              width={800}
-              height={690}
+              width={450}
+              height={300}
               alt="pody audio playback illustration"
             />
             <h2 className="text-xl xs:text-2xl font-medium">
