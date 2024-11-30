@@ -1279,13 +1279,13 @@ body {
 }
 
 .__controls_width_noicon {
-  @apply h-14 w-14 md:h-10 md:w-10;
+  @apply h-12 w-12 md:h-10 md:w-10;
 }
 .__controls_width_icon {
-  @apply w-12 h-12 md:w-8 md:h-8;
+  @apply w-10 h-10 md:w-8 md:h-8;
 }
 .__controls_icon{
-  @apply w-7 h-7 md:w-5 md:h-5;
+  @apply w-6 h-6 md:w-5 md:h-5;
 }
 
 /* Stream V2 starts here */

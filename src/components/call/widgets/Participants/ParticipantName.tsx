@@ -1,4 +1,3 @@
-import Image from "next/image";
 interface Participant {
   name?: string;
 }
@@ -14,12 +13,5 @@ export const ParticipantNamePody: React.FC<ParticipantNamePodyProps> = ({
     <p className="truncate max-w-fit">
       <span className="font-medium">{participant.name}</span>
     </p>
-    <Image
-      src="/milestone/verified.svg"
-      alt="badge"
-      className="ml-1 w-3.5 h-3.5 object-cover"
-      width={100}
-      height={100}
-    />
   </div>
 );

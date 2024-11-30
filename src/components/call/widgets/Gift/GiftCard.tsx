@@ -270,8 +270,8 @@ const GiftUI: React.FC = () => {
           <div className="flex flex-nowrap max-w-sm relative overflow-x-auto gap-2">
             {filteredParticipants.length < 1 ? (
               <span className="text-xs text-slate-500">
-                Opps No Participant to Gift, Invite Participant to classroom to
-                start gifting
+                Opps No Participant to Gift, Invite Participant to Classroom to
+                start Gifting
               </span>
             ) : (
               filteredParticipants.map((participant) => (
@@ -318,7 +318,7 @@ const GiftUI: React.FC = () => {
                           src={data.icon}
                           width={50}
                           height={50}
-                          alt=""
+                          alt={`${data.name} Token`}
                           className="h-4 w-4 rounded-full me-2 object-cover"
                         />
                         {data.name}
@@ -334,7 +334,7 @@ const GiftUI: React.FC = () => {
               </SelectGroup>
             </SelectContent>
             <p className="text-xs text-slate-600 dark:text-slate-500 mt-1">
-              Only tokens whitelisted by Pody Network are currently supported.
+              Only Tokens whitelisted by Pody Network are currently supported.
             </p>
           </Select>
         </div>

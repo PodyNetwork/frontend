@@ -43,7 +43,7 @@ const AsideNav = () => {
     return (
       <>
         {!profile?.isEmailVerified && (
-          <li onClick={() => handleClick("/email")}>
+          <li className="cursor-pointer" onClick={() => handleClick("/email")}>
             Add Email{" "}
             <sup className="web3-gradient-text font-medium">+10,000</sup>
           </li>
@@ -91,7 +91,7 @@ const AsideNav = () => {
               {isLoading || isError ? (
                 <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>
               ) : (
-                <h3 className="text-sm text-slate-800 flex items-center">
+                <h3 className="text-sm select-none text-slate-800 flex items-center">
                   Hello, {profile?.username}
                   {profile?.isEmailVerified && (
                     <Image

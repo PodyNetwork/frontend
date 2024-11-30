@@ -199,7 +199,7 @@ const ParticipantPody = () => {
             </div>
             {filteredParticipants.length === 0 ? (
               <div className="text-center text-xs text-slate-500 dark:text-slate-300">
-                No participants found invite more participant to classroom
+                No Participants Found Invite More Participants to Classroom
               </div>
             ) : (
               filteredParticipants.map((participant, index) => {
