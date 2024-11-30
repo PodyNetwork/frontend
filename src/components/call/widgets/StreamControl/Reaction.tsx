@@ -87,11 +87,11 @@ const Reaction = () => {
         <PopoverTrigger asChild>
           <div
             ref={popoverRef}
-            className="bg-white dark:bg-[#202124] h-10 w-10 rounded-full flex justify-center items-center text-slate-400 cursor-pointer"
+            className="bg-white dark:bg-[#202124] __controls_width_noicon rounded-full flex justify-center items-center text-slate-400 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
+              className="__controls_icon"
               viewBox="0 -960 960 960"
               fill="currentColor"
             >

@@ -1026,7 +1026,7 @@ body {
   border-radius: 0 !important;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .__chat_full {
     @apply w-full max-w-full;
   }
@@ -1214,7 +1214,7 @@ body {
   fill: url(#orange-to-pink);
 }
 .__endleavebtn button {
-  @apply w-full xs:w-auto;
+  @apply w-full sm:w-auto;
 }
 .web3-gradient-text {
   font-weight: bold;
@@ -1276,6 +1276,16 @@ body {
   .__nav_lg_dash_ctrl{
     @apply hidden;
   }
+}
+
+.__controls_width_noicon {
+  @apply h-14 w-14 md:h-10 md:w-10;
+}
+.__controls_width_icon {
+  @apply w-12 h-12 md:w-8 md:h-8;
+}
+.__controls_icon{
+  @apply w-7 h-7 md:w-5 md:h-5;
 }
 
 /* Stream V2 starts here */

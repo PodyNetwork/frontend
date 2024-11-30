@@ -198,15 +198,15 @@ const Controls: React.FC<ControlBarProps> = ({
         </div>
         {/* End Call */}
         <div
-          className={`h-10 flex justify-center items-center text-sm __nav gap-3 relative`}
+          className={`flex justify-center items-center text-sm __nav gap-3 relative`}
           aria-label="controls"
           ref={navRef}
         >
-          <div className="bg-pody-danger flex-shrink-0 h-10 w-10 rounded-full flex justify-center items-center text-slate-100 cursor-pointer" onClick={() => openDialog('leaveControl')}>
+          <div className="bg-pody-danger flex-shrink-0 __controls_width_noicon rounded-full flex justify-center items-center text-slate-100 cursor-pointer" onClick={() => openDialog('leaveControl')}>
             <label className="sr-only">disconnect</label>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
+              className="__controls_icon"
               viewBox="0 -960 960 960"
               style={{ msFilter: "" }}
               fill="currentColor"

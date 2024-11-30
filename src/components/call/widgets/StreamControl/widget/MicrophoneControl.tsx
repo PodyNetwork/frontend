@@ -33,7 +33,7 @@ const MicrophoneControl = ({ saveUserChoices = true, onDeviceError }: AudioContr
 
   return (
     <div className="bg-white dark:bg-[#202124] flex-shrink-0 p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer relative">
-      <div className="bg-slate-100 dark:bg-pody-dark_secondary w-8 h-8 flex items-center justify-center rounded-full">
+      <div className="bg-slate-100 dark:bg-pody-dark_secondary __controls_width_icon flex items-center justify-center rounded-full">
         <label className="sr-only">Microphone</label>
         <SourceToggle
           source={Track.Source.Microphone}
@@ -45,7 +45,7 @@ const MicrophoneControl = ({ saveUserChoices = true, onDeviceError }: AudioContr
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className={`w-5 h-5 ${
+            className={`__controls_icon ${
               !localParticipant.isMicrophoneEnabled && "text-red-500"
             }`}
             viewBox="0 -960 960 960"

@@ -49,12 +49,20 @@ const CallEndPage = () => {
                 ? "Oops! It looks like you're no longer connected. Don't miss out—reconnect to continue earning Rewards!"
                 : "Create Classroom and unlock Rewards, every conversation brings you closer to more exciting Rewards!"}
             </p>
-            <button
-              onClick={handleClickMain}
-              className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full"
-            >
-              {isOngoing ? "Resume Classroom" : "Claim Reward"}
-            </button>
+            <div className="flex flex-row gap-2 flex-wrap">
+              <button
+                onClick={() => handleClick("/dashboard")}
+                className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full w-full sm:w-auto"
+              >
+                Go to Dashboard
+              </button>
+              <button
+                onClick={handleClickMain}
+                className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full w-full sm:w-auto"
+              >
+                {isOngoing ? "Resume Classroom" : "Claim Reward"}
+              </button>
+            </div>
             {!isOngoing && (
               <div>
                 <div className="flex items-center gap-2 mt-3 text-center justify-center">

@@ -6,16 +6,16 @@ const ChatControlMenu = () => {
   const { unreadMessageCount } = useUnreadMessageContext();
   const { toggleChat } = useChatContext();
   return (
-    <div className="bg-white dark:bg-[#202124] p-1 exclude-wrap rounded-full flex-shrink-0 flex justify-center items-center gap-x-1 text-slate-400 cursor-pointer">
+    <div className="bg-white dark:bg-[#202124] p-1 rounded-full flex-shrink-0 flex justify-center items-center gap-x-1 text-slate-400 cursor-pointer">
       <div
-        className={`w-8 h-8 flex items-center justify-center rounded-full ${
+        className={`__controls_width_icon flex items-center justify-center rounded-full ${
           unreadMessageCount > 0 ? "bg-slate-100" : "bg-transparent"
         }`}
       >
         <label className="sr-only">chat</label>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5"
+          className="__controls_icon"
           viewBox="0 -960 960 960"
           style={{ msFilter: "" }}
           fill="currentColor"

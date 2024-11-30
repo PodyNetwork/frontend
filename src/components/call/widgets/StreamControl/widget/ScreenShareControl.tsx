@@ -20,8 +20,8 @@ const ScreenShareControl = ({ onDeviceError }: screenShareControlProps) => {
   if (!browserSupportsScreenSharing) return null;
 
   return (
-    <div className="bg-white dark:bg-[#202124] flex-shrink-0 p-1 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
-      <div className="w-8 h-8 flex items-center justify-center rounded-full">
+    <div className="bg-white dark:bg-[#202124] flex-shrink-0 rounded-full flex justify-center items-center text-slate-400 cursor-pointer">
+      <div className="__controls_width_noicon flex items-center justify-center rounded-full">
         <label className="sr-only">ShareScreen</label>
         <SourceToggle
           source={Track.Source.ScreenShare}
@@ -37,7 +37,7 @@ const ScreenShareControl = ({ onDeviceError }: screenShareControlProps) => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className={`w-6 h-6 ${
+            className={`__controls_icon ${
               isScreenShareEnabled ? "text-red-500" : "text-slate-400"
             }`}
             viewBox="0 -960 960 960"

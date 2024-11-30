@@ -8,13 +8,13 @@ const RaiseHandButton = () => {
   return (
     <div
       onClick={handleRaiseHand}
-      className={`bg-white dark:bg-[#202124] h-10 w-10 rounded-full flex justify-center items-center cursor-pointer relative ${
+      className={`bg-white dark:bg-[#202124] __controls_width_noicon rounded-full flex justify-center items-center cursor-pointer relative ${
         isCooldown ? "opacity-50 cursor-not-allowed text-red-500" : "text-slate-400"
       }`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-6 h-6"
+        className="__controls_icon"
         viewBox="0 -960 960 960"
         fill="currentColor"
       >

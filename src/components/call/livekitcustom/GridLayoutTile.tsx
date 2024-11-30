@@ -278,7 +278,7 @@ export function EnhancedGridLayout({
             )}
             {tracks.length > 1 && (
               <button
-                className={`absolute hidden sm:block top-[10px] cursor-pointer z-50 right-[10px] text-slate-500 transition-opacity duration-300 ${
+                className={`absolute hidden sm:block top-[10px] cursor-pointer z-40 right-[10px] text-slate-500 transition-opacity duration-300 ${
                   showPinbar ? "opacity-100" : "opacity-0"
                 }`}
                 onClick={() => handleFocusToggle(index)}

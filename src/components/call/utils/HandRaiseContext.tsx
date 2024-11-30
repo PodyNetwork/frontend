@@ -79,7 +79,7 @@ export const HandRaiseProvider = ({ children }: { children: ReactNode }) => {
     <HandRaiseContext.Provider value={{ handleRaiseHand, isCooldown }}>
       {children}
       {/* Hand Raise Notifications */}
-      <div className="fixed bottom-20 md:bottom-16 left-1/2 transform -translate-x-1/2 space-y-px w-max max-w-[75%]">
+      <div className="fixed bottom-24 md:bottom-16 left-1/2 transform -translate-x-1/2 space-y-px w-max max-w-[75%]">
         <AnimatePresence>
           {visibleHands.map(({ id, raisedBy }) => (
             <motion.div
