@@ -32,7 +32,7 @@ const Login = () => {
           >
             <ConnectOrComponent>
               <button
-                className="p-3 h-14 bg-pody-dark_secondary w-full rounded-lg text-slate-200 text-sm mt-1 hover:bg-pody-dark_secondary/90"
+                className="p-3 h-12 bg-pody-dark_secondary w-full rounded-lg text-slate-200 text-sm mt-1 hover:bg-pody-dark_secondary/90"
                 disabled={login.isPending}
               >
                 {login.isPending ? (

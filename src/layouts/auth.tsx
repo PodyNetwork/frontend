@@ -34,7 +34,7 @@ const auth = ({ children }: { children: ReactNode }) => {
       <div className="h-screen flex flex-col items-center justify-center">
         <div className="w-full flex flex-col md:flex-row mx-auto h-full">
           <AuthIntro />
-          <div className="md:w-1/2 lg:w-[35rem] flex flex-col justify-center items-center h-full px-5">
+          <div className="md:w-1/2 lg:w-[33rem] flex flex-col justify-center items-center h-full px-5">
             {children}
           </div>
         </div>

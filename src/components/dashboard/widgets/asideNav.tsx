@@ -56,7 +56,7 @@ const AsideNav = () => {
       {isPending && <Loader />}
       {/* Desktop menu */}
       <aside className="__nav_lg_dash flex-col items-center w-full bg-pody-mintgreen">
-        <div className="md:flex w-full items-center justify-between py-6 px-12 gap-x-4 xl:max-w-[1300px] font-medium">
+        <div className="md:flex w-full items-center justify-between py-6 px-12 gap-x-4 xl:max-w-[1300px] font-medium select-none">
           <div className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
             <button onClick={() => handleClick("/")}>
               <Image

@@ -1,5 +1,5 @@
 import React from "react";
-import nftlist from "../data/nft.json";
+import nftlist from "../../data/nft.json";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { getLevelFee, getUserLevel } from "@/utils/passport";

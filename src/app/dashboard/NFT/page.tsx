@@ -1,6 +1,6 @@
 "use client";
-import NftList from "@/components/dashboard/widgets/nftList";
-import NftStatistics from "@/components/dashboard/widgets/nftStatistics";
+import NftList from "@/components/dashboard/widgets/nft/nftList";
+import NftStatistics from "@/components/dashboard/widgets/nft/nftStatistics";
 import React from "react";
 
 const page = () => {
