@@ -19,7 +19,7 @@ const Footer = () => {
             <PodyTOS />
             <div className="flex md:flex-row flex-col gap-y-10 gap-x-16 py-7 text-pody-secondary">
               <PodyTM />
-              <div className="relative grid grid-cols-1 __pdsm:grid-cols-2 md:grid-cols-3 flex-1 max-w-4xl gap-7">
+              <div className="relative grid grid-cols-1 __pdsm:grid-cols-2 md:grid-cols-3 flex-1 max-w-2xl gap-7">
                 <QuickLinks />
                 <SocialLink />
                 <LegalLinks />

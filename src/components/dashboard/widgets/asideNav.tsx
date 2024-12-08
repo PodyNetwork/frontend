@@ -42,7 +42,7 @@ const AsideNav = () => {
   const ConnectEmail = () => {
     return (
       <>
-        {!profile?.isEmailVerified && (
+        {!isLoading && !profile?.isEmailVerified && (
           <li className="cursor-pointer" onClick={() => handleClick("/email")}>
             Add Email{" "}
             <sup className="web3-gradient-text font-medium">+10,000</sup>

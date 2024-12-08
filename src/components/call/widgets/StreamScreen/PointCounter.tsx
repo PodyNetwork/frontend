@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { formatUnits } from "viem";
-import approx from 'approximate-number'
+import { formatPoints } from "@/func/numberFormater";
 
 export const PointCounter = ({
   accumulatedPoints,
@@ -10,7 +10,7 @@ export const PointCounter = ({
   const formattedPoints = parseFloat(
     formatUnits(BigInt(accumulatedPoints), 18)
   );
-
+  
   return (
     <motion.div className="flex items-center flex-row px-2 py-px bg-white/30 dark:bg-black/30 rounded-full backdrop-blur-xl __shadow_pody">
       <svg
@@ -46,7 +46,7 @@ export const PointCounter = ({
           ease: "easeInOut",
         }}
       >
-        {approx(Number(formatUnits(BigInt(accumulatedPoints), 18)), {decimal: false})}
+        {formatPoints(accumulatedPoints)}
       </motion.span>
     </motion.div>
   );

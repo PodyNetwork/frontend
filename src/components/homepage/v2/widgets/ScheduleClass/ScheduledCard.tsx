@@ -1,12 +1,12 @@
 import { Call } from "@/app/classroom/types";
-import useProfileById from "@/hooks/user/useGetProfileById";
 import BlockiesSvg from "blockies-react-svg";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
 import { handleAddToCalendar } from "../../utils/AddToCalendar";
+import usePublicProfileById from "@/hooks/public/usePublicProfileById";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
@@ -46,7 +46,7 @@ const ScheduledTimeDisplay = ({
 };
 
 const ScheduledCard = ({ data }: { data: Call }) => {
-  const { profile, isLoading } = useProfileById(data.userId);
+  const { profile, isLoading } = usePublicProfileById(data.userId);
   const eventrouter = useRouter();
 
   const nowY = dayjs();

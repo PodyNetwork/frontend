@@ -16,7 +16,7 @@ export const LeaderboardItem = ({
       className="flex flex-row items-center justify-between bg-white rounded-xl px-3 sm:px-6 py-3 mb-2 __shadow_pody transition-shadow duration-300"
     >
       <div className="flex items-center gap-x-2 flex-grow min-w-0">
-        <div className="text-base text-slate-500 w-6 flex-shrink-0">{rank}</div>
+        <div className="text-base text-slate-500 w-8 flex-shrink-0 font-semibold">{rank}</div>
         <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
           <div className="w-6 h-6 sm:w-8 sm:h-8 ">
               <AvatarParticipant name={username || "Unknown User"} />

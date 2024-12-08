@@ -6,10 +6,11 @@ import useProfileById from "@/hooks/user/useGetProfileById";
 import { handleAddToCalendar } from "../../utils/AddToCalendar";
 import { Call } from "@/app/classroom/types";
 import { formatScheduledDate, formatScheduledTime } from "../../utils/FormatScheduleDateAndTime";
+import usePublicProfileById from "@/hooks/public/usePublicProfileById";
 
 const OngoingCallCard = ({ call }: { call: Call }) => {
   const router = useRouter();
-  const { profile } = useProfileById(call.userId);
+  const { profile } = usePublicProfileById(call.userId);
   const nowY = dayjs();
   const scheduledTimeY = dayjs(call.scheduledTime);
 

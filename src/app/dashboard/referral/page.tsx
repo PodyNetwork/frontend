@@ -1,6 +1,9 @@
-import React from "react";
+"use client";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
+import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
 
 const campaigns = [
   { name: "John", date: "2024-11-30 9:14 AM", point: 10049 },
@@ -30,20 +33,7 @@ const leaderboardData = [
   {
     name: "RABBITS RUSH",
     point: 10049,
-  },
-  {
-    name: "BRAIN SPILLERZ",
-    point: 10049,
-  },
-  {
-    name: "JamtSPILLERZ",
-    point: 890049,
-  },
-  {
-    name: "JaLLERZ",
-    point: 8049,
-  },
-  // Add more data as needed
+  }
 ];
 
 const placementStyles = {
@@ -62,9 +52,44 @@ const placementStyles = {
 } as Record<number, { badge: string; alt: string }>;
 
 const page = () => {
+  const [copied, setCopied] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText("eax")
+      .then(() => {
+        setCopied(true);
+        triggerConfetti();
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch((error) => {
+        console.error("Failed to copy text:", error);
+      });
+  };
+
+  const triggerConfetti = () => {
+    if (containerRef.current) {
+      const { left, top, width, height } =
+        containerRef.current.getBoundingClientRect();
+      const originX = (left + width / 2) / window.innerWidth;
+      const originY = (top + height / 2) / window.innerHeight;
+      confetti({
+        particleCount: 100,
+        spread: 60,
+        startVelocity: 30,
+        origin: { x: originX, y: originY },
+        angle: 90,
+        colors: ["#FFD700", "#ff8c00", "#ff007f", "#7b00ff", "#FF69B4"],
+        gravity: 0.5,
+        scalar: 0.8,
+      });
+    }
+  };
+
   return (
     <main className="w-full">
-      <div className="bg-pody- p-5 md:pt-12 md:pb-3">
+      <div className="bg-pody-mintgreen p-5 md:p-12">
         <section className="w-full md:max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="bg-pody-primary rounded-2xl w-full __img_reward_grab">
             <div className="__img_veil_grab p-10">
@@ -77,7 +102,7 @@ const page = () => {
                 of Token launch. Don’t miss this opportunity to earn big while
                 sharing Pody with others.
               </p>
-              <div className="mt-6 flex flex-row items-center text-red-700">
+              <div className="mt-6 flex flex-row items-center text-slate-100">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-3.5 h-3.5 me-1"
@@ -95,22 +120,28 @@ const page = () => {
       </div>
       <div className="w-full relative flex flex-col md:flex-row gap-6 p-5 md:p-6">
         <div className="w-full md:max-w-5xl mx-auto">
-          <section className="w-full flex flex-row gap-4">
-            <div className="flex-1 gap-6 flex flex-col p-8 rounded-xl __pd_golden_grd">
+          <section className="w-full flex flex-col md:flex-row gap-4">
+            <div className="flex-1 gap-6 flex flex-col p-8 rounded-xl __pd_golden_grd relative">
               <div className="text-slate-50">
                 <h1 className="text-lg font-medium">Referral</h1>
-                <p className="text-sm">Refer users with your referral code to earn points.</p>
+                <p className="text-sm">
+                  Refer users with your referral code to earn points.
+                </p>
               </div>
-              <div className="flex flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-8">
                 <div className="text-slate-50 w-7/12 flex flex-col">
                   <div className="pt-3">
                     <h2 className="font-bold text-5xl">100,000</h2>
                     <p className="text-base mt-1">Points Earned</p>
                   </div>
-                  <div className="mt-auto pt-8">
-                    <div className="flex flex-row items-center gap-x-2">
+                  <div
+                    className="mt-auto pt-8 relative overflow-hidden"
+                    ref={containerRef}
+                  >
+                    <div className="flex flex-row items-center gap-x-2 relative">
                       <h2 className="font-bold text-4xl">eax</h2>
                       <svg
+                        onClick={handleCopy}
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-5 h-5 mt-1.5"
                         viewBox="0 -960 960 960"
@@ -118,11 +149,24 @@ const page = () => {
                       >
                         <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
                       </svg>
+                      <AnimatePresence>
+                        {copied && (
+                          <motion.p
+                            className="text-pody-success text-xs"
+                            initial={{ opacity: 0, y: 0 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.5 }}
+                          >
+                            Copied!
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
                     <p className="text-base mt-1">Referral Code</p>
                   </div>
                 </div>
-                <div className="w-5/12 flex flex-col justify-between gap-y-4 text-slate-50">
+                <div className="w-5/12 flex flex-col justify-between gap-y-6 text-slate-50">
                   <div>
                     <h2 className="font-semibold text-2xl">729</h2>
                     <p className="text-base mt-1">Total Referral</p>
@@ -140,21 +184,22 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[18rem] bg-slate-50 rounded-xl">
-              <div>
-                <Image
-                  src="/illustration/Group139383.png"
-                  className="w-full h-[50%] object-cover rounded-t-xl"
-                  width={150}
-                  height={150}
-                  alt="referral task"
-                />
-              </div>
-              <div className="p-4">
-                <h2 className="text-sm">Weekly Task</h2>
-                <p className="blur-sm">Weekly Task 1</p>
-                <div className="flex flex-row items-center justify-between py-4">
-                  <h3 className="text-sm blur-sm">+300 Points</h3>
+            <div className="w-full md:w-[22rem] border border-slate-100 rounded-xl">
+              <div className="p-6 text-sm flex flex-col relative h-full text-slate-500">
+                <h2 className="text-xl text-slate-800 font-medium">
+                  Weekly Task
+                </h2>
+                <p className="mt-1">
+                  Earn Points when you complete weekly task
+                </p>
+                <ul className="mt-4">
+                  <li>
+                    There&apos;s no weekly task right now, but you can start a
+                    referral campaign and earn points instead!"
+                  </li>
+                </ul>
+                <div className="flex flex-row items-center justify-between py-4 mt-auto">
+                  <h3 className="font-medium">+300 Points</h3>
                   <button
                     disabled
                     className="text-xs border-2 border-slate-400 text-slate-500 rounded-full px-2 py-1"
@@ -166,8 +211,8 @@ const page = () => {
             </div>
           </section>
           <section className="w-full flex gap-4 flex-col py-5 mt-5">
-            <div className="relative overflow-x-auto -8 border border-slate-100 rounded-xl">
-              <table className="w-full text-sm text-left rtl:text-right text-slate-500">
+            <div className="relative overflow-x-auto md:border md:border-slate-100 md:rounded-xl">
+              <table className="hidden md:table w-full text-sm text-left rtl:text-right text-slate-500">
                 <thead className="text-xs text-slate-700 uppercase bg-slate-50">
                   <tr>
                     <th scope="col" className="p-4">
@@ -194,7 +239,7 @@ const page = () => {
                       className="bg-white border-b border-slate-100 text-sm hover:bg-slate-50"
                     >
                       <td className="w-4 p-4">{index + 1}</td>
-                      <th
+                      <td
                         scope="row"
                         className="flex items-center px-6 py-3 text-slate-900 whitespace-nowrap"
                       >
@@ -204,28 +249,63 @@ const page = () => {
                         <div className="ps-3">
                           <div className="text-sm font-medium">{data.name}</div>
                         </div>
-                      </th>
-                      <td className="px-6 py-3">Referral Bonus</td>
+                      </td>
+                      <td className="px-6 py-3 whitespace-nowrap">
+                        Referral Bonus
+                      </td>
                       <td className="px-6 py-3">
                         <div className="flex items-center">{data.point}</div>
                       </td>
-                      <td className="px-6 py-3">29 Dec, 2024 9:18 AM</td>
+                      <td className="px-6 py-3 whitespace-nowrap">
+                        29 Dec, 2024 9:18 AM
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+
+              {/* Mobile View */}
+              <div className="md:hidden">
+                {leaderboardData.map((data, index) => (
+                  <div
+                    className="grid grid-cols-[2rem_1fr] items-center gap-1 mb-2"
+                    key={index}
+                  >
+                    <div>
+                      <h3 className="font-semibold text-lg">{index + 1}</h3>
+                    </div>
+                    <div
+                      key={index}
+                      className="grid grid-cols-[2.5rem_1fr] items-center gap-4 p-2 bg-white shadow-md shadow-slate-100 rounded-xl"
+                    >
+                      <div className="w-10 max-w-10 h-10">
+                        <AvatarParticipant name={data.name} />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between text-sm font-medium text-slate-900 truncate">
+                          <span>{data.name}</span>
+                        </div>
+                        <div className="text-xs text-slate-500">
+                          <span>{data.point} points</span> • 29 Dec, 2024
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
+
           <section className="w-full flex gap-4 flex-col py-5">
-            <div className="w-full flex flex-row items-start gap-4 text-slate-500 rounded-xl">
-              <div className="w-[21rem] flex flex-col gap-y-4">
-                <div className="flex flex-row justify-between gap-x-2 __pd_light_gradient p-6 rounded-xl w-full">
+            <div className="w-full flex flex-col md:flex-row items-start gap-4 text-slate-500 rounded-xl">
+              <div className="w-full md:w-[21rem] flex flex-col gap-y-4">
+                <div className="flex flex-row justify-between gap-x-2 __pd_light_gradient px-6 py-8 rounded-xl w-full">
                   <div className="text-left">
-                    <div className="text-sm mb-3">My Rank</div>
+                    <div className="text-sm mb-4">My Rank</div>
                     <div className="text-xl font-semibold">3RD PLACE</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm mb-3">My Points</div>
+                    <div className="text-sm mb-4">My Points</div>
                     <div className="text-xl font-semibold">200K</div>
                   </div>
                 </div>
@@ -241,18 +321,22 @@ const page = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex-1 border border-slate-100 rounded-xl">
+              <div className="w-full flex-1 border border-slate-100 rounded-xl">
                 <div className="flex justify-between items-center mb-3 bg-slate-50 px-6 py-4 rounded-t-xl">
                   <h2 className="text-base font-medium">
                     Referral Leaderboard
                   </h2>
                 </div>
-                <ul className="px-6 __pd_list_ldb">
+                <ul className="px-6 __pd_list_ldb overflow-x-auto">
                   {leaderboardData.map((leader, index) => {
                     const position = index + 1;
                     return (
-                      <li className="py-3 border-b border-slate-100 cursor-pointer" key={index}>
-                        <div className="grid grid-cols-[3rem_3fr_1fr] gap-3 items-center">
+                      <li
+                        className="py-3 border-b border-slate-100 cursor-pointer"
+                        key={index}
+                      >
+                        <div className="grid grid-cols-[2.5rem_1fr_2rem] gap-3 items-center">
+                          {/* Position Badge */}
                           <div
                             className={`inline-flex justify-center items-center w-6 h-6 text-sm rounded-md text-slate-900 ${
                               position <= 3
@@ -266,31 +350,37 @@ const page = () => {
                           >
                             {position}
                           </div>
-                          <div>
-                            <div className="flex items-center">
-                              <div className="w-8 h-8 rounded-full">
+
+                          {/* Leader Information */}
+                          <div className="flex items-center">
+                            <div>
+                              <div className="size-8 rounded-full">
                                 <AvatarParticipant name={leader.name} />
                               </div>
-                              <span className="ml-2.5 truncate font-medium text-sm">
+                            </div>
+                            <div className="ms-2.5 gap-y-px font-medium text-sm">
+                              <p className=" truncate">
                                 {leader.name}
-                              </span>
+                              </p>
+                              <p className="truncate">
+                                {leader.point}{" "}Points
+                              </p>
                             </div>
                           </div>
-                          <div className="flex flex-row items-center gap-x-2 justify-end">
-                            <span className="font-medium text-sm">
-                              {leader.point}
-                            </span>
+
+                          {/* Points & Badge */}
+                          <div className="flex flex-row text-sm items-center font-medium justify-end gap-2 whitespace-nowrap">
                             {placementStyles[position] ? (
                               <Image
-                                className="w-4 h-4 mb-1"
+                                className="size-5 mb-1"
                                 src={placementStyles[position].badge}
                                 width={50}
                                 height={50}
                                 alt={placementStyles[position].alt}
                               />
                             ) : (
-                              <p className="w-4 h-4 flex items-center justify-center">
-                                -
+                              <p className="size-5 flex items-center justify-center">
+                                #{index + 1}
                               </p>
                             )}
                           </div>
