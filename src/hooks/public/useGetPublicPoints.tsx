@@ -1,33 +1,32 @@
 "use client";
-import { useCallback } from "react";
-import axios from "@/network/axios";
-import { BaseResponse } from "@/types/globals";
+
 import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "@/network/axios"; // Renamed for clarity
+import { BaseResponse } from "@/types/globals";
 
 interface PointBalanceResponse extends BaseResponse {
   data: {
-    points: number;
+    totalPoints: number;
   };
 }
 
 const useGetPublicPoints = () => {
-  const fetchPointsHistory =
-    useCallback(async (): Promise<PointBalanceResponse> => {
-      const response = await axios.get<PointBalanceResponse>(
-        "/point/public/total"
-      );
-      return response.data;
-    }, []);
+  const fetchPointsHistory = async (): Promise<PointBalanceResponse> => {
+    const response = await axiosInstance.get<PointBalanceResponse>(
+      "/public/user/referral/stat"
+    );
+    return response.data;
+  };
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["pointsBalance"],
     queryFn: fetchPointsHistory,
     retry: 2,
     staleTime: 0,
-    refetchInterval: 5000,
+    refetchOnWindowFocus: false,
   });
 
-  const pointsTotal = data?.data;
+  const pointsTotal = data?.data.totalPoints ?? 0;
 
   return {
     pointsTotal,

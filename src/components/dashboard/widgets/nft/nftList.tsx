@@ -44,8 +44,8 @@ const NftList = () => {
         address: account.address as Address
       })
       if(nextLevelFee > balance.value) {
-        toast("Success",{
-          description: "insufficient balance"
+        toast("Error",{
+          description: "Insufficient balance"
         })
       } else {
         await mintPassport({

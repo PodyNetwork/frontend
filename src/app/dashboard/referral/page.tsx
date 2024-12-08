@@ -5,13 +5,6 @@ import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 
-const campaigns = [
-  { name: "John", date: "2024-11-30 9:14 AM", point: 10049 },
-  { name: "Campaign ", date: "2024-11-29 12:14 PM", point: 12334 },
-  { name: "Research", date: "2024-11-28 11:14 AM", point: 11025 },
-  { name: "Project", date: "2024-11-27 08:14 AM", point: 19919 },
-  { name: "House", date: "2024-11-26 07:14 AM", point: 82905 },
-];
 
 const leaderboardData = [
   {
@@ -51,13 +44,13 @@ const placementStyles = {
   },
 } as Record<number, { badge: string; alt: string }>;
 
-const page = () => {
+const Page = () => {
   const [copied, setCopied] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleCopy = () => {
     navigator.clipboard
-      .writeText("eax")
+      .writeText("pody")
       .then(() => {
         setCopied(true);
         triggerConfetti();
@@ -94,13 +87,11 @@ const page = () => {
           <div className="bg-pody-primary rounded-2xl w-full __img_reward_grab">
             <div className="__img_veil_grab p-10">
               <h2 className="text-[2.3rem] leading-tight font-semibold text-white">
-                $4999.99 Reward <br /> Up for Grab
+                $10,000 Reward <br /> Up for Grab
               </h2>
               <p className="text-sm mt-6 max-w-lg text-slate-100">
-                Pody is offering a one of kind Referral Reward! The top referrer
-                will receive 4,999.99 USD in equivalent of PodyToken at the time
-                of Token launch. Don’t miss this opportunity to earn big while
-                sharing Pody with others.
+              Pody is offering a one-of-a-kind Referral Reward! 10,000 USD will be distributed among the top three referrers in the 
+              equivalent of PodyToken at the time of Token launch. Don’t miss this opportunity to earn big while sharing Pody with others.
               </p>
               <div className="mt-6 flex flex-row items-center text-slate-100">
                 <svg
@@ -111,7 +102,7 @@ const page = () => {
                 >
                   <path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                 </svg>
-                <p className="text-xs">Terms and Condition Apply</p>
+                <p className="text-xs">Terms and Conditions Apply</p>
               </div>
             </div>
             <div></div>
@@ -139,7 +130,7 @@ const page = () => {
                     ref={containerRef}
                   >
                     <div className="flex flex-row items-center gap-x-2 relative">
-                      <h2 className="font-bold text-4xl">eax</h2>
+                      <h2 className="font-bold text-4xl">pody</h2>
                       <svg
                         onClick={handleCopy}
                         xmlns="http://www.w3.org/2000/svg"
@@ -167,13 +158,9 @@ const page = () => {
                   </div>
                 </div>
                 <div className="w-5/12 flex flex-col justify-between gap-y-6 text-slate-50">
-                  <div>
-                    <h2 className="font-semibold text-2xl">729</h2>
+                  <div className="pt-3">
+                    <h2 className="font-semibold text-2xl">100</h2>
                     <p className="text-base mt-1">Total Referral</p>
-                  </div>
-                  <div>
-                    <h2 className="font-semibold text-2xl">1.25</h2>
-                    <p className="text-base mt-1">Current xP</p>
                   </div>
                   <div>
                     <h2 className="font-semibold text-2xl web3-gradient-text">
@@ -194,12 +181,11 @@ const page = () => {
                 </p>
                 <ul className="mt-4">
                   <li>
-                    There&apos;s no weekly task right now, but you can start a
-                    referral campaign and earn points instead!"
+                  There&apos;s no weekly task, but you can start a referral campaign and earn points.
                   </li>
                 </ul>
                 <div className="flex flex-row items-center justify-between py-4 mt-auto">
-                  <h3 className="font-medium">+300 Points</h3>
+                  <h3 className="font-medium blur-sm">+0.00 Points</h3>
                   <button
                     disabled
                     className="text-xs border-2 border-slate-400 text-slate-500 rounded-full px-2 py-1"
@@ -398,4 +384,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

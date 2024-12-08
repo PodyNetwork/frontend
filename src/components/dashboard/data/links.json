@@ -20,10 +20,6 @@
         "url": "/dashboard/leaderboard"
     },
     {
-        "title": "Referral",
-        "url": "/dashboard/referral"
-    },
-    {
         "title": "Reward",
         "url": "/dashboard/reward"
     }

@@ -16,7 +16,7 @@ interface ProfileResponse extends BaseResponse {
 
 const usePublicProfileById = (id: string) => {
   const fetchProfile = useCallback(async (): Promise<ProfileResponse> => {
-    const response = await axios.get<ProfileResponse>(`/user/public/profile/${id}`);
+    const response = await axios.get<ProfileResponse>(`/public/user/profile?id=${id}`);
     return response.data;
   }, [id]);
 

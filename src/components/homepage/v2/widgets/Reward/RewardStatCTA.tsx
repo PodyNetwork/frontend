@@ -7,6 +7,7 @@ import TopUser from "./TopUser";
 import approx from "approximate-number";
 import useGetPublicPoints from "@/hooks/public/useGetPublicPoints";
 
+
 const RewardStatCTA = () => {
   const { leaderboard, isLoading } = useLeaderboard();
 
@@ -22,7 +23,7 @@ const RewardStatCTA = () => {
     <div className="relative flex flex-row gap-x-4 items-center mt-auto pt-20">
       <div>
         <h2 className="text-3xl font-bold">
-          {approx(Number(formatUnits(BigInt(pointsTotal?.points ?? 0), 18)), {
+          {approx(Number(formatUnits(BigInt(pointsTotal ?? 0), 18)), {
             decimal: false,
           })}
         </h2>
