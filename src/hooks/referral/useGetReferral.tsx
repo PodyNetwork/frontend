@@ -8,6 +8,7 @@ interface ReferralData {
   _id: string;
   count: number;
   username: string;
+  dateJoined?: string;
 }
 
 interface Referral {
@@ -21,18 +22,18 @@ interface GetReferralArgs {
   sortDirection?: "asc" | "desc";
 }
 
-const useGetReferralLeaderboard = (args: GetReferralArgs = {}) => {
+const useGetReferrals = (args: GetReferralArgs = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const fetchReferrals = useCallback(async () => {
-    const response = await axios.get<Referral>("/public/user/referral/stat", {
+    const response = await axios.get<Referral>("/user/referral", {
       params: { ...args, page: currentPage },
     });
     return response.data;
   }, [args, currentPage]);
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["referralsLeaderboard", args, currentPage],
+    queryKey: ["referrals", args, currentPage],
     queryFn: fetchReferrals,
     placeholderData: () => ({
       data: [],
@@ -44,7 +45,7 @@ const useGetReferralLeaderboard = (args: GetReferralArgs = {}) => {
     refetchOnWindowFocus: false,
   });
 
-  const referralLeaderboard = data?.data || [];
+  const referralData = data?.data || [];
   const totalPages = data?.totalPages || 1;
 
   const nextPage = () => {
@@ -56,7 +57,7 @@ const useGetReferralLeaderboard = (args: GetReferralArgs = {}) => {
   };
 
   return {
-    referralLeaderboard,
+    referralData,
     currentPage,
     totalPages,
     nextPage,
@@ -67,4 +68,4 @@ const useGetReferralLeaderboard = (args: GetReferralArgs = {}) => {
   };
 };
 
-export default useGetReferralLeaderboard;
+export default useGetReferrals;

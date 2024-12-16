@@ -1,10 +1,14 @@
 "use client";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
-
+import ReferralHeader from "@/components/dashboard/widgets/referral/ReferralHeader";
+import WeeklyTask from "@/components/dashboard/widgets/referral/WeeklyTask";
+import ReferralTable from "@/components/dashboard/widgets/referral/ReferralTable";
+import ReferralLeaderboardSkeleton from "@/components/dashboard/widgets/referral/ReferralLeaderboardSkeleton";
+import ReferralLeaderboard from "@/components/dashboard/widgets/referral/ReferralLeaderboard";
 
 const leaderboardData = [
   {
@@ -26,23 +30,8 @@ const leaderboardData = [
   {
     name: "RABBITS RUSH",
     point: 10049,
-  }
+  },
 ];
-
-const placementStyles = {
-  1: {
-    badge: "/milestone/1st-place.svg",
-    alt: "First place badge",
-  },
-  2: {
-    badge: "/milestone/2nd-place.svg",
-    alt: "Second place badge",
-  },
-  3: {
-    badge: "/milestone/3rd-place.svg",
-    alt: "Third place badge",
-  },
-} as Record<number, { badge: string; alt: string }>;
 
 const Page = () => {
   const [copied, setCopied] = useState(false);
@@ -83,31 +72,7 @@ const Page = () => {
   return (
     <main className="w-full">
       <div className="bg-pody-mintgreen p-5 md:p-12">
-        <section className="w-full md:max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6">
-          <div className="bg-pody-primary rounded-2xl w-full __img_reward_grab">
-            <div className="__img_veil_grab p-10">
-              <h2 className="text-[2.3rem] leading-tight font-semibold text-white">
-                $10,000 Reward <br /> Up for Grab
-              </h2>
-              <p className="text-sm mt-6 max-w-lg text-slate-100">
-              Pody is offering a one-of-a-kind Referral Reward! 10,000 USD will be distributed among the top three referrers in the 
-              equivalent of PodyToken at the time of Token launch. Don’t miss this opportunity to earn big while sharing Pody with others.
-              </p>
-              <div className="mt-6 flex flex-row items-center text-slate-100">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-3.5 h-3.5 me-1"
-                  viewBox="0 -960 960 960"
-                  fill="currentColor"
-                >
-                  <path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-                </svg>
-                <p className="text-xs">Terms and Conditions Apply</p>
-              </div>
-            </div>
-            <div></div>
-          </div>
-        </section>
+        <ReferralHeader />
       </div>
       <div className="w-full relative flex flex-col md:flex-row gap-6 p-5 md:p-6">
         <div className="w-full md:max-w-5xl mx-auto">
@@ -171,117 +136,9 @@ const Page = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-[22rem] border border-slate-100 rounded-xl">
-              <div className="p-6 text-sm flex flex-col relative h-full text-slate-500">
-                <h2 className="text-xl text-slate-800 font-medium">
-                  Weekly Task
-                </h2>
-                <p className="mt-1">
-                  Earn Points when you complete weekly task
-                </p>
-                <ul className="mt-4">
-                  <li>
-                  There&apos;s no weekly task, but you can start a referral campaign and earn points.
-                  </li>
-                </ul>
-                <div className="flex flex-row items-center justify-between py-4 mt-auto">
-                  <h3 className="font-medium blur-sm">+0.00 Points</h3>
-                  <button
-                    disabled
-                    className="text-xs border-2 border-slate-400 text-slate-500 rounded-full px-2 py-1"
-                  >
-                    Coming soon
-                  </button>
-                </div>
-              </div>
-            </div>
+            <WeeklyTask />
           </section>
-          <section className="w-full flex gap-4 flex-col py-5 mt-5">
-            <div className="relative overflow-x-auto md:border md:border-slate-100 md:rounded-xl">
-              <table className="hidden md:table w-full text-sm text-left rtl:text-right text-slate-500">
-                <thead className="text-xs text-slate-700 uppercase bg-slate-50">
-                  <tr>
-                    <th scope="col" className="p-4">
-                      S/N
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Name
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Reward
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Point
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Date
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="__pdy_tbl_bdy">
-                  {leaderboardData.map((data, index) => (
-                    <tr
-                      key={index}
-                      className="bg-white border-b border-slate-100 text-sm hover:bg-slate-50"
-                    >
-                      <td className="w-4 p-4">{index + 1}</td>
-                      <td
-                        scope="row"
-                        className="flex items-center px-6 py-3 text-slate-900 whitespace-nowrap"
-                      >
-                        <div className="w-8 h-8">
-                          <AvatarParticipant name={data.name} />
-                        </div>
-                        <div className="ps-3">
-                          <div className="text-sm font-medium">{data.name}</div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-3 whitespace-nowrap">
-                        Referral Bonus
-                      </td>
-                      <td className="px-6 py-3">
-                        <div className="flex items-center">{data.point}</div>
-                      </td>
-                      <td className="px-6 py-3 whitespace-nowrap">
-                        29 Dec, 2024 9:18 AM
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              {/* Mobile View */}
-              <div className="md:hidden">
-                {leaderboardData.map((data, index) => (
-                  <div
-                    className="grid grid-cols-[2rem_1fr] items-center gap-1 mb-2"
-                    key={index}
-                  >
-                    <div>
-                      <h3 className="font-semibold text-lg">{index + 1}</h3>
-                    </div>
-                    <div
-                      key={index}
-                      className="grid grid-cols-[2.5rem_1fr] items-center gap-4 p-2 bg-white shadow-md shadow-slate-100 rounded-xl"
-                    >
-                      <div className="w-10 max-w-10 h-10">
-                        <AvatarParticipant name={data.name} />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex justify-between text-sm font-medium text-slate-900 truncate">
-                          <span>{data.name}</span>
-                        </div>
-                        <div className="text-xs text-slate-500">
-                          <span>{data.point} points</span> • 29 Dec, 2024
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
+          <ReferralTable />
           <section className="w-full flex gap-4 flex-col py-5">
             <div className="w-full flex flex-col md:flex-row items-start gap-4 text-slate-500 rounded-xl">
               <div className="w-full md:w-[21rem] flex flex-col gap-y-4">
@@ -307,75 +164,7 @@ const Page = () => {
                   </p>
                 </div>
               </div>
-              <div className="w-full flex-1 border border-slate-100 rounded-xl">
-                <div className="flex justify-between items-center mb-3 bg-slate-50 px-6 py-4 rounded-t-xl">
-                  <h2 className="text-base font-medium">
-                    Referral Leaderboard
-                  </h2>
-                </div>
-                <ul className="px-6 __pd_list_ldb overflow-x-auto">
-                  {leaderboardData.map((leader, index) => {
-                    const position = index + 1;
-                    return (
-                      <li
-                        className="py-3 border-b border-slate-100 cursor-pointer"
-                        key={index}
-                      >
-                        <div className="grid grid-cols-[2.5rem_1fr_2rem] gap-3 items-center">
-                          {/* Position Badge */}
-                          <div
-                            className={`inline-flex justify-center items-center w-6 h-6 text-sm rounded-md text-slate-900 ${
-                              position <= 3
-                                ? position === 1
-                                  ? "bg-pody-primary"
-                                  : position === 2
-                                  ? "bg-[#C0C0C0]"
-                                  : "bg-[#CD7F32]"
-                                : ""
-                            }`}
-                          >
-                            {position}
-                          </div>
-
-                          {/* Leader Information */}
-                          <div className="flex items-center">
-                            <div>
-                              <div className="size-8 rounded-full">
-                                <AvatarParticipant name={leader.name} />
-                              </div>
-                            </div>
-                            <div className="ms-2.5 gap-y-px font-medium text-sm">
-                              <p className=" truncate">
-                                {leader.name}
-                              </p>
-                              <p className="truncate">
-                                {leader.point}{" "}Points
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Points & Badge */}
-                          <div className="flex flex-row text-sm items-center font-medium justify-end gap-2 whitespace-nowrap">
-                            {placementStyles[position] ? (
-                              <Image
-                                className="size-5 mb-1"
-                                src={placementStyles[position].badge}
-                                width={50}
-                                height={50}
-                                alt={placementStyles[position].alt}
-                              />
-                            ) : (
-                              <p className="size-5 flex items-center justify-center">
-                                #{index + 1}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+              <ReferralLeaderboard />
             </div>
           </section>
         </div>
