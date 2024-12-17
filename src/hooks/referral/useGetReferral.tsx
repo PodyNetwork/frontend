@@ -11,41 +11,58 @@ interface ReferralData {
   dateJoined?: string;
 }
 
-interface Referral {
-  data: ReferralData[];
+interface ReferralResponse {
+  referrals: ReferralData[];
+  totalReferralsCount: number;
+  rank: number;
   currentPage: number;
   totalPages: number;
 }
 
 interface GetReferralArgs {
-  limit?: number;
-  sortDirection?: "asc" | "desc";
+  limit?: number;                
+  sortDirection?: "asc" | "desc"; 
+  dateFrom?: string | null;       
+  dateTo?: string | null;       
 }
 
 const useGetReferrals = (args: GetReferralArgs = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const fetchReferrals = useCallback(async () => {
-    const response = await axios.get<Referral>("/user/referral", {
-      params: { ...args, page: currentPage },
+    const { limit = 10, sortDirection = "desc", dateFrom, dateTo } = args;
+
+    const response = await axios.get<ReferralResponse>("/user/referral", {
+      params: { 
+        limit, 
+        sortDirection, 
+        dateFrom, 
+        dateTo, 
+        page: currentPage 
+      },
     });
+
     return response.data;
   }, [args, currentPage]);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["referrals", args, currentPage],
     queryFn: fetchReferrals,
-    placeholderData: () => ({
-      data: [],
-      currentPage,
+    placeholderData: {
+      referrals: [],
+      totalReferralsCount: 0,
+      rank: 0,
+      currentPage: 1,
       totalPages: 1,
-    }),
+    },
     staleTime: 0,
     retry: 2,
     refetchOnWindowFocus: false,
   });
 
-  const referralData = data?.data || [];
+  const referralData = data?.referrals || [];
+  const totalReferralsCount = data?.totalReferralsCount || 0;
+  const rank = data?.rank || 0;
   const totalPages = data?.totalPages || 1;
 
   const nextPage = () => {
@@ -58,6 +75,8 @@ const useGetReferrals = (args: GetReferralArgs = {}) => {
 
   return {
     referralData,
+    totalReferralsCount,
+    rank,
     currentPage,
     totalPages,
     nextPage,

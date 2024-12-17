@@ -27,8 +27,6 @@ const ReferralLeaderboard = () => {
     nextPage,
     previousPage,
     isLoading,
-    isError,
-    refetch,
   } = useGetReferralLeaderboard();
 
   if (isLoading) return <ReferralLeaderboardSkeleton />;

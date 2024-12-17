@@ -10,8 +10,9 @@ const ReferralTable = () => {
     totalPages,
     nextPage,
     previousPage,
-    isLoading
-  } = useGetReferrals({ limit: 10 });
+    isLoading,
+
+  } = useGetReferrals({ limit: 10, sortDirection: "asc" });
 
   if (isLoading) return <ReferralSkeleton />;
 

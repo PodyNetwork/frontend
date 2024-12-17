@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-
-
 const ReferralLeaderboardSkeleton = () => {
     return(
         Array(8).fill(null).map((_, index) => (
@@ -9,14 +7,12 @@ const ReferralLeaderboardSkeleton = () => {
               key={index}
             >
               <div className="grid grid-cols-[2.5rem_1fr_1.5rem] gap-3 items-center">
-                {/* Position Badge (Skeleton with Motion) */}
                 <motion.div
                   className="w-6 h-6 rounded-md bg-slate-200"
                   animate={{ opacity: [0.2, 1, 0.2] }}
                   transition={{ duration: 1, repeat: Infinity }}
                 />
       
-                {/* Leader Information (Skeleton with Motion) */}
                 <div className="flex items-center">
                   <motion.div
                     className="w-8 h-8 rounded-full bg-slate-200"
@@ -37,7 +33,6 @@ const ReferralLeaderboardSkeleton = () => {
                   </div>
                 </div>
       
-                {/* Points & Badge (Skeleton with Motion) */}
                 <motion.div
                   className="size-6 bg-slate-200"
                   animate={{ opacity: [0.2, 1, 0.2] }}
