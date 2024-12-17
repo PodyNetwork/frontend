@@ -3,12 +3,15 @@ import confetti from "canvas-confetti";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import SkeletonReferral from "./ReferralCardSkeleton";
+import useProfile from "@/hooks/user/useProfile";
 
 const ReferralCard = () => {
+  const { profile } = useProfile();
   const [copied, setCopied] = useState(false);
+
   const handleCopy = () => {
     navigator.clipboard
-      .writeText("pody")
+      .writeText("https://pody.network/signup?ref="+ profile?.username || "unknown")
       .then(() => {
         setCopied(true);
         triggerConfetti();
@@ -67,7 +70,7 @@ const ReferralCard = () => {
             ref={containerRef}
           >
             <div className="flex flex-row items-center gap-x-2 relative">
-              <h2 className="font-bold text-4xl">pody</h2>
+              <h2 className="font-bold text-4xl">{profile?.username}</h2>
               <svg
                 onClick={handleCopy}
                 xmlns="http://www.w3.org/2000/svg"
