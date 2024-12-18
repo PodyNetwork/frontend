@@ -1224,6 +1224,14 @@ body {
   -webkit-text-fill-color: transparent;
   animation: gradientMove 3s linear infinite alternate;
 }
+.web3-gradient-text_base {
+  font-weight: bold;
+  background: linear-gradient(to right, #fec399, #F7B731, #29D7FF, #FF6A00); /* Adjusted gradient with bright, high-contrast colors */
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 4s ease-in-out infinite alternate;
+}
 
 .web3-gradient-bg {
   font-weight: bold;

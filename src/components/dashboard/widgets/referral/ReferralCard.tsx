@@ -5,6 +5,14 @@ import React, { useRef, useState } from "react";
 import SkeletonReferral from "./ReferralCardSkeleton";
 import useProfile from "@/hooks/user/useProfile";
 
+const getReferralLevel = (totalReferrals: number) => {
+  if (totalReferrals >= 100) return "Elite";
+  if (totalReferrals >= 50) return "Champion";
+  if (totalReferrals >= 10) return "Ambassador";
+  if (totalReferrals >= 1) return "Engager";
+  return "Newbie"; 
+};
+
 const ReferralCard = () => {
   const { profile } = useProfile();
   const [copied, setCopied] = useState(false);
@@ -51,8 +59,10 @@ const ReferralCard = () => {
 
   if(isLoading) return <SkeletonReferral />
   
+  const referralLevel = getReferralLevel(totalReferralsCount);
+
   return (
-    <div className="flex-1 gap-6 flex flex-col p-8 rounded-xl __pd_golden_grd relative">
+    <div className="flex-1 gap-6 flex flex-col p-8 rounded-xl __pd_golden_grd relative select-none">
       <div className="text-slate-50">
         <h1 className="text-lg font-medium">Referral</h1>
         <p className="text-sm">
@@ -103,8 +113,8 @@ const ReferralCard = () => {
             <p className="text-base mt-1">Total Referral</p>
           </div>
           <div>
-            <h2 className="font-semibold text-2xl web3-gradient-text">
-              Diamond
+            <h2 className="font-semibold text-2xl web3-gradient-text_base">
+              {referralLevel}
             </h2>
             <p className="text-base mt-1">Level</p>
           </div>
