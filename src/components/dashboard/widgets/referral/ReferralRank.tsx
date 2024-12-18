@@ -50,7 +50,20 @@ const ReferralRank = () => {
     <div className="flex flex-row justify-between gap-x-2 __pd_light_gradient px-6 py-8 rounded-xl w-full">
       <div className="text-left">
         <div className="text-sm mb-4">My Rank</div>
-        <div className="text-xl font-semibold">{rank} PLACE</div>
+        <div className="text-xl font-semibold">
+          {rank === 0
+            ? "Unranked"
+            : `${rank}${
+                [1, 2, 3].includes(rank % 10) &&
+                ![11, 12, 13].includes(rank % 100)
+                  ? rank % 10 === 1
+                    ? "st"
+                    : rank % 10 === 2
+                    ? "nd"
+                    : "rd"
+                  : "th"
+              } Place`}
+        </div>
       </div>
       <div className="text-right">
         <div className="text-sm mb-4">My Points</div>

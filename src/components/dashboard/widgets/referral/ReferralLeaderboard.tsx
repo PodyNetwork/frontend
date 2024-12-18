@@ -29,10 +29,8 @@ const ReferralLeaderboard = () => {
     isLoading,
   } = useGetReferralLeaderboard();
 
-  if (isLoading) return <ReferralLeaderboardSkeleton />;
-
-  return (
-    <div className="w-full flex-1 border border-slate-100 rounded-xl">
+  const LeaderboardList = () => (
+    <>
       <div className="flex justify-between items-center mb-3 bg-slate-50 px-6 py-4 rounded-t-xl">
         <h2 className="text-base font-medium">Referral Leaderboard</h2>
       </div>
@@ -95,26 +93,54 @@ const ReferralLeaderboard = () => {
         })}
       </ul>
       <div className="py-4 flex flex-row gap-x-2 px-4 text-xs items-center text-slate-800">
-          <button
-            className="bg-slate-100 p-2 rounded-md disabled:opacity-50"
-            onClick={previousPage}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            className="bg-slate-100 p-2 rounded-md disabled:opacity-50"
-            onClick={nextPage}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
+        <button
+          className="bg-slate-100 p-2 rounded-md disabled:opacity-50"
+          onClick={previousPage}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="bg-slate-100 p-2 rounded-md disabled:opacity-50"
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+    </>
+  );
+
+  if (isLoading) return <ReferralLeaderboardSkeleton />;
+
+  return (
+    <div className="w-full flex-1 border border-slate-100 rounded-xl">
+      {referralLeaderboard.length > 0 ? <LeaderboardList />  : <NoLeaderboardCard />}
     </div>
   );
 };
+
+const NoLeaderboardCard = () => (
+  <div className="w-full p-8 mx-auto max-w-sm">
+    <Image
+      src="/illustration/leaderboard-3d.png"
+      className="mx-auto size-60 object-cover"
+      width={200}
+      height={200}
+      alt=""
+    />
+    <div className="text-center">
+      <h3 className="text-lg font-medium text-slate-800">
+       There is no data available for the leaderboard.
+      </h3>
+      <p className="text-xs mt-2 text-slate-700">
+        Seize the opportunity to top the leaderboard! Copy your unique referral link and share it with friends and your network.
+      </p>
+    </div>
+  </div>
+);
 
 export default ReferralLeaderboard;

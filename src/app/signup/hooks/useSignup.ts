@@ -1,12 +1,18 @@
-"use client"
+"use client";
+
 import { useMutation } from '@tanstack/react-query';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { Response, ResponseError } from '@/types/globals';
-import axios from "@/network/axios"
+import axios from "@/network/axios";
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../../../hooks/useErrorMessage';
 import handleCreatePassport from '../utils/handleCreatePassport';
 import { useRouter } from 'next/navigation';
+
+type SignupPayload = {
+  username: string;
+  referralCode?: string | null;
+};
 
 const useSignup = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
@@ -32,7 +38,7 @@ const useSignup = () => {
       if (isAxiosError(error)) {
         const errorData = error?.response?.data as ResponseError;
         setErrorMessage(errorData.message, 'error');
-        return; 
+        return;
       }
       setErrorMessage(error.message, 'error');
     },
@@ -42,4 +48,3 @@ const useSignup = () => {
 };
 
 export default useSignup;
-

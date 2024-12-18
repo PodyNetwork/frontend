@@ -61,7 +61,7 @@ const TopWeeklyReferral = () => {
   const [dateTo, setDateTo] = useState<string | null>(null);
 
   const { referralData, isLoading } = useGetReferrals({
-    limit: 10,
+    limit: 1,
     dateFrom,
     dateTo,
   });
