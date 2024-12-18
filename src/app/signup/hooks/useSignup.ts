@@ -11,11 +11,16 @@ import { useRouter } from 'next/navigation';
 const useSignup = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
   const router = useRouter();
-  const signupHandler = useCallback(async ( { username }: { username: string }): Promise<Response> => {
-    const credentials = await handleCreatePassport({username});
-    const response = await axios.post<Response>('/auth/signup', credentials);
-    return response.data;
-  }, []);
+
+  const signupHandler = useCallback(
+    async ({ username, referralCode }: SignupPayload): Promise<Response> => {
+      const credentials = await handleCreatePassport({ username });
+      console.log({...credentials, referralCode})
+      const response = await axios.post<Response>('/auth/signup', {...credentials, referralCode});
+      return response.data;
+    },
+    []
+  );
 
   const signup = useMutation({
     mutationFn: signupHandler,
@@ -34,6 +39,7 @@ const useSignup = () => {
   });
 
   return { signup, errorMessage };
-}
+};
 
-export default useSignup
+export default useSignup;
+
