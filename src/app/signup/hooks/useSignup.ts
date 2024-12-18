@@ -17,21 +17,15 @@ type SignupPayload = {
 const useSignup = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
   const router = useRouter();
-  const [referralCode, setReferralCode] = useState<string | null>(null);
-
-  useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const refParam = queryParams.get("ref");
-    setReferralCode(refParam);
-  }, []);
 
   const signupHandler = useCallback(
-    async ({ username }: SignupPayload): Promise<Response> => {
-      const credentials = await handleCreatePassport({ username, referralCode });
-      const response = await axios.post<Response>('/auth/signup', credentials);
+    async ({ username, referralCode }: SignupPayload): Promise<Response> => {
+      const credentials = await handleCreatePassport({ username });
+      console.log({...credentials, referralCode})
+      const response = await axios.post<Response>('/auth/signup', {...credentials, referralCode});
       return response.data;
     },
-    [referralCode]
+    []
   );
 
   const signup = useMutation({
@@ -50,7 +44,7 @@ const useSignup = () => {
     },
   });
 
-  return { signup, errorMessage, referralCode };
+  return { signup, errorMessage };
 };
 
 export default useSignup;
