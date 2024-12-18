@@ -6,7 +6,7 @@ const RewardImage = () => {
     <div className="w-full md:w-1/2 mt-16 md:mt-0">
       <div className="h-full">
         <Image
-          src="/abstract/rewardsystem.png"
+          src="/abstract/rewardsystem.webp"
           width={400}
           height={400}
           alt="reward system image"

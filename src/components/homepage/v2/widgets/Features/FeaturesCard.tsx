@@ -13,7 +13,7 @@ const FeaturesCard = () => {
       content: [
         "The longer you participate in a classroom, the more the points you earn.",
       ],
-      img: "/abstract/abstractAngle.png",
+      img: "/abstract/abstractAngle.webp",
     },
     {
       id: 1,
@@ -21,7 +21,7 @@ const FeaturesCard = () => {
       content: [
         "Not ready to start the class right away? You can schedule it for later.",
       ],
-      img: "/abstract/abstractCircle.png",
+      img: "/abstract/abstractCircle.webp",
     },
     {
       id: 2,
@@ -29,7 +29,7 @@ const FeaturesCard = () => {
       content: [
         "Increase your earnings per second by minting more NFTs from the dashboard.",
       ],
-      img: "/abstract/abstractCircular.png",
+      img: "/abstract/abstractCircular.webp",
     },
     {
       id: 3,
@@ -37,7 +37,7 @@ const FeaturesCard = () => {
       content: [
         "Send PodyToken and EDU gifts directly to participants' wallets during live classrooms.",
       ],
-      img: "/abstract/absrtactRounded.png",
+      img: "/abstract/absrtactRounded.webp",
     },
   ];
 

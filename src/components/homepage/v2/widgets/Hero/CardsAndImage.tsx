@@ -56,7 +56,7 @@ const CardsAndImage = () => {
               variants={imageVariants}
             >
               <Image
-                src="/illustration/9987365.jpg"
+                src="/illustration/9987365.webp"
                 className="w-full h-40 rounded-3xl object-cover"
                 width={300}
                 height={400}
@@ -87,7 +87,7 @@ const CardsAndImage = () => {
               variants={imageVariants}
             >
               <Image
-                src="/illustration/9090261.jpg"
+                src="/illustration/9090261.webp"
                 className="w-full h-40 rounded-3xl object-cover"
                 width={300}
                 height={400}
@@ -110,7 +110,7 @@ const CardsAndImage = () => {
               variants={imageVariants}
             >
               <Image
-                src="/illustration/video-conference_screen.png"
+                src="/illustration/video-conference_screen.webp"
                 className="rounded-2xl"
                 width={900}
                 height={700}
