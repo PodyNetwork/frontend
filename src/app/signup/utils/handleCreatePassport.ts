@@ -3,40 +3,49 @@ import { signMessage } from "@/utils/signature";
 import { getUserAddress } from "@/utils/address";
 import { SignupCredentials } from "../types";
 
-const handleCreatePassport = async ({ username }:  { username: string }): Promise<SignupCredentials> => {
-    const walletAddress = getUserAddress();
+type PassportPayload = {
+  username: string;
+  referralCode?: string | null;
+};
 
-    if (!walletAddress) {
-      throw new Error("Wallet address not found");
-    }
+const handleCreatePassport = async ({
+  username,
+  referralCode,
+}: PassportPayload): Promise<SignupCredentials> => {
+  const walletAddress = getUserAddress();
 
-    const userLevel = await getUserLevel({ walletAddress });
+  if (!walletAddress) {
+    throw new Error("Wallet address not found");
+  }
 
-    if (userLevel < BigInt(1)) {
-      try {
-         await mintPassport({ walletAddress });
-      } catch (error) {
-        console.error(error)
-         throw new Error("Failed to mint passport");
-      }
-    }
+  const userLevel = await getUserLevel({ walletAddress });
 
-    const timestamp = Date.now() + (30 * 1000);
-    let signature: string;
-
+  if (userLevel < BigInt(1)) {
     try {
-      signature = await signMessage(`${walletAddress.toLowerCase()}:${timestamp}`);
-    } catch (error) {        
-      console.error(error)
-      throw new Error("Failed to sign message");
+      await mintPassport({ walletAddress });
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to mint passport");
     }
+  }
 
-    return {
-      username,
-      walletAddress,
-      signature,
-      timestamp,
-    };
+  const timestamp = Date.now() + 30 * 1000;
+  let signature: string;
+
+  try {
+    signature = await signMessage(`${walletAddress.toLowerCase()}:${timestamp}`);
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to sign message");
+  }
+
+  return {
+    username,
+    walletAddress,
+    signature,
+    timestamp,
+    referralCode,
+  };
 };
 
 export default handleCreatePassport;

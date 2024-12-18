@@ -5,6 +5,7 @@ interface SignupCredentials {
     signature: string;
     timestamp: number;
     username: string;
+    referralCode?: string | null;
 }
 
 export type { SignupCredentials };

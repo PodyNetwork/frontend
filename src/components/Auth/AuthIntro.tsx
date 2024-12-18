@@ -7,7 +7,7 @@ const AuthIntro = () => {
       <div className="w-full flex-1 flex-col flex mt-auto relative h-full">
         <div className="relative z-30 gap-y-3 h-full">
           <Image
-            src="/illustration/remote-study-groups-online-classroomsi.jpg"
+            src="/illustration/remote-study-groups-online-classroomsi.webp"
             alt="Pody Login Image"
             width={800}
             height={900}
