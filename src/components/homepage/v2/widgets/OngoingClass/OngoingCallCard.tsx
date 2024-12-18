@@ -14,7 +14,6 @@ const OngoingCallCard = ({ call }: { call: Call }) => {
 
   const handleJoinEvent = (url: string) => {
     router.push(`/classroom/${url}`);
-    console.log("Navigating to call:", url);
   };
 
   const handleButtonClick = () => {

@@ -21,7 +21,6 @@ const useSignup = () => {
   const signupHandler = useCallback(
     async ({ username, referralCode }: SignupPayload): Promise<Response> => {
       const credentials = await handleCreatePassport({ username });
-      console.log({...credentials, referralCode})
       const response = await axios.post<Response>('/auth/signup', {...credentials, referralCode});
       return response.data;
     },

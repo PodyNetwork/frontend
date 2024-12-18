@@ -19,14 +19,29 @@ interface Referral {
 interface GetReferralArgs {
   limit?: number;
   sortDirection?: "asc" | "desc";
+  dateFrom?: string | null;       
+  dateTo?: string | null;  
 }
 
 const useGetReferralLeaderboard = (args: GetReferralArgs = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const fetchReferrals = useCallback(async () => {
+    const {
+      limit = 20,
+      sortDirection = "asc",
+      dateFrom = null,
+      dateTo = null,
+    } = args;
+
     const response = await axios.get<Referral>("/public/user/referral/stat", {
-      params: { ...args, page: currentPage },
+      params: {
+        limit,
+        sortDirection,
+        dateFrom,
+        dateTo,
+        page: currentPage,
+      },
     });
     return response.data;
   }, [args, currentPage]);
@@ -34,11 +49,11 @@ const useGetReferralLeaderboard = (args: GetReferralArgs = {}) => {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["referralsLeaderboard", args, currentPage],
     queryFn: fetchReferrals,
-    placeholderData: () => ({
+    placeholderData: {
       data: [],
-      currentPage,
+      currentPage: 1,
       totalPages: 1,
-    }),
+    },
     staleTime: 0,
     retry: 2,
     refetchOnWindowFocus: false,

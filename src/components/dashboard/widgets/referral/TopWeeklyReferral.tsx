@@ -1,8 +1,8 @@
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
-import useGetReferrals from "@/hooks/referral/useGetReferral";
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import useGetReferralLeaderboard from "@/hooks/referral/useGetReferralLeaderboard";
 
 const Skeleton = () => {
   const shimmerEffect = {
@@ -60,7 +60,7 @@ const TopWeeklyReferral = () => {
   const [dateFrom, setDateFrom] = useState<string | null>(null);
   const [dateTo, setDateTo] = useState<string | null>(null);
 
-  const { referralData, isLoading } = useGetReferrals({
+  const { referralLeaderboard, isLoading } = useGetReferralLeaderboard({
     limit: 1,
     dateFrom,
     dateTo,
@@ -81,9 +81,9 @@ const TopWeeklyReferral = () => {
 
   if (isLoading) return <Skeleton />;
 
-  if (!referralData || referralData.length === 0) return <NoTopReferral />;
+  if (!referralLeaderboard || referralLeaderboard.length === 0) return <NoTopReferral />;
 
-  const sortedData = [...referralData].sort((a, b) => b.count - a.count);
+  const sortedData = [...referralLeaderboard].sort((a, b) => b.count - a.count);
 
   const topReferral = sortedData[0];
 

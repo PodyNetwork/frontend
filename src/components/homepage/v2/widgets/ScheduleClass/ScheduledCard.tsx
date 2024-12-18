@@ -54,7 +54,6 @@ const ScheduledCard = ({ data }: { data: Call }) => {
 
   const handleJoinEvent = (data: string) => {
     eventrouter.push(`/classroom/${data}`);
-    console.log("hello");
   };
 
   const buttonText =

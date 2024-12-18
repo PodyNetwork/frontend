@@ -37,7 +37,6 @@ const ReferralCard = () => {
     isLoading,
   } = useGetReferrals();
 
-
   const triggerConfetti = () => {
     if (containerRef.current) {
       const { left, top, width, height } =

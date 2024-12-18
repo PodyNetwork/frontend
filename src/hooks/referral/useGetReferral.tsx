@@ -1,14 +1,12 @@
-"use client";
-
 import { useState, useCallback } from "react";
 import axios from "@/network/axios";
 import { useQuery } from "@tanstack/react-query";
 
 interface ReferralData {
   _id: string;
-  count: number;
+  count?: number;
   username: string;
-  dateJoined?: string;
+  timeJoined?: string;
 }
 
 interface ReferralResponse {
@@ -20,29 +18,25 @@ interface ReferralResponse {
 }
 
 interface GetReferralArgs {
-  limit?: number;                
-  sortDirection?: "asc" | "desc"; 
-  dateFrom?: string | null;       
-  dateTo?: string | null;       
+  limit?: number;
+  sortDirection?: "asc" | "desc";
 }
 
 const useGetReferrals = (args: GetReferralArgs = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const fetchReferrals = useCallback(async () => {
-    const { limit = 10, sortDirection = "desc", dateFrom, dateTo } = args;
+    const { limit = 10, sortDirection = "desc" } = args;
 
-    const response = await axios.get<ReferralResponse>("/user/referral", {
+    const response = await axios.get("/user/referral", {
       params: { 
         limit, 
         sortDirection, 
-        dateFrom, 
-        dateTo, 
         page: currentPage 
       },
     });
 
-    return response.data;
+    return response.data.data; 
   }, [args, currentPage]);
 
   const { data, isLoading, isError, refetch } = useQuery({

@@ -4,6 +4,12 @@ import ReferralSkeleton from "./ReferralSkeleton";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import Image from "next/image";
 
+interface ReferralData {
+  _id: string;
+  count?: number;
+  username: string;
+  timeJoined?: string;
+}
 
 const ReferralTable = () => {
   const {
@@ -15,6 +21,17 @@ const ReferralTable = () => {
     isLoading,
 
   } = useGetReferrals({ limit: 10, sortDirection: "asc" });
+
+  const formatDate = (dateString: string | undefined) => {
+    if (!dateString) return "N/A"; // Handle undefined dates
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }).format(date);
+  };
+  
 
   const ReferralTableList = () => (
     <>
@@ -39,7 +56,7 @@ const ReferralTable = () => {
               </tr>
             </thead>
             <tbody className="__pdy_tbl_bdy">
-              {referralData.map((data, index) => (
+              {referralData.map((data: ReferralData, index: number) => (
                 <tr
                   key={index}
                   className="bg-white border-b border-slate-100 text-sm hover:bg-slate-50"
@@ -58,10 +75,10 @@ const ReferralTable = () => {
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap">Referral Bonus</td>
                   <td className="px-6 py-3">
-                    <div className="flex items-center">{data.count}</div>
+                    <div className="flex items-center">1000</div>
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap">
-                    29 Dec, 2024 9:18 AM
+                  {formatDate(data.timeJoined)}
                   </td>
                 </tr>
               ))}
@@ -70,7 +87,7 @@ const ReferralTable = () => {
   
           {/* Mobile View */}
           <div className="md:hidden">
-            {referralData.map((data, index) => (
+            {referralData.map((data: ReferralData, index: number) => (
               <div
                 className="grid grid-cols-[2rem_1fr] items-center gap-1 mb-2"
                 key={index}
@@ -90,7 +107,7 @@ const ReferralTable = () => {
                       <span>{data?.username}</span>
                     </div>
                     <div className="text-xs text-slate-500">
-                      <span>{data.count} points</span> • 29 Dec, 2024
+                      <span>1000 points</span> • {formatDate(data.timeJoined)}
                     </div>
                   </div>
                 </div>
@@ -98,7 +115,7 @@ const ReferralTable = () => {
             ))}
           </div>
   
-          <div className="py-4 flex flex-row gap-x-2 px-4 text-xs items-center text-slate-800">
+          <div className="py-4 flex flex-row gap-x-2 md:px-4 text-xs items-center text-slate-800">
             <button
               className="bg-slate-100 p-2 rounded-md disabled:opacity-50"
               onClick={previousPage}

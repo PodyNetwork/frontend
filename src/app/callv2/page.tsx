@@ -74,8 +74,6 @@ const Page = () => {
       const headerdHeight = headerHeight;
       const inputeHeight = inputHeight;
 
-      console.log(inputeHeight);
-
       document.documentElement.style.setProperty(
         "--chatHeader-height-v2",
         `${headerdHeight}px`

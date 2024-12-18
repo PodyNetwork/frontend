@@ -67,7 +67,7 @@ const ReferralRank = () => {
       </div>
       <div className="text-right">
         <div className="text-sm mb-4">My Points</div>
-        <div className="text-xl font-semibold">{totalReferralsCount}</div>
+        <div className="text-xl font-semibold">{totalReferralsCount * 1000}</div>
       </div>
     </div>
   );
