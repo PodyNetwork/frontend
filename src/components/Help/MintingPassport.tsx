@@ -41,7 +41,13 @@ const MintingPassport = () => {
                   with ease.
                 </h1>
                 <ul className="flex flex-col gap-y-6 __pd_help">
-                    <Image src="/help/connectwallet.png" className="w-full py-5 h-full" width={2880 } height={1644} alt="Connect EVM Wallet to Pody" />
+                  <Image
+                    src="/help/connectwallet.png"
+                    className="w-full py-5 h-full"
+                    width={2880}
+                    height={1644}
+                    alt="Connect EVM Wallet to Pody"
+                  />
                   <li>
                     <h2 className="text-xl">Connect EVM Wallet</h2>
                     <p>
@@ -50,7 +56,9 @@ const MintingPassport = () => {
                     </p>
                     <ul>
                       <li>
-                        <h4 className="font-bold">Install an EVM-Compatible Wallet:</h4>
+                        <h4 className="font-bold">
+                          Install an EVM-Compatible Wallet:
+                        </h4>
                         <p>
                           Ensure your browser or mobile device has installed a
                           wallet like MetaMask or any EVM-compatible wallet.
@@ -71,11 +79,23 @@ const MintingPassport = () => {
                       </li>
                     </ul>
                     <p>
-                      <b>Note:</b> Ensure you’re on the correct blockchain
-                      network supported by our platform.
+                      <b>Note:</b> Ensure you’re on the{" "}
+                      <a
+                        href="https://edu-chain-testnet.blockscout.com/"
+                        className="underline"
+                        target="_blank"
+                      >
+                        EDU Chain testnet.
+                      </a>
                     </p>
                   </li>
-                  <Image src="/help/educhain.png" className="w-full py-5 h-full" width={2880 } height={1644} alt="Claim EduChain Faucet to mint Pody Passport" />
+                  <Image
+                    src="/help/educhain.png"
+                    className="w-full py-5 h-full"
+                    width={2880}
+                    height={1644}
+                    alt="Claim EduChain Faucet to mint Pody Passport"
+                  />
                   <li>
                     <h2 className="text-xl">Claim Your Faucet Tokens</h2>
                     <p>
@@ -87,10 +107,7 @@ const MintingPassport = () => {
                     </p>
                     <ul className="__pd_roman_list_number">
                       <li>
-                        <p>Get testnet $EDU at AcademyDex</p>
-                      </li>
-                      <li>
-                        <p>Get testnet $EDU at Fily</p>
+                        <p>Get $EDU Testnet Token <a href="https://drpc.org/faucet/open-campus-codex" target="_blank" className="underline">here</a></p>
                       </li>
                     </ul>
                   </li>
@@ -102,6 +119,10 @@ const MintingPassport = () => {
                       platform
                     </p>
                     <ul className="__pd_roman_list_number">
+                      <li>
+                        Enter your desired username. If you have a referral ID,
+                        please include it as well.
+                      </li>
                       <li>
                         <p>Click on the Mint Passport button.</p>
                       </li>
@@ -133,10 +154,40 @@ const MintingPassport = () => {
                   <div className="faq-list">
                     {faqs.map((faq, index) => (
                       <div key={index} className="faq-item py-6">
-                        <h3 className="faq-question font-bold text-xl text-slate-800">{faq.question}</h3>
-                        <p className="faq-answer mt-4 text-base text-slate-700">{faq.answer}</p>
+                        <h3 className="faq-question font-bold text-xl text-slate-800">
+                          {faq.question}
+                        </h3>
+                        <p className="faq-answer mt-4 text-base text-slate-700">
+                          {faq.answer}
+                        </p>
                       </div>
                     ))}
+                    <div className="faq-item py-6 leading-loose">
+                      <h3 className="faq-question font-bold text-xl text-slate-800">
+                        How do I add EDU Chain testnet to my wallet?
+                      </h3>
+                      <div className="video-container">
+                        <iframe
+                          src="https://www.youtube.com/embed/o7zIV9_F670?si=JNHQldN4RSmrVvA0"
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                      <ul className="faq-answer mt-4 text-base text-slate-700 __pd_unorder">
+                        <li>Go to https://edu-chain-testnet.blockscout.com/</li>
+                        <li>
+                          Scroll to the bottom and click Add EDU Chain Testnet
+                        </li>
+                        <li>Confirm the request in your wallet</li>
+                        <li>
+                          Add testnet EDU from the Faucet here
+                          https://educhain-community-faucet.vercel.app/
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>

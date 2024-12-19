@@ -75,7 +75,7 @@ const ReferralTable = () => {
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap">Referral Bonus</td>
                   <td className="px-6 py-3">
-                    <div className="flex items-center">1000</div>
+                    <div className="flex items-center">10,000</div>
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap">
                   {formatDate(data.timeJoined)}
@@ -107,7 +107,7 @@ const ReferralTable = () => {
                       <span>{data?.username}</span>
                     </div>
                     <div className="text-xs text-slate-500">
-                      <span>1000 points</span> • {formatDate(data.timeJoined)}
+                      <span>10,000 points</span> • {formatDate(data.timeJoined)}
                     </div>
                   </div>
                 </div>

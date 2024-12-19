@@ -4,13 +4,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import SkeletonReferral from "./ReferralCardSkeleton";
 import useProfile from "@/hooks/user/useProfile";
+import { formatPoints } from "@/func/numberFormater";
+import { formatAndTruncateCount } from "@/func/formatAndTruncateCount";
 
 const getReferralLevel = (totalReferrals: number) => {
-  if (totalReferrals >= 100) return "Elite";
-  if (totalReferrals >= 50) return "Champion";
-  if (totalReferrals >= 10) return "Ambassador";
-  if (totalReferrals >= 1) return "Engager";
-  return "Newbie"; 
+  if (totalReferrals >= 1000) return "Chancellor"; 
+  if (totalReferrals >= 500) return "Elite"; 
+  if (totalReferrals >= 100) return "Principal"; 
+  if (totalReferrals >= 75) return "Dean";      
+  if (totalReferrals >= 50) return "Professor"; 
+  if (totalReferrals >= 25) return "Mentor";    
+  if (totalReferrals >= 10) return "Scholar";   
+  if (totalReferrals >= 1) return "Student";   
+  return "Newcomer";                          
 };
 
 const ReferralCard = () => {
@@ -71,7 +77,7 @@ const ReferralCard = () => {
       <div className="flex flex-col sm:flex-row gap-8">
         <div className="text-slate-50 w-7/12 flex flex-col">
           <div className="pt-3">
-            <h2 className="font-bold text-5xl">{totalReferralsCount * 1000}</h2>
+            <h2 className="font-bold text-2xl xs:text-4xl md:text-5xl">{formatAndTruncateCount(totalReferralsCount * 10000)}</h2>
             <p className="text-base mt-1">Points Earned</p>
           </div>
           <div
@@ -79,7 +85,7 @@ const ReferralCard = () => {
             ref={containerRef}
           >
             <div className="flex flex-row items-center gap-x-2 relative">
-              <h2 className="font-bold text-4xl">{profile?.username}</h2>
+              <h2 className="font-bold text-2xl xs:text-4xl md:text-5xl">{profile?.username}</h2>
               <svg
                 onClick={handleCopy}
                 xmlns="http://www.w3.org/2000/svg"

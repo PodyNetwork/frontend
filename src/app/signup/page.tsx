@@ -219,7 +219,7 @@ const SignUp = () => {
             </div>
             <div>
               <span>Trouble minting your passport?</span>{" "}
-              <button className="text-blue-500">Click for help!</button>
+              <button className="text-blue-500" onClick={() => handleClick("/help/mintpassport")}>Help!</button>
             </div>
           </div>
           <p className="text-xs mt-6 text-slate-500">

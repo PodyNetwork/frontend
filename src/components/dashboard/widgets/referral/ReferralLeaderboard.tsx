@@ -67,7 +67,7 @@ const ReferralLeaderboard = () => {
                   </div>
                   <div className="ms-2.5 gap-y-px font-medium text-sm">
                     <p className=" truncate">{leader.username}</p>
-                    <p className="truncate">{leader.count * 1000} Points</p>
+                    <p className="truncate">{leader.count * 10000} Points</p>
                   </div>
                 </div>
 

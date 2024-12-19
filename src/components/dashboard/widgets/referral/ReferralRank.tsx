@@ -1,6 +1,7 @@
 import useGetReferrals from "@/hooks/referral/useGetReferral";
 import React from "react";
 import { motion } from "framer-motion";
+import { formatAndTruncateCount } from "@/func/formatAndTruncateCount";
 
 const Skeleton = () => {
   const shimmerEffect = {
@@ -67,7 +68,7 @@ const ReferralRank = () => {
       </div>
       <div className="text-right">
         <div className="text-sm mb-4">My Points</div>
-        <div className="text-xl font-semibold">{totalReferralsCount * 1000}</div>
+        <div className="text-xl font-semibold">{formatAndTruncateCount(totalReferralsCount * 10000)}</div>
       </div>
     </div>
   );
