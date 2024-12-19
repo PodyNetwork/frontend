@@ -20,7 +20,7 @@ const ReferralTable = () => {
     previousPage,
     isLoading,
 
-  } = useGetReferrals({ limit: 10, sortDirection: "asc" });
+  } = useGetReferrals({ limit: 10, sortDirection: "desc" });
 
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return "N/A"; // Handle undefined dates
