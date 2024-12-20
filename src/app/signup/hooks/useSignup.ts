@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation } from '@tanstack/react-query';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import type { Response, ResponseError } from '@/types/globals';
 import axios from "@/network/axios";
 import { AxiosError, isAxiosError } from 'axios';

@@ -8,6 +8,7 @@ import { Address } from "@/types/address";
 import ConnectOrComponent from "@/components/global/ConnectOrComponent";
 import { toast, Toaster } from "sonner";
 import approx from 'approximate-number'
+import { EmptyMessage } from "./RewardEmptyMessage";
 
 const HistorySkeleton = () => {
   return (
@@ -72,7 +73,7 @@ const RewardHistory = () => {
             ? Array.from({ length: 6 }, (_, index) => (
                 <HistorySkeleton key={index} />
               ))
-            : claimHistory.length > 0 &&
+            : claimHistory.length > 0 ?
               claimHistory.map((data, index) => (
                 <motion.li
                   key={index}
@@ -135,7 +136,7 @@ const RewardHistory = () => {
                     </ConnectOrComponent>}
                   </div>
                 </motion.li>
-              ))}
+              )) : <EmptyMessage message="Don’t miss out on earning points! Create a Classroom now to kickstart your rewards." />}
           {isFetchingNextPage && <HistorySkeleton />}
         </ul>
         {hasNextPage && (

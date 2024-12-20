@@ -55,7 +55,7 @@ const Page = () => {
                 Verify Your OTP
               </h2>
               <p className="text-sm text-slate-500">
-                Enter the OTP sent to your email to verify your account.
+                Please enter the one-time password (OTP) sent to your email to verify your account.
               </p>
               <form onSubmit={handleSubmit}>
                 <div className="mt-2">

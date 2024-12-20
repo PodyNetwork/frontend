@@ -103,12 +103,12 @@ const ReferralTerms = () => {
                       distribution of rewards.
                     </p>
                     <p>
-                      Participation in the Program is subject to Pody's general
+                      Participation in the Program is subject to Pody&apos;s general
                       Terms of Service and Privacy Policy.
                     </p>
                     <p>
                       By participating in the Program, you acknowledge that
-                      Pody's decisions regarding the Program are final and
+                      Pody&apos;s decisions regarding the Program are final and
                       binding.
                     </p>
                   </li>

@@ -58,8 +58,7 @@ const Page = () => {
                 Set Your Email
               </h2>
               <p className="text-sm text-slate-500">
-                Don’t miss out on 10,000 bonus points! Verify your email now to
-                secure your rewards and unlock exclusive benefits.
+                Don&apos;t miss out on 10,000 bonus points! Verify your email now to secure your rewards and unlock exclusive benefits.
               </p>
               <form onSubmit={handleSubmit}>
                 <div className="mt-2">

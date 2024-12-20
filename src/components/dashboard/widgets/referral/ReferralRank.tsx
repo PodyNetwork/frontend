@@ -10,7 +10,7 @@ const Skeleton = () => {
     transition: {
       duration: 0.8,
       repeat: Infinity,
-      repeatType: "reverse" as "reverse",
+      repeatType: "reverse" as const,
     },
   };
 

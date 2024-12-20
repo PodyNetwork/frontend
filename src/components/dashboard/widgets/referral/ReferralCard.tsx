@@ -1,10 +1,9 @@
 import useGetReferrals from "@/hooks/referral/useGetReferral";
 import confetti from "canvas-confetti";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import SkeletonReferral from "./ReferralCardSkeleton";
 import useProfile from "@/hooks/user/useProfile";
-import { formatPoints } from "@/func/numberFormater";
 import { formatAndTruncateCount } from "@/func/formatAndTruncateCount";
 
 const getReferralLevel = (totalReferrals: number) => {

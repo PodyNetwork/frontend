@@ -152,7 +152,7 @@ const NoreferralCard = () => (
   <div className="w-full p-8 mx-auto max-w-sm">
     <Image src="/illustration/chain-3d.png" className="mx-auto size-40" width={200} height={200} alt="" />
     <div className="text-center">
-    <h3 className="text-lg font-medium text-slate-800">You don't have a Referral Currently</h3>
+    <h3 className="text-lg font-medium text-slate-800">You don&apos;t have a Referral Currently</h3>
     <p className="text-xs mt-2 text-slate-700">Take advantage of an exciting opportunity to earn rewards! Copy your unique referral link and share it with your friends and network.</p>
     </div>
   </div>

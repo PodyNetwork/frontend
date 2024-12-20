@@ -2,20 +2,6 @@ import { useState, useCallback } from "react";
 import axios from "@/network/axios";
 import { useQuery } from "@tanstack/react-query";
 
-interface ReferralData {
-  _id: string;
-  count?: number;
-  username: string;
-  timeJoined?: string;
-}
-
-interface ReferralResponse {
-  referrals: ReferralData[];
-  totalReferralsCount: number;
-  rank: number;
-  currentPage: number;
-  totalPages: number;
-}
 
 interface GetReferralArgs {
   limit?: number;

@@ -217,7 +217,7 @@ const ScheduleDrawer = () => {
                 <div>
                   <Select onValueChange={handleValueChange}>
                     <SelectTrigger className="w-full h-11">
-                      <SelectValue placeholder="Call Type" />
+                      <SelectValue placeholder="Classroom Type" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="public">Public</SelectItem>

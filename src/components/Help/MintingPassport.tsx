@@ -4,7 +4,7 @@ const faqs = [
   {
     question: "What happens if my transaction fails?",
     answer:
-      "Double-check your wallet’s token balance and ensure you’re on the correct blockchain network. After resolving any issues, retry.",
+      "Double-check your wallet&apos;s token balance and ensure you&apos;re on the correct blockchain network. After resolving any issues, retry.",
   },
   {
     question: "Can I use other wallets besides MetaMask?",
@@ -99,7 +99,7 @@ const MintingPassport = () => {
                   <li>
                     <h2 className="text-xl">Claim Your Faucet Tokens</h2>
                     <p>
-                      If you don't have the Edu Testnet token, claim the faucet
+                      If you don&apos;t have the Edu Testnet token, claim the faucet
                       from the listed platform; if you already have the faucet,
                       you can skip this step. These tokens are essential for
                       paying gas fees, minting your passport, and making other

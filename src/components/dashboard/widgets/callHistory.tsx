@@ -15,10 +15,8 @@ import {
   Select,
   SelectContent,
   SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
+  SelectItem, SelectTrigger,
+  SelectValue
 } from "@/components/ui/select";
 
 dayjs.extend(isToday);
@@ -212,8 +210,6 @@ const CallHistory = ({
   setFilterStatus,
 }: CallHistoryProps) => {
   const pathname = usePathname();
-
-  const [isFetchingData, setIsFetchingData] = useState(false);
 
   const handleFetchMore = useCallback(() => {
     if (hasNextPage && fetchNextPage) {
