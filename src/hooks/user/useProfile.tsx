@@ -20,6 +20,7 @@ const useProfile = () => {
     queryKey: ['profile'],
     queryFn: fetchProfile,
     retry: false,
+    refetchOnWindowFocus: false,
   });
 
   return { 

@@ -51,7 +51,8 @@ const useGetPointsHistory = (args: PointHistoryArgs = {}) => {
     initialPageParam: 1,
     retry: 2,
     staleTime: 0,
-    refetchInterval: 5000
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const pointsHistory = data?.pages?.flatMap((page: PointHistoryResponse) => page.data.pointHistory) || [];

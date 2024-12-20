@@ -177,15 +177,11 @@ const MintingPassport = () => {
                         ></iframe>
                       </div>
                       <ul className="faq-answer mt-4 text-base text-slate-700 __pd_unorder">
-                        <li>Go to https://edu-chain-testnet.blockscout.com/</li>
+                        <li>Go to <a href="https://edu-chain-testnet.blockscout.com/" className="underline" target="_blank">https://edu-chain-testnet.blockscout.com/</a></li>
                         <li>
                           Scroll to the bottom and click Add EDU Chain Testnet
                         </li>
                         <li>Confirm the request in your wallet</li>
-                        <li>
-                          Add testnet EDU from the Faucet here
-                          https://educhain-community-faucet.vercel.app/
-                        </li>
                       </ul>
                     </div>
                   </div>

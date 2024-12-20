@@ -9,7 +9,7 @@ const MintPassport = () => {
         className="relative float-left w-full h-full overflow-hidden"
         aria-label="Terms"
       >
-        <HelpHeader title='Minting Pody Passport' publishedDate='Dec 19, 2024' />
+        <HelpHeader title='Minting Pody Passport' publishedData='Learn and Earn Rewards in real-time' />
         <MintingPassport />
         <Footer />
       </main>

@@ -47,7 +47,8 @@ const useGetCalls = (args: GetCallsArgs = {}) => {
     initialPageParam: 1,
     retry: 2,
     staleTime: 0,
-    refetchInterval: 5000
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const calls = data?.pages?.flatMap((page: CallsResponse) => page.data.calls) || [];

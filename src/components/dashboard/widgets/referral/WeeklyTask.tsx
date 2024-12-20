@@ -5,7 +5,7 @@ const WeeklyTask = () => {
     <div className="w-full md:w-[22rem] border border-slate-100 rounded-xl">
       <div className="p-6 text-sm flex flex-col relative h-full text-slate-500">
         <h2 className="text-xl text-slate-800 font-medium">Weekly Task</h2>
-        <p className="mt-1">Earn Points when you complete weekly task</p>
+        <p className="mt-1">Earn Points when you complete the weekly task</p>
         <ul className="mt-4">
           <li>
             There&apos;s no weekly task, but you can start a referral campaign

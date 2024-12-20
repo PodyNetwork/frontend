@@ -31,7 +31,8 @@ const useCallStats = () => {
     queryFn: fetchCallStats,
     retry: 2,
     staleTime: 0,
-    refetchInterval: 5000
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   return { 

@@ -11,6 +11,16 @@ import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
 import BlockiesSvg from "blockies-react-svg";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 interface Calls {
@@ -22,7 +32,12 @@ interface CallHistoryProps extends Calls {
   hasNextPage?: boolean;
   fetchNextPage?: () => void;
   isFetchingNextPage?: boolean;
+  filterStatus?: "all" | "pending" | "ongoing" | "ended" | "cancelled"; // Strictly type the status
+  setFilterStatus?: React.Dispatch<
+    React.SetStateAction<"all" | "pending" | "ongoing" | "ended" | "cancelled">
+  >; // Update to reflect correct types
 }
+
 const CallSkeleton = () => {
   return (
     <div className="p-4 sm:p-5 bg-slate-50 rounded-2xl flex flex-col h-[270px]">
@@ -171,7 +186,7 @@ const CallMessageDisplay = ({ message }: { message: string }) => {
   return (
     <div className="flex flex-col gap-4 md:flex-row items-center justify-between w-full">
       <div className="w-full md:w-4/12">
-        <p className="break-words text-lg sm:text-xl">{message}</p>
+        <p className="break-words text-base sm:text-lg">{message}</p>
       </div>
       <div className="w-full md:w-7/12">
         <Image
@@ -193,8 +208,12 @@ const CallHistory = ({
   hasNextPage,
   fetchNextPage,
   isFetchingNextPage,
+  filterStatus,
+  setFilterStatus,
 }: CallHistoryProps) => {
   const pathname = usePathname();
+
+  const [isFetchingData, setIsFetchingData] = useState(false);
 
   const handleFetchMore = useCallback(() => {
     if (hasNextPage && fetchNextPage) {
@@ -202,7 +221,21 @@ const CallHistory = ({
     }
   }, [hasNextPage, fetchNextPage]);
 
+  const handleFilterChange = (
+    value: "all" | "pending" | "ongoing" | "ended" | "cancelled"
+  ) => {
+    if (setFilterStatus) {
+      setFilterStatus(value);
+    }
+  };
+
+
   const renderCalls = () => {
+    if(isLoading) {
+      return (Array.from({ length: 3 }, (_, index) => (
+        <CallSkeleton key={index} />
+      )))
+    }
     if (isError) {
       return <CallMessageDisplay message="Error fetching calls" />;
     }
@@ -220,17 +253,34 @@ const CallHistory = ({
         <h4 className="text-base sm:text-lg text-slate-700 dark:text-slate-800 font-medium">
           Classroom
         </h4>
-        {pathname !== "/dashboard/call" && (
+        {pathname !== "/dashboard/call" ? (
           <Link href="/dashboard/call">
             <button className="bg-pody-dark text-sm rounded-full px-6 py-2.5 text-slate-200 hover:opacity-80 transition-all duration-300">
               Show All
             </button>
           </Link>
+        ) : (
+          <Select value={filterStatus} onValueChange={handleFilterChange}>
+            <SelectTrigger className="w-auto">
+              <SelectValue>
+                {filterStatus === "all" ? "Filter" : filterStatus}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="ongoing">Ongoing</SelectItem>
+                <SelectItem value="ended">Ended</SelectItem>
+                <SelectItem value="cancelled">Cancelled</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         )}
       </div>
       <div
         className={` gap-4 px-4 sm:px-6 ${
-          calls.length < 1
+          (!isLoading && calls.length < 1)
             ? "w-full"
             : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
         }`}
@@ -241,6 +291,7 @@ const CallHistory = ({
             Array.from({ length: 3 }, (_, index) => (
               <CallSkeleton key={index} />
             )))}
+            
       </div>
       {hasNextPage && (
         <div className="col-span-full mt-4 text-center">

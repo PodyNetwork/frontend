@@ -6,10 +6,10 @@ import Nav from "../homepage/Global/Nav";
 
 interface Props {
     title: string;
-    publishedDate: string
+    publishedData: string
 }
 
-const HelpHeader = ({title, publishedDate} : Props) => {
+const HelpHeader = ({title, publishedData} : Props) => {
   return (
     <section className="w-full relative" aria-labelledby="hero">
       <div className="bg-pody-mintgreen/80 relative">
@@ -70,7 +70,7 @@ const HelpHeader = ({title, publishedDate} : Props) => {
                   <h1>{title}</h1>
                 </div>
                 <div className="text-sm text-slate-600">
-                  <p>Published on {publishedDate}</p>
+                  <p>{publishedData}</p>
                 </div>
               </div>
             </div>
