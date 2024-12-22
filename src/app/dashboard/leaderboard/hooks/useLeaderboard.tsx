@@ -44,7 +44,8 @@ const useLeaderboard = ({ limit = 10 }: LeaderboardParams = {}) => {
     initialPageParam: 1,
     retry: 2,
     staleTime: 0, 
-    // refetchInterval: 300000
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const leaderboard = data?.pages?.flatMap((page: LeaderboardResponse) => page.data.leaderboard) || [];

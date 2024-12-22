@@ -13,6 +13,7 @@ import {
 } from "@livekit/components-core";
 
 import {
+  ConnectionQualityIndicator,
   ParticipantContext,
   TrackRefContext,
   useEnsureParticipant,
@@ -28,6 +29,7 @@ import { useParticipantTile, useIsEncrypted } from "@livekit/components-react";
 import { CustomParticipantName } from "./CustomParticipantName";
 import PlaceHolder from "../widgets/Participants/PlaceHolder";
 import { AvatarParticipant } from "../../Avatar/AvatarParticipant";
+import { CustomConnectionQualityIndicator } from "./CustomNetworrkQuality";
 
 export function ParticipantContextIfNeeded(
   props: React.PropsWithChildren<{
@@ -114,7 +116,6 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
         (!trackReference?.publication?.isSubscribed ||
           trackReference.publication?.isMuted);
 
-      // Effect to determine video orientation and size
       useEffect(() => {
         const updateOrientation = () => {
           if (videoRef.current) {
@@ -136,10 +137,10 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
             });
 
             const resizeObserver = new ResizeObserver(() => {
-              updateOrientation(); // Update orientation on size change
+              updateOrientation();
             });
 
-            resizeObserver.observe(videoRef.current); // Track size changes
+            resizeObserver.observe(videoRef.current);
 
             return () => {
               mutationObserver.disconnect();
@@ -165,7 +166,10 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
 
           return () => {
             currentVideoRef.removeEventListener("playing", updateOrientation);
-            currentVideoRef.removeEventListener("loadeddata", updateOrientation);
+            currentVideoRef.removeEventListener(
+              "loadeddata",
+              updateOrientation
+            );
             window.removeEventListener("resize", handleResize);
           };
         }
@@ -184,11 +188,14 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
                         name={participant.identity}
                       />
                       <div className="lk-participant-metadata">
-                        <div className="glass-effect flex flex-row items-center gap-x-1 text-xs truncate">
-                          <div className="w-2.5 h-2.5 md:w-6 md:h-6">
-                            <AvatarParticipant name={participant.identity} />
+                        <div className="flex items-center gap-2">
+                          <div className="glass-effect flex flex-row items-center gap-x-1 text-xs truncate">
+                            <div className="w-2.5 h-2.5 md:w-4 md:h-4">
+                              <AvatarParticipant name={participant.identity} />
+                            </div>
+                            <CustomParticipantName />
                           </div>
-                          <CustomParticipantName />
+                          <CustomConnectionQualityIndicator />
                         </div>
                       </div>
                     </div>
@@ -199,7 +206,7 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
                         trackReference.source === Track.Source.Camera ||
                         trackReference.source === Track.Source.ScreenShare) ? (
                         <VideoTrack
-                          ref={videoRef} // Assign the ref to the VideoTrack
+                          ref={videoRef}
                           trackRef={trackReference}
                           onSubscriptionStatusChanged={handleSubscribe}
                           manageSubscription={autoManageSubscription}
@@ -226,7 +233,7 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
                                 />
                               )}
                               <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                                <div className="w-3 h-3 md:w-6 md:h-6">
+                                <div className="w-3 h-3 md:w-4 md:h-4">
                                   <AvatarParticipant
                                     name={participant.identity}
                                   />
@@ -236,7 +243,7 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
                             </>
                           ) : (
                             <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                              <div className="w-3 h-3 md:w-6 md:h-6">
+                              <div className="w-3 h-3 md:w-4 md:h-4">
                                 <AvatarParticipant
                                   name={participant.identity}
                                 />

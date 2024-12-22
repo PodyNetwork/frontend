@@ -118,25 +118,25 @@ export function EnhancedGridLayout({
   }, []);
 
   const resetPinbarTimeout = () => {
-    setShowPinbar(true); // Show the pinbar when the mouse moves
+    setShowPinbar(true); 
     if (hidePinbarTimeoutRef.current) {
-      clearTimeout(hidePinbarTimeoutRef.current); // Clear previous timeout if any
+      clearTimeout(hidePinbarTimeoutRef.current); 
     }
     hidePinbarTimeoutRef.current = setTimeout(() => {
-      setShowPinbar(false); // Hide the pinbar after 1500ms of no mouse movement
+      setShowPinbar(false);
     }, 1500);
   };
 
   useEffect(() => {
-    const handleMouseMove = () => resetPinbarTimeout(); // Trigger pinbar reset on mouse move
+    const handleMouseMove = () => resetPinbarTimeout(); 
     window.addEventListener("mousemove", handleMouseMove);
 
-    resetPinbarTimeout(); // Ensure pinbar is shown on initial load
+    resetPinbarTimeout(); 
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       if (hidePinbarTimeoutRef.current) {
-        clearTimeout(hidePinbarTimeoutRef.current); // Clean up the timeout on unmount
+        clearTimeout(hidePinbarTimeoutRef.current); 
       }
     };
   }, []);

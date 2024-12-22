@@ -1,6 +1,6 @@
 "use client"
 import { useMutation } from '@tanstack/react-query';
-import { useCallback, useState } from 'react'; // Import useState
+import { useCallback, useMemo, useState } from 'react';
 import axios from "@/network/axios"
 import { AxiosError, isAxiosError } from 'axios';
 import useErrorMessage from '../useErrorMessage';
@@ -20,7 +20,7 @@ interface CallTokenResponse extends BaseResponse {
 
 const useCreateCallToken = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
-  const [accessToken, setAccessToken] = useState<string | null>(null); // Add state for access token
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   const createCallTokenHandler = useCallback(async (args: CreateCallTokenArgs): Promise<CallTokenResponse> => {
     const response = await axios.post<CallTokenResponse>(`/call/${args.callId}/token`);
@@ -34,16 +34,12 @@ const useCreateCallToken = () => {
       setAccessToken(data.data.token);
     },
     onError: (error: AxiosError | Error) => {
-      if (isAxiosError(error)) {
-        const errorData = error?.response?.data as ResponseError;
-        setErrorMessage(errorData.message, 'error');
-        return; 
-      }
-      setErrorMessage(error.message, 'error');
+      const errorMessage = isAxiosError(error) ? (error?.response?.data as ResponseError).message : error.message;
+      setErrorMessage(errorMessage, 'error');
     },
   });
 
-  return { createCallToken, errorMessage, accessToken }; // Return the access token
+  return useMemo(() => ({ createCallToken, errorMessage, accessToken }), [createCallToken, errorMessage, accessToken]);
 }
 
 export default useCreateCallToken;

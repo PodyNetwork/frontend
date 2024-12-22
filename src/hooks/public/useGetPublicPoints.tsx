@@ -13,7 +13,7 @@ interface PointBalanceResponse extends BaseResponse {
 const useGetPublicPoints = () => {
   const fetchPointsHistory = async (): Promise<PointBalanceResponse> => {
     const response = await axiosInstance.get<PointBalanceResponse>(
-      "/public/user/referral/stat"
+      "/public/point/leaderboard"
     );
     return response.data;
   };

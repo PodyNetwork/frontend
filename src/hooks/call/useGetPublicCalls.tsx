@@ -48,7 +48,8 @@ const useGetPublicCalls = (args: GetCallsArgs = {}) => {
     initialPageParam: 1,
     retry: 2,
     staleTime: 0,
-    refetchInterval: false
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 
   const calls = data?.pages?.flatMap((page: CallsResponse) => page.data.calls) || [];

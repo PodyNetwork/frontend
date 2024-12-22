@@ -24,8 +24,10 @@ export const CustomLiveKitRoom: React.FC<
 
     const { setUsers } = useUserContext();
 
-    const shouldFetchUsers =
-      isRoomConnected && participantIdentities.length > 0;
+    const shouldFetchUsers = useMemo(
+      () => isRoomConnected && participantIdentities.length > 0,
+      [isRoomConnected, participantIdentities]
+    );
 
     const { data: participantsData } = useFetchBulkUsers(
       shouldFetchUsers ? participantIdentities : []
@@ -68,16 +70,22 @@ export const CustomLiveKitRoom: React.FC<
         setIsDisconnected(true);
       };
 
+      const handlePermissionChange = () => {
+        updateParticipantIdentities();
+      };
+
       room.on("connected", handleRoomConnected);
       room.on("participantConnected", handleParticipantChange);
       room.on("participantDisconnected", handleParticipantChange);
       room.on("disconnected", handleDisconnected);
+      room.on("participantPermissionsChanged", handlePermissionChange);
 
       return () => {
         room.off("connected", handleRoomConnected);
         room.off("participantConnected", handleParticipantChange);
         room.off("participantDisconnected", handleParticipantChange);
         room.off("disconnected", handleDisconnected);
+        room.off("participantPermissionsChanged", handlePermissionChange);
       };
     }, [room, updateParticipantIdentities]);
 

@@ -192,7 +192,7 @@ export const ParticipantCustomTileMobile: React.FC<ParticipantTileProps> =
                       />
                       <div className="lk-participant-metadata">
                         <div className="glass-effect flex flex-row items-center gap-x-1 text-xs truncate">
-                          <div className="w-2.5 h-2.5 md:w-6 md:h-6">
+                          <div className="w-2.5 h-2.5 md:w-4 md:h-4">
                             <AvatarParticipant name={participant.identity} />
                           </div>
                           <CustomParticipantName />
@@ -233,7 +233,7 @@ export const ParticipantCustomTileMobile: React.FC<ParticipantTileProps> =
                                 />
                               )}
                               <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                                <div className="w-3 h-3 md:w-6 md:h-6">
+                                <div className="w-3 h-3 md:w-4 md:h-4">
                                   <AvatarParticipant
                                     name={participant.identity}
                                   />
@@ -243,7 +243,7 @@ export const ParticipantCustomTileMobile: React.FC<ParticipantTileProps> =
                             </>
                           ) : (
                             <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                              <div className="w-3 h-3 md:w-6 md:h-6">
+                              <div className="w-3 h-3 md:w-4 md:h-4">
                                 <AvatarParticipant
                                   name={participant.identity}
                                 />
