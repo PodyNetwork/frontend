@@ -18,7 +18,7 @@ const StreamShare = ({children}: {children: React.ReactNode}) => {
             <button
               onClick={() =>
                 shareOnMobile({
-                  text: `Hey, ${profile?.username} has invited you to their classroom on Pody`,
+                  text: `Hey, ${profile?.username} has invited you to their Classroom on Pody`,
                   url: call?.url,
                   title: "Pody Classroom",
                 })

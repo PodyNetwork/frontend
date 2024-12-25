@@ -52,55 +52,6 @@ const formOpts = formOptions<{ title: string }>({
   },
 });
 
-interface ToggleSwitchProps {
-  label: string;
-  initialState?: boolean;
-  onChange?: (isChecked: boolean) => void;
-}
-
-const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
-  label,
-  initialState = false,
-  onChange,
-}) => {
-  const [isChecked, setIsChecked] = useState(initialState);
-
-  const handleToggle = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent form submission
-    const newState = !isChecked;
-    setIsChecked(newState);
-    onChange?.(newState);
-  };
-
-  return (
-    <div className="flex items-center justify-between py-2">
-      <label
-        htmlFor={`toggle-${label}`}
-        className="mr-3 text-sm font-medium text-gray-700"
-      >
-        {label}
-      </label>
-      <button
-        type="button" // Explicitly set button type to "button"
-        id={`toggle-${label}`}
-        role="switch"
-        aria-checked={isChecked}
-        onClick={handleToggle}
-        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
-          isChecked ? "bg-pody-primary" : "bg-gray-200"
-        }`}
-      >
-        <span className="sr-only">{label}</span>
-        <span
-          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-            isChecked ? "translate-x-6" : "translate-x-1"
-          }`}
-        />
-      </button>
-    </div>
-  );
-};
-
 const ScheduleDrawer = () => {
   const [scheduleTime, setScheduleTime] = useState<Date>(
     roundToNearestTimeSlot(new Date())
@@ -108,12 +59,6 @@ const ScheduleDrawer = () => {
 
   const { createCall } = useCreateCall();
   const router = useRouter();
-
-  const [canSpeak, setCanSpeak] = useState(false);
-
-  const handleParticipantSpeakChange = (participantCanSpeak: boolean) => {
-    setCanSpeak(participantCanSpeak);
-  };
 
   const [selectedPrivacy, setSelectedPrivacy] = useState("");
 
@@ -127,7 +72,7 @@ const ScheduleDrawer = () => {
       await createCall.mutateAsync({
         title: value.title,
         scheduledTime: scheduleTime.getTime(),
-        participantsCanPublish: canSpeak,
+        participantsCanPublish: true,
         privacy: selectedPrivacy,
       });
       form.reset();
@@ -224,15 +169,6 @@ const ScheduleDrawer = () => {
                       <SelectItem value="private">Private</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
-                <div>
-                  {/* Other components */}
-                  <ToggleSwitch
-                    label="Participant Can Speak"
-                    initialState={false}
-                    onChange={handleParticipantSpeakChange}
-                  />
-                  {/* Other components */}
                 </div>
                 <div className="text-sm">
                   <ButtonPody type="submit" disabled={form.state.isSubmitting}>

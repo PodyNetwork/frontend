@@ -1,5 +1,15 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
+// Add type definitions for vendor prefixed properties
+interface DocumentWithFullscreen extends Document {
+  webkitFullscreenElement?: Element | null;
+  webkitExitFullscreen?: () => Promise<void>;
+}
+
+interface DocumentElementWithFullscreen extends HTMLElement {
+  webkitRequestFullscreen?: () => Promise<void>;
+}
+
 type FullscreenContextType = {
   isFullscreen: boolean;
   enterFullscreen: () => void;
@@ -13,42 +23,42 @@ export const FullscreenProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     const handleFullscreenChange = () => {
+      const doc = document as DocumentWithFullscreen;
       const isFullscreen =
-        document.fullscreenElement !== null || (document as any).webkitFullscreenElement !== null;
+        doc.fullscreenElement !== null || doc.webkitFullscreenElement !== null;
       setIsFullscreen(isFullscreen);
     };
-  
+
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange); // Safari on iOS
-  
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange); // Safari on iOS
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
     };
   }, []);
-  
 
   const enterFullscreen = () => {
-    const docElement = document.documentElement; // Use the full page element
+    const docElement = document.documentElement as DocumentElementWithFullscreen;
     if (docElement.requestFullscreen) {
       docElement.requestFullscreen();
-    } else if ((docElement as any).webkitRequestFullscreen) {
-      (docElement as any).webkitRequestFullscreen(); // Safari on iOS
+    } else if (docElement.webkitRequestFullscreen) {
+      docElement.webkitRequestFullscreen();
     } else {
       console.warn('Fullscreen API is not supported on this device/browser.');
     }
   };
 
   const exitFullscreen = () => {
+    const doc = document as DocumentWithFullscreen;
     if (document.exitFullscreen) {
       document.exitFullscreen();
-    } else if ((document as any).webkitExitFullscreen) {
-      (document as any).webkitExitFullscreen(); // iOS Safari
+    } else if (doc.webkitExitFullscreen) {
+      doc.webkitExitFullscreen(); // iOS Safari
     } else {
       console.warn('Exit Fullscreen API is not supported on this device/browser.');
     }
   };
-  
 
   return (
     <FullscreenContext.Provider value={{ isFullscreen, enterFullscreen, exitFullscreen }}>

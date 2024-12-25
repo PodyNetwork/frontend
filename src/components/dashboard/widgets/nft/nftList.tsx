@@ -81,15 +81,15 @@ const NftList = () => {
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
-            className="relative aspect-square"
+            className="relative"
           >
             <Image
               src={nftlist[levelIndex * nftsPerLevel].image}
-              width={300}
-              height={300}
-              alt={`Level ${levelIndex + 1} NFT`}
-              className={`rounded-t-md  w-full h-full object-cover ${
-                BigInt(levelIndex + 1) > level + BigInt(1)
+              width={600}
+              height={600}
+              alt={`Pody Level ${levelIndex + 1} NFT`}
+              className={`rounded-t-md object-cover aspect-square ${
+                BigInt(levelIndex + 1) > level
                   ? "filter blur-md"
                   : ""
               }`}

@@ -1,16 +1,23 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 
+interface ParticipantPermission {
+  canSpeak: boolean;
+  canVideo: boolean;
+  canShare: boolean;
+  isAdmin?: boolean;
+}
+
 interface ParticipantPermissionsContextProps {
-  permissions: Record<string, any>;
-  updatePermissions: (participantId: string, newPermissions: any) => void;
+  permissions: Record<string, ParticipantPermission>;
+  updatePermissions: (participantId: string, newPermissions: ParticipantPermission) => void;
 }
 
 const ParticipantPermissionsContext = createContext<ParticipantPermissionsContextProps | undefined>(undefined);
 
 export const ParticipantPermissionsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [permissions, setPermissions] = useState<Record<string, any>>({});
+  const [permissions, setPermissions] = useState<Record<string, ParticipantPermission>>({});
 
-  const updatePermissions = useCallback((participantId: string, newPermissions: any) => {
+  const updatePermissions = useCallback((participantId: string, newPermissions: ParticipantPermission) => {
     setPermissions((prevPermissions) => ({
       ...prevPermissions,
       [participantId]: newPermissions,

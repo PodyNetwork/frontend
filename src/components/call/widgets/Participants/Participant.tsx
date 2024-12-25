@@ -19,11 +19,6 @@ import useEndCall from "@/hooks/call/useEndCall";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
-// update this page with full caution 
-//
-//
-// update this page with full caution  
-
 const ParticipantPody = () => {
   const { url } = useParams();
   const { call } = useGetCallByURL(url as string);
@@ -55,10 +50,24 @@ const ParticipantPody = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const filteredParticipants = useMemo(() => {
-    return participants.filter((participant) =>
-      participant.identity.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [participants, searchQuery]);
+    const hostId = call?.userId;
+  
+    return participants
+      .filter((participant) =>
+        participant.identity.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((a, b) => {
+        const getRolePriority = (participant: Participant) => {
+          const profile = users.find((user) => user.username === participant.identity);
+          if (profile?.id === hostId) return 1; // Host has the highest priority
+          if (participant.permissions?.canPublish) return 2; // Speakers have medium priority
+          return 3; // Listeners have the lowest priority
+        };
+  
+        return getRolePriority(a) - getRolePriority(b);
+      });
+  }, [participants, searchQuery, users, call]);
+  
   
 
   const joinSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);

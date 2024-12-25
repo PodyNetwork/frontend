@@ -11,13 +11,17 @@ import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
 import BlockiesSvg from "blockies-react-svg";
 
+
 import {
   Select,
   SelectContent,
   SelectGroup,
-  SelectItem, SelectTrigger,
-  SelectValue
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
+import { Tooltip } from "@/components/misc/tooltip";
+import StreamShareUrl from "@/components/call/widgets/share/StreamShareUrl";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
@@ -153,26 +157,45 @@ const CallsCard = ({ calls }: Calls) => {
                 />
               </div>
               <div
-                className={`text-xs sm:text-sm flex-1 ${
-                  call?.status === "ended" && "opacity-50"
+                className={`text-xs flex-1 text-slate-700 ${
+                  call?.status === "ended" && "opacity-40"
                 }`}
               >
                 <h3 className="font-medium">{call?.url}</h3>
                 <p className="text-xs capitalize">{call?.privacy} Call</p>
               </div>
-              {call?.type === "scheduled" && call?.status === "pending" && (
-                <div
-                  className="edit-drawer-container cursor-crosshair"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <EditDrawer
-                    call={{
-                      ...call,
-                      participantsCanPublish: call.permissions.canPublish,
-                    }}
-                  />
-                </div>
-              )}
+              <div
+                className="flex items-center gap-2"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Tooltip text="Edit Classroom">
+                  {call?.type === "scheduled" && call?.status === "pending" && (
+                    <div className="edit-drawer-container cursor-crosshair">
+                      <EditDrawer
+                        call={{
+                          ...call,
+                          participantsCanPublish: call.permissions.canPublish,
+                        }}
+                      />
+                    </div>
+                  )}
+                </Tooltip>
+
+                <Tooltip text="Share Classroom">
+                  <StreamShareUrl url={call?.url}>
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-5 h-5 text-pody-dark"
+                        viewBox="0 -960 960 960"
+                        fill="currentColor"
+                      >
+                        <path d="M252.31-60Q222-60 201-81q-21-21-21-51.31v-415.38Q180-578 201-599q21-21 51.31-21h102.3v60h-102.3q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v415.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-415.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85h-102.3v-60h102.3Q738-620 759-599q21 21 21 51.31v415.38Q780-102 759-81q-21 21-51.31 21H252.31ZM450-330v-441.23l-74 74L333.85-740 480-886.15 626.15-740 584-697.23l-74-74V-330h-60Z" />
+                      </svg>
+                    </div>
+                  </StreamShareUrl>
+                </Tooltip>
+              </div>
             </div>
           </div>
         );
@@ -225,12 +248,11 @@ const CallHistory = ({
     }
   };
 
-
   const renderCalls = () => {
-    if(isLoading) {
-      return (Array.from({ length: 3 }, (_, index) => (
+    if (isLoading) {
+      return Array.from({ length: 3 }, (_, index) => (
         <CallSkeleton key={index} />
-      )))
+      ));
     }
     if (isError) {
       return <CallMessageDisplay message="Error fetching calls" />;
@@ -276,7 +298,7 @@ const CallHistory = ({
       </div>
       <div
         className={` gap-4 px-4 sm:px-6 ${
-          (!isLoading && calls.length < 1)
+          !isLoading && calls.length < 1
             ? "w-full"
             : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
         }`}
@@ -287,7 +309,6 @@ const CallHistory = ({
             Array.from({ length: 3 }, (_, index) => (
               <CallSkeleton key={index} />
             )))}
-            
       </div>
       {hasNextPage && (
         <div className="col-span-full mt-4 text-center">

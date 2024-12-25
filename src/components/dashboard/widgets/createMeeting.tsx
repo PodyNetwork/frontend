@@ -53,7 +53,7 @@ const CreateMeeting = () => {
             <DropdownMenuContent>
               <DropdownMenuItem
                 onClick={() => {
-                  createCall.mutate({ privacy: "public" });
+                  createCall.mutate({ privacy: "public", participantsCanPublish: true });
                 }}
               >
                 <div className="flex items-center flex-row gap-x-2.5 p-1 text-slate-600">
@@ -70,7 +70,7 @@ const CreateMeeting = () => {
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
-                  createCall.mutate({ privacy: "private" });
+                  createCall.mutate({ privacy: "private", participantsCanPublish: true });
                 }}
               >
                 <div className="flex items-center flex-row gap-x-2.5 p-1 text-slate-600">

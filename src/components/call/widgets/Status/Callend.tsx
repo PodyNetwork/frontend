@@ -126,7 +126,7 @@ const CallEndPage = () => {
                   </svg>
                 </Link>
                 <Link
-                  href="https://x.com/podynetwork/"
+                  href="https://x.com/intent/follow?screen_name=podynetwork"
                   className="cursor-pointer"
                 >
                   <svg

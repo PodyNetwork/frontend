@@ -2,26 +2,26 @@
     {
         "title": "Pody Passport",
         "desc": "The passport to get access to the platform",
-        "image": "/nft/levelbase.png"
+        "image": "/nft/podynft.png"
     },
     {
         "title": "Pody Bronze",
         "desc": "Bronze increase Hash to get access to the platform",
-        "image": "/nft/levelprimary.png"
+        "image": "/nft/podynftblue.png"
     },
     {
         "title": "The Royal Collector",
         "desc": "Bronze increase Hash to get access to the platform",
-        "image": "/nft/levelsecondary.png"
+        "image": "/nft/podynftblue.png"
     },
     {
         "title": "Pody Diamont",
         "desc": "Bronze increase Hash to get access to the platform",
-        "image": "/nft/levelpro.png"
+        "image": "/nft/podynftblue.png"
     },
     {
         "title": "KingY",
         "desc": "Bronze increase Hash to get access to the platform",
-        "image": "/nft/levelmaster.png"
+        "image": "/nft/podynft.png"
     }
 ]

@@ -13,7 +13,6 @@ import {
 } from "@livekit/components-core";
 
 import {
-  ConnectionQualityIndicator,
   ParticipantContext,
   TrackRefContext,
   useEnsureParticipant,
@@ -21,7 +20,7 @@ import {
   useFeatureContext,
   useMaybeLayoutContext,
   useMaybeParticipantContext,
-  useMaybeTrackRefContext,
+  useMaybeTrackRefContext
 } from "@livekit/components-react";
 import { LockLockedIcon } from "@livekit/components-react";
 import { VideoTrack, AudioTrack } from "@livekit/components-react";

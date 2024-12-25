@@ -27,7 +27,7 @@ export function EnhancedGridLayout({
 }: EnhancedGridLayoutProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const tracksPerPage = 4;
+  const tracksPerPage = 9;
   const totalPages = Math.ceil(tracks.length / tracksPerPage);
   const [focusedTrackIndex, setFocusedTrackIndex] = useState<number | null>(
     null
@@ -253,8 +253,10 @@ export function EnhancedGridLayout({
       <div
         className={`hidden __video_layout_main sm:grid gap-2 mx-auto text-center justify-center ${
           currentTracks.length === 1 || focusedTrackIndex !== null
-            ? "grid-cols-1"
-            : "sm:grid-cols-2 lg:grid-cols-2"
+        ? "grid-cols-1"
+        : currentTracks.length <= 4
+        ? "sm:grid-cols-2 lg:grid-cols-2"
+        : "sm:grid-cols-3 lg:grid-cols-3"
         }`}
         style={
           {

@@ -123,7 +123,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
           <div className="flex ml-auto cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-7 h-7 text-pody-dark"
+              className="w-5 h-5 text-pody-dark"
               viewBox="0 -960 960 960"
               fill="currentColor"
             >
