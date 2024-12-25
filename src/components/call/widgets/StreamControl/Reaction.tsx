@@ -6,32 +6,26 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useDataChannel } from "@livekit/components-react";
+import useProfile from "@/hooks/user/useProfile";
 
-type ReactionType = {
+interface Reaction {
   id: string;
   emoji: string;
   offset: { x: number; y: number };
-};
+  senderName: string;
+}
 
-type ReactionAction = 
-  | { type: "ADD"; payload: ReactionType } 
+type ReactionAction =
+  | { type: "ADD"; payload: Reaction }
   | { type: "REMOVE"; payload: string };
 
-const emojis = [
-  "1F44D",
-  "1F44E",
-  "1F44F",
-  "1F602",
-  "1F608",
-  "1F625",
-  "1F639",
-];
+const emojis = ["1F44D", "1F44E", "1F44F", "1F602", "1F608", "1F625", "1F639"];
 
 const REACTION_DURATION = 2000;
 const DEBOUNCE_DURATION = 200;
 
 // Reducer for managing reactions
-const reactionsReducer = (state: ReactionType[], action: ReactionAction) => {
+const reactionsReducer = (state: Reaction[], action: ReactionAction) => {
   switch (action.type) {
     case "ADD":
       return [...state, action.payload];
@@ -46,15 +40,16 @@ const Reaction = () => {
   const [reactions, dispatch] = useReducer(reactionsReducer, []);
   const popoverRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const { profile } = useProfile();
 
   const { send } = useDataChannel("reaction", (msg) => {
-    const reaction: ReactionType = JSON.parse(
+    const reaction: Reaction = JSON.parse(
       new TextDecoder().decode(msg.payload)
     );
     addReaction(reaction);
   });
 
-  const addReaction = (reaction: ReactionType) => {
+  const addReaction = (reaction: Reaction) => {
     dispatch({ type: "ADD", payload: reaction });
     setTimeout(() => {
       dispatch({ type: "REMOVE", payload: reaction.id });
@@ -64,13 +59,13 @@ const Reaction = () => {
   const handleEmojiClick = (emoji: string) => {
     if (!popoverRef.current) return;
 
-    const newReaction: ReactionType = {
+    const newReaction: Reaction = {
       id: crypto.randomUUID(),
       emoji,
-      offset: { x: 0, y: -30 },
+      offset: { x: 0, y: -50 },
+      senderName: profile?.username ?? "Anonymous",
     };
 
-    // Debounce the send function
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
     }
@@ -123,7 +118,7 @@ const Reaction = () => {
 
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <AnimatePresence>
-          {reactions.map(({ id, emoji, offset }) => {
+          {reactions.map(({ id, emoji, offset, senderName }) => {
             const randomX = Math.random() * 60 - 30;
             return (
               <motion.div
@@ -132,12 +127,10 @@ const Reaction = () => {
                 animate={{
                   opacity: 1,
                   x: offset.x + randomX,
-                  y: offset.y - 100,
-                  scale: 1.4,
+                  y: offset.y - 170,
                 }}
                 exit={{
                   opacity: 0,
-                  scale: 1,
                   transition: { duration: 0.5 },
                 }}
                 style={{
@@ -147,7 +140,22 @@ const Reaction = () => {
                 }}
                 transition={{ duration: 1.5 }}
               >
-                <span className="text-[1.6rem]">{emoji}</span>
+                <div className="flex flex-col items-center">
+                  <motion.span
+                    className="text-[1.6rem]"
+                    animate={{
+                      scale: 1.4,
+                    }}
+                    exit={{
+                      scale: 1,
+                    }}
+                  >
+                    {emoji}
+                  </motion.span>
+                  <span className="text-[0.65rem] bg-slate-700 text-slate-200 rounded-full py-1 px-2">
+                    {senderName}
+                  </span>
+                </div>
               </motion.div>
             );
           })}

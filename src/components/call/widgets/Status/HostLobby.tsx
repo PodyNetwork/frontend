@@ -37,7 +37,7 @@ const HostLobby = ({ showStartButton, handleStartCall }: Props) => {
                   onClick={handleStartCall}
                   className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full"
                 >
-                  Start the CLassroom
+                  Start the Classroom
                 </button>
               )}
               <button
