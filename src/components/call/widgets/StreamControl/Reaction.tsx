@@ -21,10 +21,9 @@ type ReactionAction =
 
 const emojis = ["1F44D", "1F44E", "1F44F", "1F602", "1F608", "1F625", "1F639"];
 
-const REACTION_DURATION = 2000;
+const REACTION_DURATION = 3000;
 const DEBOUNCE_DURATION = 200;
 
-// Reducer for managing reactions
 const reactionsReducer = (state: Reaction[], action: ReactionAction) => {
   switch (action.type) {
     case "ADD":
@@ -127,7 +126,7 @@ const Reaction = () => {
                 animate={{
                   opacity: 1,
                   x: offset.x + randomX,
-                  y: offset.y - 170,
+                  y: offset.y - 120,
                 }}
                 exit={{
                   opacity: 0,
@@ -152,7 +151,7 @@ const Reaction = () => {
                   >
                     {emoji}
                   </motion.span>
-                  <span className="text-[0.65rem] bg-slate-700 text-slate-200 rounded-full py-1 px-2">
+                  <span className="text-[0.67rem] bg-slate-700 text-slate-200 rounded-full py-1 px-2">
                     {senderName}
                   </span>
                 </div>
