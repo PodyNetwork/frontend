@@ -9,6 +9,7 @@ import { motion } from "framer-motion"; // Import motion from framer-motion
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import Loader from "@/components/preloader/Loader";
 import { useNavigate } from "@/components/utils/PageRouter";
+import useLogout from "@/hooks/auth/useLogout";
 
 type FloatingElement = {
   id: number;
@@ -36,6 +37,8 @@ const AsideNav = () => {
     left: `${Math.random() * 100}%`,
     top: `${Math.random() * 100}%`,
   });
+
+  const { logout } = useLogout();
 
   const { handleClick, isPending } = useNavigate();
 
@@ -107,6 +110,12 @@ const AsideNav = () => {
             </div>
             <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
               <ConnectEmail />
+              <li
+                className="cursor-pointer"
+                onClick={logout}
+              >
+                Logout
+              </li>
             </ul>
           </header>
         </div>
