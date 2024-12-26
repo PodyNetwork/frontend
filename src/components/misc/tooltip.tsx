@@ -54,7 +54,7 @@ export const Tooltip = ({ children, text }: PropsWithChildren<TooltipProps>) => 
     };
 
     return (
-        <div className="group relative z-40" ref={containerRef}>
+        <div className="group relative z-40 select-none" ref={containerRef}>
             <div
                 ref={tooltipRef}
                 className={`absolute ${tooltipClasses[position]} px-3 py-1 bg-slate-700 text-white text-[0.62rem] rounded-md 
