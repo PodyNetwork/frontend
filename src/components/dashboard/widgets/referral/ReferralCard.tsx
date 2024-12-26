@@ -61,9 +61,9 @@ const ReferralCard = () => {
     }
   };
 
-  if(isLoading) return <SkeletonReferral />
-  
   const referralLevel = getReferralLevel(totalReferralsCount);
+
+  if(isLoading) return <SkeletonReferral />
 
   return (
     <div className="flex-1 gap-6 flex flex-col p-8 rounded-xl __pd_golden_grd relative select-none">

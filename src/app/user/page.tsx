@@ -49,7 +49,7 @@ const UserPage = () => {
           </div>
         )}
         {authState.isAuthenticated && (
-          <p className="w break-words">You are logged in! {JSON.stringify(ocAuth.getAuthState())}</p>
+          <p className="break-words">You are logged in! {JSON.stringify(ocAuth.getAuthState())}</p>
         )}
         <div>
           <p>
