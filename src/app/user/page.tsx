@@ -15,7 +15,7 @@ interface DecodedToken {
 }
 
 const UserPage = () => {
-  const { authState } = useOCAuth();
+  const { authState, ocAuth } = useOCAuth();
   const router = useRouter();
 
   if (authState.error) {
@@ -34,19 +34,22 @@ const UserPage = () => {
     }
 
     return (
-      <div className="App min-h-screen flex flex-col items-center justify-between">
+      <div className="min-h-screen flex flex-col">
         {userInfo ? (
           <>
-            <p className="mb-6 text-gray-600 text-center font-bold text-xl">
+            <p className="mb-6 text-gray-600 font-bold text-xl">
               Here are your OCID details:
             </p>
           </>
         ) : (
-          <div className="text-center">
+          <div>
             <p className="mb-6 text-gray-600">
               Please link with open campus to view your details.
             </p>
           </div>
+        )}
+        {authState.isAuthenticated && (
+          <p>You are logged in! {JSON.stringify(ocAuth.getAuthState())}</p>
         )}
         <div>
           <p>
