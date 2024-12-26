@@ -10,6 +10,7 @@ import Loader from "@/components/preloader/Loader";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import LoginButton from "@/components/ocid/LoginButton";
+import { useOCAuth } from "@opencampus/ocid-connect-js";
 
 const formOpts = formOptions<{ username: string; referralCode: string }>({
   defaultValues: {
