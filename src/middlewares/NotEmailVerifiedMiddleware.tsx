@@ -35,8 +35,7 @@ const NotEmailVerifiedMiddleware = ({ children }: { children: ReactNode }) => {
         }
       
       } catch (error) {
-        console.error("Error fetching profile:", error);
-        if(window.location.href !== '/login' && window.location.href !== '/signup') {
+        if(!window.location.href.includes('/login') && !window.location.href.includes('/signup')) {
           sessionStorage.setItem('redirect_after_login',window.location.href)
         }
         router.push("/login");
