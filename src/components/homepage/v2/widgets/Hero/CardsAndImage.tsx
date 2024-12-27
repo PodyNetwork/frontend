@@ -61,6 +61,9 @@ const CardsAndImage = () => {
                 width={300}
                 height={400}
                 alt="Pody Getting started"
+                priority
+                loading="eager"
+                quality={75}
               />
               <div className="p-5">
                 <h3 className="font-medium text-lg">Gifting</h3>
@@ -92,6 +95,9 @@ const CardsAndImage = () => {
                 width={300}
                 height={400}
                 alt="Pody Getting started"
+                priority
+                loading="eager"
+                quality={75}
               />
               <div className="p-5">
                 <h3 className="font-medium text-lg">Go Global</h3>
@@ -115,6 +121,9 @@ const CardsAndImage = () => {
                 width={900}
                 height={700}
                 alt="Pody Getting started"
+                priority
+                loading="eager"
+                quality={75}
               />
             </motion.div>
           </div>

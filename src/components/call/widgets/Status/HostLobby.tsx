@@ -23,13 +23,16 @@ const HostLobby = ({ showStartButton, handleStartCall }: Props) => {
               width={1500}
               height={536}
               alt="pody host lobby"
+              priority
+              loading="eager"
+              quality={75}
             />
             <h3 className="text-2xl font-medium">
               Get the Classroom Session Started
             </h3>
             <p className="text-sm">
-              The classroom session isn&apos;t live just yet. Click below to start
-              the session and engage your students!
+              The classroom session isn&apos;t live just yet. Click below to
+              start the session and engage your students!
             </p>
             <div className="flex flex-row items-center flex-wrap gap-2">
               {showStartButton && (

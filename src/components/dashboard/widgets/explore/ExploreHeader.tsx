@@ -17,6 +17,9 @@ const ExploreHeader = () => {
             width={800}
             height={600}
             alt="Video Conferencing"
+            priority
+            loading="eager"
+            quality={75}
           />
         </div>
       </div>

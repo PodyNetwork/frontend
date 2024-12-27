@@ -61,7 +61,10 @@ export function EnhancedGridLayout({
   };
 
   const currentTracks = useMemo(() => {
-    return tracks.slice(currentPage * tracksPerPage, (currentPage + 1) * tracksPerPage);
+    return tracks.slice(
+      currentPage * tracksPerPage,
+      (currentPage + 1) * tracksPerPage
+    );
   }, [tracks, currentPage]);
 
   const limitedVideoCount = Math.min(currentTracks.length, 4);
@@ -69,9 +72,9 @@ export function EnhancedGridLayout({
   const paginationRef = useRef<HTMLDivElement>(null);
 
   const availableTracks = useMemo(() => {
-    return tracks.filter(track => track?.source && track?.participant);
+    return tracks.filter((track) => track?.source && track?.participant);
   }, [tracks]);
-  
+
   const calculateHeights = useCallback(() => {
     if (paginationRef.current) {
       const height = paginationRef.current.offsetHeight;
@@ -118,9 +121,9 @@ export function EnhancedGridLayout({
   }, []);
 
   const resetPinbarTimeout = () => {
-    setShowPinbar(true); 
+    setShowPinbar(true);
     if (hidePinbarTimeoutRef.current) {
-      clearTimeout(hidePinbarTimeoutRef.current); 
+      clearTimeout(hidePinbarTimeoutRef.current);
     }
     hidePinbarTimeoutRef.current = setTimeout(() => {
       setShowPinbar(false);
@@ -128,15 +131,15 @@ export function EnhancedGridLayout({
   };
 
   useEffect(() => {
-    const handleMouseMove = () => resetPinbarTimeout(); 
+    const handleMouseMove = () => resetPinbarTimeout();
     window.addEventListener("mousemove", handleMouseMove);
 
-    resetPinbarTimeout(); 
+    resetPinbarTimeout();
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       if (hidePinbarTimeoutRef.current) {
-        clearTimeout(hidePinbarTimeoutRef.current); 
+        clearTimeout(hidePinbarTimeoutRef.current);
       }
     };
   }, []);
@@ -160,14 +163,19 @@ export function EnhancedGridLayout({
     }
   }, [availableTracks, currentIndex]);
 
-  const handleDragEnd = useCallback((event: MouseEvent | TouchEvent, info: PanInfo) => {
-    const swipeThreshold = 100;
-    if (info.offset.x > swipeThreshold) {
-      setCurrentIndex(prev => (prev === 0 ? availableTracks.length - 1 : prev - 1));
-    } else if (info.offset.x < -swipeThreshold) {
-      setCurrentIndex(prev => (prev + 1) % availableTracks.length);
-    }
-  }, [availableTracks]);
+  const handleDragEnd = useCallback(
+    (event: MouseEvent | TouchEvent, info: PanInfo) => {
+      const swipeThreshold = 100;
+      if (info.offset.x > swipeThreshold) {
+        setCurrentIndex((prev) =>
+          prev === 0 ? availableTracks.length - 1 : prev - 1
+        );
+      } else if (info.offset.x < -swipeThreshold) {
+        setCurrentIndex((prev) => (prev + 1) % availableTracks.length);
+      }
+    },
+    [availableTracks]
+  );
 
   if (noTracksAvailable) {
     return (
@@ -193,6 +201,9 @@ export function EnhancedGridLayout({
                     width={200}
                     height={200}
                     alt="Pody Logo"
+                    priority
+                    loading="eager"
+                    quality={75}
                   />
                 </motion.div>
                 <span className="text-[0.6rem] xs:text-xs mt-1 text-slate-800 dark:text-slate-300">
@@ -253,10 +264,10 @@ export function EnhancedGridLayout({
       <div
         className={`hidden __video_layout_main sm:grid gap-2 mx-auto text-center justify-center ${
           currentTracks.length === 1 || focusedTrackIndex !== null
-        ? "grid-cols-1"
-        : currentTracks.length <= 4
-        ? "sm:grid-cols-2 lg:grid-cols-2"
-        : "sm:grid-cols-3 lg:grid-cols-3"
+            ? "grid-cols-1"
+            : currentTracks.length <= 4
+            ? "sm:grid-cols-2 lg:grid-cols-2"
+            : "sm:grid-cols-3 lg:grid-cols-3"
         }`}
         style={
           {

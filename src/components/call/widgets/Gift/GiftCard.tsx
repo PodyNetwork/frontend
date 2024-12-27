@@ -270,7 +270,8 @@ const GiftUI: React.FC = () => {
           <div className="flex flex-nowrap max-w-sm relative overflow-x-auto gap-2">
             {filteredParticipants.length < 1 ? (
               <span className="text-xs text-slate-500">
-                Oops, there is No Participant to Gift. Invite Participants to the Classroom to start Gifting
+                Oops, there is No Participant to Gift. Invite Participants to
+                the Classroom to start Gifting
               </span>
             ) : (
               filteredParticipants.map((participant) => (
@@ -319,6 +320,9 @@ const GiftUI: React.FC = () => {
                           height={50}
                           alt={`${data.name} Token`}
                           className="h-4 w-4 rounded-full me-2 object-cover"
+                          priority
+                          loading="eager"
+                          quality={75}
                         />
                         {data.name}
                       </div>
@@ -333,7 +337,7 @@ const GiftUI: React.FC = () => {
               </SelectGroup>
             </SelectContent>
             <p className="text-[0.7rem] text-slate-500 dark:text-slate-500 mt-1">
-            Only Tokens whitelisted by Pody Network are currently supported.
+              Only Tokens whitelisted by Pody Network are currently supported.
             </p>
           </Select>
         </div>

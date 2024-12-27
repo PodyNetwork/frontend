@@ -40,6 +40,9 @@ const CallEndPage = () => {
               width={450}
               height={300}
               alt="pody audio playback illustration"
+              priority
+              loading="eager"
+              quality={75}
             />
             <h2 className="text-xl xs:text-2xl font-medium">
               {isOngoing ? "You've left the Classroom" : "Classroom Ended"}

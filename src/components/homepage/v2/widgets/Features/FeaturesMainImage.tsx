@@ -18,6 +18,9 @@ const FeaturesMainImage = () => {
         width={183}
         height={516}
         alt="discover"
+        priority
+        loading="eager"
+        quality={75}
       />
     </motion.div>
   );

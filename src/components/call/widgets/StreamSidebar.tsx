@@ -23,6 +23,8 @@ const StreamSidebar = () => {
             src={podyLogo}
             alt="Pody Logo"
             className="w-5 object-contain"
+            priority
+            loading="eager"
           />
         </div>
         <div className="w-full">
@@ -31,17 +33,17 @@ const StreamSidebar = () => {
               onClick={() => handleClick("/dashboard")}
               className="w-full isolation-auto"
             >
-               <li className="w-full justify-center flex relative __pd_lk">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-7 h-7"
-                    viewBox="0 -960 960 960"
-                    style={{ msFilter: "" }}
-                    fill="currentColor"
-                  >
-                    <path d="M240-200h133.85v-237.69h212.3V-200H720v-360L480-740.77 240-560v360Zm-60 60v-450l300-225.77L780-590v450H526.15v-237.69h-92.3V-140H180Zm300-330.38Z" />
-                  </svg>
-                </li>
+              <li className="w-full justify-center flex relative __pd_lk">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-7 h-7"
+                  viewBox="0 -960 960 960"
+                  style={{ msFilter: "" }}
+                  fill="currentColor"
+                >
+                  <path d="M240-200h133.85v-237.69h212.3V-200H720v-360L480-740.77 240-560v360Zm-60 60v-450l300-225.77L780-590v450H526.15v-237.69h-92.3V-140H180Zm300-330.38Z" />
+                </svg>
+              </li>
             </button>
             <li
               className={`w-full justify-center flex relative ${
@@ -63,16 +65,16 @@ const StreamSidebar = () => {
               className="w-full"
             >
               <li className="w-full justify-center flex relative __pd_lk">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    viewBox="0 -960 960 960"
-                    style={{ msFilter: "" }}
-                    fill="currentColor"
-                  >
-                    <path d="M160-200h173.46v-320H160v320Zm233.46 0h173.08v-560H393.46v560Zm233.08 0H800v-240H626.54v240ZM100-140v-440h233.46v-240h293.08v320H860v360H100Z" />
-                  </svg>
-                </li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  viewBox="0 -960 960 960"
+                  style={{ msFilter: "" }}
+                  fill="currentColor"
+                >
+                  <path d="M160-200h173.46v-320H160v320Zm233.46 0h173.08v-560H393.46v560Zm233.08 0H800v-240H626.54v240ZM100-140v-440h233.46v-240h293.08v320H860v360H100Z" />
+                </svg>
+              </li>
             </button>
             <button
               onClick={() => handleClick("/dashboard/reward")}

@@ -70,6 +70,9 @@ const QuickFeaturesCard = () => {
           width={483}
           height={516}
           alt={cards[currentIndex].description} 
+          priority
+          loading="eager"
+          quality={75}
         />
         <div>
           <h5 className="font-medium text-base">{cards[currentIndex].points}</h5>

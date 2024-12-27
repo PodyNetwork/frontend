@@ -22,7 +22,6 @@ type GiftData = {
   amount: number;
 };
 
-
 const GiftAnimationPage: React.FC = () => {
   const { animationData } = useGiftAnimation();
   const { profile } = useProfile();
@@ -51,13 +50,13 @@ const GiftAnimationPage: React.FC = () => {
 
   const processGiftQueue = useCallback(() => {
     if (giftQueue.length === 0 || !animationData) return;
-  
+
     const tl = gsap.timeline({
       onComplete: () => {
         setGiftQueue((prevQueue) => prevQueue.slice(1));
       },
     });
-  
+
     tl.fromTo(
       giftRef.current,
       { opacity: 0, scale: 0.8, y: 100 },
@@ -88,7 +87,7 @@ const GiftAnimationPage: React.FC = () => {
         ease: "power1.out",
         delay: 4,
       });
-  
+
     return () => {
       if (confettiTimeoutRef.current) {
         clearTimeout(confettiTimeoutRef.current);
@@ -96,7 +95,6 @@ const GiftAnimationPage: React.FC = () => {
       tl.kill();
     };
   }, [giftQueue, animationData]);
-  
 
   useEffect(() => {
     if (animationData) {
@@ -133,14 +131,13 @@ const GiftAnimationPage: React.FC = () => {
             height={50}
             alt="Gift"
             className="h-6 w-6 rounded-full object-cover"
+            priority
+            loading="eager"
+            quality={75}
           />
           <div>
-            {isSender ? (
-              "You"
-            ) : (
-              <span>{animationData?.senderId}</span>
-            )}{" "}
-            sent {animationData?.amount} {animationData?.giftId} to{" "}
+            {isSender ? "You" : <span>{animationData?.senderId}</span>} sent{" "}
+            {animationData?.amount} {animationData?.giftId} to{" "}
             {isReceiver ? "You" : animationData?.participantId}!
           </div>
         </div>
@@ -186,6 +183,9 @@ const GiftAnimationPage: React.FC = () => {
                     height={50}
                     alt="Gift"
                     className="h-4 w-4 rounded-full object-cover"
+                    priority
+                    loading="eager"
+                    quality={75}
                   />
                 )}
                 <span className="text-xl">🎁</span>

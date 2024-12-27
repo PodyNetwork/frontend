@@ -4,7 +4,7 @@ import Loader from "@/components/preloader/Loader";
 
 const CallWaiting = () => {
   const { handleClick, isPending } = useNavigate();
-  
+
   return (
     <>
       {isPending && <Loader />}
@@ -17,6 +17,9 @@ const CallWaiting = () => {
               width={1500}
               height={536}
               alt="pody call waiting"
+              priority
+              loading="eager"
+              quality={75}
             />
             <h3 className="text-2xl font-medium">
               Host hasn&apos;t started the Classroom yet
@@ -25,9 +28,12 @@ const CallWaiting = () => {
               The Classroom session is not live yet. Please wait for the host to
               start the session.
             </p>
-            <button onClick={() => handleClick("/dashboard")} className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full">
-                Go To Dashboard
-              </button>
+            <button
+              onClick={() => handleClick("/dashboard")}
+              className="px-4 py-3 bg-pody-dark text-slate-300 text-sm rounded-full"
+            >
+              Go To Dashboard
+            </button>
           </div>
         </div>
       </div>

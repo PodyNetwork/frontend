@@ -93,6 +93,9 @@ const NftList = () => {
                   ? "filter blur-md"
                   : ""
               }`}
+              priority
+              loading="eager"
+              quality={75}
             />
           </motion.div>
           <div className="p-4">

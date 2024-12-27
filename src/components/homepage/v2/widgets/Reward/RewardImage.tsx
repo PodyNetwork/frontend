@@ -11,6 +11,9 @@ const RewardImage = () => {
           height={400}
           alt="reward system image"
           className="w-full md:w-9/12 mx-auto"
+          priority
+          loading="eager"
+          quality={75}
         />
       </div>
     </div>

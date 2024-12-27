@@ -27,7 +27,7 @@ const auth = ({ children }: { children: ReactNode }) => {
             width={500}
             height={500}
             className="object-contain w-[22rem] md:w-[33rem] sm:w-[26rem]"
-            alt="Hero abstract background 3"
+            alt="Auth abstract background"
           />
         </motion.div>
       </div>
