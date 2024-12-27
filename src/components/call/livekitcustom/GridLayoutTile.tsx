@@ -27,7 +27,7 @@ export function EnhancedGridLayout({
 }: EnhancedGridLayoutProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const tracksPerPage = 9;
+  const tracksPerPage = 6;
   const totalPages = Math.ceil(tracks.length / tracksPerPage);
   const [focusedTrackIndex, setFocusedTrackIndex] = useState<number | null>(
     null
