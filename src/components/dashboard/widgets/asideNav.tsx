@@ -110,10 +110,7 @@ const AsideNav = () => {
             </div>
             <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
               <ConnectEmail />
-              <li
-                className="cursor-pointer"
-                onClick={logout}
-              >
+              <li className="cursor-pointer" onClick={logout}>
                 Logout
               </li>
             </ul>
@@ -194,6 +191,9 @@ const AsideNav = () => {
               </button>
             ))}
             <ConnectEmail />
+            <li className="cursor-pointer" onClick={logout}>
+              Logout
+            </li>
           </ul>
           <div className="mt-6 flex flex-col items-center gap-y-4">
             <div className="flex items-center gap-x-1.5 bg-slate-500/50 p-1.5 rounded-full">

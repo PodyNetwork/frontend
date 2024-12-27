@@ -11,6 +11,7 @@ interface PointHistoryResponse extends BaseResponse {
         userId: string;
         points: bigint;
         timeCreated: Date;
+        source: string;
       },
       totalPages: number,
       currentPage: number

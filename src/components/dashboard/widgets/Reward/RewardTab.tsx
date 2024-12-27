@@ -4,7 +4,7 @@ import { EmptyMessage } from "./RewardEmptyMessage";
 import useGetPointsHistory from "@/hooks/point/useGetPointsHistory";
 import { formatUnits } from "viem";
 import dayjs from "dayjs";
-import approx from 'approximate-number'
+import approx from "approximate-number";
 
 const RewardTab = () => {
   const {
@@ -19,11 +19,9 @@ const RewardTab = () => {
     fetchNextPage();
   };
 
-  const safeApproximatePoints = (points: bigint) : string => {
-    const pointsInEther = formatUnits(points, 18)
-    const etherApprox = approx(pointsInEther)
-    return etherApprox == "NaNt" ? "0" : etherApprox
-  }
+  const formatPointsToEther = (points: bigint | number | undefined): number => {
+    return Number(formatUnits(BigInt(points ?? 0), 18));
+  };
 
   return (
     <>
@@ -63,8 +61,10 @@ const RewardTab = () => {
                   </div>
                   <div className="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
                     <h3 className="text-xs sm:text-sm text-slate-800 truncate">
-                      {item?.points !== undefined
-                        ? `${safeApproximatePoints(item.points)} points`
+                        {item?.points !== undefined
+                        ? `${approx(formatPointsToEther(item.points))} ${
+                          item?.source === "referral" ? "Referral Points" : "points"
+                          }`
                         : "No points available"}
                     </h3>
                   </div>
