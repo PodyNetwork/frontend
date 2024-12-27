@@ -4,7 +4,7 @@ const faqs = [
   {
     question: "What happens if my transaction fails?",
     answer:
-      "Double-check your wallet&apos;s token balance and ensure you&apos;re on the correct blockchain network. After resolving any issues, retry.",
+      "Double-check your wallet's token balance and ensure you're on the correct blockchain network. After resolving any issues, retry.",
   },
   {
     question: "Can I use other wallets besides MetaMask?",
@@ -47,6 +47,9 @@ const MintingPassport = () => {
                     width={2880}
                     height={1644}
                     alt="Connect EVM Wallet to Pody"
+                    priority
+                    loading="eager"
+                    quality={75}
                   />
                   <li>
                     <h2 className="text-xl">Connect EVM Wallet</h2>
@@ -95,19 +98,31 @@ const MintingPassport = () => {
                     width={2880}
                     height={1644}
                     alt="Claim EduChain Faucet to mint Pody Passport"
+                    priority
+                    loading="eager"
+                    quality={75}
                   />
                   <li>
                     <h2 className="text-xl">Claim Your Faucet Tokens</h2>
                     <p>
-                      If you don&apos;t have the Edu Testnet token, claim the faucet
-                      from the listed platform; if you already have the faucet,
-                      you can skip this step. These tokens are essential for
-                      paying gas fees, minting your passport, and making other
-                      initial transactions on our platform.
+                      If you don&apos;t have the Edu Testnet token, claim the
+                      faucet from the listed platform; if you already have the
+                      faucet, you can skip this step. These tokens are essential
+                      for paying gas fees, minting your passport, and making
+                      other initial transactions on our platform.
                     </p>
                     <ul className="__pd_roman_list_number">
                       <li>
-                        <p>Get $EDU Testnet Token <a href="https://drpc.org/faucet/open-campus-codex" target="_blank" className="underline">here</a></p>
+                        <p>
+                          Get $EDU Testnet Token{" "}
+                          <a
+                            href="https://drpc.org/faucet/open-campus-codex"
+                            target="_blank"
+                            className="underline"
+                          >
+                            here
+                          </a>
+                        </p>
                       </li>
                     </ul>
                   </li>
@@ -177,7 +192,16 @@ const MintingPassport = () => {
                         ></iframe>
                       </div>
                       <ul className="faq-answer mt-4 text-base text-slate-700 __pd_unorder">
-                        <li>Go to <a href="https://edu-chain-testnet.blockscout.com/" className="underline" target="_blank">https://edu-chain-testnet.blockscout.com/</a></li>
+                        <li>
+                          Go to{" "}
+                          <a
+                            href="https://edu-chain-testnet.blockscout.com/"
+                            className="underline"
+                            target="_blank"
+                          >
+                            https://edu-chain-testnet.blockscout.com/
+                          </a>
+                        </li>
                         <li>
                           Scroll to the bottom and click Add EDU Chain Testnet
                         </li>
