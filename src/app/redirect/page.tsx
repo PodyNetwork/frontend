@@ -21,6 +21,7 @@ const RedirectPage = () => {
         await ocAuth.handleLoginRedirect();
         loginSuccess();
       } catch (error) {
+        console.error("Error:", error);
         loginError();
       }
     };

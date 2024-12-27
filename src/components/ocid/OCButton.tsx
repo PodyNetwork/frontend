@@ -4,16 +4,13 @@ import Image from "next/image";
 interface OCButtonProps {
   onClick?: () => void;
   children?: ReactNode;
-  className?: string;
   disabled?: boolean;
 }
 
 const OCButton: React.FC<OCButtonProps> = ({
   onClick,
   children,
-  className,
   disabled,
-  ...props
 }) => {
   return (
     <button

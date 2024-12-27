@@ -5,7 +5,6 @@ import { Call } from "@/app/classroom/types";
 import useGetPublicCalls from "@/hooks/call/useGetPublicCalls";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import dayjs from "dayjs";
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";

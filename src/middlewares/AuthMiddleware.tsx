@@ -26,6 +26,7 @@ const AuthMiddleware = ({ children }: { children: ReactNode }) => {
           throw new Error("Profile not found");
         }
       } catch (error) {
+        console.error("Error fetching profile:", error);
         if(!window.location.href.includes('/login') && !window.location.href.includes('/signup')) {
           sessionStorage.setItem('redirect_after_login',window.location.href)
         }   

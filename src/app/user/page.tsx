@@ -1,7 +1,6 @@
 "use client";
 import { useOCAuth } from "@opencampus/ocid-connect-js";
 import { jwtDecode } from "jwt-decode";
-import { useRouter } from "next/navigation";
 
 interface DecodedToken {
   user_id: number;
@@ -10,13 +9,12 @@ interface DecodedToken {
   iss: string;
   iat: number;
   exp: number;
-  aud: string;
+  aud: string; /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   [key: string]: any;
 }
 
 const UserPage = () => {
   const { authState, ocAuth } = useOCAuth();
-  const router = useRouter();
 
   if (authState.error) {
     return (
