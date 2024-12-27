@@ -34,6 +34,7 @@ const useLogin = () => {
       setAccessToken(data.data.accessToken);
       setRefreshToken(data.data.refreshToken);
       const redirect_after_login = sessionStorage.getItem('redirect_after_login')
+      console.log(redirect_after_login);
       router.push(redirect_after_login ?? '/dashboard');
     },
     onError: (error: AxiosError | Error) => {

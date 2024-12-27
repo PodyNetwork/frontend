@@ -14,4 +14,12 @@ const getRefreshToken = () => {
     return localStorage.getItem('refreshToken')
 }
 
-export { setAccessToken, getAccessToken, setRefreshToken, getRefreshToken }
+const removeAccessToken = () => {
+    localStorage.removeItem('accessToken');
+};
+
+const removeRefreshToken = () => {
+    localStorage.removeItem('refreshToken');
+};
+
+export { setAccessToken, getAccessToken, setRefreshToken, getRefreshToken, removeAccessToken, removeRefreshToken }
