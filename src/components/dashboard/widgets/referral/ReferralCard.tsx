@@ -74,9 +74,9 @@ const ReferralCard = () => {
         </p>
       </div>
       <div className="flex flex-col sm:flex-row gap-8">
-        <div className="text-slate-50 w-7/12 flex flex-col">
+        <div className="text-slate-50 w-full md:w-7/12 flex flex-col">
           <div className="pt-3">
-            <h2 className="font-bold text-2xl xs:text-4xl md:text-5xl">{formatAndTruncateCount(totalReferralsCount * 10000)}</h2>
+            <h2 className="font-bold text-2xl xs:text-4xl">{formatAndTruncateCount(totalReferralsCount * 10000)}</h2>
             <p className="text-base mt-1">Points Earned</p>
           </div>
           <div
@@ -84,11 +84,11 @@ const ReferralCard = () => {
             ref={containerRef}
           >
             <div className="flex flex-row items-center gap-x-2 relative">
-              <h2 className="font-bold text-2xl xs:text-4xl md:text-5xl">{profile?.username}</h2>
+              <h2 className="font-bold text-2xl xs:text-4xl truncate">{profile?.username}</h2>
               <svg
                 onClick={handleCopy}
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 mt-1.5"
+                className="min-w-6 max-w-6 min-h-6 max-h-6 mt-1.5"
                 viewBox="0 -960 960 960"
                 fill="currentColor"
               >
@@ -111,13 +111,13 @@ const ReferralCard = () => {
             <p className="text-base mt-1">Referral Code</p>
           </div>
         </div>
-        <div className="w-5/12 flex flex-col justify-between gap-y-6 text-slate-50">
+        <div className="w-full md:w-5/12 flex flex-col justify-between gap-y-6 text-slate-50">
           <div className="pt-3">
-            <h2 className="font-semibold text-2xl">{totalReferralsCount}</h2>
+            <h2 className="font-semibold text-3xl">{totalReferralsCount}</h2>
             <p className="text-base mt-1">Total Referral</p>
           </div>
           <div>
-            <h2 className="font-semibold text-2xl web3-gradient-text_base">
+            <h2 className="font-semibold text-3xl web3-gradient-text_base">
               {referralLevel}
             </h2>
             <p className="text-base mt-1">Level</p>
