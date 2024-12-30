@@ -2,7 +2,6 @@
 import { useOCAuth } from "@opencampus/ocid-connect-js";
 import OCButton from "./OCButton";
 
-
 const LoginButton = () => {
   const { ocAuth } = useOCAuth();
 
