@@ -6,19 +6,22 @@ import useLogin from "./hooks/useLogin";
 import ConnectOrComponent from "@/components/global/ConnectOrComponent";
 import Link from "next/link";
 import AuthHeader from "@/components/Auth/AuthHeader";
+import Loader from "@/components/preloader/Loader";
 
 const Login = () => {
-  const { login, errorMessage } = useLogin();
+  const { login, errorMessage, isPending } = useLogin();
   const form = useForm<"">({
     onSubmit: async () => {
       await login.mutateAsync();
     },
   });
   return (
+    
     <main
       className="relative float-left w-full h-full overflow-hidden"
       aria-label="Login"
     >
+      {isPending && <Loader />}
       <AuthLayout>
         <div className="w-full max-w-96 md:px-6">
           <AuthHeader />

@@ -75,11 +75,7 @@ const SignUp = () => {
     SetAuthButton(false);
   };
 
-  const { authState, ocAuth } = useOCAuth();
-
-  useEffect(() => {
-    console.log(authState);
-  }, [authState]);
+  const { authState } = useOCAuth();
 
   if (authState.error) {
     return <div>Error: {authState.error.message}</div>;

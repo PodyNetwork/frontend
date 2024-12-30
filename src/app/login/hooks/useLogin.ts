@@ -1,6 +1,6 @@
 import { setAccessToken, setRefreshToken } from '@/utils/jwtoken';
 import { useMutation } from '@tanstack/react-query';
-import { useCallback } from 'react';
+import { useCallback, useTransition } from 'react';
 
 import axios from "@/network/axios"
 import { AxiosError } from 'axios';
@@ -21,6 +21,7 @@ interface LoginResponse extends Response {
 const useLogin = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const loginUser = useCallback(async (): Promise<LoginResponse> => {
     const credentials: LoginCredentials = await handleCreatePassport()
     const response = await axios.post<LoginResponse>('/auth/login', credentials);
@@ -34,8 +35,9 @@ const useLogin = () => {
       setAccessToken(data.data.accessToken);
       setRefreshToken(data.data.refreshToken);
       const redirect_after_login = sessionStorage.getItem('redirect_after_login')
-      console.log(redirect_after_login);
-      router.push(redirect_after_login ?? '/dashboard');
+      startTransition(() => {
+        router.push(redirect_after_login ?? '/dashboard');
+      });
     },
     onError: (error: AxiosError | Error) => {
       if (isAxiosError(error)) {
@@ -47,7 +49,7 @@ const useLogin = () => {
     },
   });
 
-  return { login, errorMessage };
+  return { login, errorMessage, isPending };
 }
 
 export default useLogin
