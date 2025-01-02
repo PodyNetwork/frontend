@@ -1169,7 +1169,9 @@ body {
     box-shadow: 0 0 10px rgba(230, 57, 70, 0.5);
   }
 }
-
+.__schedule__wrapper{
+  @apply min-h-full;
+}
 @media (max-width: 768px) {
   .__scheduled_layout_lft {
     @apply w-1/2;
@@ -1191,6 +1193,9 @@ body {
 
   .__scheduled_layout_rgt {
     @apply w-full;
+  }
+  .__schedule__wrapper{
+    @apply min-h-screen;
   }
 }
 

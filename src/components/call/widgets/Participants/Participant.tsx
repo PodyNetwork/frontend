@@ -16,6 +16,7 @@ import { ParticipantNamePody } from "./ParticipantName";
 import { Participant } from "livekit-client";
 import { useDialog } from "../../utils/DialogContext";
 import useEndCall from "@/hooks/call/useEndCall";
+import useMuteParticipant from "@/hooks/call/useMuteParticipant";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -24,8 +25,8 @@ const ParticipantPody = () => {
   const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();
   const participants = useParticipants();
-  const { updateCallParticipantPermission } =
-    useUpdateCallParticipantPermission();
+  const { updateCallParticipantPermission } = useUpdateCallParticipantPermission();
+  const { updateParticipantMute } = useMuteParticipant();
   const { users } = useUserContext();
 
   const { participantBarIsExpanded, toggleParticipantBar } =
@@ -47,28 +48,58 @@ const ParticipantPody = () => {
     });
   };
 
+  const handleMuteParticipant = (username: string) => {
+    const getParticipantSid = (username: string) => {
+      const participant = participants.find((p) => p.identity === username);
+      const audioTracks = participant?.audioTrackPublications;
+      if (!audioTracks || audioTracks.size === 0) return null;
+  
+      const firstTrack = audioTracks.values().next().value;
+      return firstTrack?.trackSid || null;
+    };
+  
+    // Get the track SID for the username
+    const trackSid = getParticipantSid(username);
+  
+    console.log(trackSid);
+  
+    if (!trackSid) {
+      console.error(`Track SID not found for participant: ${username}`);
+      return;
+    }
+  
+    updateParticipantMute.mutate({
+      callId: call?._id || "",
+      username,
+      trackSid,
+      mute: true,
+    });
+  };
+  
+  
+
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const filteredParticipants = useMemo(() => {
     const hostId = call?.userId;
-  
+
     return participants
       .filter((participant) =>
         participant.identity.toLowerCase().includes(searchQuery.toLowerCase())
       )
       .sort((a, b) => {
         const getRolePriority = (participant: Participant) => {
-          const profile = users.find((user) => user.username === participant.identity);
-          if (profile?.id === hostId) return 1; // Host has the highest priority
-          if (participant.permissions?.canPublish) return 2; // Speakers have medium priority
-          return 3; // Listeners have the lowest priority
+          const profile = users.find(
+            (user) => user.username === participant.identity
+          );
+          if (profile?.id === hostId) return 1;
+          if (participant.permissions?.canPublish) return 2;
+          return 3;
         };
-  
+
         return getRolePriority(a) - getRolePriority(b);
       });
   }, [participants, searchQuery, users, call]);
-  
-  
 
   const joinSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);
   const leaveSound = useMemo(() => new Audio("/audio/podynotifjoin.mp3"), []);
@@ -113,24 +144,23 @@ const ParticipantPody = () => {
         | ((prev: typeof callState) => Partial<typeof callState>)
     ) => {
       setCallState((prev) => {
-        const newState = typeof updates === "function" ? updates(prev) : updates;
+        const newState =
+          typeof updates === "function" ? updates(prev) : updates;
         return { ...prev, ...newState };
       });
     },
     []
   );
-  
 
   const checkIfOnlyParticipant = useCallback(() => {
     const remoteCount = participants.reduce(
       (count, participant) => (!participant.isLocal ? count + 1 : count),
       0
     );
-    if (remoteCount === 0 !== callState.isOnlyParticipant) {
+    if ((remoteCount === 0) !== callState.isOnlyParticipant) {
       updateCallState({ isOnlyParticipant: remoteCount === 0 });
     }
   }, [participants, callState.isOnlyParticipant, updateCallState]);
-  
 
   useEffect(() => {
     checkIfOnlyParticipant();
@@ -152,28 +182,28 @@ const ParticipantPody = () => {
       });
       return;
     }
-  
+
     const intervalId = setInterval(() => {
       setCallState((prev) => {
         if (prev.callEnded) {
-          clearInterval(intervalId); 
+          clearInterval(intervalId);
           return prev;
         }
         return { ...prev, timeElapsed: prev.timeElapsed + 1 };
       });
     }, 60000);
-  
+
     return () => clearInterval(intervalId);
   }, [callState.isOnlyParticipant]);
 
   useEffect(() => {
     if (!callState.isOnlyParticipant) return;
-  
+
     if (callState.timeElapsed === 5 && !callState.notificationSent) {
       openDialog("notifNoParticipant");
       updateCallState({ notificationSent: true });
     }
-  
+
     if (callState.timeElapsed >= 10 && !callState.callEnded) {
       if (callId) {
         endCall.mutate({ callId });
@@ -183,7 +213,6 @@ const ParticipantPody = () => {
       updateCallState({ callEnded: true });
     }
   }, [callState, callId, endCall, openDialog]);
-  
 
   return (
     <>
@@ -208,7 +237,8 @@ const ParticipantPody = () => {
             </div>
             {filteredParticipants.length === 0 ? (
               <div className="text-center text-xs text-slate-500 dark:text-slate-300">
-                No Participants Found. Please Invite More Participants to the Classroom.
+                No Participants Found. Please Invite More Participants to the
+                Classroom.
               </div>
             ) : (
               filteredParticipants.map((participant, index) => {
@@ -258,6 +288,7 @@ const ParticipantPody = () => {
                       participant={participant}
                       handleAddToSpeak={handleAddToSpeak}
                       handleRemoveFromSpeak={handleRemoveFromSpeak}
+                      handleMuteParticipant={handleMuteParticipant}
                       profile={profile}
                       call={call}
                       participantBarToggleExpanded={participantBarIsExpanded}

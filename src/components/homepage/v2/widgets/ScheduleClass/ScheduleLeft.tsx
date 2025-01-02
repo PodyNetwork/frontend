@@ -15,7 +15,7 @@ const ScheduleLeft = () => {
         />
       </div>
       <div className="w-full flex flex-row z-40 relative h-full">
-        <div className="w-full min-h-screen px-5 md:px-6 py-7 flex flex-col">
+        <div className="w-full __schedule__wrapper px-5 md:px-6 py-7 flex flex-col">
           <div className="mb-40">
             <div className="max-w-lg">
               <p className="text-3xl font-semibold text-slate-900">

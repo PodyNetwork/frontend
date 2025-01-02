@@ -7,12 +7,16 @@ const RedirectPage = () => {
   const router = useRouter();
   const { authState, ocAuth } = useOCAuth();
 
+  const OCVisitedPage = localStorage.getItem("OCVisitedPage");
+
+  const link = OCVisitedPage ? OCVisitedPage : "/signup"; 
+
   const loginSuccess = () => {
-    router.push("/user"); // Redirect to user or any other page
+    router.push(link);
   };
 
   const loginError = () => {
-    router.push("/"); // Redirect to login page or show error message
+    router.push("/");
   };
 
   useEffect(() => {
@@ -27,7 +31,7 @@ const RedirectPage = () => {
     };
 
     handleAuth();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ocAuth]);
 
   if (authState.error) {

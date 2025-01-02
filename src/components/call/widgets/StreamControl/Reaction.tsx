@@ -151,7 +151,7 @@ const Reaction = () => {
                   >
                     {emoji}
                   </motion.span>
-                  <span className="text-[0.67rem] bg-slate-700 text-slate-200 rounded-full py-1 px-2">
+                  <span className="text-[0.67rem] max-w-24 truncate bg-pody-secondary text-slate-200 rounded-full py-1 px-2">
                     {senderName}
                   </span>
                 </div>

@@ -244,6 +244,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={isFullscreen ? exitFullscreen : enterFullscreen}
+            className="hidden lg:flex"
           >
             {isFullscreen ? <Minimize /> : <Maximize />}
             <span>{isFullscreen ? "Exit Fullscreen" : "Fullscreen"}</span>

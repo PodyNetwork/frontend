@@ -76,15 +76,7 @@ const SignUp = () => {
   };
 
   const { authState } = useOCAuth();
-
-  if (authState.error) {
-    return <div>Error: {authState.error.message}</div>;
-  }
-
-  if (authState.isLoading) {
-    return <Loader />;
-  }
-
+  
   let userInfo: DecodedToken | null = null;
 
   if (authState.idToken) {
@@ -96,7 +88,18 @@ const SignUp = () => {
       form.setFieldValue("username", userInfo.edu_username);
     }
   }, [authState.isAuthenticated, flowType, userInfo, form]);
+
+  if (authState.error) {
+    return <div>Error: {authState.error.message}</div>;
+  }
+
+  if (authState.isLoading) {
+    return <Loader />;
+  }
   
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('OCVisitedPage', window.location.href);
+  }
 
   return (
     <main
@@ -110,7 +113,7 @@ const SignUp = () => {
           {authButton && (
             <div className="flex flex-col">
               {authState.isAuthenticated ? (
-                <OCButton onClick={handleOCIDClick}>Sign Up with OCID</OCButton>
+                <OCButton onClick={handleOCIDClick}>Continue with OCID</OCButton>
               ) : (
                 <LoginButton />
               )}
@@ -148,15 +151,14 @@ const SignUp = () => {
                       onChange: ({ value }) => {
                         if (!value) return "Username is required";
                         if (value.length > 15) return "Username is too long";
-                        if (
-                          authState.isAuthenticated &&
-                          flowType === "ocid" &&
-                          !/^[a-zA-Z]+(\.edu)?$/.test(value)
-                        ) {
-                          return "Invalid username. Only '.edu' is allowed at the end.";
-                        }
-                        if (!authState.isAuthenticated && !/^[a-zA-Z]+$/.test(value)) {
-                          return "Invalid username";
+                        if (authState.isAuthenticated && flowType === "ocid") {
+                          if (!/^[a-zA-Z]+(\.edu)?$/.test(value)) {
+                            return "Invalid username. Only '.edu' is allowed at the end.";
+                          }
+                        } else {
+                          if (!/^[a-zA-Z]+$/.test(value)) {
+                            return "Invalid username. Only letters are allowed.";
+                          }
                         }
                         return undefined;
                       },

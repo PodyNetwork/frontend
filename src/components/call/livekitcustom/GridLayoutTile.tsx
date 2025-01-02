@@ -67,7 +67,7 @@ export function EnhancedGridLayout({
     );
   }, [tracks, currentPage]);
 
-  const limitedVideoCount = Math.min(currentTracks.length, 4);
+  const limitedVideoCount = Math.min(currentTracks.length, 6);
 
   const paginationRef = useRef<HTMLDivElement>(null);
 
