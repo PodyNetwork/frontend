@@ -10,9 +10,11 @@ import Loader from "@/components/preloader/Loader";
 import { useState, useEffect } from "react";
 import { Tooltip } from "@/components/misc/tooltip";
 import { useOCAuth } from "@opencampus/ocid-connect-js";
-import LoginButton from "@/components/ocid/LoginButton";
 import OCButton from "@/components/ocid/OCButton";
 import { jwtDecode } from "jwt-decode";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+import { ToastAction } from "@/components/ui/toast";
 
 interface DecodedToken {
   user_id: number;
@@ -76,7 +78,7 @@ const SignUp = () => {
   };
 
   const { authState } = useOCAuth();
-  
+
   let userInfo: DecodedToken | null = null;
 
   if (authState.idToken) {
@@ -84,7 +86,11 @@ const SignUp = () => {
   }
 
   useEffect(() => {
-    if (authState.isAuthenticated && flowType === "ocid" && userInfo?.edu_username) {
+    if (
+      authState.isAuthenticated &&
+      flowType === "ocid" &&
+      userInfo?.edu_username
+    ) {
       form.setFieldValue("username", userInfo.edu_username);
     }
   }, [authState.isAuthenticated, flowType, userInfo, form]);
@@ -96,10 +102,12 @@ const SignUp = () => {
   if (authState.isLoading) {
     return <Loader />;
   }
-  
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('OCVisitedPage', window.location.href);
+
+  if (typeof window !== "undefined") {
+    localStorage.setItem("OCVisitedPage", window.location.href);
   }
+
+  const { toast } = useToast()
 
   return (
     <main
@@ -112,11 +120,24 @@ const SignUp = () => {
           <AuthHeader />
           {authButton && (
             <div className="flex flex-col">
-              {authState.isAuthenticated ? (
-                <OCButton onClick={handleOCIDClick}>Continue with OCID</OCButton>
+              {/* {authState.isAuthenticated ? (
+                <OCButton onClick={handleOCIDClick} disabled>Continue with OCID</OCButton>
               ) : (
                 <LoginButton />
-              )}
+              )} */}
+              <OCButton
+                onClick={() => {
+                  toast({
+                    title: "OC ID Connect Coming Soon...",
+                    description: "Create a New Username instead.",
+                    action: (
+                      <ToastAction altText="Create a new Username" onClick={handleNewUserClick}>Create</ToastAction>
+                    ),
+                  })
+                }}
+              >
+                Connect OCID
+              </OCButton>
               <div className="flex items-center my-4">
                 <div className="w-full h-[.5px] bg-slate-300"></div>
                 <span className="px-4 text-sm text-slate-500 font-semibold">
@@ -132,7 +153,8 @@ const SignUp = () => {
               </button>
             </div>
           )}
-          {((flowType === "ocid" && authState.isAuthenticated) || flowType === "podyid") && (
+          {((flowType === "ocid" && authState.isAuthenticated) ||
+            flowType === "podyid") && (
             <div>
               <form
                 onSubmit={(e) => {
@@ -191,7 +213,9 @@ const SignUp = () => {
                                 ? userInfo?.edu_username || field.state.value
                                 : field.state.value
                             }
-                            disabled={authState.isAuthenticated && flowType === "ocid"}
+                            disabled={
+                              authState.isAuthenticated && flowType === "ocid"
+                            }
                             onBlur={field.handleBlur}
                             onChange={(e) => field.handleChange(e.target.value)}
                           />
@@ -331,6 +355,7 @@ const SignUp = () => {
           </Tooltip>
         </div>
       </div>
+      <Toaster />
     </main>
   );
 };

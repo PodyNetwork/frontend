@@ -11,7 +11,7 @@ const LoginButton = () => {
     });
   };
 
-  return <OCButton  onClick={handleLogin}>Connect <span className="font-bold">OCID</span></OCButton>;
+  return <OCButton onClick={handleLogin}>Connect <span className="font-bold">OCID</span></OCButton>;
 };
 
 export default LoginButton;
