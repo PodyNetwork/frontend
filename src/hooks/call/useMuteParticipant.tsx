@@ -18,7 +18,7 @@ const useMuteParticipant = () => {
 
   const updateCallParticipantMute = useCallback(
     async (args: UpdateParticipantMuteArgs): Promise<BaseResponse> => {
-      const response = await axios.put<BaseResponse>(`/call/participant/track`, args);
+      const response = await axios.post<BaseResponse>(`/call/participant/track`, args);
       return response.data;
     },
     []

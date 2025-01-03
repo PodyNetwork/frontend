@@ -1,15 +1,17 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useOCAuth } from "@opencampus/ocid-connect-js";
 
 const RedirectPage = () => {
   const router = useRouter();
   const { authState, ocAuth } = useOCAuth();
+  const [link, setLink] = useState("/signup");
 
-  const OCVisitedPage = localStorage.getItem("OCVisitedPage");
-
-  const link = OCVisitedPage ? OCVisitedPage : "/signup"; 
+  useEffect(() => {
+    const OCVisitedPage = localStorage.getItem("OCVisitedPage");
+    setLink(OCVisitedPage || "/signup");
+  }, []);
 
   const loginSuccess = () => {
     router.push(link);

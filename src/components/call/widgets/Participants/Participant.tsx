@@ -17,6 +17,7 @@ import { Participant } from "livekit-client";
 import { useDialog } from "../../utils/DialogContext";
 import useEndCall from "@/hooks/call/useEndCall";
 import useMuteParticipant from "@/hooks/call/useMuteParticipant";
+import ParticipantSearch from "./ParticipantSearch";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -57,11 +58,7 @@ const ParticipantPody = () => {
       const firstTrack = audioTracks.values().next().value;
       return firstTrack?.trackSid || null;
     };
-  
-    // Get the track SID for the username
     const trackSid = getParticipantSid(username);
-  
-    console.log(trackSid);
   
     if (!trackSid) {
       console.error(`Track SID not found for participant: ${username}`);
@@ -226,13 +223,7 @@ const ParticipantPody = () => {
           <div className="gap-3 grid grid-cols-4 md:py-4 md:gap-0 md:px-4 md:flex flex-row flex-wrap md:flex-col relative __pd_participant_list_grd">
             <div className="hidden md:block">
               {participantBarIsExpanded && (
-                <input
-                  type="text"
-                  placeholder="Search Participants..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="mb-3 text-xs w-full px-3 py-2 h-10 rounded-md outline-none bg-slate-100 dark:bg-pody-oxfordblue text-slate-700 dark:text-slate-300"
-                />
+                <ParticipantSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
               )}
             </div>
             {filteredParticipants.length === 0 ? (
@@ -293,6 +284,7 @@ const ParticipantPody = () => {
                       call={call}
                       participantBarToggleExpanded={participantBarIsExpanded}
                       role={role}
+                      className="hidden md:flex"
                     />
                   </div>
                 );

@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo, useState } from "react";
 import { useParticipants } from "@livekit/components-react";
 import useProfile from "@/hooks/user/useProfile";
 import { useParams } from "next/navigation";
@@ -7,10 +7,11 @@ import useUpdateCallParticipantPermission from "@/hooks/call/useUpdateCallPartic
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import { useParticipantMenu } from "../../utils/ParticipantMenuContext";
 import { useUserContext } from "../../utils/UserContext";
-import { MicrophoneIcon } from "./MicrophoneIcon";
 import { ParticipantNamePody } from "./ParticipantName";
-import { VideoIcon } from "./VideoIcon";
-
+import { ParticipantControls } from "./ParticipantControls";
+import useMuteParticipant from "@/hooks/call/useMuteParticipant";
+import ParticipantSearch from "./ParticipantSearch";
+import { Participant } from "livekit-client";
 
 const ParticipantMobileManage = () => {
   const { url } = useParams();
@@ -20,8 +21,9 @@ const ParticipantMobileManage = () => {
   const { updateCallParticipantPermission } =
     useUpdateCallParticipantPermission();
   const { users } = useUserContext();
-
+  const { updateParticipantMute } = useMuteParticipant();
   const { isMenuOpen, closeMenu } = useParticipantMenu();
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleAddToSpeak = (username: string) => {
     updateCallParticipantPermission.mutate({
@@ -38,6 +40,51 @@ const ParticipantMobileManage = () => {
       username,
     });
   };
+
+  const handleMuteParticipant = (username: string) => {
+    const getParticipantSid = (username: string) => {
+      const participant = participants.find((p) => p.identity === username);
+      const audioTracks = participant?.audioTrackPublications;
+      if (!audioTracks || audioTracks.size === 0) return null;
+
+      const firstTrack = audioTracks.values().next().value;
+      return firstTrack?.trackSid || null;
+    };
+    const trackSid = getParticipantSid(username);
+
+    if (!trackSid) {
+      console.error(`Track SID not found for participant: ${username}`);
+      return;
+    }
+
+    updateParticipantMute.mutate({
+      callId: call?._id || "",
+      username,
+      trackSid,
+      mute: true,
+    });
+  };
+
+  const filteredParticipants = useMemo(() => {
+    const hostId = call?.userId;
+
+    return participants
+      .filter((participant) =>
+        participant.identity.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((a, b) => {
+        const getRolePriority = (participant: Participant) => {
+          const profile = users.find(
+            (user) => user.username === participant.identity
+          );
+          if (profile?.id === hostId) return 1;
+          if (participant.permissions?.canPublish) return 2;
+          return 3;
+        };
+
+        return getRolePriority(a) - getRolePriority(b);
+      });
+  }, [participants, searchQuery, users, call]);
 
   return (
     <div
@@ -60,69 +107,60 @@ const ParticipantMobileManage = () => {
             <path d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z" />
           </svg>
         </div>
+        <div>
+          <ParticipantSearch
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+        </div>
         <div className="mb-[20px] gap-0 flex flex-wrap flex-col relative">
-          {participants.map((participant, index) => {
-            const { identity, permissions } = participant;
-            const profileScan = users.find(
-              (user) => user.username === identity
-            );
-            const isHost = profileScan?.id === call?.userId;
-            const isSpeaker = permissions?.canPublish;
-            const role = isSpeaker ? (isHost ? "Host" : "Speaker") : "Listener";
-            return (
-              <div
-                className="flex flex-row justify-between gap-x-2 py-2 text-sm text-slate-500"
-                key={index}
-              >
-                <div className="flex flex-row items-center truncate relative">
-                  <div className="w-7 h-7 object-cover rounded-full">
-                    <AvatarParticipant name={participant.identity} />
+          {filteredParticipants.length === 0 ? (
+            <div className="text-center text-xs text-slate-500 dark:text-slate-300">
+              No Participants Found. Please Invite More Participants to the
+              Classroom.
+            </div>
+          ) : (
+            filteredParticipants.map((participant, index) => {
+              const { identity, permissions } = participant;
+              const profileScan = users.find(
+                (user) => user.username === identity
+              );
+              const isHost = profileScan?.id === call?.userId;
+              const isSpeaker = permissions?.canPublish;
+              const role = isSpeaker
+                ? isHost
+                  ? "Host"
+                  : "Speaker"
+                : "Listener";
+              return (
+                <div
+                  className="flex flex-row justify-between gap-x-2 py-2 text-sm text-slate-500"
+                  key={index}
+                >
+                  <div className="flex flex-row items-center truncate relative">
+                    <div className="w-7 h-7 object-cover rounded-full">
+                      <AvatarParticipant name={participant.identity} />
+                    </div>
+                    <div className="ms-2.5 flex flex-col items-center justify-center text-sm">
+                      <ParticipantNamePody participant={participant} />
+                    </div>
                   </div>
-                  <div className="ms-2.5 flex flex-col items-center justify-center text-sm">
-                    <ParticipantNamePody participant={participant} />
+                  <div className="flex flex-row items-center gap-x-2.5">
+                    <ParticipantControls
+                      participant={participant}
+                      handleAddToSpeak={handleAddToSpeak}
+                      handleRemoveFromSpeak={handleRemoveFromSpeak}
+                      handleMuteParticipant={handleMuteParticipant}
+                      profile={profile}
+                      call={call}
+                      role={role}
+                      className="flex"
+                    />
                   </div>
                 </div>
-                <div className="flex flex-row items-center gap-x-2.5">
-                  {profile?.id === call?.userId &&
-                    participant.identity !== profile?.username && (
-                      <>
-                        {!participant.permissions?.canPublish ? (
-                          <button
-                            className="text-xs text-blue-500"
-                            onClick={() =>
-                              handleAddToSpeak(participant.identity)
-                            }
-                          >
-                            Add to speak
-                          </button>
-                        ) : (
-                          <button
-                            className="text-xs text-red-500"
-                            onClick={() =>
-                              handleRemoveFromSpeak(participant.identity)
-                            }
-                          >
-                            Remove
-                          </button>
-                        )}
-                      </>
-                    )}
-                  <p className="block text-xs">
-                    <span>{role}</span>
-                  </p>
-                  {participant.permissions?.canPublish && (
-                    <>
-                      <MicrophoneIcon
-                        enabled={participant.isMicrophoneEnabled ?? false}
-                        participant={participant}
-                      />
-                      <VideoIcon enabled={participant.isCameraEnabled ?? false} />
-                    </>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
     </div>

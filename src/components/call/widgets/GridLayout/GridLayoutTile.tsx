@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { TrackReferenceOrPlaceholder } from "@livekit/components-core";
-import { ParticipantCustomTile } from "./ParticipantCustomTile";
+import { ParticipantCustomTile } from "../../livekitcustom/ParticipantCustomTile";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import Image from "next/image";
 

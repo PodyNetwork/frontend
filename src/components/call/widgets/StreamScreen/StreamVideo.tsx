@@ -2,7 +2,7 @@ import { RoomAudioRenderer, useTracks } from "@livekit/components-react";
 import { Track } from "livekit-client";
 import { useEffect, useMemo } from "react";
 import { CustomStartAudio } from "../../livekitcustom/CustomStartAudio";
-import { EnhancedGridLayout } from "../../livekitcustom/GridLayoutTile";
+import { EnhancedGridLayout } from "../GridLayout/GridLayoutTile";
 import AudioPlaybackCheck from "../Audio/AudioPlayback";
 
 

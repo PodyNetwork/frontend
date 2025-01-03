@@ -1338,10 +1338,10 @@ body {
 }
 
 .__controls_width_noicon {
-  @apply h-12 w-12 md:h-10 md:w-10;
+  @apply h-11 w-11 md:h-10 md:w-10;
 }
 .__controls_width_icon {
-  @apply w-10 h-10 md:w-8 md:h-8;
+  @apply w-9 h-9 md:w-8 md:h-8;
 }
 .__controls_icon{
   @apply w-6 h-6 md:w-5 md:h-5;
@@ -1425,3 +1425,39 @@ body {
   height: 100%;
 }
 /* iframe video Help ends hwre */
+
+
+
+
+.custom-pip-container {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 99999;
+}
+
+.custom-pip-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.custom-pip-controls {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.custom-pip-controls button {
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}

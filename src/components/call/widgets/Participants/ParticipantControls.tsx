@@ -29,8 +29,9 @@ interface ParticipantControlsProps {
   handleMuteParticipant: (username: string) => void;
   profile?: Profile;
   call?: Call;
-  participantBarToggleExpanded: boolean;
+  participantBarToggleExpanded?: boolean;
   role: string;
+  className?: string;
 }
 
 export const ParticipantControls: React.FC<ParticipantControlsProps> = ({
@@ -42,14 +43,15 @@ export const ParticipantControls: React.FC<ParticipantControlsProps> = ({
   profile,
   participantBarToggleExpanded,
   role,
+  className
 }) => {
   return (
     <div
-      className={`hidden md:flex flex-row items-center gap-x-2.5 ${
-        !participantBarToggleExpanded && "md:hidden"
-      }`}
+      className={`flex-row items-center gap-x-2.5 ${
+      !participantBarToggleExpanded && "md:hidden"
+      } ${className ?? ''}`}
     >
-      <p className="hidden md:block text-xs">
+      <p className={`${className ?? ''} text-xs`}>
         <span>{role}</span>
       </p>
       {participant.permissions?.canPublish && (
