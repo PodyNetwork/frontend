@@ -39,6 +39,7 @@ const SignUp = () => {
   const [referralCode, setReferralCode] = useState("");
   const [flowType, setFlowType] = useState<"ocid" | "podyid" | null>(null);
   const [authButton, SetAuthButton] = useState(true);
+  const { toast } = useToast()
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -67,10 +68,10 @@ const SignUp = () => {
 
   const { handleClick, isPending } = useNavigate();
 
-  const handleOCIDClick = () => {
-    setFlowType("ocid");
-    SetAuthButton(false);
-  };
+  // const handleOCIDClick = () => {
+  //   setFlowType("ocid");
+  //   SetAuthButton(false);
+  // };
 
   const handleNewUserClick = () => {
     setFlowType("podyid");
@@ -106,8 +107,6 @@ const SignUp = () => {
   if (typeof window !== "undefined") {
     localStorage.setItem("OCVisitedPage", window.location.href);
   }
-
-  const { toast } = useToast()
 
   return (
     <main
