@@ -1,60 +1,38 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export function usePictureInPicture(videoRef: React.RefObject<HTMLVideoElement>) {
-  const [isPiPActive, setIsPiPActive] = useState(false);
-  const [isMetadataLoaded, setIsMetadataLoaded] = useState(false);
+interface PiPContextType {
+  isPipActive: boolean;
+  setIsPipActive: (active: boolean) => void;
+}
 
-  const enterPiP = useCallback(async () => {
-    try {
-      if (videoRef.current && isMetadataLoaded && !document.pictureInPictureElement) {
-        await videoRef.current.requestPictureInPicture();
-        setIsPiPActive(true);
-      }
-    } catch (error) {
-      console.error('Failed to enter Picture-in-Picture:', error);
-    }
-  }, [videoRef, isMetadataLoaded]);
+const PiPContext = createContext<PiPContextType | undefined>(undefined);
 
-  const exitPiP = useCallback(async () => {
-    try {
-      if (document.pictureInPictureElement) {
-        await document.exitPictureInPicture();
-        setIsPiPActive(false);
-      }
-    } catch (error) {
-      console.error('Failed to exit Picture-in-Picture:', error);
-    }
-  }, []);
+export function PiPProvider({ children }: { children: React.ReactNode }) {
+  const [isPipActive, setIsPipActive] = useState(false);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleLoadedMetadata = () => setIsMetadataLoaded(true);
-    const handleEnterPiP = () => setIsPiPActive(true);
-    const handleLeavePiP = () => setIsPiPActive(false);
-
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    video.addEventListener('enterpictureinpicture', handleEnterPiP);
-    video.addEventListener('leavepictureinpicture', handleLeavePiP);
-
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
-        enterPiP();
-      } else if (document.visibilityState === 'visible' && isPiPActive) {
-        exitPiP();
+        setIsPipActive(true);
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      video.removeEventListener('enterpictureinpicture', handleEnterPiP);
-      video.removeEventListener('leavepictureinpicture', handleLeavePiP);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [videoRef, enterPiP, exitPiP, isPiPActive]);
+  }, []);
 
-  return { isPiPActive, enterPiP, exitPiP };
+  return (
+    <PiPContext.Provider value={{ isPipActive, setIsPipActive }}>
+      {children}
+    </PiPContext.Provider>
+  );
 }
+
+export const usePiP = () => {
+  const context = useContext(PiPContext);
+  if (!context) throw new Error('usePiP must be used within PiPProvider');
+  return context;
+};
