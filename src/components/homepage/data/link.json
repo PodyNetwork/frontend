@@ -1,0 +1,30 @@
+{
+    "mainLink": [
+        {
+            "title": "Features",
+            "url": "#features"
+        },
+        {
+            "title": "Reward",
+            "url": "#reward"
+        },
+        {
+            "title": "Roadmap",
+            "url": "#roadmap"
+        },
+        {
+            "title": "FAQ",
+            "url": "#faq"
+        }
+    ],
+    "authLink": [
+        {
+            "title": "Login",
+            "url": "/login"
+        },
+        {
+            "title": "Sign Up",
+            "url": "/signup"
+        }
+    ]
+}

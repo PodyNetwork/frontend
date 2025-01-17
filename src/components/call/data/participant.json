@@ -1,0 +1,22 @@
+[
+    {
+        "name": "James",
+        "avatar": "/avatar/user1.webp",
+        "host": true
+    },
+    {
+        "name": "Paul",
+        "avatar": "/avatar/user2.webp",
+        "host": false
+    },
+    {
+        "name": "Telly",
+        "avatar": "/avatar/user4.jpg",
+        "host": false
+    },
+    {
+        "name": "Tees",
+        "avatar": "/avatar/user3.jpeg",
+        "host": false
+    }
+]

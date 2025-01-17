@@ -1,0 +1,30 @@
+[
+    {
+        "title": "Overview",
+        "url": "/dashboard/"
+    },
+    {
+        "title": "Classroom",
+        "url": "/dashboard/call"
+    },
+    {
+        "title": "Explore",
+        "url": "/dashboard/explore"
+    },
+    {
+        "title": "NFT",
+        "url": "/dashboard/NFT"
+    },
+    {
+        "title": "Leaderboard",
+        "url": "/dashboard/leaderboard"
+    },
+    {
+        "title": "Referral",
+        "url": "/dashboard/referral"
+    },
+    {
+        "title": "Reward",
+        "url": "/dashboard/reward"
+    }
+]
