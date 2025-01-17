@@ -35,6 +35,13 @@ jobs:
           app_build_command: 'npm run build'
           api_build_command: 'rm -rf ./node_modules/@next/swc-* && rm -rf ./.next/cache'
           ###### End of Repository/Build Configurations ######
+        env: # Add environment variables here
+          NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+          NEXT_PUBLIC_PODY_PASSPORT_ADDRESS: ${{ secrets.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS }}
+          NEXT_PUBLIC_ENABLE_TESTNETS: ${{ secrets.NEXT_PUBLIC_ENABLE_TESTNETS }}
+          NEXT_PUBLIC_LIVEKIT_URL: ${{ secrets.NEXT_PUBLIC_LIVEKIT_URL }}
+          NEXT_PUBLIC_PODY_TOKEN_ADDRESS: ${{ secrets.NEXT_PUBLIC_PODY_TOKEN_ADDRESS }}
+          NEXT_PUBLIC_PODY_GIFT_ADDRESS: ${{ secrets.NEXT_PUBLIC_PODY_GIFT_ADDRESS }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
