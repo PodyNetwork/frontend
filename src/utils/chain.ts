@@ -7,6 +7,7 @@ export const OpenCampusCodexSepolia = defineChain({
   rpcUrls: {
     default: { http: ["https://rpc.open-campus-codex.gelato.digital"] },
   },
+  testnet: true,
   blockExplorers: {
     default: {
       name: "EDU Chain Testnet Explorer",
@@ -14,4 +15,20 @@ export const OpenCampusCodexSepolia = defineChain({
     },
   },
 });
+
+export const EDUChainMainnet = defineChain({
+  id: 41923,
+  name: "EDU Chain Mainnet",
+  nativeCurrency: { name: "EDU", symbol: "EDU", decimals: 18 },
+  rpcUrls: {
+    default: { http: ["https://rpc.edu-chain.raas.gelato.cloud"] },
+  },
+  blockExplorers: {
+    default: {
+      name: "EDU Chain Mainnet",
+      url: "https://educhain.blockscout.com/",
+    },
+  },
+});
+
 
