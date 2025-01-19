@@ -61,6 +61,8 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
   const { call } = useGetCallByURL(url as string);
   const { profile } = useProfile();
 
+  // const { isPipActive, activatePip, deactivatePip } = usePipContext();
+
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
     if (savedMode === "true") {
@@ -242,6 +244,10 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
               {isMac ? "⌘" : "ctrl"}+G
             </DropdownMenuShortcut>
           </DropdownMenuItem>
+          {/* <DropdownMenuItem onClick={activatePip}>
+            <Gift />
+            <span>{isPipActive ? "Exit Picture-in-Picture" : "Enter Picture-in-Picture"}</span>
+          </DropdownMenuItem> */}
           <DropdownMenuItem
             onClick={isFullscreen ? exitFullscreen : enterFullscreen}
             className="hidden lg:flex"
