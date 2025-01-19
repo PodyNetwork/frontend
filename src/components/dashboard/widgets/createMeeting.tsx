@@ -21,7 +21,7 @@ const CreateMeeting = () => {
             className={`px-6 py-2 bg-pody-primary outline-none text-slate-900 cursor-pointer rounded-md hover:bg-pody-primary/80 flex-1 hover:transition-all w-full xs:w-auto ${loading ? "opacity-50" : "opacity-100"}`}
           >
             {loading ? (
-              <>
+              <div className="flex items-center justify-center">
                 <svg
                   aria-hidden="true"
                   className="w-4 h-4 text-slate-900 animate-spin dark:text-slate-900 fill-pody-primary me-1.5"
@@ -39,7 +39,7 @@ const CreateMeeting = () => {
                   />
                 </svg>
                 <span>Creating...</span>
-              </>
+              </div>
             ) : (
               <span>Create Classroom</span>
             )}

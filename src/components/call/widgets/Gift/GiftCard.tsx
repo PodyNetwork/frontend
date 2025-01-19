@@ -197,6 +197,7 @@ const GiftUI: React.FC = () => {
     .filter(
       (participant) =>
         !excludedParticipantIds.includes(participant.id) &&
+        !participant.name.toLowerCase().includes("anonymous") &&
         participant.name.toLowerCase().includes(searchQuery)
     )
     .slice(0, visibleParticipants);
