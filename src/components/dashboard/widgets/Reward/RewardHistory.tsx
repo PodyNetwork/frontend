@@ -136,7 +136,7 @@ const RewardHistory = () => {
                     </ConnectOrComponent>}
                   </div>
                 </motion.li>
-              )) : <EmptyMessage message="Don’t miss out on earning points! Create a Classroom now to kickstart your rewards." />}
+              )) : <EmptyMessage message="Don&apos;t miss the opportunity to earn points! Create a Classroom or refer friends to start earning points." />}
           {isFetchingNextPage && <HistorySkeleton />}
         </ul>
         {hasNextPage && (
