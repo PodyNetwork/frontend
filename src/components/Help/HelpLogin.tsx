@@ -2,24 +2,29 @@ import Image from "next/image";
 
 const faqs = [
   {
-    question: "What happens if my transaction fails?",
+    question: "Can I switch between login methods?",
     answer:
-      "Double-check your wallet's token balance and ensure you're on the correct blockchain network. After resolving any issues, retry.",
+      "Yes, but your data will not carry over between methods. For example, points earned during an anonymous session will not carry over when logging in with a Pody ID.",
   },
   {
-    question: "Can I use other wallets besides MetaMask?",
+    question: "Do I need a specific wallet to log in with Wallet Connection?",
     answer:
-      "Yes! Any EVM-compatible wallet, like Trust Wallet, WalletConnect, or Coinbase Wallet, can be used.",
+      "No, we support a wide range of popular EVM wallets, including MetaMask and WalletConnect. Choose the one that best suits your needs.",
   },
   {
-    question: "How much gas fee should I expect?",
+    question: "Is it safe to log in with my wallet?",
     answer:
-      "Gas fees vary depending on network congestion. Use our faucet tokens to cover initial costs.",
+      "Yes, as long as you take standard security measures. Always verify that you are connecting to our official platform and never share your wallet's private keys or seed phrases.",
   },
   {
-    question: "What if I run out of faucet tokens?",
+    question: "What happens to my session if I clear my browser data during an anonymous login?",
     answer:
-      "You can request more tokens from the faucet or acquire additional tokens from exchanges.",
+      "Clearing your browser data will remove your current session and any information linked to your temporary user ID, which will result in the loss of access to that session's data.",
+  },
+  {
+    question: "Can I access all platform features with an anonymous login?",
+    answer:
+      "No, some features, such as creating or scheduling Classroom, earning and minting points, and also sending and receiving gifts, as well as referrals, are not available.",
   },
 ];
 const HelpLogin = () => {
@@ -609,37 +614,6 @@ const HelpLogin = () => {
                         </p>
                       </div>
                     ))}
-                    <div className="faq-item py-6 leading-loose">
-                      <h3 className="faq-question font-bold text-xl text-slate-800">
-                        How do I add EDU Chain testnet to my wallet?
-                      </h3>
-                      <div className="video-container">
-                        <iframe
-                          src="https://www.youtube.com/embed/o7zIV9_F670?si=JNHQldN4RSmrVvA0"
-                          title="YouTube video player"
-                          frameBorder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          referrerPolicy="strict-origin-when-cross-origin"
-                          allowFullScreen
-                        ></iframe>
-                      </div>
-                      <ul className="faq-answer mt-4 text-base text-slate-700 __pd_unorder">
-                        <li>
-                          Go to{" "}
-                          <a
-                            href="https://edu-chain-testnet.blockscout.com/"
-                            className="underline"
-                            target="_blank"
-                          >
-                            https://edu-chain-testnet.blockscout.com/
-                          </a>
-                        </li>
-                        <li>
-                          Scroll to the bottom and click Add EDU Chain Testnet
-                        </li>
-                        <li>Confirm the request in your wallet</li>
-                      </ul>
-                    </div>
                   </div>
                 </div>
               </div>

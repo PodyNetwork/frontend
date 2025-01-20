@@ -20,7 +20,7 @@ import {
   useFeatureContext,
   useMaybeLayoutContext,
   useMaybeParticipantContext,
-  useMaybeTrackRefContext
+  useMaybeTrackRefContext,
 } from "@livekit/components-react";
 import { LockLockedIcon } from "@livekit/components-react";
 import { VideoTrack, AudioTrack } from "@livekit/components-react";
@@ -231,13 +231,16 @@ export const ParticipantCustomTile: React.FC<ParticipantTileProps> =
                                   style={{ marginRight: "0.25rem" }}
                                 />
                               )}
-                              <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
-                                <div className="w-3 h-3 md:w-4 md:h-4">
-                                  <AvatarParticipant
-                                    name={participant.identity}
-                                  />
+                              <div className="flex items-center gap-2">
+                                <div className="glass-effect flex flex-row items-center gap-x-1 text-xs">
+                                  <div className="w-3 h-3 md:w-4 md:h-4">
+                                    <AvatarParticipant
+                                      name={participant.identity}
+                                    />
+                                  </div>
+                                  <CustomParticipantName />
                                 </div>
-                                <CustomParticipantName />
+                                <CustomConnectionQualityIndicator />
                               </div>
                             </>
                           ) : (
