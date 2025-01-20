@@ -42,8 +42,8 @@ const MintingPassport = () => {
                 </h1>
                 <ul className="flex flex-col gap-y-6 __pd_help">
                   <Image
-                    src="/help/connectwallet.png"
-                    className="w-full py-5 h-full"
+                    src="/help/connectwallet.webp"
+                    className="w-full py-5 h-full drop-shadow-md"
                     width={2880}
                     height={1644}
                     alt="Connect EVM Wallet to Pody"
@@ -163,7 +163,6 @@ const MintingPassport = () => {
                     </ul>
                   </li>
                 </ul>
-
                 <div>
                   <h2 className="font-bold text-2xl py-6">FAQs</h2>
                   <div className="faq-list">
