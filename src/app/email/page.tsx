@@ -86,14 +86,16 @@ const Page = () => {
                         type="text"
                         id="email"
                         value={email}
+                        disabled={!profile?.walletAddress}
                         onChange={handleEmailChange}
                         className="bg-slate-50 border h-11 border-slate-300 text-slate-500 text-base rounded-md outline-none block w-full ps-10 p-2.5"
                         placeholder="name@hello.com"
                       />
                     </div>
-                    <button className="bg-pody-secondary relative py-2 px-6 h-11 text-sm text-white rounded-md hover:opacity-80 hover:transition-all">
+
+                    {profile?.walletAddress ? <button className="bg-pody-secondary relative py-2 px-6 h-11 text-sm text-white rounded-md hover:opacity-80 hover:transition-all">
                       {loading ? "Submitting..." : "Submit"}
-                    </button>
+                    </button> : <Link href={'/signup'} className="bg-pody-secondary relative py-2 px-6 h-11 text-sm text-white rounded-md hover:opacity-80 hover:transition-all">Signup to Verify</Link>}
                   </div>
                 </div>
                 {errorMessage && (
