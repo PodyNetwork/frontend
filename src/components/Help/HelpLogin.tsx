@@ -35,8 +35,8 @@ const HelpLogin = () => {
               <div className="max-w-2xl flex flex-col gap-y-6 my-12 text-base leading-loose">
                 <h1>
                   Pody Network currently offers two methods to access the
-                  platform, based on your preference and convenience: Log In as
-                  an Anonymous User or Log In with Wallet Connection.
+                  platform, based on your preference and convenience: Log In
+                  with Pody ID or Log In as an Anonymous User.
                 </h1>
                 <ul className="flex flex-col gap-y-6 __pd_help">
                   <Image
@@ -49,31 +49,6 @@ const HelpLogin = () => {
                     loading="eager"
                     quality={75}
                   />
-                  <li>
-                    <h2 className="text-xl">Log In as an Anonymous User</h2>
-                    <p>
-                      This option allows you to access Pody without Minting a
-                      Pody Passport or Connecting OC ID. Here's how it works:
-                    </p>
-                    <ul className="__pd_unorder">
-                      <li>
-                        Click on the <b>"Continue as Anonymous" </b>button.
-                      </li>
-                      <li>
-                        A temporary and unique Pody ID will be generated for
-                        you.
-                      </li>
-                      <li>
-                        This Pody ID will be used to track your session during
-                        your time on the platform.
-                      </li>
-                    </ul>
-                    <p>
-                      <b>Note:</b> Any data or actions associated with this
-                      login will not be linked to your identity and may be lost
-                      if you log out or clear your browser data.
-                    </p>
-                  </li>
                   <li>
                     <h2 className="text-xl">Log In with Pody Passport</h2>
                     <p>
@@ -99,6 +74,31 @@ const HelpLogin = () => {
                       </li>
                     </ul>
                   </li>
+                  <li>
+                    <h2 className="text-xl">Log In as an Anonymous User</h2>
+                    <p>
+                      This option allows you to access Pody without Minting a
+                      Pody Passport or Connecting OC ID. Here's how it works:
+                    </p>
+                    <ul className="__pd_unorder">
+                      <li>
+                        Click on the <b>"Continue as Anonymous" </b>button.
+                      </li>
+                      <li>
+                        A temporary and unique Pody ID will be generated for
+                        you.
+                      </li>
+                      <li>
+                        This Pody ID will be used to track your session during
+                        your time on the platform.
+                      </li>
+                    </ul>
+                    <p>
+                      <b>Note:</b> Any data or actions associated with this
+                      login will not be linked to your identity and may be lost
+                      if you log out or clear your browser data.
+                    </p>
+                  </li>
                 </ul>
               </div>
               <div className="max-w-4xl">
@@ -115,31 +115,12 @@ const HelpLogin = () => {
                         <div className="max-md:text-center">
                           <div className="inline-flex items-center whitespace-nowrap">
                             <div className="text-sm text-slate-500 mr-2 md:max-lg:sr-only">
-                              Monthly
-                            </div>
-                            <div className="relative">
-                              <input
-                                type="checkbox"
-                                id="toggle"
-                                className="peer sr-only"
-                                x-model="isAnnual"
-                              />
-                              <label
-                                htmlFor="toggle"
-                                className="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-slate-400 px-0.5 outline-slate-400 transition-colors before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow-sm before:transition-transform before:duration-150 peer-checked:bg-indigo-500 peer-checked:before:translate-x-full peer-focus-visible:outline peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gray-400 peer-checked:peer-focus-visible:outline-indigo-500"
-                              >
-                                <span className="sr-only">Pay Yearly</span>
-                              </label>
-                            </div>
-                            <div className="text-sm text-slate-500 ml-2">
-                              Yearly{" "}
-                              <span className="text-emerald-500">(-20%)</span>
+                              Features
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    {/* # Platform */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-1"
                       aria-hidden="true"
@@ -148,22 +129,20 @@ const HelpLogin = () => {
                         Platform
                       </div>
                     </div>
-                    {/* Account Access */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-2"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Account Access
+                        Dashboard
                       </div>
                     </div>
-                    {/* Custom Domains */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-3"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Custom Domains
+                        Join Classroom
                       </div>
                     </div>
                     {/* Receipts Forward */}
@@ -172,97 +151,63 @@ const HelpLogin = () => {
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Receipts Forward
+                        Create / Schedule Classroom
                       </div>
                     </div>
-                    {/* Supplier Management */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-5"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Supplier Management
+                        LeaderBoard
                       </div>
                     </div>
-                    {/* # Features */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-6"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-900 font-medium mt-4">
-                        Features
+                        Points & Gifting
                       </div>
                     </div>
-                    {/* Generate Public URLs */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-7"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Generate Public URLs
+                        Earn Points
                       </div>
                     </div>
-                    {/* API Integrations */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-8"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        API Integrations
+                        Mint Points
                       </div>
                     </div>
-                    {/* Extra Add-ons */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-9"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Extra Add-ons
+                        Boost Earning Power
                       </div>
                     </div>
-                    {/* Admin Roles */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-10"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Admin Roles
+                        Gift Participant
                       </div>
                     </div>
-                    {/* Admin Roles */}
                     <div
                       className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-11"
                       aria-hidden="true"
                     >
                       <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Admin Roles
-                      </div>
-                    </div>
-                    {/* Enterprise Add-ons */}
-                    <div
-                      className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-12"
-                      aria-hidden="true"
-                    >
-                      <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Enterprise Add-ons
-                      </div>
-                    </div>
-                    {/* # Support */}
-                    <div
-                      className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-[13]"
-                      aria-hidden="true"
-                    >
-                      <div className="py-2 text-slate-900 font-medium mt-4">
-                        Support
-                      </div>
-                    </div>
-                    {/* Custom Connection */}
-                    <div
-                      className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end max-md:hidden md:order-[14]"
-                      aria-hidden="true"
-                    >
-                      <div className="py-2 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                        Custom Connection
+                        Receive Gift
                       </div>
                     </div>
                   </section>
@@ -272,45 +217,19 @@ const HelpLogin = () => {
                     <div className="relative bg-white dark:bg-slate-900 px-6 flex flex-col justify-end">
                       <div className="grow mb-5">
                         <div className="font-semibold text-slate-900 dark:text-slate-200 mb-0.5">
-                          Essential
+                          Log In with Pody ID
                         </div>
-                        <div className="mb-1">
-                          <span className="text-xl font-medium text-slate-900 dark:text-slate-200">
-                            $
-                          </span>
-                          <span
-                            className="text-3xl font-bold text-slate-900 dark:text-slate-200"
-                            x-text="isAnnual ? '29' : '35'"
-                          >
-                            29
-                          </span>
-                          <span className="text-slate-500 font-medium">
-                            /mo
-                          </span>
-                        </div>
-                        <div className="text-sm text-slate-500">
-                          Unlimited placeholder texts.
+                        <div className="text-sm text-slate-500 mt-2">
+                          Secured and enables interaction with blockchain, Earn Rewards, and maintain persistent identities.
                         </div>
                       </div>
-                      <div className="pb-4 border-b border-slate-200 dark:border-slate-700">
-                        <a
-                          className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-2.5 py-1.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 group"
-                          href="#0"
-                        >
-                          Get Started{" "}
-                          <span className="tracking-normal text-indigo-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
-                            -&gt;
-                          </span>
-                        </a>
-                      </div>
+                      <div className="pb-2 border-b border-slate-200 dark:border-slate-700"></div>
                     </div>
-                    {/* # Platform */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-1">
                       <div className="py-2 text-slate-900 dark:text-slate-200 font-medium mt-4 md:sr-only">
                         Platform
                       </div>
                     </div>
-                    {/* Account Access */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-2">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
@@ -322,11 +241,10 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          400 <span className="md:sr-only">Account Access</span>
+                          Yes <span className="md:sr-only">Dashboard</span>
                         </span>
                       </div>
                     </div>
-                    {/* Custom Domains */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-3">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
@@ -338,7 +256,7 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          4 <span className="md:sr-only">Custom Domains</span>
+                          Yes <span className="md:sr-only">Join Classroom</span>
                         </span>
                       </div>
                     </div>
@@ -354,12 +272,13 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          Unlimited{" "}
-                          <span className="md:sr-only">Receipts Forward</span>
+                          Host Controls{" "}
+                          <span className="md:sr-only">
+                            Create / Schedule Classroom
+                          </span>
                         </span>
                       </div>
                     </div>
-                    {/* Supplier Management */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-5">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
@@ -371,20 +290,15 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          1{" "}
-                          <span className="md:sr-only">
-                            Supplier Management
-                          </span>
+                          Yes <span className="md:sr-only">LeaderBoard</span>
                         </span>
                       </div>
                     </div>
-                    {/* # Features */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-6">
                       <div className="py-2 text-slate-900 dark:text-slate-200 font-medium mt-4 md:sr-only">
-                        Features
+                        Points & Gifting
                       </div>
                     </div>
-                    {/* Generate Public URLs */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-7">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
@@ -396,13 +310,11 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          <span className="md:sr-only">
-                            Generate Public URLs
-                          </span>
+                          Yes
+                          <span className="md:sr-only">Earn Points</span>
                         </span>
                       </div>
                     </div>
-                    {/* API Integrations */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-8">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
@@ -414,11 +326,11 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          <span className="md:sr-only">API Integrations</span>
+                          Yes
+                          <span className="md:sr-only">Mint Points</span>
                         </span>
                       </div>
                     </div>
-                    {/* Extra Add-ons */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-9">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
@@ -430,45 +342,42 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          <span className="md:sr-only">Extra Add-ons</span>
+                          Yes
+                          <span className="md:sr-only">
+                            Boost Earning Power
+                          </span>
                         </span>
                       </div>
                     </div>
-                    {/* Admin Roles */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-10">
                       <div className="flex items-center border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 max-md:sr-only">
+                        <svg
+                          className="shrink-0 fill-emerald-500 mr-3"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={12}
+                          height={9}
+                        >
+                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                        </svg>
                         <span>
-                          <span className="md:sr-only">Admin Roles</span>
+                          Yes
+                          <span className="md:sr-only">Gift Participant</span>
                         </span>
                       </div>
                     </div>
-                    {/* Admin Roles */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-11">
                       <div className="flex items-center border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 max-md:sr-only">
+                        <svg
+                          className="shrink-0 fill-emerald-500 mr-3"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={12}
+                          height={9}
+                        >
+                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                        </svg>
                         <span>
-                          <span className="md:sr-only">Admin Roles</span>
-                        </span>
-                      </div>
-                    </div>
-                    {/* Enterprise Add-ons */}
-                    <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-12">
-                      <div className="flex items-center border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 max-md:sr-only">
-                        <span>
-                          <span className="md:sr-only">Enterprise Add-ons</span>
-                        </span>
-                      </div>
-                    </div>
-                    {/* # Support */}
-                    <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-[13]">
-                      <div className="py-2 text-slate-900 font-medium mt-4 sr-only">
-                        Support
-                      </div>
-                    </div>
-                    {/* Custom Connection */}
-                    <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-[14]">
-                      <div className="flex items-center border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 max-md:sr-only">
-                        <span>
-                          <span className="md:sr-only">Custom Connection</span>
+                          Yes
+                          <span className="md:sr-only">Gift Participant</span>
                         </span>
                       </div>
                     </div>
@@ -479,45 +388,19 @@ const HelpLogin = () => {
                     <div className="relative bg-white dark:bg-slate-900 px-6 flex flex-col justify-end">
                       <div className="grow mb-5">
                         <div className="font-semibold text-slate-900 dark:text-slate-200 mb-0.5">
-                          Enterprise
+                          Log In Anonymously
                         </div>
-                        <div className="mb-1">
-                          <span className="text-xl font-medium text-slate-900 dark:text-slate-200">
-                            $
-                          </span>
-                          <span
-                            className="text-3xl font-bold text-slate-900 dark:text-slate-200"
-                            x-text="isAnnual ? '79' : '85'"
-                          >
-                            79
-                          </span>
-                          <span className="text-slate-500 font-medium">
-                            /mo
-                          </span>
-                        </div>
-                        <div className="text-sm text-slate-500">
-                          Unlimited placeholder texts.
+                        <div className="text-sm text-slate-500 mt-2">
+                          Log in without providing identifying information, ensuring privacy and ease of access.
                         </div>
                       </div>
-                      <div className="pb-4 border-b border-slate-200 dark:border-slate-700">
-                        <a
-                          className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-2.5 py-1.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 group"
-                          href="#0"
-                        >
-                          Get Started{" "}
-                          <span className="tracking-normal text-indigo-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
-                            -&gt;
-                          </span>
-                        </a>
-                      </div>
+                      <div className="pb-2 border-b border-slate-200 dark:border-slate-700"></div>
                     </div>
-                    {/* # Platform */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-1">
                       <div className="py-2 text-slate-900 dark:text-slate-200 font-medium mt-4 md:sr-only">
                         Platform
                       </div>
                     </div>
-                    {/* Account Access */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-2">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
@@ -529,12 +412,11 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          Unlimited{" "}
-                          <span className="md:sr-only">Account Access</span>
+                          View Mode{" "}
+                          <span className="md:sr-only">Dashboard</span>
                         </span>
                       </div>
                     </div>
-                    {/* Custom Domains */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-3">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
@@ -546,8 +428,7 @@ const HelpLogin = () => {
                           <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
                         </svg>
                         <span>
-                          Unlimited{" "}
-                          <span className="md:sr-only">Custom Domains</span>
+                          Yes <span className="md:sr-only">Join Classroom</span>
                         </span>
                       </div>
                     </div>
@@ -555,161 +436,158 @@ const HelpLogin = () => {
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-4">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
+                          className="shrink-0 fill-red-500 mr-3 text-red-500"
                           xmlns="http://www.w3.org/2000/svg"
                           width={12}
-                          height={9}
+                          height={12} // Ensuring square dimensions for an "X"
                         >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                          <path
+                            d="M1 1L11 11M11 1L1 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
                         </svg>
                         <span>
-                          Unlimited{" "}
-                          <span className="md:sr-only">Receipts Forward</span>
+                          No{" "}
+                          <span className="md:sr-only">
+                            Create / Schedule Classroom
+                          </span>
                         </span>
                       </div>
                     </div>
-                    {/* Supplier Management */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-5">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
+                          className="shrink-0 fill-red-500 mr-3 text-red-500"
                           xmlns="http://www.w3.org/2000/svg"
                           width={12}
-                          height={9}
+                          height={12} // Ensuring square dimensions for an "X"
                         >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                          <path
+                            d="M1 1L11 11M11 1L1 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
                         </svg>
                         <span>
-                          Unlimited{" "}
+                          No{" "}
                           <span className="md:sr-only">
                             Supplier Management
                           </span>
                         </span>
                       </div>
                     </div>
-                    {/* # Features */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-6">
                       <div className="py-2 text-slate-900 dark:text-slate-200 font-medium mt-4 md:sr-only">
                         Features
                       </div>
                     </div>
-                    {/* Generate Public URLs */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-7">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
+                          className="shrink-0 fill-red-500 mr-3 text-red-500"
                           xmlns="http://www.w3.org/2000/svg"
                           width={12}
-                          height={9}
+                          height={12} // Ensuring square dimensions for an "X"
                         >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                          <path
+                            d="M1 1L11 11M11 1L1 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
                         </svg>
                         <span>
+                          No
                           <span className="md:sr-only">
-                            Generate Public URLs
+                            Earn Points
                           </span>
                         </span>
                       </div>
                     </div>
-                    {/* API Integrations */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-8">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
+                          className="shrink-0 fill-red-500 mr-3 text-red-500"
                           xmlns="http://www.w3.org/2000/svg"
                           width={12}
-                          height={9}
+                          height={12} // Ensuring square dimensions for an "X"
                         >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                          <path
+                            d="M1 1L11 11M11 1L1 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
                         </svg>
                         <span>
-                          <span className="md:sr-only">API Integrations</span>
+                          No
+                          <span className="md:sr-only">Mint Points</span>
                         </span>
                       </div>
                     </div>
-                    {/* Extra Add-ons */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-9">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
+                          className="shrink-0 fill-red-500 mr-3 text-red-500"
                           xmlns="http://www.w3.org/2000/svg"
                           width={12}
-                          height={9}
+                          height={12} // Ensuring square dimensions for an "X"
                         >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                          <path
+                            d="M1 1L11 11M11 1L1 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
                         </svg>
                         <span>
-                          <span className="md:sr-only">Extra Add-ons</span>
+                          No
+                          <span className="md:sr-only">Boost Earning Power</span>
                         </span>
                       </div>
                     </div>
-                    {/* Admin Roles */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-10">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
+                          className="shrink-0 fill-red-500 mr-3 text-red-500"
                           xmlns="http://www.w3.org/2000/svg"
                           width={12}
-                          height={9}
+                          height={12} // Ensuring square dimensions for an "X"
                         >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                          <path
+                            d="M1 1L11 11M11 1L1 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
                         </svg>
                         <span>
-                          <span className="md:sr-only">Admin Roles</span>
+                          No
+                          <span className="md:sr-only">Gift Participant</span>
                         </span>
                       </div>
                     </div>
-                    {/* Admin Roles */}
                     <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-11">
                       <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
                         <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
+                          className="shrink-0 fill-red-500 mr-3 text-red-500"
                           xmlns="http://www.w3.org/2000/svg"
                           width={12}
-                          height={9}
+                          height={12} // Ensuring square dimensions for an "X"
                         >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
+                          <path
+                            d="M1 1L11 11M11 1L1 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
                         </svg>
                         <span>
-                          <span className="md:sr-only">Admin Roles</span>
-                        </span>
-                      </div>
-                    </div>
-                    {/* Enterprise Add-ons */}
-                    <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-12">
-                      <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
-                        <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={12}
-                          height={9}
-                        >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
-                        </svg>
-                        <span>
-                          <span className="md:sr-only">Enterprise Add-ons</span>
-                        </span>
-                      </div>
-                    </div>
-                    {/* # Support */}
-                    <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-[13]">
-                      <div className="py-2 text-slate-900 dark:text-slate-200 font-medium mt-4 md:sr-only">
-                        Support
-                      </div>
-                    </div>
-                    {/* Custom Connection */}
-                    <div className="bg-white dark:bg-slate-900 px-6 flex flex-col justify-end md:order-[14]">
-                      <div className="flex items-center h-full border-b border-slate-200 dark:border-slate-700 py-2 text-slate-600 dark:text-slate-400">
-                        <svg
-                          className="shrink-0 fill-emerald-500 mr-3"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={12}
-                          height={9}
-                        >
-                          <path d="M10.28.28 3.989 6.575 1.695 4.28A1 1 0 0 0 .28 5.695l3 3a1 1 0 0 0 1.414 0l7-7A1 1 0 0 0 10.28.28Z" />
-                        </svg>
-                        <span>
-                          <span className="md:sr-only">Custom Connection</span>
+                          No
+                          <span className="md:sr-only">Receive Gift</span>
                         </span>
                       </div>
                     </div>

@@ -101,8 +101,7 @@ const CreateMeeting = () => {
         {profile?.walletAddress ? 
         <div className="text-sm">Create classroom to start earning points</div>
           :
-          <div className="text-sm">You can not create calls in anonynous mode, please signup for more functionalities</div>
-
+          <div className="text-sm">You can not create calls in anonymous mode, Please sign up to access more features.</div>
         }
       </div>
     </>

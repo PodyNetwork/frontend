@@ -27,7 +27,7 @@ const AnonymousLogin = () => {
       }}
     >
       <button
-        className="py-3 border-[.75px] border-slate-300 text-slate-700 hover:border-pody-dark_secondary/90 hover:bg-pody-dark_secondary hover:transition-all w-full rounded-lg hover:text-slate-200 text-sm mt-1 hover:bg-pody-dark_secondary/90"
+        className="py-3 border-[.75px] border-slate-300 text-slate-500 hover:border-pody-dark_secondary/90 duration-300 hover:bg-pody-dark_secondary hover:transition-all w-full rounded-lg hover:text-slate-200 text-sm mt-1 hover:bg-pody-dark_secondary/90"
         disabled={login.isPending}
       >
         {login.isPending ? (
