@@ -236,17 +236,6 @@ const GiftUI: React.FC = () => {
     };
   }, [calculateHeights]);
 
-  const createConfetti = () => {
-    // Generate an array of confetti objects with random positions and delays
-    return Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100 - 50, // Horizontal starting position
-      delay: Math.random() * 5, // Delay before animation starts
-    }));
-  };
-
-  const confettiData = createConfetti();
-
   return (
     <>
       <div

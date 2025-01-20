@@ -63,7 +63,7 @@ const HelpLogin = () => {
                     </p>
                     <ul className="__pd_unorder">
                       <li>
-                        Click the <b>"Connect Wallet"</b> button. (If wallet is
+                        Click the <b>&quot;Connect Wallet&quot;</b> button. (If wallet is
                         connected skip to step 3)
                       </li>
                       <li>
@@ -73,7 +73,7 @@ const HelpLogin = () => {
                         approve.
                       </li>
                       <li>
-                        Once connected click on the "Login" Button, you will be
+                        Once connected click on the &quot;Login&quot; Button, you will be
                         securely logged into the platform, using your Pody
                         Passport as your unique identifier.
                       </li>
@@ -83,11 +83,11 @@ const HelpLogin = () => {
                     <h2 className="text-xl">Log In as an Anonymous User</h2>
                     <p>
                       This option allows you to access Pody without Minting a
-                      Pody Passport or Connecting OC ID. Here's how it works:
+                      Pody Passport or Connecting OC ID. Here&apos;s how it works:
                     </p>
                     <ul className="__pd_unorder">
                       <li>
-                        Click on the <b>"Continue as Anonymous" </b>button.
+                        Click on the <b>&quot;Continue as Anonymous&quot; </b>button.
                       </li>
                       <li>
                         A temporary and unique Pody ID will be generated for
