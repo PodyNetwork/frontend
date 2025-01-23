@@ -65,6 +65,8 @@ const AsideNav = () => {
     router.prefetch('/dashboard/leaderboard');
     router.prefetch('/dashboard/referral');
     router.prefetch('/dashboard/reward');
+    router.prefetch('/call');
+    router.prefetch('/classroom');
   }, [router]);
 
   return (
