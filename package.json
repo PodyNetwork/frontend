@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build && rm -rf ./.next/cache",
     "start": "next start",
-    "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "lint": "next lint"
   },
   "dependencies": {
     "@livekit/components-react": "^2.6.4",
