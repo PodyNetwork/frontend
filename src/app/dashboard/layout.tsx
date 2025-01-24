@@ -1,6 +1,7 @@
 'use client'
 
 import AsideNav from "@/components/dashboard/widgets/asideNav";
+import { MainnetInfo } from "@/components/info/MainnetInfo";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 
 
@@ -12,6 +13,7 @@ const DashboardLayout = ({
   return (
     <>
       <section className="flex flex-col relative">
+        <MainnetInfo />
         <AsideNav />
         {children}
       </section>

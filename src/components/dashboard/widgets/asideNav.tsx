@@ -10,6 +10,7 @@ import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import Loader from "@/components/preloader/Loader";
 import { useNavigate } from "@/components/utils/PageRouter";
 import useLogout from "@/hooks/auth/useLogout";
+import { useRouter } from "next/navigation";
 
 type FloatingElement = {
   id: number;
@@ -54,6 +55,20 @@ const AsideNav = () => {
       </>
     );
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch('/dashboard/call');
+    router.prefetch('/dashboard/explore');
+    router.prefetch('/dashboard/NFT');
+    router.prefetch('/dashboard/leaderboard');
+    router.prefetch('/dashboard/referral');
+    router.prefetch('/dashboard/reward');
+    router.prefetch('/call');
+    router.prefetch('/classroom');
+  }, [router]);
+
   return (
     <>
       {isPending && <Loader />}

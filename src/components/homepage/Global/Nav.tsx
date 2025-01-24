@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import JoinDrawer from "../v1/widgets/JoinDrawer";
 import Loader from "@/components/preloader/Loader";
 import { useNavigate } from "@/components/utils/PageRouter";
+import { useRouter } from "next/navigation";
 
 type FloatingElement = {
   id: number;
@@ -38,6 +39,18 @@ const Nav = () => {
 
   const { handleClick, isPending } = useNavigate();
 
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch('/login');
+    router.prefetch('/signup');
+    router.prefetch('/#features');
+    router.prefetch('/#reward');
+    router.prefetch('/#roadmap');
+    router.prefetch('/#faq');
+    router.prefetch('/dashboard');
+  }, [router]);
+  
   return (
     <>
       {isPending && <Loader />}

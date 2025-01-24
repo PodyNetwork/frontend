@@ -9,10 +9,12 @@ import PodyRoadmap from "@/components/homepage/v2/PodyRoadmap";
 import PodyFaq from "@/components/homepage/v2/PodyFaq";
 import PartnerSection from "@/components/homepage/v2/Partner";
 import Footer from "@/components/homepage/Global/Footer";
+import { MainnetInfo } from "@/components/info/MainnetInfo";
 
 const page = () => {
   return (
     <main className="relaive flex flex-col w-full" aria-label="class">
+      <MainnetInfo />
       <Hero />
       <PartnerSection />
       <OngoingClass />
