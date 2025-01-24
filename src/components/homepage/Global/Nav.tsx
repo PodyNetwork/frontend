@@ -48,9 +48,10 @@ const Nav = () => {
     router.prefetch('/#reward');
     router.prefetch('/#roadmap');
     router.prefetch('/#faq');
+    router.prefetch('/faucet');
     router.prefetch('/dashboard');
   }, [router]);
-  
+
   return (
     <>
       {isPending && <Loader />}

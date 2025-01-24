@@ -19,7 +19,7 @@ export const MainnetInfo = () => {
   }, []);
   return (
     <div className="flex flex-row justify-center py-2 bg-pody-oilblack text-slate-300">
-      <p className="flex flex-row items-center text-sm web3-gradient-text font-medium gap-1.5">
+      <p className="flex flex-row items-center flex-wrap px-5 text-center justify-center text-sm web3-gradient-text font-medium gap-1.5">
         {isTestnet ? "Pody Network Testnet Campaign ends 31st January, 2025" : "Pody Network Mainnet is Live on"}{" "}
         <Link href="https://educhain.xyz/" target="_blank">
           <Image
