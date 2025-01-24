@@ -21,22 +21,36 @@ const StreamScreen = () => {
       const infoHeight = infoRef.current.offsetHeight;
       const controlsHeight = controlsRef.current.offsetHeight;
 
-      const availableHeight = window.innerHeight - (infoHeight + controlsHeight);
-      const availableHeightCarousel = (window.innerHeight - (infoHeight + controlsHeight)) / 3;
-      const availableHeightPotrait = (window.innerHeight - (infoHeight + controlsHeight + 100)) / 2;
-  
+      const availableHeight =
+        window.innerHeight - (infoHeight + controlsHeight);
+      const availableHeightCarousel =
+        (window.innerHeight - (infoHeight + controlsHeight)) / 3;
+      const availableHeightPotrait =
+        (window.innerHeight - (infoHeight + controlsHeight + 100)) / 2;
+
       const calculatedMaxWidth = `calc(${availableHeight}px * 16 / 9)`;
       const calculatedMaxHeight = `calc(${availableHeight}px)`;
       const calculatedMaxHeightCarousel = `calc(${availableHeightCarousel}px)`;
       const calculatedFullMaxWidth = `calc(${window.innerHeight}px * 16 / 9)`;
       const calculatedMaxHeightPortrait = `calc((${availableHeightPotrait}px * 9 / 16 * 2))`;
-  
-      const maxWidth = isFullscreen ? calculatedFullMaxWidth : calculatedMaxWidth;
-  
-      document.documentElement.style.setProperty('--max-video-width', maxWidth);
-      document.documentElement.style.setProperty('--max-video-height-potrait', calculatedMaxHeightPortrait);
-      document.documentElement.style.setProperty('--max-video-height', calculatedMaxHeight);
-      document.documentElement.style.setProperty('--max-video-height-carousel', calculatedMaxHeightCarousel);
+
+      const maxWidth = isFullscreen
+        ? calculatedFullMaxWidth
+        : calculatedMaxWidth;
+
+      document.documentElement.style.setProperty("--max-video-width", maxWidth);
+      document.documentElement.style.setProperty(
+        "--max-video-height-potrait",
+        calculatedMaxHeightPortrait
+      );
+      document.documentElement.style.setProperty(
+        "--max-video-height",
+        calculatedMaxHeight
+      );
+      document.documentElement.style.setProperty(
+        "--max-video-height-carousel",
+        calculatedMaxHeightCarousel
+      );
     }
   }, [isFullscreen]);
 
@@ -52,7 +66,7 @@ const StreamScreen = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [calculateHeights]); 
+  }, [calculateHeights]);
 
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -67,11 +81,17 @@ const StreamScreen = () => {
 
   return (
     <>
-      <div ref={infoRef} className={`${isFullscreen ? "md:py-0 py-0" : "py-4"}`}>
+      <div
+        ref={infoRef}
+        className={`${isFullscreen ? "md:py-0 py-0" : "py-4"}`}
+      >
         <StreamInfo />
       </div>
       <StreamVideo />
-      <div ref={controlsRef} className={`z-40 ${isFullscreen ? "md:py-0" : "md:py-4"}`}>
+      <div
+        ref={controlsRef}
+        className={`z-40 ${isFullscreen ? "md:py-0" : "md:py-4"}`}
+      >
         <div className="relative mx-auto">
           <GiftAnimationPage />
         </div>

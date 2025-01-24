@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
 import BlockiesSvg from "blockies-react-svg";
-
+import { isMobile } from "react-device-detect";
 
 import {
   Select,
@@ -66,6 +66,7 @@ dayjs.extend(isTomorrow);
 
 const CallsCard = ({ calls }: Calls) => {
   const router = useRouter();
+  const [copied, setCopied] = useState<Record<string, boolean>>({});
 
   function goToMeeting(callUrl: string) {
     const fullUrl = `/classroom/${callUrl}`;
@@ -109,6 +110,25 @@ const CallsCard = ({ calls }: Calls) => {
     return (
       <div className="text-xs text-slate-700 capitalize">{timeDisplay}</div>
     );
+  };
+
+  const handleCopy = ({ callId }: { callId: string }) => {
+    const referralLink = `https://pody.network/classroom/${callId}`;
+    navigator.clipboard
+      .writeText(referralLink)
+      .then(() => {
+        setCopied((prev) => ({
+          ...prev,
+          [callId]: true,
+        }));
+        setTimeout(() => {
+          setCopied((prev) => ({
+            ...prev,
+            [callId]: false,
+          }));
+        }, 1000); // Reset the copied state after 3 seconds
+      })
+      .catch((error) => console.error("Failed to copy text:", error));
   };
 
   return (
@@ -168,8 +188,8 @@ const CallsCard = ({ calls }: Calls) => {
                 className="flex items-center gap-2"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Tooltip text="Edit Classroom">
-                  {call?.type === "scheduled" && call?.status === "pending" && (
+                {call?.type === "scheduled" && call?.status === "pending" && (
+                  <Tooltip text="Edit Classroom">
                     <div className="edit-drawer-container cursor-crosshair">
                       <EditDrawer
                         call={{
@@ -178,23 +198,43 @@ const CallsCard = ({ calls }: Calls) => {
                         }}
                       />
                     </div>
-                  )}
-                </Tooltip>
-
-                <Tooltip text="Share Classroom">
-                  <StreamShareUrl url={call?.url}>
-                    <div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-5 h-5 text-pody-dark"
-                        viewBox="0 -960 960 960"
-                        fill="currentColor"
+                  </Tooltip>
+                )}
+                {isMobile ? (
+                  <Tooltip text="Share Classroom">
+                    <StreamShareUrl url={call?.url}>
+                      <div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-5 h-5 text-pody-dark"
+                          viewBox="0 -960 960 960"
+                          fill="currentColor"
+                        >
+                          <path d="M252.31-60Q222-60 201-81q-21-21-21-51.31v-415.38Q180-578 201-599q21-21 51.31-21h102.3v60h-102.3q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v415.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-415.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85h-102.3v-60h102.3Q738-620 759-599q21 21 21 51.31v415.38Q780-102 759-81q-21 21-51.31 21H252.31ZM450-330v-441.23l-74 74L333.85-740 480-886.15 626.15-740 584-697.23l-74-74V-330h-60Z" />
+                        </svg>
+                      </div>
+                    </StreamShareUrl>
+                  </Tooltip>
+                ) : (
+                  <Tooltip
+                    text={copied[call?.url] ? "Copied!" : "Copy Classroom Link"}
+                  >
+                    <div className="relative">
+                      <div
+                        onClick={() => handleCopy({ callId: call?.url || "" })}
                       >
-                        <path d="M252.31-60Q222-60 201-81q-21-21-21-51.31v-415.38Q180-578 201-599q21-21 51.31-21h102.3v60h-102.3q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v415.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-415.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85h-102.3v-60h102.3Q738-620 759-599q21 21 21 51.31v415.38Q780-102 759-81q-21 21-51.31 21H252.31ZM450-330v-441.23l-74 74L333.85-740 480-886.15 626.15-740 584-697.23l-74-74V-330h-60Z" />
-                      </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={`w-5 h-5 ${copied[call?.url] ? "text-green-500" : "text-pody-dark"}`}
+                          viewBox="0 -960 960 960"
+                          fill="currentColor"
+                        >
+                          <path d="M362.31-260Q332-260 311-281q-21-21-21-51.31v-455.38Q290-818 311-839q21-21 51.31-21h335.38Q728-860 749-839q21 21 21 51.31v455.38Q770-302 749-281q-21 21-51.31 21H362.31Zm0-60h335.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-455.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H362.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v455.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85Zm-140 200Q192-120 171-141q-21-21-21-51.31v-515.38h60v515.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h395.38v60H222.31ZM350-320v-480 480Z" />
+                        </svg>
+                      </div>
                     </div>
-                  </StreamShareUrl>
-                </Tooltip>
+                  </Tooltip>
+                )}
               </div>
             </div>
           </div>
@@ -207,12 +247,14 @@ const CallMessageDisplay = ({ message }: { message: string }) => {
   return (
     <div className="flex flex-col gap-4 md:flex-row items-center justify-between w-full">
       <div className="w-full md:w-4/12">
-        <p className="break-words text-base sm:text-lg">{message}</p>
+        <p className="break-words text-sm sm:text-base text-slate-500">
+          {message}
+        </p>
       </div>
       <div className="w-full md:w-7/12">
         <Image
           src={meetingImageError}
-          className="w-full h-64 object-contain"
+          className="w-full h-52 object-contain"
           width={300}
           height={300}
           alt="user"

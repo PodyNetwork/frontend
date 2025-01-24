@@ -87,7 +87,7 @@ const RewardTab = () => {
               </motion.li>
             ))
           ) : (
-            <EmptyMessage message="Unlock your potential rewards today! Create a Classroom to begin earning points and enjoy the benefits." />
+            <EmptyMessage message="Unlock your potential rewards today! Create a Classroom or refer friends to start earning points." />
           )}
           {isFetchingNextPage && <RewardClaimSkeleton />}
         </ul>

@@ -3,7 +3,7 @@ import type { BaseResponse } from './globals'
 interface Profile {
     id: string;
     username: string;
-    walletAddress: string;
+    walletAddress?: string;
     email?: string;
     isEmailVerified?: boolean
 }

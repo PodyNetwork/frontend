@@ -23,7 +23,7 @@ const PodyTOS = () => {
       </p>
       <p>
         Users can further boost their point-earning potential by minting
-        additional NFTs directly from them NFT section on their dashboard.
+        additional NFTs directly from the NFT section on their dashboard.
       </p>
     </div>
   );

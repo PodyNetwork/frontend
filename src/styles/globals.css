@@ -1461,3 +1461,16 @@ body {
   border: none;
   cursor: pointer;
 }
+
+.__pd_wallet_cnt button {
+  @apply p-3 bg-pody-dark_secondary w-full rounded-lg text-slate-200 hover:bg-pody-dark_secondary/90;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.8rem !important;
+  font-weight: normal !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+  color: rgb(226 232 240) !important;
+}

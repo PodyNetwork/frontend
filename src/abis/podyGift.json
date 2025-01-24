@@ -222,10 +222,6 @@
     "type": "event"
   },
   {
-    "stateMutability": "payable",
-    "type": "fallback"
-  },
-  {
     "inputs": [],
     "name": "acceptOwnership",
     "outputs": [],
@@ -498,19 +494,6 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "newTokenAddress",
-        "type": "address"
-      }
-    ],
-    "name": "updateToken",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "",
         "type": "address"
       }
@@ -525,9 +508,5 @@
     ],
     "stateMutability": "view",
     "type": "function"
-  },
-  {
-    "stateMutability": "payable",
-    "type": "receive"
   }
 ]
