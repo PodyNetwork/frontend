@@ -99,7 +99,7 @@ const ReferralCard = () => {
               </div>
             ) : (
               <div className="flex flex-row items-center gap-x-2 relative">
-                 <h2 className="font-bold text-2xl xs:text-4xl truncate underline"><Link href={`/signup`}>Get your Code</Link></h2>
+                 <h2 className="font-bold text-2xl xs:text-4xl truncate underline"><Link href={`/signup`}>Get Code</Link></h2>
               </div>
             )}
             <p className="text-base mt-1">Referral Code</p>
