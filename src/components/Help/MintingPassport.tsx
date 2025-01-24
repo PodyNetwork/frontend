@@ -41,16 +41,9 @@ const MintingPassport = () => {
                   with ease.
                 </h1>
                 <ul className="flex flex-col gap-y-6 __pd_help">
-                  <Image
-                    src="/help/connectwallet.png"
-                    className="w-full py-5 h-full"
-                    width={2880}
-                    height={1644}
-                    alt="Connect EVM Wallet to Pody"
-                    priority
-                    loading="eager"
-                    quality={75}
-                  />
+                  <div className="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/CpEvaHR175k?si=nagl3m5_F0_AhKvb" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                  </div>
                   <li>
                     <h2 className="text-xl">Connect EVM Wallet</h2>
                     <p>
@@ -163,7 +156,6 @@ const MintingPassport = () => {
                     </ul>
                   </li>
                 </ul>
-
                 <div>
                   <h2 className="font-bold text-2xl py-6">FAQs</h2>
                   <div className="faq-list">

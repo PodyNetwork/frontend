@@ -7,19 +7,21 @@ import { lightTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { config } from "@/utils/wagmi";
 import queryClient from "@/utils/queryClient";
 
+const customLightTheme = lightTheme({
+  accentColor: "#0D0E14",
+  accentColorForeground: "white",
+  fontStack: "system", 
+  borderRadius: "medium", 
+  overlayBlur: "small",
+});
+
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
           modalSize="compact"
-          theme={lightTheme({
-            accentColor: "#0D0E14",
-            accentColorForeground: "white",
-            borderRadius: "small",
-            fontStack: "system",
-            overlayBlur: "small",
-          })}
+          theme={customLightTheme}
         >
           {children}
         </RainbowKitProvider>

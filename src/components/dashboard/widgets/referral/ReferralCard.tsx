@@ -5,47 +5,40 @@ import { useRef, useState } from "react";
 import SkeletonReferral from "./ReferralCardSkeleton";
 import useProfile from "@/hooks/user/useProfile";
 import { formatAndTruncateCount } from "@/func/formatAndTruncateCount";
+import Link from "next/link";
 
 const getReferralLevel = (totalReferrals: number) => {
-  if (totalReferrals >= 1000) return "Chancellor"; 
-  if (totalReferrals >= 500) return "Elite"; 
-  if (totalReferrals >= 100) return "Principal"; 
-  if (totalReferrals >= 75) return "Dean";      
-  if (totalReferrals >= 50) return "Professor"; 
-  if (totalReferrals >= 25) return "Mentor";    
-  if (totalReferrals >= 10) return "Scholar";   
-  if (totalReferrals >= 1) return "Student";   
-  return "Newcomer";                          
+  if (totalReferrals >= 1000) return "Chancellor";
+  if (totalReferrals >= 500) return "Elite";
+  if (totalReferrals >= 100) return "Principal";
+  if (totalReferrals >= 75) return "Dean";
+  if (totalReferrals >= 50) return "Professor";
+  if (totalReferrals >= 25) return "Mentor";
+  if (totalReferrals >= 10) return "Scholar";
+  if (totalReferrals >= 1) return "Student";
+  return "Newcomer";
 };
 
 const ReferralCard = () => {
   const { profile } = useProfile();
   const [copied, setCopied] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const { totalReferralsCount, isLoading } = useGetReferrals();
 
   const handleCopy = () => {
-    navigator.clipboard
-      .writeText("https://pody.network/signup?ref="+ profile?.username || "unknown")
+    const referralLink = `https://pody.network/signup?ref=${profile?.username || "unknown"}`;
+    navigator.clipboard.writeText(referralLink)
       .then(() => {
         setCopied(true);
         triggerConfetti();
         setTimeout(() => setCopied(false), 2000);
       })
-      .catch((error) => {
-        console.error("Failed to copy text:", error);
-      });
+      .catch((error) => console.error("Failed to copy text:", error));
   };
-
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const {
-    totalReferralsCount,
-    isLoading,
-  } = useGetReferrals();
 
   const triggerConfetti = () => {
     if (containerRef.current) {
-      const { left, top, width, height } =
-        containerRef.current.getBoundingClientRect();
+      const { left, top, width, height } = containerRef.current.getBoundingClientRect();
       const originX = (left + width / 2) / window.innerWidth;
       const originY = (top + height / 2) / window.innerHeight;
       confetti({
@@ -63,15 +56,13 @@ const ReferralCard = () => {
 
   const referralLevel = getReferralLevel(totalReferralsCount);
 
-  if(isLoading) return <SkeletonReferral />
+  if (isLoading) return <SkeletonReferral />;
 
   return (
     <div className="flex-1 gap-6 flex flex-col p-8 rounded-xl __pd_golden_grd relative select-none">
       <div className="text-slate-50">
         <h1 className="text-lg font-medium">Referral</h1>
-        <p className="text-sm">
-          Refer users with your referral code to earn points.
-        </p>
+        <p className="text-sm">Refer users with your referral code to earn points.</p>
       </div>
       <div className="flex flex-col sm:flex-row gap-8">
         <div className="text-slate-50 w-full md:w-7/12 flex flex-col">
@@ -79,35 +70,38 @@ const ReferralCard = () => {
             <h2 className="font-bold text-2xl xs:text-4xl">{formatAndTruncateCount(totalReferralsCount * 10000)}</h2>
             <p className="text-base mt-1">Points Earned</p>
           </div>
-          <div
-            className="mt-auto pt-8 relative overflow-hidden"
-            ref={containerRef}
-          >
-            <div className="flex flex-row items-center gap-x-2 relative">
-              <h2 className="font-bold text-2xl xs:text-4xl truncate">{profile?.username}</h2>
-              <svg
-                onClick={handleCopy}
-                xmlns="http://www.w3.org/2000/svg"
-                className="min-w-6 max-w-6 min-h-6 max-h-6 mt-1.5"
-                viewBox="0 -960 960 960"
-                fill="currentColor"
-              >
-                <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
-              </svg>
-              <AnimatePresence>
-                {copied && (
-                  <motion.p
-                    className="text-pody-success text-xs"
-                    initial={{ opacity: 0, y: 0 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    Copied!
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </div>
+          <div className="mt-auto pt-8 relative overflow-hidden" ref={containerRef}>
+            {profile?.walletAddress ? (
+              <div className="flex flex-row items-center gap-x-2 relative">
+                <h2 className="font-bold text-2xl xs:text-4xl truncate">{profile?.username}</h2>
+                <svg
+                  onClick={handleCopy}
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="min-w-6 max-w-6 min-h-6 max-h-6 mt-1.5"
+                  viewBox="0 -960 960 960"
+                  fill="currentColor"
+                >
+                  <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
+                </svg>
+                <AnimatePresence>
+                  {copied && (
+                    <motion.p
+                      className="text-pody-success text-xs"
+                      initial={{ opacity: 0, y: 0 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      Copied!
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <div className="flex flex-row items-center gap-x-2 relative">
+                 <h2 className="font-bold text-2xl xs:text-4xl truncate underline"><Link href={`/signup`}>Get your Code</Link></h2>
+              </div>
+            )}
             <p className="text-base mt-1">Referral Code</p>
           </div>
         </div>
@@ -117,9 +111,7 @@ const ReferralCard = () => {
             <p className="text-base mt-1">Total Referral</p>
           </div>
           <div>
-            <h2 className="font-semibold text-3xl web3-gradient-text_base">
-              {referralLevel}
-            </h2>
+            <h2 className="font-semibold text-3xl web3-gradient-text_base">{referralLevel}</h2>
             <p className="text-base mt-1">Level</p>
           </div>
         </div>

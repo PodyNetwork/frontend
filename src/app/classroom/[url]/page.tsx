@@ -1,4 +1,4 @@
-"use client"; // Enable client-side rendering
+"use client";
 import MeetLayout from "@/components/call/meetLayout";
 import { ActiveMenuProvider } from "@/components/call/utils/ActiveMenuContext";
 import { ChatContextProvider } from "@/components/call/utils/ChatContext";
@@ -48,14 +48,14 @@ const Call = () => {
       >
         <FullscreenProvider>
           <ActiveMenuProvider>
-            <ParticipantBarProvider>
-              <ChatContextProvider>
-                <GiftMenuProvider>
-                  <MeetLayout />
-                </GiftMenuProvider>
-              </ChatContextProvider>
-            </ParticipantBarProvider>
-          </ActiveMenuProvider>
+              <ParticipantBarProvider>
+                <ChatContextProvider>
+                  <GiftMenuProvider>
+                    <MeetLayout />
+                  </GiftMenuProvider>
+                </ChatContextProvider>
+              </ParticipantBarProvider>
+            </ActiveMenuProvider>
         </FullscreenProvider>
       </main>
     </>
