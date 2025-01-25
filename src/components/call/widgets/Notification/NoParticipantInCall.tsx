@@ -34,7 +34,7 @@ const NoParticipantInCall = () => {
   }, [closeDialog]);
 
   return (
-    <div className="dark:bg-black/80 bg-black/90 fixed top-0 left-0 w-full h-screen max-h-screen flex flex-col z-[60] items-center justify-center overflow-y-auto">
+    <div className="dark:bg-black/80 bg-black/90 fixed top-0 left-0 w-full h-screen max-h-screen flex flex-col z-[70] items-center justify-center overflow-y-auto">
       <div className="w-full p-4">
         <div
           className="max-w-md mx-auto flex flex-col text-center items-center justify-center gap-y-3 my-6 bg-white p-9 rounded-xl text-slate-700"

@@ -315,7 +315,7 @@ body {
   .__mobile_controls {
     position: fixed !important;
     bottom: 0;
-    @apply z-50 mx-auto px-1 py-5 bg-slate-50 dark:bg-black w-full text-[0.7rem];
+    @apply z-50 mx-auto px-5 py-5 bg-slate-50 dark:bg-black w-full text-[0.7rem];
     left: 0;
     width: 100%;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
