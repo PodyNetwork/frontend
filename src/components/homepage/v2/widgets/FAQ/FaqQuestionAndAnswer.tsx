@@ -10,7 +10,7 @@ const FaqQuestionAndAnswer = () => {
   };
   return (
     <motion.div
-      className="py-7 relative rounded-md overflow-hidden w-full z-40"
+      className="py-7 relative rounded-md overflow-hidden w-full z-20"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
