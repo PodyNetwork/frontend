@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation } from '@tanstack/react-query';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import type { Response, ResponseError } from '@/types/globals';
 import axios from "@/network/axios";
 import { AxiosError, isAxiosError } from 'axios';
@@ -16,6 +16,8 @@ type SignupPayload = {
 
 const useSignup = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  
   const router = useRouter();
 
   const signupHandler = useCallback(
@@ -31,6 +33,7 @@ const useSignup = () => {
     mutationFn: signupHandler,
     onSuccess: () => {
       clearErrorMessage();
+      setSuccessMessage('Passport Minted successful! Redirecting to login...');
       router.push('/login');
     },
     onError: (error: AxiosError | Error) => {
@@ -43,7 +46,7 @@ const useSignup = () => {
     },
   });
 
-  return { signup, errorMessage };
+  return { signup, errorMessage, successMessage };
 };
 
 export default useSignup;

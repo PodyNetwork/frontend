@@ -4,7 +4,8 @@ import { useEffect, useMemo } from "react";
 import { CustomStartAudio } from "../../livekitcustom/CustomStartAudio";
 import { EnhancedGridLayout } from "../GridLayout/GridLayoutTile";
 import AudioPlaybackCheck from "../Audio/AudioPlayback";
-
+import useGetCallByURL from "@/hooks/call/useGetCallByURL";
+import { useParams } from "next/navigation";
 
 const MyVideoConference = () => {
   const tracks = useTracks(
@@ -33,6 +34,9 @@ const MyVideoConference = () => {
 };
 
 const StreamVideo = () => {
+  const { url } = useParams();
+  const { call } = useGetCallByURL(url as string);
+
   useEffect(() => {
     if ('mediaSession' in navigator) {
       navigator.mediaSession.setActionHandler('play', () => {
@@ -41,7 +45,7 @@ const StreamVideo = () => {
       });
       
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: 'Pody Classroom',
+        title: call?.title || 'Classroom Session',
         artist: 'Classroom Session',
         artwork: [
           { src: '/logo/Pody Logo Icon 002.jpg', sizes: '96x96', type: 'image/png' },

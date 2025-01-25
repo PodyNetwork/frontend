@@ -35,7 +35,7 @@ const formOpts = formOptions<{ username: string; referralCode: string }>({
 });
 
 const SignUp = () => {
-  const { signup, errorMessage } = useSignup();
+  const { signup, errorMessage, successMessage } = useSignup();
   const [referralCode, setReferralCode] = useState("");
   const [flowType, setFlowType] = useState<"ocid" | "podyid" | null>(null);
   const [authButton, SetAuthButton] = useState(true);
@@ -303,6 +303,11 @@ const SignUp = () => {
           {errorMessage && (
             <div className="text-red-500 text-sm mt-2 text-left">
               {errorMessage.message}
+            </div>
+          )}
+          {successMessage && (
+            <div className="text-green-500 text-sm mt-2 text-left">
+              {successMessage}
             </div>
           )}
           <div className="text-sm mt-4 text-slate-500">
