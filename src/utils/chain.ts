@@ -1,8 +1,3 @@
-import { config } from "@/utils/wagmi";
-import { switchChain } from "@wagmi/core";
-import { ActiveNetwork } from "./config";
+import { Chain, defineChain } from "viem";
 
-
-export const switchToDefaultChain = async () => {
-    await switchChain(config, { chainId: ActiveNetwork.id });
-}
+export const DefaultChain = defineChain(JSON.parse(process.env.CHAIN_CONFIGURATION as string) as Chain);
