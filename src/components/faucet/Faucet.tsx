@@ -27,7 +27,7 @@ const Faucet = () => {
             className="w-full object-contain absolute -bottom-10 z-30"
           >
             <Image
-              src="/svg/faucet.svg"
+              src="/svg/faucet-tap.svg"
               width="1500"
               height="700"
               alt="Pody Faucet"
