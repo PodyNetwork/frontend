@@ -42,6 +42,7 @@ jobs:
           NEXT_PUBLIC_LIVEKIT_URL: ${{ secrets.NEXT_PUBLIC_LIVEKIT_URL }}
           NEXT_PUBLIC_PODY_TOKEN_ADDRESS: ${{ secrets.NEXT_PUBLIC_PODY_TOKEN_ADDRESS }}
           NEXT_PUBLIC_PODY_GIFT_ADDRESS: ${{ secrets.NEXT_PUBLIC_PODY_GIFT_ADDRESS }}
+          NEXT_PUBLIC_CHAIN_CONFIGURATION: ${{ secrets.NEXT_PUBLIC_CHAIN_CONFIGURATION }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
