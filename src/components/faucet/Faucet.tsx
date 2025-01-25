@@ -10,7 +10,6 @@ const Faucet = () => {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 0.15, y: 0, transition: { duration: 1, delay: 0.5 } },
   };
-
   // Variants for the faucet
   const faucetVariants = {
     hidden: { opacity: 0, y: 50 },
