@@ -12,7 +12,7 @@ import { useNavigate } from "@/components/utils/PageRouter";
 import Loader from "@/components/preloader/Loader";
 
 const AnonymousLogin = () => {
-  const { login, errorMessage } = useAnonymousLogin();
+  const { login, successAnonMessage, errorMessage } = useAnonymousLogin();
   const form = useForm<"">({
     onSubmit: async () => {
       await login.mutateAsync();
@@ -59,12 +59,17 @@ const AnonymousLogin = () => {
           {errorMessage.message}
         </p>
       )}
+      {successAnonMessage && (
+        <p className="text-green-500 text-sm mt-2 text-left">
+          {successAnonMessage}
+        </p>
+      )}
     </form>
   );
 };
 
 const Login = () => {
-  const { login, errorMessage } = useLogin();
+  const { login, successMessage, errorMessage } = useLogin();
   const form = useForm<"">({
     onSubmit: async () => {
       await login.mutateAsync();
@@ -121,6 +126,11 @@ const Login = () => {
             {errorMessage && (
               <p className="text-red-500 text-sm mt-2 text-left">
                 {errorMessage.message}
+              </p>
+            )}
+            {successMessage && (
+              <p className="text-green-500 text-sm mt-2 text-left">
+                {successMessage}
               </p>
             )}
           </form>

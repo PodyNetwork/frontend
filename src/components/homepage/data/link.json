@@ -2,19 +2,19 @@
     "mainLink": [
         {
             "title": "Features",
-            "url": "#features"
+            "url": "/#features"
         },
         {
             "title": "Reward",
-            "url": "#reward"
+            "url": "/#reward"
         },
         {
             "title": "Roadmap",
-            "url": "#roadmap"
+            "url": "/#roadmap"
         },
         {
             "title": "FAQ",
-            "url": "#faq"
+            "url": "/#faq"
         },
         {
             "title": "Faucet",

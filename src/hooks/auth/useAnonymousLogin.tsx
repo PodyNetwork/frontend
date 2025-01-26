@@ -1,6 +1,6 @@
 import { setAccessToken, setRefreshToken } from '@/utils/jwtoken';
 import { useMutation } from '@tanstack/react-query';
-import { useCallback, useTransition } from 'react';
+import { useCallback, useState, useTransition } from 'react';
 
 import axios from "@/network/axios"
 import { AxiosError } from 'axios';
@@ -18,6 +18,7 @@ interface LoginResponse extends Response {
 
 const useAnonymousLogin = () => {
   const { errorMessage, setErrorMessage, clearErrorMessage } = useErrorMessage();
+  const [successAnonMessage, setSuccessAnonMessage] = useState<string | null>(null);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const loginUser = useCallback(async (): Promise<LoginResponse> => {
@@ -29,6 +30,7 @@ const useAnonymousLogin = () => {
     mutationFn: loginUser,
     onSuccess: (data: LoginResponse) => {
       clearErrorMessage();
+      setSuccessAnonMessage('Login successful! Redirecting...');
       setAccessToken(data.data.accessToken);
       setRefreshToken(data.data.refreshToken);
       const redirect_after_login = sessionStorage.getItem('redirect_after_login')
@@ -46,7 +48,7 @@ const useAnonymousLogin = () => {
     },
   });
 
-  return { login, errorMessage, isPending };
+  return { login, errorMessage, successAnonMessage, isPending };
 }
 
 export default useAnonymousLogin

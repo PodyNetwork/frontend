@@ -6,7 +6,7 @@ import useClaimPoint from "@/hooks/point/useClaimPoints";
 import approx from "approximate-number";
 
 const RewardStatistic = () => {
-  const { pointsBalance } = useGetPointsBalance();
+  const { pointsBalance, refetch } = useGetPointsBalance(); 
 
   const { points, claimedPoints } = pointsBalance ?? {};
 
@@ -44,7 +44,7 @@ const RewardStatistic = () => {
     },
   ];
 
-  const { claimPoint, loading } = useClaimPoint();
+  const { claimPoint, loading } = useClaimPoint(refetch); 
 
   return (
     <motion.div
