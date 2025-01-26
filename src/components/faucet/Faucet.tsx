@@ -105,11 +105,29 @@ const Faucet = () => {
                 <div className="text-3xl xs:text-5xl md:text-6xl font-extrabold text-slate-700">
                   <h1>Claim EDU for Gas</h1>
                 </div>
-                <p className="mt-3 text-sm">
-                    Claim free EDU Chain gas on Mainnet to try out our free meeting software.
+                <p className="mt-2 text-sm">
+                  Claim free EDU Chain gas on Mainnet to try out our free
+                  meeting software.
                 </p>
-                <div className="mt-6">
-                  <Link href="https://discord.gg/TjDpNw28pt"><button className="bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300">Claim EDU</button></Link>
+                <div className="mt-4">
+                  <Link href="https://discord.gg/TjDpNw28pt">
+                    <button className="bg-pody-dark text-sm rounded-full px-8 py-4 text-slate-200 hover:opacity-80 transition-all duration-300">
+                      Claim EDU
+                    </button>
+                  </Link>
+                </div>
+                <div className="video-container">
+                  <iframe
+                    width="560"
+                    height="315"
+                    className="rounded-lg"
+                    src="https://www.youtube.com/embed/pXjAbhXFmoo?si=-VzXZLYadT49z0SP"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
                 </div>
               </div>
             </div>
