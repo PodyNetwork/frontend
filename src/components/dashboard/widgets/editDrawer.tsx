@@ -205,7 +205,7 @@ const EditDrawer: React.FC<EditDrawerProps> = ({ call }) => {
                       </Popover>
                     </div>
                   )}
-                  <div>
+                  <div className="hidden">
                     <ToggleSwitch
                       label="Participant Can Speak"
                       initialState={canSpeak}
