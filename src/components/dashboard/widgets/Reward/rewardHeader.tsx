@@ -1,6 +1,21 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const RewardHeader = () => {
+  const [isTestnet, setIsTestnet] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hostname = window.location.hostname;
+      const subdomain = hostname.split(".")[0];
+
+      if (subdomain === "testnet") {
+        setIsTestnet(true);
+      } else {
+        setIsTestnet(false);
+      }
+    }
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -14,7 +29,7 @@ const RewardHeader = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
-        Testnet{" "}
+        {isTestnet ? "Testnet": "Mainnet"}{" "}
         <motion.span
           className="text-slate-500"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -26,7 +41,9 @@ const RewardHeader = () => {
         </motion.span>{" "}
         is here Earn on every Classroom you Join
       </motion.h2>
-      <p className="text-sm text-slate-600 font-normal">📌 Every Classroom You Join Isn&apos;t Just a Step Forward It&apos;s a Reward Waiting to Be Claimed! Don&apos;t Just Learn, Earn Big.</p>
+      <p className="text-sm text-slate-600 font-normal">
+        📌 Earn points for every classroom you create or join, and for friends you refer to Pody. These points will be converted to Yuzu Points.
+      </p>
     </motion.div>
   );
 };
