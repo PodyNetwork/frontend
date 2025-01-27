@@ -22,10 +22,6 @@ const placementStyles = {
 const ReferralLeaderboard = () => {
   const {
     referralLeaderboard,
-    currentPage,
-    totalPages,
-    nextPage,
-    previousPage,
     isLoading,
   } = useGetReferralLeaderboard();
 

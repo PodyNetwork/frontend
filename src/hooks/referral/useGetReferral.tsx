@@ -9,8 +9,15 @@ interface GetReferralArgs {
   dateJoined?: string | null;
 }
 
+interface ReferralData {
+  _id: string;
+  count?: number;
+  username: string;
+  timeJoined?: string;
+}
+
 interface ReferralResponse {
-  referrals: any[]; 
+  referrals: ReferralData[];
   totalReferralsCount: number; 
   rank: number;
 }
