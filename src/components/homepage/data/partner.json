@@ -1,5 +1,10 @@
 [
     {
+        "name": "EDU Chain",
+        "src": "/partner/educhain-black.svg",
+        "url": "https://educhain.xyz/"
+    },
+    {
         "name": "Open Campus",
         "src": "/partner/opencampus.png",
         "url": "https://opencampus.xyz/"

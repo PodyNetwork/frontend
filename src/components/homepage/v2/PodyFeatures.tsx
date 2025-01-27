@@ -7,7 +7,7 @@ import FeaturesMain from "./widgets/Features/FeaturesMain";
 
 const PodyFeatures = () => {
   return (
-    <section className="w-full relative" id="features">
+    <section className="w-full relative select-none" id="features">
       <div className="flex flex-col py-24 w-full text-slate-900 max-w-7xl mx-auto px-5 md:px-6">
         <div className="grid __discover_lyout gap-6 justify-between">
           <DiscoveFeature />

@@ -196,12 +196,12 @@ const ParticipantPody = () => {
   useEffect(() => {
     if (!callState.isOnlyParticipant) return;
 
-    if (callState.timeElapsed === 5 && !callState.notificationSent) {
+    if (callState.timeElapsed === 15 && !callState.notificationSent) {
       openDialog("notifNoParticipant");
       updateCallState({ notificationSent: true });
     }
 
-    if (callState.timeElapsed >= 10 && !callState.callEnded) {
+    if (callState.timeElapsed >= 20 && !callState.callEnded) {
       if (callId) {
         endCall.mutate({ callId });
       } else {

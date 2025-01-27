@@ -5,7 +5,7 @@ import Link from "next/link";
 const Partner = () => {
   return (
     <div
-      className="max-w-5xl 2xl:max-w-7xl mx-auto py-14 px-5 md:px-6"
+      className="max-w-5xl 2xl:max-w-7xl mx-auto py-16 px-5 md:px-6"
       aria-label="Partner"
     >
       <div className="text-center">
@@ -23,7 +23,7 @@ const Partner = () => {
                   alt={partnerdata.name}
                   width={300}
                   height={300}
-                  className="object-contain w-32 md:w-40 _partner_img"
+                  className="object-contain w-28 md:w-32 _partner_img"
                   
                 />
               </Link>
