@@ -18,7 +18,6 @@ interface Referral {
 
 interface GetReferralArgs {
   limit?: number;
-  sortDirection?: "asc" | "desc";
   dateFrom?: string | null;       
   dateTo?: string | null;  
 }
@@ -29,7 +28,6 @@ const useGetReferralLeaderboard = (args: GetReferralArgs = {}) => {
   const fetchReferrals = useCallback(async () => {
     const {
       limit = 20,
-      sortDirection = "asc",
       dateFrom = null,
       dateTo = null,
     } = args;
@@ -37,7 +35,6 @@ const useGetReferralLeaderboard = (args: GetReferralArgs = {}) => {
     const response = await axios.get<Referral>("/public/user/referral/stat", {
       params: {
         limit,
-        sortDirection,
         dateFrom,
         dateTo,
         page: currentPage,

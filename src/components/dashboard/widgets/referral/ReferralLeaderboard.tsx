@@ -92,25 +92,6 @@ const ReferralLeaderboard = () => {
           );
         })}
       </ul>
-      <div className="py-4 flex flex-row gap-x-2 px-4 text-xs items-center text-slate-800">
-        <button
-          className="bg-slate-100 p-2 rounded-md disabled:opacity-50"
-          onClick={previousPage}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className="bg-slate-100 p-2 rounded-md disabled:opacity-50"
-          onClick={nextPage}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
     </>
   );
 
