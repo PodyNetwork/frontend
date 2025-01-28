@@ -3,7 +3,7 @@ import { formatUnits } from "viem";
 import { LeaderboardEntry } from "@/app/dashboard/leaderboard/types";
 import { motion } from "framer-motion";
 import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
-import approx from 'approximate-number';
+import { formatNum } from "@/func/formatNum";
 
 
 export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
@@ -39,7 +39,8 @@ export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
               {item?.username}
             </h2>
             <p className="text-sm text-pody-primary font-semibold truncate">
-               {approx(Number(formatUnits(BigInt(item?.totalPoints ?? 0), 18)), {decimal: false})}
+               {/* {approx(Number(formatUnits(BigInt(item?.totalPoints ?? 0), 18)), {decimal: false})} */}
+               {formatNum(Number(formatUnits(BigInt(item?.totalPoints ?? 0), 18)))}
             </p>
           </motion.div>
         );
