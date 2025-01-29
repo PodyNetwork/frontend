@@ -13,7 +13,7 @@ const AuthIntro = () => {
             height={900}
             className="w-full h-full object-cover"
             priority
-            loading="eager"
+            
             quality={75}
           />
         </div>

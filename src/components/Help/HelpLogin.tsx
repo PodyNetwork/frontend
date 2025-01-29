@@ -51,7 +51,7 @@ const HelpLogin = () => {
                     height={1644}
                     alt="Login to Pody"
                     priority
-                    loading="eager"
+                    
                     quality={75}
                   />
                   <li>

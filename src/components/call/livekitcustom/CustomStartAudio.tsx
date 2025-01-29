@@ -45,7 +45,7 @@ export const CustomStartAudio = React.forwardRef<
             height={536}
             alt="pody audio playback illustration"
             priority
-            loading="eager"
+            
             quality={75}
           />
           <h3 className="text-xl font-medium">

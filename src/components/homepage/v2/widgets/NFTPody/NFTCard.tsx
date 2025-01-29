@@ -23,7 +23,7 @@ const NFTCard = () => {
             height={300}
             alt="Pody NFT"
             priority
-            loading="eager"
+            
             quality={75}
           />
           <div className="py-3">
@@ -51,7 +51,7 @@ const NFTCard = () => {
             height={300}
             alt="Pody NFT"
             priority
-            loading="eager"
+            
             quality={75}
           />
           <div className="py-3">
@@ -79,7 +79,7 @@ const NFTCard = () => {
             height={300}
             alt="Pody NFT"
             priority
-            loading="eager"
+            
             quality={75}
           />
           <div className="py-3">

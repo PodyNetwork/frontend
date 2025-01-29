@@ -24,7 +24,6 @@ const HostLobby = ({ showStartButton, handleStartCall }: Props) => {
               height={536}
               alt="pody host lobby"
               priority
-              loading="eager"
               quality={75}
             />
             <h3 className="text-2xl font-medium">

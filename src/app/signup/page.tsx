@@ -15,6 +15,7 @@ import { jwtDecode } from "jwt-decode";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { ToastAction } from "@/components/ui/toast";
+import Image from "next/image";
 
 interface DecodedToken {
   user_id: number;
@@ -117,6 +118,10 @@ const SignUp = () => {
       <AuthLayout>
         <div className="w-full max-w-96 md:px-6 text-ceter">
           <AuthHeader />
+          <div className="flex gap-1.5 items-center mb-5 text-sm font-medium text-slate-600">
+            <Image src="/svg/3d-fire.svg" width={30} height={30} className="size-4 flame" alt="fire svg" />
+            <p>Need EDU Mainnet faucet? <button className="text-blue-500" onClick={() => handleClick("/faucet")}>Claim here</button></p>
+          </div>
           {authButton && (
             <div className="flex flex-col">
               {/* {authState.isAuthenticated ? (
