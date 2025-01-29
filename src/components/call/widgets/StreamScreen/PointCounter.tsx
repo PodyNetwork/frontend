@@ -21,7 +21,7 @@ export const PointCounter = ({
           viewBox="0 -960 960 960"
           fill="currentColor"
         >
-          {formattedPoints > 500 ? (
+          {formattedPoints > 10000 ? (
             <path d="M480-151.54 103.85-603.08 212.31-820h535.38l108.46 216.92L480-151.54ZM352.69-620h254.62l-80-160h-94.62l-80 160ZM460-237.62V-580H175.69L460-237.62Zm40 0L784.31-580H500v342.38ZM651.69-620h150.62l-80-160H571.69l80 160Zm-494 0h150.62l80-160H237.69l-80 160Z" />
           ) : (
             <path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-61 83.92 49.62-212.54-164.93-142.84 217.23-18.85L480-777.69l85.08 200.38 217.23 18.85-164.93 142.84L667-203.08 480-315.92 293-203.08ZM480-470Z" />
@@ -60,7 +60,7 @@ export const PointCounter = ({
           alt="fire svg"
         />
         <p className="font-medium web3-gradient-text">
-          1x Booster
+          {Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1)}x Booster
         </p>
       </div>
     </div>

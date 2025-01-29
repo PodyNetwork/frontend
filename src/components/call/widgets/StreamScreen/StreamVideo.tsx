@@ -64,7 +64,7 @@ const StreamVideo = () => {
     };
 
     requestWakeLock();
-  }, []);
+  }, [call?.title]);
   return (
     <div className="w-full flex flex-wrap gap-3 my-auto relative">
       <MyVideoConference />

@@ -9,6 +9,7 @@ import { useFullscreen } from "../../utils/FullscreenContext";
 import { useParticipantMenu } from "../../utils/ParticipantMenuContext";
 import StreamShare from "../share/StreamShare";
 import { PointCounter } from "./PointCounter";
+import { parseUnits } from "viem";
 
 
 const StreamInfo = () => {
@@ -16,7 +17,7 @@ const StreamInfo = () => {
   const { call } = useGetCallByURL(url as string);
   const participants = useParticipants();
   const [participantPublishNumber, setParticipantPublishNumber] = useState(0);
-  const [hashRate, setHashRate] = useState<number>(1);
+  const [hashRate, setHashRate] = useState<number>(Number(parseUnits("1", 18)));
   const [accumulatedPoints, setAccumulatedPoints] = useState<number>(0);
   const { profile } = useProfile();
 
