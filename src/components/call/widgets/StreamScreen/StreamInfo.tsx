@@ -46,7 +46,7 @@ const StreamInfo = () => {
     const interval = setInterval(() => {
       if (hashRate) {
         setAccumulatedPoints((accumulatedPoints) => {
-          const points = (accumulatedPoints + hashRate) * Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1);
+          const points = accumulatedPoints + (hashRate * Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1));
           if (!isHost || !participants) return points;
 
           return points;
