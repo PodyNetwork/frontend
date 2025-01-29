@@ -16,7 +16,7 @@ const StreamInfo = () => {
   const { call } = useGetCallByURL(url as string);
   const participants = useParticipants();
   const [participantPublishNumber, setParticipantPublishNumber] = useState(0);
-  const [hashRate, setHashRate] = useState<number>(0);
+  const [hashRate, setHashRate] = useState<number>(1);
   const [accumulatedPoints, setAccumulatedPoints] = useState<number>(0);
   const { profile } = useProfile();
 
@@ -38,7 +38,7 @@ const StreamInfo = () => {
       return () => {
         clearInterval(interval);
       };
-    }, 30000);
+    }, 3600000);
   }, [profile]);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const StreamInfo = () => {
     const interval = setInterval(() => {
       if (hashRate) {
         setAccumulatedPoints((accumulatedPoints) => {
-          const points = accumulatedPoints + hashRate;
+          const points = accumulatedPoints + hashRate + Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 0);
           if (!isHost || !participants) return points;
 
           return points;
