@@ -91,7 +91,7 @@ const NftList = () => {
               BigInt(levelIndex + 1) > level ? "filter blur-md" : ""
             }`}
             priority
-            loading="eager"
+            
             quality={75}
           />
         </motion.div>

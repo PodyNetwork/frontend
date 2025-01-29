@@ -71,7 +71,7 @@ const QuickFeaturesCard = () => {
           height={516}
           alt={cards[currentIndex].description} 
           priority
-          loading="eager"
+          
           quality={75}
         />
         <div>

@@ -62,7 +62,7 @@ const CardsAndImage = () => {
                 height={400}
                 alt="Pody Getting started"
                 priority
-                loading="eager"
+                
                 quality={75}
               />
               <div className="p-5">
@@ -96,7 +96,6 @@ const CardsAndImage = () => {
                 height={400}
                 alt="Pody Getting started"
                 priority
-                loading="eager"
                 quality={75}
               />
               <div className="p-5">
@@ -122,7 +121,7 @@ const CardsAndImage = () => {
                 height={700}
                 alt="Pody Getting started"
                 priority
-                loading="eager"
+                
                 quality={75}
               />
             </motion.div>

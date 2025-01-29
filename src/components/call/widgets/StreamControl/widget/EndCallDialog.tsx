@@ -46,7 +46,7 @@ const EndCallDialog = () => {
             height={300}
             alt="pody audio playback illustration"
             priority
-            loading="eager"
+            
             quality={75}
           />
           <h2 className="text-base xs:text-lg font-medium mt-2">

@@ -132,7 +132,6 @@ const GiftAnimationPage: React.FC = () => {
             alt="Gift"
             className="h-6 w-6 rounded-full object-cover"
             priority
-            loading="eager"
             quality={75}
           />
           <div>
@@ -184,7 +183,6 @@ const GiftAnimationPage: React.FC = () => {
                     alt="Gift"
                     className="h-4 w-4 rounded-full object-cover"
                     priority
-                    loading="eager"
                     quality={75}
                   />
                 )}

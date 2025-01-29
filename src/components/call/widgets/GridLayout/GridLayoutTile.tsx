@@ -202,7 +202,6 @@ export function EnhancedGridLayout({
                     height={200}
                     alt="Pody Logo"
                     priority
-                    loading="eager"
                     quality={75}
                   />
                 </motion.div>
@@ -278,43 +277,46 @@ export function EnhancedGridLayout({
         {(focusedTrackIndex !== null && tracks[focusedTrackIndex]
           ? [tracks[focusedTrackIndex]]
           : currentTracks
-        ).map((track, index) => (
-          <div
-            className="relative __video_controlled_height items-center grid grid-cols-1 justify-center __bg_screen__card"
-            key={index}
-          >
-            {track && track.source && track.participant && (
-              <ParticipantCustomTile
-                trackRef={track}
-                onClick={() => onParticipantClick?.(index)}
-              />
-            )}
-            {tracks.length > 1 && (
-              <button
-                className={`absolute hidden sm:block top-[10px] cursor-pointer z-40 right-[10px] text-slate-500 transition-opacity duration-300 ${
-                  showPinbar ? "opacity-100" : "opacity-0"
-                }`}
-                onClick={() => handleFocusToggle(index)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  className="w-5 h-5"
-                  fill="currentColor"
+        ).map((track, localIndex) => {
+          const globalIndex = currentPage * tracksPerPage + localIndex;
+          return (
+            <div
+              className="relative __video_controlled_height items-center grid grid-cols-1 justify-center __bg_screen__card"
+              key={globalIndex}
+            >
+              {track && track.source && track.participant && (
+                <ParticipantCustomTile
+                  trackRef={track}
+                  onClick={() => onParticipantClick?.(globalIndex)}
+                />
+              )}
+              {tracks.length > 1 && (
+                <button
+                  className={`absolute hidden sm:block top-[10px] cursor-pointer z-40 right-[10px] text-slate-500 transition-opacity duration-300 ${
+                    showPinbar ? "opacity-100" : "opacity-0"
+                  }`}
+                  onClick={() => handleFocusToggle(globalIndex)}
                 >
-                  {focusedTrackIndex !== null ? (
-                    <path d="M660-820v60h-40v307l-60-60v-247H400v87l-64.31-64.31-20.3-43H300V-820h360ZM480-90l-30-30v-220H268.46v-60L340-471.54v-62.92l-254.77-256 42.16-42.15 689.84 689.84-43.39 42.15L534.46-340H510v220l-30 30ZM354-400h121.23l-74-73.23L400-446l-46 46Zm126-193Zm-78.77 119.77Z" />
-                  ) : (
-                    <path d="M620-471.54 691.54-400v60H510v220l-30 30-30-30v-220H268.46v-60L340-471.54V-760h-40v-60h360v60h-40v288.46ZM354-400h252l-46-46v-314H400v314l-46 46Zm126 0Z" />
-                  )}
-                </svg>
-              </button>
-            )}
-          </div>
-        ))}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 -960 960 960"
+                    className="w-5 h-5"
+                    fill="currentColor"
+                  >
+                    {focusedTrackIndex !== null ? (
+                      <path d="M660-820v60h-40v307l-60-60v-247H400v87l-64.31-64.31-20.3-43H300V-820h360ZM480-90l-30-30v-220H268.46v-60L340-471.54v-62.92l-254.77-256 42.16-42.15 689.84 689.84-43.39 42.15L534.46-340H510v220l-30 30ZM354-400h121.23l-74-73.23L400-446l-46 46Zm126-193Zm-78.77 119.77Z" />
+                    ) : (
+                      <path d="M620-471.54 691.54-400v60H510v220l-30 30-30-30v-220H268.46v-60L340-471.54V-760h-40v-60h360v60h-40v288.46ZM354-400h252l-46-46v-314H400v314l-46 46Zm126 0Z" />
+                    )}
+                  </svg>
+                </button>
+              )}
+            </div>
+          );
+        })}
       </div>
       {/* Pagination & controls desktop */}
-      {focusedTrackIndex === null && tracks.length > 4 && (
+      {focusedTrackIndex === null && tracks.length > 6 && (
         <div
           ref={paginationRef}
           className={`hidden sm:block py-2 absolute bottom-0 right-0 transition-opacity duration-300 ${
