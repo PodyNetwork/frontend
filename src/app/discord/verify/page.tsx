@@ -1,6 +1,6 @@
 "use client";
-import { HeaderNavEmain } from "@/components/email/HeaderNav";
 import useGetDiscordVerification from "@/hooks/discord/useGetVerificationCode";
+import Link from "next/link";
 import { useRef, useState } from "react";
 
 const Page = () => {
@@ -11,10 +11,10 @@ const Page = () => {
     try {
       await navigator.clipboard.writeText(verification?.code || "");
       setCopyStatus("Code copied!");
-        if (timeoutRef.current) {
+      if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-        timeoutRef.current = setTimeout(() => setCopyStatus(""), 2000); 
+      timeoutRef.current = setTimeout(() => setCopyStatus(""), 2000);
     } catch {
       setCopyStatus("Failed to copy code");
     }
@@ -24,12 +24,14 @@ const Page = () => {
   return (
     <main className="w-full relative" aria-label="verify otp">
       <div className="flex flex-col relative min-h-screen">
-        <HeaderNavEmain />
         <section className="relative w-full flex-1 h-full flex items-center flex-col justify-center z-50">
           <div className="w-full px-4 md:px-12">
             <div className="w-full xs:max-w-md border border-slate-500 p-9 flex-1 flex flex-col gap-y-2.5 __shadowpody mx-auto relative">
               <div className="absolute inset-0 [background:radial-gradient(circle_at_center,_rgba(88,101,242,0.1)_0%,_transparent_70%)] mix-blend-overlay"></div>
-              <div>
+              <Link
+                href="https://discord.gg/TjDpNw28pt"
+                className="cursor-pointer z-50"
+              >
                 <svg
                   id="fi_5968759"
                   enableBackground="new 0 0 512.6 512.6"
@@ -43,12 +45,13 @@ const Page = () => {
                     <path d="m457.21 0h-401.82c-30.59 0-55.39 24.8-55.39 55.39v401.82c0 30.59 24.8 55.39 55.39 55.39h401.82c30.59 0 55.39-24.8 55.39-55.39v-401.82c0-30.59-24.8-55.39-55.39-55.39zm-18.12 349.4c-.02.34-.2.64-.48.85-31.64 23.24-62.3 37.35-92.53 46.7-.48.15-1-.03-1.29-.44-6.99-9.72-13.33-19.97-18.89-30.73-.32-.63-.03-1.39.63-1.64 10.07-3.8 19.66-8.36 28.87-13.74.73-.43.78-1.47.1-1.97-1.95-1.45-3.89-2.98-5.74-4.51-.35-.28-.82-.34-1.21-.14-59.84 27.64-125.39 27.64-185.93 0-.4-.18-.87-.12-1.2.16-1.85 1.52-3.79 3.04-5.73 4.49-.67.5-.61 1.54.11 1.97 9.22 5.28 18.8 9.94 28.86 13.75.66.25.97 1 .65 1.63-5.44 10.78-11.79 21.03-18.9 30.74-.31.4-.82.58-1.3.43-30.09-9.35-60.74-23.46-92.38-46.7-.27-.21-.46-.53-.49-.87-6.44-69.03 6.7-138.92 54.66-210.58.12-.19.29-.34.5-.42 23.59-10.84 48.88-18.81 75.3-23.36.49-.07.97.15 1.21.57 3.27 5.79 7 13.2 9.53 19.26 27.85-4.25 56.14-4.25 84.58 0 2.52-5.93 6.12-13.47 9.38-19.26.24-.44.72-.66 1.21-.57 26.43 4.57 51.72 12.54 75.3 23.36.21.08.38.23.48.44 41.78 61.45 62.42 130.77 54.7 210.58z"></path>
                   </g>
                 </svg>
-              </div>
-              <h2 className="font-medium text-slate-700 text-xl">
+              </Link>
+              <h2 className="font-semibold text-slate-700 text-xl">
                 Connect Discord
               </h2>
               <p className="text-sm text-slate-500">
-                Copy the Code below to your discord to claim OP Testnet or OP Mainnet role
+                Copy the Code below to your discord to claim OP Testnet or OP
+                Mainnet role
               </p>
               <div className="mt-2">
                 <label
@@ -84,8 +87,16 @@ const Page = () => {
               {copyStatus && (
                 <p className="text-xs text-green-500">{copyStatus}</p>
               )}
+              <Link
+                href="https://discord.gg/TjDpNw28pt"
+                className="cursor-pointer z-50 w-full"
+              >
+                <button className="bg-pody-dark border-l-0 border border-slate-500 relative px-3 h-11 text-sm w-full text-white hover:opacity-80 hover:transition-all">
+                  Open Discord
+                </button>
+              </Link>
               <p className="text-xs mt-2 text-slate-700">
-                Connecting your Discord account to our platform, you do not need
+                Disclaimer: Connecting your Discord account to our platform, you do not need
                 to log in to Discord. Instead, you will receive a unique code
                 that you simply need to copy and paste into our bot&apos;s
                 channel. For your security, please never share this code with

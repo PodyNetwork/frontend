@@ -9,7 +9,15 @@ import isTomorrow from "dayjs/plugin/isTomorrow";
 import OngoingCallCard from "@/components/homepage/v2/widgets/OngoingClass/OngoingCallCard";
 import SkeletonCard from "@/components/dashboard/widgets/explore/ExploreSkeleton";
 import ExploreHeader from "@/components/dashboard/widgets/explore/ExploreHeader";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Disclaimer from "@/components/global/Disclaimer";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
@@ -22,8 +30,9 @@ const Inactivecall = () => {
           <h3 className="text-xl font-medium">Public Classroom</h3>
           <div className="text-sm flex flex-col mt-1.5 text-slate-500">
             <p>
-            You can join public classrooms to earn Points, which will be converted to Yuzu Points. 
-            Public classrooms will be posted here as soon as they are available.
+              You can join public classrooms to earn Points, which will be
+              converted to Yuzu Points. Public classrooms will be posted here as
+              soon as they are available.
             </p>
           </div>
         </div>
@@ -36,7 +45,9 @@ const Publiccall = () => {
   const [activeTab, setActiveTab] = useState<"instant" | "scheduled" | "all">(
     "all"
   );
-  const [filterStatus, setFilterStatus] = useState<"all" | "pending" | "ongoing" | "ended" | "cancelled">("all")
+  const [filterStatus, setFilterStatus] = useState<
+    "all" | "pending" | "ongoing" | "ended" | "cancelled"
+  >("all");
 
   const {
     calls,
@@ -56,7 +67,9 @@ const Publiccall = () => {
     refetch();
   }, [activeTab, refetch]);
 
-  const handleFilterChange = (value: "all" | "pending" | "ongoing" | "ended" | "cancelled") => {
+  const handleFilterChange = (
+    value: "all" | "pending" | "ongoing" | "ended" | "cancelled"
+  ) => {
     setFilterStatus(value);
   };
 
@@ -88,7 +101,9 @@ const Publiccall = () => {
     <Tabs
       defaultValue="all"
       className="w-full mt-6"
-      onValueChange={(value) => setActiveTab(value as "all" | "instant" | "scheduled")}
+      onValueChange={(value) =>
+        setActiveTab(value as "all" | "instant" | "scheduled")
+      }
     >
       <div className="flex items-center justify-between gap-6 w-full flex-wrap">
         <TabsList className="w-full xs:w-auto xs:rounded-full h-auto p-2 flex-col xs:flex-row">
@@ -137,6 +152,7 @@ export default function Page() {
       <ExploreHeader />
       <div className="p-8 sm:p-8 px-5 md:p-12">
         <div className="max-w-4xl mx-auto">
+          <Disclaimer />
           <Publiccall />
         </div>
       </div>
