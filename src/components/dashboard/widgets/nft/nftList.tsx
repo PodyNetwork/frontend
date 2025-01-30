@@ -110,12 +110,12 @@ const NftList = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 + 0.1 * levelIndex, duration: 0.5 }}
-            className="text-sm text-slate-600"
+            className="text-sm text-slate-600 font-medium"
           >
             {isUnlocked && profile?.walletAddress
               ? `Unlocked`
               : isNextLevel
-              ? `Fee: ${formatEther(nextLevelFee)} EDU`
+              ? `${formatEther(nextLevelFee)} EDU`
               : <span className={`text-sm font-medium text-red-500`}>Locked</span>}
           </motion.p>
           <motion.div

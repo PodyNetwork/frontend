@@ -1485,7 +1485,6 @@ body {
     transform: scaleY(1.09126);
   }
 }
-
 .flame {
   animation: burn 0.5s infinite alternate ease-in-out;
 }

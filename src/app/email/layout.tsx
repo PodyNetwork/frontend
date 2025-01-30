@@ -20,7 +20,7 @@ const DashboardLayout = ({
 
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <NotEmailVerifiedMiddleware><DashboardLayout>{children}</DashboardLayout></NotEmailVerifiedMiddleware>
+  return <DashboardLayout>{children}</DashboardLayout>
 }
 
 export default Layout

@@ -1,14 +1,12 @@
 "use client";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
-import Image from "next/image";
-import logo from "/public/logo/pody logo dark.png";
-import { AvatarParticipant } from "@/components/Avatar/AvatarParticipant";
 import useProfile from "@/hooks/user/useProfile";
 import useSetEmail from "@/hooks/user/useSetEmail";
+import { HeaderNavEmain } from "@/components/email/HeaderNav";
 
 const Page = () => {
-  const { profile, isLoading, isError } = useProfile();
+  const { profile } = useProfile();
 
   const [email, setEmail] = useState<string>("");
   const { setEmail: setEmailMutation, errorMessage, loading } = useSetEmail();
@@ -32,28 +30,10 @@ const Page = () => {
   return (
     <main className="w-full relative" aria-label="set email">
       <div className="flex flex-col relative min-h-screen">
-        <div className="flex flex-col items-center w-full bg-pody-secondary/5">
-          <nav className="flex w-full items-center justify-between py-6 px-4 sm:px-12 gap-x-4 xl:max-w-[1300px]">
-            <Link href="/">
-              <Image src={logo} className="w-16 object-contain" alt="Pody" />
-            </Link>
-            <div className="flex flex-row items-center gap-x-2">
-              <div className="w-7 h-7 rounded-full bg-black/20">
-                <AvatarParticipant name={profile?.username || "unknown user"} />
-              </div>
-              {isLoading || isError ? (
-                <div className="w-24 h-6 bg-slate-300 animate-pulse rounded"></div>
-              ) : (
-                <h3 className="text-sm text-slate-500">
-                  Hello, {profile?.username}
-                </h3>
-              )}
-            </div>
-          </nav>
-        </div>
+        <HeaderNavEmain />
         <section className="relative w-full flex-1 h-full flex items-center flex-col justify-center">
           <div className="w-full px-4 md:px-12">
-            <div className="w-full xs:max-w-md bg-white p-7 rounded-lg flex-1 flex flex-col gap-y-2.5 __shadow_pody mx-auto relative">
+            <div className="w-full xs:max-w-md bg-white p-9 rounded-lg flex-1 flex flex-col gap-y-2.5 __shadow_pody mx-auto relative">
               <h2 className="font-medium text-slate-700 text-xl">
                 Set Your Email
               </h2>
@@ -92,11 +72,10 @@ const Page = () => {
                         placeholder="name@hello.com"
                       />
                     </div>
-
-                    {profile?.walletAddress ? <button className="bg-pody-secondary relative py-2 px-6 h-11 text-sm text-white rounded-md hover:opacity-80 hover:transition-all">
-                      {loading ? "Submitting..." : "Submit"}
-                    </button> : <Link href={'/signup'} className="bg-pody-secondary relative py-2 px-6 h-11 text-sm text-white rounded-md hover:opacity-80 hover:transition-all">Signup to Verify</Link>}
                   </div>
+                  {profile?.walletAddress ? <button className="bg-pody-dark relative py-2 px-6 h-11 w-full mt-3 text-sm text-white rounded-md hover:opacity-80 hover:transition-all">
+                      {loading ? "Submitting..." : "Submit"}
+                    </button> : <Link href={'/signup'}><button className="bg-pody-dark relative py-2 px-6 h-11 w-full mt-3 text-sm text-white rounded-md hover:opacity-80 hover:transition-all">Signup to Verify</button></Link>}
                 </div>
                 {errorMessage && (
                   <p className="text-sm mt-2 text-pody-danger font-medium">{errorMessage.message}</p>
