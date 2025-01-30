@@ -24,7 +24,7 @@ const StreamSidebar = () => {
             alt="Pody Logo"
             className="w-5 object-contain"
             priority
-            loading="eager"
+            
           />
         </div>
         <div className="w-full">

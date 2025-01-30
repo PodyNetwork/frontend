@@ -46,7 +46,7 @@ const getLevelFee = async (args: { level: bigint}): Promise<bigint> => {
   const result = await readContract(config, {
     abi: podyPassportAbi,
     address: process.env.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS as Address,
-    functionName: "hashRates",
+    functionName: "prices",
     args: [args.level],
   }) as bigint;
 

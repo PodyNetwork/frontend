@@ -91,7 +91,7 @@ const NftList = () => {
               BigInt(levelIndex + 1) > level ? "filter blur-md" : ""
             }`}
             priority
-            loading="eager"
+            
             quality={75}
           />
         </motion.div>
@@ -113,7 +113,7 @@ const NftList = () => {
             {isUnlocked && profile?.walletAddress
               ? `Unlocked`
               : isNextLevel
-              ? `Fee: ${formatEther(nextLevelFee)} ether`
+              ? `Fee: ${formatEther(nextLevelFee)} EDU`
               : <span className={`text-sm font-medium text-red-500`}>Locked</span>}
           </motion.p>
           <motion.div

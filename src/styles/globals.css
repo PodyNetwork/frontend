@@ -1474,3 +1474,18 @@ body {
   line-height: 1.25rem !important;
   color: rgb(226 232 240) !important;
 }
+
+
+@keyframes burn {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.09126);
+  }
+}
+
+.flame {
+  animation: burn 0.5s infinite alternate ease-in-out;
+}

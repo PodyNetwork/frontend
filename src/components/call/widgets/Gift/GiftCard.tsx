@@ -324,7 +324,7 @@ const GiftUI: React.FC = () => {
                               alt={`${data.name} Token`}
                               className="h-4 w-4 rounded-full me-2 object-cover"
                               priority
-                              loading="eager"
+                              
                               quality={75}
                             />
                             {data.name}

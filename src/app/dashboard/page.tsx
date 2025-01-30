@@ -24,7 +24,6 @@ export default function Page() {
               className="object-contain w-full"
               alt="video conferencing"
               priority
-              loading="eager"
               quality={75}
             />
           </div>

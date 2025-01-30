@@ -92,7 +92,7 @@ const MintingPassport = () => {
                     height={1644}
                     alt="Claim EduChain Faucet to mint Pody Passport"
                     priority
-                    loading="eager"
+                    
                     quality={75}
                   />
                   <li>
