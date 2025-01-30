@@ -1,7 +1,10 @@
 "use client";
 import { HeaderNavEmain } from "@/components/email/HeaderNav";
+import useGetDiscordVerification from "@/hooks/discord/useGetVerificationCode";
 
 const Page = () => {
+
+    const { verification } = useGetDiscordVerification()
   return (
     <main className="w-full relative" aria-label="verify otp">
       <div className="flex flex-col relative min-h-screen">
@@ -46,6 +49,7 @@ const Page = () => {
                       id="otp"
                       className="bg-slate-50 border border-slate-500 text-slate-800 text-base h-11 outline-none block w-full p-2.5"
                       placeholder="**** **** **** ****"
+                      value={verification?.code}
                     />
                     <button className="bg-pody-dark border-l-0 border border-slate-500 relative px-3 h-11 text-sm text-white hover:opacity-80 hover:transition-all">
                       <svg
