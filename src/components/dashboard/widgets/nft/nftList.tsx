@@ -27,7 +27,7 @@ const NftList = () => {
         walletAddress: account.address as Address,
       });
 
-      const _nextLevelFee = await getLevelFee({ level: userLevel });
+      const _nextLevelFee = await getLevelFee({ level: userLevel + BigInt(1) });
 
       setLevel(userLevel);
       setNextLevelFee(_nextLevelFee);
