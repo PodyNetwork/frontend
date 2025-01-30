@@ -1,10 +1,26 @@
 "use client";
 import { HeaderNavEmain } from "@/components/email/HeaderNav";
 import useGetDiscordVerification from "@/hooks/discord/useGetVerificationCode";
+import { useRef, useState } from "react";
 
 const Page = () => {
+  const { verification } = useGetDiscordVerification();
+  const [copyStatus, setCopyStatus] = useState<string>("");
 
-    const { verification } = useGetDiscordVerification()
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(verification?.code || "");
+      setCopyStatus("Code copied!");
+        if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+        timeoutRef.current = setTimeout(() => setCopyStatus(""), 2000); 
+    } catch {
+      setCopyStatus("Failed to copy code");
+    }
+  };
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   return (
     <main className="w-full relative" aria-label="verify otp">
       <div className="flex flex-col relative min-h-screen">
@@ -16,7 +32,7 @@ const Page = () => {
               <div>
                 <svg
                   id="fi_5968759"
-                  enable-background="new 0 0 512.6 512.6"
+                  enableBackground="new 0 0 512.6 512.6"
                   className="size-9 shadow-xl"
                   viewBox="0 0 512.6 512.6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -32,54 +48,58 @@ const Page = () => {
                 Connect Discord
               </h2>
               <p className="text-sm text-slate-500">
-                Copy the Code below to your discord to claim 30,000 Points and
-                Poddies role
+                Copy the Code below to your discord to claim OP Testnet or OP Mainnet role
               </p>
-              <form>
-                <div className="mt-2">
-                  <label
-                    htmlFor="otp"
-                    className="block mb-2 text-sm font-medium text-slate-600"
+              <div className="mt-2">
+                <label
+                  htmlFor="otp"
+                  className="block mb-2 text-sm font-medium text-slate-600"
+                >
+                  Code <sup className="text-red-500 font-bold">*</sup>
+                </label>
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    id="otp"
+                    className="bg-slate-50 border border-slate-500 text-slate-800 text-base h-11 outline-none block w-full p-2.5"
+                    placeholder="**** **** **** ****"
+                    value={verification?.code}
+                    readOnly
+                  />
+                  <button
+                    onClick={handleCopy}
+                    className="bg-pody-dark border-l-0 border border-slate-500 relative px-3 h-11 text-sm text-white hover:opacity-80 hover:transition-all"
                   >
-                    Code <sup className="text-red-500 font-bold">*</sup>
-                  </label>
-                  <div className="relative flex items-center">
-                    <input
-                      type="text"
-                      id="otp"
-                      className="bg-slate-50 border border-slate-500 text-slate-800 text-base h-11 outline-none block w-full p-2.5"
-                      placeholder="**** **** **** ****"
-                      value={verification?.code}
-                    />
-                    <button className="bg-pody-dark border-l-0 border border-slate-500 relative px-3 h-11 text-sm text-white hover:opacity-80 hover:transition-all">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="size-5 text-slate-100"
-                        viewBox="0 -960 960 960"
-                        fill="currentColor"
-                      >
-                        <path d="M364.62-280q-27.62 0-46.12-18.5Q300-317 300-344.62v-430.76q0-27.62 18.5-46.12Q337-840 364.62-840h310.76q27.62 0 46.12 18.5Q740-803 740-775.38v430.76q0 27.62-18.5 46.12Q703-280 675.38-280H364.62Zm0-40h310.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-430.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H364.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v430.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69Zm-120 160q-27.62 0-46.12-18.5Q180-197 180-224.61v-470.77h40v470.77q0 9.23 7.69 16.92 7.69 7.69 16.93 7.69h350.76v40H244.62ZM340-320v-480 480Z" />
-                      </svg>
-                    </button>
-                  </div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="size-5 text-slate-100"
+                      viewBox="0 -960 960 960"
+                      fill="currentColor"
+                    >
+                      <path d="M364.62-280q-27.62 0-46.12-18.5Q300-317 300-344.62v-430.76q0-27.62 18.5-46.12Q337-840 364.62-840h310.76q27.62 0 46.12 18.5Q740-803 740-775.38v430.76q0 27.62-18.5 46.12Q703-280 675.38-280H364.62Zm0-40h310.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-430.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H364.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v430.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69Zm-120 160q-27.62 0-46.12-18.5Q180-197 180-224.61v-470.77h40v470.77q0 9.23 7.69 16.92 7.69 7.69 16.93 7.69h350.76v40H244.62ZM340-320v-480 480Z" />
+                    </svg>
+                  </button>
                 </div>
-              </form>
+              </div>
+              {copyStatus && (
+                <p className="text-xs text-green-500">{copyStatus}</p>
+              )}
               <p className="text-xs mt-2 text-slate-700">
                 Connecting your Discord account to our platform, you do not need
                 to log in to Discord. Instead, you will receive a unique code
-                that you simply need to copy and paste into our bot&apos;s channel.
-                For your security, please never share this code with anyone. Our
-                team will never ask for your Discord login information,
-                including your password or two-factor authentication (2FA)
-                codes. If you have any concerns, please contact our support
-                team.
+                that you simply need to copy and paste into our bot&apos;s
+                channel. For your security, please never share this code with
+                anyone. Our team will never ask for your Discord login
+                information, including your password or two-factor
+                authentication (2FA) codes. If you have any concerns, please
+                contact our support team.
               </p>
             </div>
           </div>
         </section>
         <div className="bg-red-100">
           <svg
-            enable-background="new 0 0 100 100"
+            enableBackground="new 0 0 100 100"
             viewBox="0 0 100 100"
             xmlns="http://www.w3.org/2000/svg"
             id="fi_15047513"
