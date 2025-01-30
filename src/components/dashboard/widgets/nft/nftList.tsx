@@ -113,7 +113,7 @@ const NftList = () => {
             {isUnlocked && profile?.walletAddress
               ? `Unlocked`
               : isNextLevel
-              ? `Fee: ${formatEther(nextLevelFee)} ether`
+              ? `Fee: ${formatEther(nextLevelFee)} EDU`
               : <span className={`text-sm font-medium text-red-500`}>Locked</span>}
           </motion.p>
           <motion.div
