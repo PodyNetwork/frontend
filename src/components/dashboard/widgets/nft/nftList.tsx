@@ -65,6 +65,8 @@ const NftList = () => {
     }
   };
 
+  console.log(nextLevelFee);
+
   const renderNftCard = (levelIndex: number) => {
     const isUnlocked = BigInt(levelIndex + 1) <= level;
     const isNextLevel = BigInt(levelIndex + 1) === level + BigInt(1);
