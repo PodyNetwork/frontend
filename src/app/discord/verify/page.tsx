@@ -1,6 +1,5 @@
 "use client";
 import { HeaderNavEmain } from "@/components/email/HeaderNav";
-import { Tooltip } from "@/components/misc/tooltip";
 
 const Page = () => {
   return (
@@ -64,7 +63,7 @@ const Page = () => {
               <p className="text-xs mt-2 text-slate-700">
                 Connecting your Discord account to our platform, you do not need
                 to log in to Discord. Instead, you will receive a unique code
-                that you simply need to copy and paste into our bot's channel.
+                that you simply need to copy and paste into our bot&apos;s channel.
                 For your security, please never share this code with anyone. Our
                 team will never ask for your Discord login information,
                 including your password or two-factor authentication (2FA)
