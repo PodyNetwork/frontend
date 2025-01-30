@@ -2,7 +2,7 @@ import React from "react";
 
 const Disclaimer = () => {
   return (
-    <p className="text-xs text-slate-700 leading-snug">
+    <div className="text-xs text-slate-700 leading-snug">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="size-5 text-red-500"
@@ -21,7 +21,7 @@ const Disclaimer = () => {
         conversation without your consent. We are not liable for any harm,
         misconduct, or consequences that may arise from your participation.
       </p>
-    </p>
+    </div>
   );
 };
 
