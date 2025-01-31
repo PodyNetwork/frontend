@@ -45,6 +45,7 @@ jobs:
           NEXT_PUBLIC_CHAIN_CONFIGURATION: ${{ secrets.NEXT_PUBLIC_CHAIN_CONFIGURATION }}
           NEXT_PUBLIC_CLARITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_CLARITY_PROJECT_ID }}
           NEXT_PUBLIC_POINT_BOOST: ${{ secrets.NEXT_PUBLIC_POINT_BOOST }}
+          NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
