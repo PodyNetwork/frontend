@@ -12,7 +12,6 @@ import { useGiftMenu } from "./utils/GiftMenuContext";
 import { useParticipantBar } from "./utils/ParticipantBarContext";
 import { DialogProvider } from "./utils/DialogContext";
 import { HandRaiseProvider } from "./utils/HandRaiseContext";
-import { MscAnyPipProvider } from "./widgets/pip/MscAnyPipContext";
 
 const MeetLayout = () => {
   const { isFullscreen } = useFullscreen();
@@ -27,48 +26,44 @@ const MeetLayout = () => {
         <GiftAnimationProvider>
           <HandRaiseProvider>
             <DialogProvider>
-              <MscAnyPipProvider>
-                <section
-                  className={`w-full flex flex-col select-none ${
-                    isFullscreen ? "bg-[#181A1D]" : "bg-white dark:bg-[#111114]"
+              <section
+                className={`w-full flex flex-col select-none ${
+                  isFullscreen ? "bg-[#181A1D]" : "bg-white dark:bg-[#111114]"
+                }`}
+              >
+                <div
+                  className={`flex flex-col md:flex-row h-screen max-h-screen md:justify-between relative ${
+                    isFullscreen ? "gap-x-0" : "gap-x-2"
                   }`}
                 >
+                  {/* Sidebar */}
                   <div
-                    className={`flex flex-col md:flex-row h-screen max-h-screen md:justify-between relative ${
-                      isFullscreen ? "gap-x-0" : "gap-x-2"
+                    className={`w-16 max-w-16 py-5 bg-[#F7F7F7] dark:bg-pody-dark h-full ${sidebarClasses}`}
+                  >
+                    <StreamSidebar />
+                  </div>
+                  {/* Main Stream Screen */}
+                  <div
+                    className={`md:h-full flex flex-col __main-screen relative float-left w-full px-1.5 md:px-5" ${
+                      isFullscreen
+                        ? "bg-[#181A1D]"
+                        : "bg-[#F7F7F7] dark:bg-pody-dark"
+                    } ${
+                      (participantBarIsExpanded || isChatOpen || isGiftOpen) &&
+                      !isFullscreen
+                        ? "md:w-[calc(100vw-25rem)]"
+                        : isFullscreen
+                        ? "md:w-full px-1.5 md:px-5 h-full"
+                        : "md:w-[calc(100vw-9rem)]"
                     }`}
                   >
-                    {/* Sidebar */}
-                    <div
-                      className={`w-16 max-w-16 py-5 bg-[#F7F7F7] dark:bg-pody-dark h-full ${sidebarClasses}`}
-                    >
-                      <StreamSidebar />
-                    </div>
-                    {/* Main Stream Screen */}
-                    <div
-                      className={`md:h-full flex flex-col __main-screen relative float-left w-full px-1.5 md:px-5" ${
-                        isFullscreen
-                          ? "bg-[#181A1D]"
-                          : "bg-[#F7F7F7] dark:bg-pody-dark"
-                      } ${
-                        (participantBarIsExpanded ||
-                          isChatOpen ||
-                          isGiftOpen) &&
-                        !isFullscreen
-                          ? "md:w-[calc(100vw-25rem)]"
-                          : isFullscreen
-                          ? "md:w-full px-1.5 md:px-5 h-full"
-                          : "md:w-[calc(100vw-9rem)]"
-                      }`}
-                    >
-                      <StreamScreen />
-                    </div>
-                    {/* stream aside */}
-                    <StreamAside />
+                    <StreamScreen />
                   </div>
-                  <ParticipantMobileManage />
-                </section>
-              </MscAnyPipProvider>
+                  {/* stream aside */}
+                  <StreamAside />
+                </div>
+                <ParticipantMobileManage />
+              </section>
             </DialogProvider>
           </HandRaiseProvider>
         </GiftAnimationProvider>

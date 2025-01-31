@@ -56,17 +56,17 @@ const AsideNav = () => {
     );
   };
 
-  // const ClaimRole = () => {
-  //   return (
-  //     <>
-  //       {!isLoading && profile?.isEmailVerified && profile?.walletAddress && (
-  //         <li className="cursor-pointer" onClick={() => handleClick("/discord/verify")}>
-  //           Claim Role
-  //         </li>
-  //       )}
-  //     </>
-  //   );
-  // };
+  const ClaimRole = () => {
+    return (
+      <>
+        {!isLoading && profile?.isEmailVerified && profile?.walletAddress && (
+          <li className="cursor-pointer" onClick={() => handleClick("/discord/verify")}>
+            Claim Role
+          </li>
+        )}
+      </>
+    );
+  };
 
   const router = useRouter();
 
@@ -137,6 +137,7 @@ const AsideNav = () => {
             </div>
             <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
               <ConnectEmail />
+              <ClaimRole />
               <li className="cursor-pointer" onClick={logout}>
                 Logout
               </li>
@@ -218,6 +219,7 @@ const AsideNav = () => {
               </button>
             ))}
             <ConnectEmail />
+            <ClaimRole />
             <li className="cursor-pointer" onClick={logout}>
               Logout
             </li>

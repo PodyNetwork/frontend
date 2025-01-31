@@ -10,6 +10,7 @@ import { useParticipantMenu } from "../../utils/ParticipantMenuContext";
 import StreamShare from "../share/StreamShare";
 import { PointCounter } from "./PointCounter";
 import { parseUnits } from "viem";
+import Disclaimer from "@/components/global/Disclaimer";
 
 
 const StreamInfo = () => {
@@ -187,6 +188,7 @@ const StreamInfo = () => {
               </svg>
               <span>{participants.length}</span>
             </div>
+            {call?.privacy === "public" && <Disclaimer />}
             <div className="hidden md:flex">
               <PointCounter accumulatedPoints={accumulatedPoints} />
             </div>
