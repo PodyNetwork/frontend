@@ -29,7 +29,7 @@ const handleCreatePassport = async ({
     }
   }
 
-  const timestamp = Date.now() + 10 * 60 * 1000;
+  const timestamp = Date.now() + (10 * 60 * 1000);
   let signature: string;
 
   try {
