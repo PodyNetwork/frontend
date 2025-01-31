@@ -1,11 +1,10 @@
-import React from "react";
+import React, {  useCallback, useEffect, useState } from "react";
 import nftlist from "../../data/nft.json";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { getLevelFee, getUserLevel } from "@/utils/passport";
 import { useAccount } from "wagmi";
 import { Address } from "@/types/address";
-import { useEffect } from "react";
 import { mintPassport } from "@/utils/passport";
 import { toast, Toaster } from "sonner";
 import { getBalance } from "@wagmi/core";
@@ -13,59 +12,72 @@ import { config } from "@/utils/wagmi";
 import { formatEther } from "viem";
 import useProfile from "@/hooks/user/useProfile";
 import Link from "next/link";
+import useLoading from "@/hooks/useLoading";
+
 
 const NftList = () => {
   const account = useAccount();
-  const [level, setLevel] = React.useState<bigint>(BigInt(0));
-  const [nextLevelFee, setNextLevelFee] = React.useState<bigint>(BigInt(0));
-  const [isMinting, setIsMinting] = React.useState<boolean>(false);
+  const {loading, startLoading, stopLoading} = useLoading()
+  const [level, setLevel] = useState<bigint>(BigInt(0));
+  const [nextLevelFee, setNextLevelFee] = useState<bigint>(BigInt(0));
   const { profile } = useProfile();
 
   useEffect(() => {
-    const fetchLevelAndFee = async () => {
-      const userLevel = await getUserLevel({
-        walletAddress: account.address as Address,
-      });
-
-      const _nextLevelFee = await getLevelFee({ level: userLevel + BigInt(1) });
-
-      setLevel(userLevel);
-      setNextLevelFee(_nextLevelFee);
+    const fetchLevel = async () => {
+      if (account) {
+        const userLevel = await getUserLevel({walletAddress: account.address as Address});
+        setLevel(userLevel);
+      }
     };
+    fetchLevel();
+  }, [account]);
 
-    fetchLevelAndFee();
-  }, [account.address]);
+  useEffect(() => {
+    if(account) {
+      const fetchFee = async () => {
+        const fee = await getLevelFee({level: level + BigInt(1)});
+        setNextLevelFee(fee);
+      }
+      fetchFee()
+    }
+  }, [level])
 
-  const totalLevels = 5;
-  const nftsPerLevel = nftlist.length / totalLevels;
 
-  const handleMint = async () => {
+  const handleMint = useCallback( async () => {
     try {
-      setIsMinting(true);
+      startLoading()      
       const balance = await getBalance(config, {
         address: account.address as Address,
       });
+
       if (nextLevelFee > balance.value) {
         toast("Error", {
           description: "Insufficient balance",
         });
-      } else {
-        await mintPassport({
+        return
+      } 
+      
+      await mintPassport({
           walletAddress: account.address as Address,
-        });
-        const newLevel = await getUserLevel({
+          value: nextLevelFee
+      });
+
+      const newLevel = await getUserLevel({
           walletAddress: account.address as Address,
-        });
-        setLevel(newLevel);
-      }
+      });
+        
+      setLevel(newLevel);
+  
     } catch (error) {
       console.error("Error minting passport:", error);
     } finally {
-      setIsMinting(false);
+      stopLoading()
     }
-  };
+  }, [level, nextLevelFee])
 
-  console.log(nextLevelFee);
+
+  const totalLevels = 5;
+  const nftsPerLevel = nftlist.length / totalLevels;
 
   const renderNftCard = (levelIndex: number) => {
     const isUnlocked = BigInt(levelIndex + 1) <= level;
@@ -134,9 +146,9 @@ const NftList = () => {
                   whileTap={{ scale: 0.95 }}
                   className="px-3 py-1 bg-pody-primary text-slate-800 text-xs font-medium rounded-sm hover:bg-pody-primary/80 transition-colors duration-300"
                   onClick={handleMint}
-                  disabled={isMinting}
+                  disabled={loading}
                 >
-                  {isMinting ? "Minting..." : "Mint NFT"}
+                  {loading ? "Minting..." : "Mint NFT"}
                 </motion.button>
               ) : (
                 <span className={`text-sm font-medium text-red-500`}>Locked</span>
