@@ -56,6 +56,18 @@ const AsideNav = () => {
     );
   };
 
+  // const ClaimRole = () => {
+  //   return (
+  //     <>
+  //       {!isLoading && profile?.isEmailVerified && profile?.walletAddress && (
+  //         <li className="cursor-pointer" onClick={() => handleClick("/discord/verify")}>
+  //           Claim Role
+  //         </li>
+  //       )}
+  //     </>
+  //   );
+  // };
+
   const router = useRouter();
 
   useEffect(() => {

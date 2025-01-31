@@ -18,7 +18,6 @@ const DashboardLayout = ({
   )
 }
 
-
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return <NotEmailVerifiedMiddleware><DashboardLayout>{children}</DashboardLayout></NotEmailVerifiedMiddleware>
 }
