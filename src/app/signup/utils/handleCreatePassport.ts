@@ -22,7 +22,7 @@ const handleCreatePassport = async ({
 
   if (userLevel < BigInt(1)) {
     try {
-      await mintPassport({ walletAddress });
+      await mintPassport({ walletAddress, value: BigInt(0) });
     } catch (error) {
       console.error(error);
       throw new Error("Failed to mint passport");
