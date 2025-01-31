@@ -4,8 +4,7 @@ import React from "react";
 const OngoingCallHeader = () => {
   return (
     <div className="flex flex-col items-centr mb-6">
-      <Disclaimer />
-      <div className="max-w-xl text-centr flex flex-col gap-y-2.5 mt-12">
+      <div className="max-w-xl text-centr flex flex-col gap-y-2.5">
         <h2 className="text-2xl xs:text-4xl font-semibold text-pody-dark">
           Get Rewarded for Joining an Active Classroom.
         </h2>

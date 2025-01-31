@@ -152,7 +152,6 @@ export default function Page() {
       <ExploreHeader />
       <div className="p-8 sm:p-8 px-5 md:p-12">
         <div className="max-w-4xl mx-auto">
-          <Disclaimer />
           <Publiccall />
         </div>
       </div>
