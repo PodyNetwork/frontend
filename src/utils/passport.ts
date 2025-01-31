@@ -5,6 +5,7 @@ import { Address } from "@/types/address";
 
 interface MintPassportArgs {
     walletAddress: Address;
+    value: bigint;
 }
 
 interface GetUserArgs {
@@ -25,6 +26,7 @@ const mintPassport = async (args: MintPassportArgs): Promise<void> => {
         address: process.env.NEXT_PUBLIC_PODY_PASSPORT_ADDRESS as Address,
         functionName: "mint",
         args: [args.walletAddress, args.walletAddress],
+        value: args.value
     });
 
     await writeContract(config, request);
