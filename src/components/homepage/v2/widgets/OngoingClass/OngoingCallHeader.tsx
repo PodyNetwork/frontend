@@ -1,5 +1,3 @@
-import Disclaimer from "@/components/global/Disclaimer";
-import React from "react";
 
 const OngoingCallHeader = () => {
   return (

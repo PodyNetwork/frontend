@@ -17,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Disclaimer from "@/components/global/Disclaimer";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
