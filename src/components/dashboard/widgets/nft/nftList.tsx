@@ -40,7 +40,7 @@ const NftList = () => {
       }
       fetchFee()
     }
-  }, [level])
+  }, [level, account])
 
 
   const handleMint = useCallback( async () => {
@@ -73,7 +73,7 @@ const NftList = () => {
     } finally {
       stopLoading()
     }
-  }, [level, nextLevelFee])
+  }, [level, nextLevelFee, account, stopLoading, startLoading])
 
 
   const totalLevels = 5;

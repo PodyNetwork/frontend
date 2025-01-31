@@ -89,7 +89,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <Script> {`
+        <Script id="gtm"> 
+          {`
               (function(w,d,s,l,i){
                 w[l]=w[l]||[];
                 w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
@@ -100,7 +101,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
                 f.parentNode.insertBefore(j,f);
               })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');
-            `} </Script>
+          `} 
+        </Script>
       </head>
       <body className={manrope.variable}>
         <Providers>
