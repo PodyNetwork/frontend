@@ -73,7 +73,7 @@ const AsideNav = () => {
   useEffect(() => {
     router.prefetch('/dashboard/call');
     router.prefetch('/dashboard/explore');
-    router.prefetch('/dashboard/NFT');
+    router.prefetch('/dashboard/nft');
     router.prefetch('/dashboard/leaderboard');
     router.prefetch('/dashboard/referral');
     router.prefetch('/dashboard/reward');
