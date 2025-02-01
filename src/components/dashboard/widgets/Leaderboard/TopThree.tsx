@@ -35,10 +35,10 @@ export const TopThree = ({ data }: { data: LeaderboardEntry[] }) => {
                 </span>
               </div>
             </div>
-            <h2 className="font-medium text-sm mt-2 text-slate-800">
+            <h2 className="font-medium text-sm mt-2 text-slate-800 truncate">
               {item?.username}
             </h2>
-            <p className="text-sm text-pody-primary font-semibold truncate">
+            <p className="text-sm text-pody-primary font-semibold truncate max-w-24">
                {/* {approx(Number(formatUnits(BigInt(item?.totalPoints ?? 0), 18)), {decimal: false})} */}
                {formatNum(Number(formatUnits(BigInt(item?.totalPoints ?? 0), 18)))}
             </p>
