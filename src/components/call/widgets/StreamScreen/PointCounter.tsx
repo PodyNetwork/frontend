@@ -59,9 +59,11 @@ export const PointCounter = ({
           className="size-3 flame"
           alt="fire svg"
         />
-        <p className="font-medium web3-gradient-text">
-          {Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1)}x Booster
-        </p>
+        {Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1) !== 1 && (
+          <p className="font-medium web3-gradient-text">
+            {Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1)}x Booster
+          </p>
+        )}
       </div>
     </div>
   );
