@@ -8,6 +8,7 @@ import type { CallResponse } from '../../app/classroom/types';
 import { ResponseError } from '@/types/globals';
 import { useRouter } from 'next/navigation';
 import useLoading from '../useLoading';
+import { toast } from 'sonner';
 
 interface CreateCallArgs{ scheduledTime?: number, participantsCanPublish?: boolean, title?: string, participantsCanPublishData?: boolean, privacy?: string}
 
@@ -30,6 +31,10 @@ const useCreateCall = () => {
     mutationFn: createCallHandler,
     onSuccess: (data) => {
       clearErrorMessage();
+      if (!data?.data.url) {
+        toast('Platform abuse detected: you can not create call at this moment.');
+        return;
+      }
       router.push(`/classroom/${data?.data.url}`);
     },
     onError: (error: AxiosError | Error) => {
