@@ -1,7 +1,7 @@
 "use client";
 import useGetDiscordVerification from "@/hooks/discord/useGetVerificationCode";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Page = () => {
   const { verification } = useGetDiscordVerification();
@@ -21,12 +21,27 @@ const Page = () => {
   };
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const [isTestnet, setIsTestnet] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hostname = window.location.hostname;
+      const subdomain = hostname.split(".")[0];
+
+      if (subdomain === "testnet") {
+        setIsTestnet(true);
+      } else {
+        setIsTestnet(false);
+      }
+    }
+  }, []);
+
   return (
     <main className="w-full relative" aria-label="verify otp">
-      <div className="flex flex-col relative min-h-screen">
+      <div className="flex flex-col relative min-h-screen py-12">
         <section className="relative w-full flex-1 h-full flex items-center flex-col justify-center z-50">
           <div className="w-full px-4 md:px-12">
-            <div className="w-full xs:max-w-md border border-slate-500 p-9 flex-1 flex flex-col gap-y-2.5 __shadowpody mx-auto relative">
+            <div className="w-full xs:max-w-md border border-slate-500 p-6 md:p-9 flex-1 flex flex-col gap-y-2.5 __shadowpody mx-auto relative">
               <div className="absolute inset-0 [background:radial-gradient(circle_at_center,_rgba(88,101,242,0.1)_0%,_transparent_70%)] mix-blend-overlay"></div>
               <Link
                 href="https://discord.gg/TjDpNw28pt"
@@ -95,12 +110,37 @@ const Page = () => {
                   Open Discord
                 </button>
               </Link>
+              <div className="video-container">
+                {isTestnet ? (
+                  <iframe
+                    width="560"
+                    height="315"
+                    src="https://www.youtube.com/embed/DheMf3TdBvw?si=k1bHG-dW_hreeuSH"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                ) : (
+                  <iframe
+                    width="560"
+                    height="315"
+                    src="https://www.youtube.com/embed/FnSEXxq1abM?si=f_QThLMxA5yR3fa3"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                )}
+              </div>
               <p className="text-xs mt-2 text-slate-700">
-                Disclaimer: Connecting your Discord account to our platform, you do not need
-                to log in to Discord. Instead, you will receive a unique code
-                that you simply need to copy and paste into our bot&apos;s
-                channel. For your security, please never share this code with
-                anyone. Our team will never ask for your Discord login
+                Disclaimer: Connecting your Discord account to our platform, you
+                do not need to log in to Discord. Instead, you will receive a
+                unique code that you simply need to copy and paste into our
+                bot&apos;s channel. For your security, please never share this
+                code with anyone. Our team will never ask for your Discord login
                 information, including your password or two-factor
                 authentication (2FA) codes. If you have any concerns, please
                 contact our support team.
@@ -108,7 +148,7 @@ const Page = () => {
             </div>
           </div>
         </section>
-        <div className="bg-red-100">
+        <div>
           <svg
             enableBackground="new 0 0 100 100"
             viewBox="0 0 100 100"
