@@ -97,5 +97,4 @@ const NFTCard = () => {
     </div>
   );
 };
-
 export default NFTCard;
