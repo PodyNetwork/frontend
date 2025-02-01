@@ -19,7 +19,7 @@ const Header = () => {
             directly from the dashboard.
           </p>
           <button
-            onClick={() => handleClick("/dashboard/nft")}
+            onClick={() => handleClick("/dashboard/NFT")}
             className="flex mx-auto items-center space-x-2 text-indigo-600 font-semibold hover:underline"
           >
             <span>Mint NFT</span>

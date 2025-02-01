@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const NFTCard = () => {
   const router = useRouter();
   const goToNFT = () => {
-    router.push("/dashboard/nft");
+    router.push("/dashboard/NFT");
   };
   return (
     <div className="relative flex-1 items-center justify-center flex">
