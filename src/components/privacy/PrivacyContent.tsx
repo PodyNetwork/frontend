@@ -240,5 +240,4 @@ const PrivacyContent = () => {
     </section>
   );
 };
-
 export default PrivacyContent;
