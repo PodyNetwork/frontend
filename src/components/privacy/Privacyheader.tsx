@@ -65,7 +65,7 @@ const Privacyheader = () => {
                   <h1>Privacy Policy for Pody Network</h1>
                 </div>
                 <div className="text-base text-slate-600">
-                  <p>Effective Date: October 1, 2024</p>
+                  <p>Effective Date: February 2, 2025</p>
                 </div>
               </div>
             </div>

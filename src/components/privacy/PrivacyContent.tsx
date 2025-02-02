@@ -10,112 +10,228 @@ const PrivacyContent = () => {
             <div className="max-w-5xl mx-auto">
               <div className="max-w-2xl flex flex-col gap-y-6 my-12 text-sm leading-relaxed">
                 <h1>
-                  At Pody Network, we prioritize the privacy of our users. This
-                  Privacy Policy outlines how we handle personal data when you
-                  use our meeting app, Pody Network (available at pody.network).
+                  At Pody Network, we are committed to protecting your privacy
+                  and ensuring that your personal data is handled securely. This
+                  Privacy Policy explains how we collect, use, share, and
+                  protect your information when you use our decentralized
+                  virtual classrooms, Meet-to-Earn sessions, NFT Passport
+                  system, and all associated features (“Services”). By using our
+                  Services, you consent to the data practices described in this
+                  policy.
                 </h1>
-                <ul className="flex flex-col gap-y-6 __pd_terms">
+                <ol className="flex flex-col gap-y-6 __pd_terms">
                   <li>
-                    <h2>Data We Collect</h2>
-                    <p>
-                      We only collect minimal personal data to ensure the proper
-                      functioning of our services. The data we collect includes:
-                    </p>
-                    <p>
-                      Wallet Address: Used to identify and authenticate users.
-                    </p>
-                    <p>
-                      Username: Displayed to other users during meetings and for
-                      identification purposes.
-                    </p>
-                    <p>
-                      IP Information: Collected to help us ensure security,
-                      monitor usage patterns, and comply with applicable legal
-                      requirements.
-                    </p>
-                    <p>
-                      We do not collect or store any additional personal data
-                      such as real names, email addresses, or physical
-                      addresses.
-                    </p>
-                  </li>
-                  <li>
-                    <h2>Meeting Recordings</h2>
-                    <p>
-                      We respect your privacy during meetings. Pody Network does
-                      not record or store any meeting content. Users can engage
-                      in meetings with the assurance that their discussions
-                      remain private and are not monitored by us.
-                    </p>
-                  </li>
-                  <li>
-                    <h2>Third-Party Services</h2>
-                    <p>
-                      Pody Network integrates certain third-party services to
-                      provide a seamless meeting experience. Specifically, our
-                      app is governed by the LiveKit Privacy Policy. Users of
-                      Pody Network are also bound by LiveKit’s privacy terms,
-                      which can be reviewed on their official website.
-                    </p>
-                  </li>
-                  <li>
-                    <h2>How We Use Your Data</h2>
-                    <p>
-                      The limited data we collect (wallet address, username, and
-                      IP information) is used for the following purposes:
-                    </p>
-                    <ul className="__pd_roman_list_lower">
-                      <li>To verify and authenticate users during meetings.</li>
+                    <h2>Information We Collect</h2>
+                    <ul className="__sub_list">
                       <li>
-                        To ensure the smooth operation of the app and its
-                        features.
+                        <h4>
+                          <b>Identity Information</b>
+                        </h4>
+                        <ul className="__pd_unorder">
+                          <li>NFT Passport details</li>
+                          <li>Wallet addresses</li>
+                          <li>Social media identities (if linked)</li>
+                          <li>Usernames and email addresses</li>
+                        </ul>
                       </li>
                       <li>
-                        To comply with applicable security and legal
-                        requirements.
+                        <h4>
+                          <b>Usage Data</b>
+                        </h4>
+                        <ul className="__pd_unorder">
+                          <li>Participation metrics in virtual classrooms</li>
+                          <li>Real-time point accrual data</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <h4>
+                          <b>Device and Connection Information</b>
+                        </h4>
+                        <ul className="__pd_unorder">
+                          <li>IP addresses</li>
+                          <li>Browser types</li>
+                          <li>Operating systems</li>
+                          <li>
+                            Other device-specific data collected automatically
+                            through cookies or similar technologies
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </li>
                   <li>
-                    <h2>Data Sharing</h2>
+                    <h2>How We Use Your Data</h2>
+                    <p>Your data is used for the following purposes:</p>
+                    <ul className="__sub_list">
+                      <li>
+                        <h4>
+                          <b>Platform Operation</b>
+                        </h4>
+                        <ul className="__pd_unorder">
+                          <li>Verifying and managing digital identities</li>
+                          <li>Processing transactions and rewards</li>
+                          <li>Administering platform features</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <h4>
+                          <b>Enhancing Experience</b>
+                        </h4>
+                        <ul className="__pd_unorder">
+                          <li>
+                            Personalizing interactions and improving user
+                            experience based on behavior patterns
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <h4>
+                          <b>Security</b>
+                        </h4>
+                        <ul className="__pd_unorder">
+                          <li>
+                            Monitoring, detecting, and preventing fraudulent or
+                            abusive behavior
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <h4>
+                          <b>Legal Compliance</b>
+                        </h4>
+                        <ul className="__pd_unorder">
+                          <li>
+                            Meeting regulatory obligations and responding to
+                            legal requests
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <h4>
+                          <b>Marketing Purposes</b>
+                        </h4>
+                        <ul className="__pd_unorder">
+                          <li>
+                            With your consent, we may use your data to inform
+                            you about updates, new features, and promotional
+                            offers
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <h2>Tracking Technologies</h2>
                     <p>
-                      We do not sell, rent, or trade your personal information
-                      to third parties. The data we collect is solely used to
-                      operate Pody Network and is shared with third-party
-                      services only as required to maintain and improve the
-                      app&apos;s functionality (e.g., LiveKit).
+                      To improve functionality, we use tracking tools, including
+                      but not limited to:
+                    </p>
+                    <ul className="__pd_unorder">
+                      <li>
+                        <b>Google Analytics</b> – For analyzing user behavior
+                        and traffic patterns
+                      </li>
+                      <li>
+                        <b>Microsoft Clarity </b> – For tracking user
+                        interactions and engagement through session recordings
+                        and heatmaps
+                      </li>
+                    </ul>
+                    <p>
+                      These tools collect data in an aggregated form for
+                      optimization purposes. Refer to their respective privacy
+                      policies for more details.
                     </p>
                   </li>
                   <li>
-                    <h2>Data Security</h2>
+                    <h2>Data Sharing and Third-Party Disclosures</h2>
                     <p>
-                      We take the security of your personal data seriously. We
-                      implement industry-standard security measures to protect
-                      your information from unauthorized access, disclosure,
-                      alteration, or destruction.
+                      We do not sell or rent your personal information. However,
+                      we may share data in the following instances:
                     </p>
                   </li>
                   <li>
-                    <h2>Changes to This Privacy Policy</h2>
+                    <h2>Service Providers</h2>
+                    <ul className="__pd_unorder">
+                      <li>
+                        With trusted third parties that assist in platform
+                        operations under strict data protection agreements
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <h2>Legal Authorities</h2>
+                    <ul className="__pd_unorder">
+                      <li>
+                        When required to comply with legal obligations,
+                        subpoenas, or court orders
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <h2>Business Transfers</h2>
+                    <ul className="__pd_unorder">
+                      <li>
+                        In case of mergers, acquisitions, or asset sales,
+                        provided that your data is handled under the same
+                        privacy standards
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <h2>Account Security and User Responsibility</h2>
+                    <ul className="__pd_unorder">
+                      <li>
+                        You are responsible for maintaining the confidentiality
+                        of your account credentials
+                      </li>
+                      <li>
+                        If you suspect unauthorized use, notify us immediately
+                      </li>
+                      <li>
+                        We implement security measures to protect your data, but
+                        you acknowledge that no online platform is completely
+                        secure
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <h2>Data Retention and User Rights</h2>
+                    <ul className="__pd_unorder">
+                      <li>
+                        We retain your data only for as long as necessary to
+                        provide Services and comply with legal obligations
+                      </li>
+                      <li>
+                        You have the right to request access, correction, or
+                        deletion of your personal data
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <h2>Changes to this Privacy Policy</h2>
                     <p>
-                      This Privacy Policy may be updated from time to time. The
-                      &quot;Effective Date&quot; at the top indicates when this policy was
-                      last revised. We encourage you to review this policy
-                      periodically for any updates.
+                      We reserve the right to update this Privacy Policy at any
+                      time. Changes will be communicated via the platform or
+                      email (if applicable). Continued use of our Services after
+                      updates means you accept the revised policy.
                     </p>
                   </li>
                   <li>
-                    <h2>Contact Us</h2>
+                    <h2>Contact Information</h2>
+                    <p>For privacy-related inquiries, please contact us at:</p>
                     <p>
-                      If you have any questions or concerns regarding this
-                      Privacy Policy or how your data is handled, please contact
-                      us at: Email: <Link href="mailto:support@pody.network" className="text-blue-500 font-semibold">support@pody.network</Link>
+                      <b>Email:</b>{" "}
+                      <Link
+                        href="mailto: hello@pody.network
+"
+                        className="text-blue-500 font-medium"
+                      >
+                        hello@pody.network
+                      </Link>
                     </p>
                   </li>
-                  <li>
-                    <p>This policy ensures transparency while covering the key elements of privacy for Pody Network. Let me know if you&apos;d like any modifications!</p>
-                  </li>
-                </ul>
+                </ol>
               </div>
             </div>
           </div>

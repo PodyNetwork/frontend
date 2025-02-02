@@ -761,6 +761,14 @@ body {
   @apply mb-1.5;
 }
 
+.__sub_list > li {
+  counter-increment: sub-section;
+}
+.__sub_list > li > h4::before {
+  content: counter(podycounter) "." counter(sub-section) " ";
+  @apply mr-2;
+}
+
 .__pd_help {
   counter-reset: podycounter;
 }
@@ -792,19 +800,25 @@ body {
 .__pd_help > li > ul > li > p {
   @apply mb-1.5;
 }
+.__pd_listed_header > li {
+  @apply ml-6;
+}
+.__pd_ml_6 > p {
+  padding-left: calc(2rem + 18px);
+}
 
 
 .__pd_unorder > li {
   position: relative;
   list-style: none; /* Removes the default list style */
-  padding-left: calc(1.5rem + 18px);
+  padding-left: calc(2rem + 18px);
   @apply mb-2;
 }
 
 .__pd_unorder > li::before {
   content: ""; 
   position: absolute;
-  left: 1.5rem; 
+  left: 2rem; 
   top: 50%; 
   transform: translateY(-50%);
   width: 5px; 
