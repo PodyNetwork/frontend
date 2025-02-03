@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
-import { formatUnits } from "viem";
+import { Address, formatUnits, parseUnits } from "viem";
 import { formatPoints } from "@/func/numberFormater";
+import { getHashRate } from "@/utils/passport";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import useProfile from "@/hooks/user/useProfile";
 
 export const PointCounter = ({
   accumulatedPoints,
@@ -11,6 +14,26 @@ export const PointCounter = ({
   const formattedPoints = parseFloat(
     formatUnits(BigInt(accumulatedPoints), 18)
   );
+
+  const [hashRate, setHashRate] = useState<number>(Number(parseUnits("1", 18)));
+  const {profile} = useProfile()
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!profile || !profile?.walletAddress) return;
+      const walletAddress = profile.walletAddress as Address;
+
+      const _getHashRate = async () => {
+        setHashRate(Number(await getHashRate({ walletAddress })));
+      };
+      _getHashRate();
+
+      return () => {
+        clearInterval(interval);
+      };
+    }, 3600000);
+  }, [profile]);
 
   return (
     <div className="flex items-center gap-2">
@@ -61,7 +84,7 @@ export const PointCounter = ({
         />
         {Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1) > 1 && (
           <p className="font-medium web3-gradient-text">
-            {Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1)}x Booster
+            {Number(process.env.NEXT_PUBLIC_POINT_BOOST ?? 1) * hashRate }x Booster
           </p>
         )}
       </div>

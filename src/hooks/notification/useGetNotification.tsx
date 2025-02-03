@@ -4,30 +4,27 @@ import axios from "@/network/axios"
 import { BaseResponse } from '@/types/globals';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-interface ClaimHistoryResponse extends BaseResponse {
+interface NotificationResponse extends BaseResponse {
     data: {
-      claimPointHistory: {
+      notifications: {
         _id: string;
-        userId: string;
-        points: number;
-        signature: string;
-        claimed: boolean;
-        timeClaimed: Date;
+        type: string;
+        message: number;
+        timeCreated: Date;
       },
       totalPages: number,
       currentPage: number
     }
 }
 
-interface PointHistoryArgs { 
+interface NotificationArgs { 
   page?: number, 
   limit?: number, 
-  sortDirection?: "asc" | "desc";
 }
 
-const useGetClaimHistory = (args: PointHistoryArgs = {}) => {
-  const fetchPointsHistory = useCallback(async ({ pageParam = 1 }): Promise<ClaimHistoryResponse> => {
-    const response = await axios.get<ClaimHistoryResponse>('/point/claim/history', { 
+const useGetNotification = (args: NotificationArgs = {}) => {
+  const fetchNotification = useCallback(async ({ pageParam = 1 }): Promise<NotificationResponse> => {
+    const response = await axios.get<NotificationResponse>('/notification', { 
       params: { ...args, page: pageParam } 
     });
     return response.data;
@@ -42,9 +39,9 @@ const useGetClaimHistory = (args: PointHistoryArgs = {}) => {
     isError, 
     refetch
   } = useInfiniteQuery({
-    queryKey: ['claimHistory', args],
-    queryFn: fetchPointsHistory,
-    getNextPageParam: (lastPage: ClaimHistoryResponse) => {
+    queryKey: ['notifications', args],
+    queryFn: fetchNotification,
+    getNextPageParam: (lastPage: NotificationResponse) => {
       if (lastPage.data.currentPage >= lastPage.data.totalPages) return undefined;
       return lastPage.data.currentPage + 1;
     },
@@ -54,10 +51,10 @@ const useGetClaimHistory = (args: PointHistoryArgs = {}) => {
     refetchInterval: 5000
   });
 
-  const claimHistory = data?.pages?.flatMap((page: ClaimHistoryResponse) => page.data.claimPointHistory) || [];
+  const notifications = data?.pages?.flatMap((page: NotificationResponse) => page.data.notifications) || [];
 
   return { 
-    claimHistory, 
+    notifications, 
     fetchNextPage,
     hasNextPage, 
     isFetchingNextPage, 
@@ -67,4 +64,4 @@ const useGetClaimHistory = (args: PointHistoryArgs = {}) => {
   };
 }
 
-export default useGetClaimHistory
+export default useGetNotification
