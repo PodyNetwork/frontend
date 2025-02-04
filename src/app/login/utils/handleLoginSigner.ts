@@ -16,7 +16,7 @@ const handleCreatePassport = async (): Promise<LoginCredentials> => {
         throw new Error("You do not have a passport, sign up to mint for free");
     }
 
-    const timestamp = Date.now() + (30 * 1000);
+    const timestamp = Date.now() + (5 * 60 * 1000);
     let signature: string;
 
     try {
