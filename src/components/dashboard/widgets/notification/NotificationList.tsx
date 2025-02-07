@@ -1,5 +1,23 @@
 import { Bell } from "lucide-react";
 import useGetNotification from "@/hooks/notification/useGetNotification";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import useMarkNotificationAsRead from "@/hooks/notification/useNotificationRead";
+import useGetNotificationStat from "@/hooks/notification/useGetNotificationStat";
+
+// Extend dayjs with the relativeTime plugin
+dayjs.extend(relativeTime);
+
+const formatTime = (timestamp: string | number | Date) => {
+  const now = dayjs();
+  const inputTime = dayjs(timestamp);
+
+  if (now.diff(inputTime, "day") < 1) {
+    return inputTime.fromNow();
+  }
+
+  return inputTime.format("MMM D, YYYY h:mm A");
+};
 
 export default function NotificationList() {
   const {
@@ -9,6 +27,14 @@ export default function NotificationList() {
     isFetchingNextPage,
     isLoading,
   } = useGetNotification();
+
+  const { markAsRead } = useMarkNotificationAsRead();
+
+  const handleMarkAsRead = (id: string) => {
+    markAsRead({ id }); 
+  };
+
+  const { stat, isLoading: notifStatLoading, isError } = useGetNotificationStat();
 
   if (isLoading) {
     return (
@@ -34,11 +60,10 @@ export default function NotificationList() {
 
   return (
     <div className="max-w-2xl mx-auto py-6 px-8 bg-white shadow rounded-lg">
-      <h2 className="text-lg font-medium mb-6">Notifications</h2>
+      <h2 className="text-base text-slate-700 font-medium mb-6">Notifications {!notifStatLoading && `(${stat?.totalNotifications})`}</h2>
       <div className="space-y-4">
         {notifications.length === 0 ? (
           <p className="text-sm text-gray-500 text-center">No notifications</p>
-          
         ) : (
           <>
             {notifications.map((notif) => (
@@ -52,12 +77,17 @@ export default function NotificationList() {
                 <div>
                   <p className="text-xs text-gray-500">{notif.message}</p>
                   <p className="text-xs text-gray-400 mt-2">
-                    {new Date(notif.timeCreated).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {formatTime(notif.timeCreated)}
                   </p>
                 </div>
+                {!notif.read && ( // Show "Mark as Read" button if the notification is unread
+                  <button
+                    onClick={() => handleMarkAsRead(notif._id)}
+                    className="text-xs text-blue-500 hover:underline absolute right-0 top-0"
+                  >
+                    Mark as Read
+                  </button>
+                )}
               </div>
             ))}
             {hasNextPage && (

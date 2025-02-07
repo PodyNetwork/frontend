@@ -6,27 +6,36 @@ import { BaseResponse } from "@/types/globals";
 
 interface NotificationStatResponse extends BaseResponse {
   data: {
-    unreadCount: number;
-    totalCount: number;
+    totalNotifications: number; 
+    unreadNotifications: number;
+    readNotifications: number; 
   };
 }
 
 const useGetNotificationStat = () => {
-  const { data, isLoading, isError, refetch } = useQuery<NotificationStatResponse, Error>({
-    queryKey: ["notificationStat"],
-    queryFn: async () => {
-      const response = await axios.get<NotificationStatResponse>("/notification/stat");
-      return response.data;
-    },
-    staleTime: 10000, 
-    refetchInterval: false, 
-    retry: 2,
+  const fetchNotificationStat = async (): Promise<NotificationStatResponse> => {
+    const response = await axios.get<NotificationStatResponse>("/notification/stat");
+    return response.data;
+  };
+
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery<NotificationStatResponse, Error>({
+    queryKey: ["notificationStat"], 
+    queryFn: fetchNotificationStat,
+    retry: 2, 
+    staleTime: 10000,
   });
 
   return {
-    stat: data?.data || { unreadCount: 0, totalCount: 0 },
+    stat: data?.data, 
     isLoading,
     isError,
+    error,
     refetch,
   };
 };

@@ -8,6 +8,7 @@ interface NotificationResponse extends BaseResponse {
     data: {
       notifications: {
         _id: string;
+        read: boolean,
         type: string;
         message: number;
         timeCreated: Date;
