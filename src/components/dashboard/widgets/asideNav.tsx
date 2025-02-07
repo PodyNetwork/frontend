@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import dashlink from "../data/links.json";
 import Link from "next/link";
 import logo from "/public/logo/pody logo dark.png";
@@ -11,6 +11,7 @@ import Loader from "@/components/preloader/Loader";
 import { useNavigate } from "@/components/utils/PageRouter";
 import useLogout from "@/hooks/auth/useLogout";
 import { useRouter } from "next/navigation";
+import useGetNotification from "@/hooks/notification/useGetNotification";
 
 type FloatingElement = {
   id: number;
@@ -56,29 +57,85 @@ const AsideNav = () => {
     );
   };
 
-  const ClaimRole = () => {
+  const NotificationBell = () => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  
+    const {
+      notifications
+    } = useGetNotification({ limit: 5 });
+  
+    // Get only the last 5 notifications
+    const latestNotifications = useMemo(() => {
+      return notifications.slice(-5);
+    }, [notifications]);
+  
+    // Check if there are unread notifications (assuming unread means no "read" flag)
+    const hasUnreadNotifications = latestNotifications.some(
+      (notification: any) => !notification.isRead
+    );
+  
     return (
-      <>
-        {!isLoading && profile?.isEmailVerified && profile?.walletAddress && (
-          <li className="cursor-pointer" onClick={() => handleClick("/discord/verify")}>
-            Claim Role
-          </li>
+      <li className="cursor-pointer relative" onClick={toggleDropdown}>
+        <div className="relative">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="size-5"
+            viewBox="0 -960 960 960"
+            fill="#5f6368"
+          >
+            <path d="M180-204.62v-59.99h72.31v-298.47q0-80.69 49.81-142.69 49.8-62 127.88-79.31V-810q0-20.83 14.57-35.42Q459.14-860 479.95-860q20.82 0 35.43 14.58Q530-830.83 530-810v24.92q78.08 17.31 127.88 79.31 49.81 62 49.81 142.69v298.47H780v59.99H180Zm300-293.07Zm-.07 405.38q-29.85 0-51.04-21.24-21.2-21.24-21.2-51.07h144.62q0 29.93-21.26 51.12-21.26 21.19-51.12 21.19Zm-167.62-172.3h335.38v-298.47q0-69.46-49.11-118.57-49.12-49.12-118.58-49.12-69.46 0-118.58 49.12-49.11 49.11-49.11 118.57v298.47Z" />
+          </svg>
+          {hasUnreadNotifications && (
+            <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+          )}
+        </div>
+  
+        {isDropdownOpen && (
+          <div className="absolute right-0 mt-2 w-64 bg-slate-100 border border-gray-200 rounded-lg shadow-lg z-10">
+            <div className="p-4">
+              <div className="flex gap-2 mb-2 justify-between text-sm items-center">
+                <h3 className="font-medium">Notifications</h3>
+                {latestNotifications.length > 0 && <button
+                  className="text-xs text-blue-500 underline"
+                  onClick={() => handleClick("/dashboard/notification")}
+                >
+                  See all
+                </button>}
+              </div>
+              <ul>
+                {latestNotifications.length > 0 ? (
+                  latestNotifications.map((notification: any) => (
+                    <li
+                      key={notification._id}
+                      className="py-2 border-b text-[0.8rem] border-gray-200 truncate"
+                    >
+                      {notification.message}
+                    </li>
+                  ))
+                ) : (
+                  <li className="py-2 text-gray-500 text-center">No notifications</li>
+                )}
+              </ul>
+            </div>
+          </div>
         )}
-      </>
+      </li>
     );
   };
 
   const router = useRouter();
 
   useEffect(() => {
-    router.prefetch('/dashboard/call');
-    router.prefetch('/dashboard/explore');
-    router.prefetch('/dashboard/nft');
-    router.prefetch('/dashboard/leaderboard');
-    router.prefetch('/dashboard/referral');
-    router.prefetch('/dashboard/reward');
-    router.prefetch('/call');
-    router.prefetch('/classroom');
+    router.prefetch("/dashboard/call");
+    router.prefetch("/dashboard/explore");
+    router.prefetch("/dashboard/nft");
+    router.prefetch("/dashboard/leaderboard");
+    router.prefetch("/dashboard/referral");
+    router.prefetch("/dashboard/reward");
+    router.prefetch("/call");
+    router.prefetch("/classroom");
   }, [router]);
 
   return (
@@ -137,7 +194,7 @@ const AsideNav = () => {
             </div>
             <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
               <ConnectEmail />
-              <ClaimRole />
+              <NotificationBell />
               <li className="cursor-pointer" onClick={logout}>
                 Logout
               </li>
@@ -219,7 +276,6 @@ const AsideNav = () => {
               </button>
             ))}
             <ConnectEmail />
-            <ClaimRole />
             <li className="cursor-pointer" onClick={logout}>
               Logout
             </li>

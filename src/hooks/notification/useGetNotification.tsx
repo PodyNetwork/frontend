@@ -22,7 +22,7 @@ interface NotificationArgs {
   limit?: number, 
 }
 
-const useGetNotification = (args: NotificationArgs = {}) => {
+const useGetNotification = (args: NotificationArgs = { limit: 5 }) => {
   const fetchNotification = useCallback(async ({ pageParam = 1 }): Promise<NotificationResponse> => {
     const response = await axios.get<NotificationResponse>('/notification', { 
       params: { ...args, page: pageParam } 
@@ -47,11 +47,11 @@ const useGetNotification = (args: NotificationArgs = {}) => {
     },
     initialPageParam: 1,
     retry: 2,
-    staleTime: 0,
-    refetchInterval: 5000
+    staleTime: 10000,
+    refetchInterval: false,
   });
 
-  const notifications = data?.pages?.flatMap((page: NotificationResponse) => page.data.notifications) || [];
+  const notifications = data?.pages?.flatMap((page) => page.data.notifications) || [];
 
   return { 
     notifications, 
@@ -62,6 +62,7 @@ const useGetNotification = (args: NotificationArgs = {}) => {
     isError, 
     refetch 
   };
-}
+};
+
 
 export default useGetNotification

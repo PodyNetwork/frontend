@@ -13,7 +13,7 @@ import { MainnetInfo } from "@/components/info/MainnetInfo";
 
 const page = () => {
   return (
-    <main className="relaive flex flex-col w-full" aria-label="class">
+    <main className="relaive flex flex-col w-full" aria-label="Homepage">
       <MainnetInfo />
       <Hero />
       <PartnerSection />
