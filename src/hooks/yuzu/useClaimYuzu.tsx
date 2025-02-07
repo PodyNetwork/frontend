@@ -21,7 +21,7 @@ const useClaimYuzu = () => {
   });
 
   return {
-    claimYuzu: mutation.mutate,
+    claimed: mutation.mutate,
     isLoading: mutation.isPending,
     isError: mutation.isError,
     isSuccess: mutation.isSuccess,

@@ -6,7 +6,7 @@ import { BaseResponse } from "@/types/globals";
 
 interface EligibilityResponse extends BaseResponse {
   data: {
-    isEligible: boolean;
+    eligible: boolean;
     reason?: string;
   };
 }
@@ -24,7 +24,7 @@ const useCheckEligibility = () => {
   });
 
   return {
-    isEligible: data?.data.isEligible ?? false,
+    isEligible: data?.data.eligible ?? false,
     isLoading,
     isError,
     refetch,

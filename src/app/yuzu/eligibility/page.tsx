@@ -64,6 +64,54 @@ const Countdown = () => {
   );
 };
 
+const ShareButton = () => {
+  const handleShareOnTwitter = () => {
+    const tweetText = encodeURIComponent(
+      "I just claimed my @podynetwork Testnet Yuzu! 🎉 #Yuzu #educhain"
+    );
+    const tweetUrl = encodeURIComponent(
+      "https://testnet.pody.network/yuzu/eligibility"
+    );
+    const twitterIntentUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${tweetUrl}`;
+
+    window.open(twitterIntentUrl, "_blank");
+  };
+
+  return (
+    <button
+      onClick={handleShareOnTwitter}
+      className="bg-slate-900 text-white text-sm py-3 px-8 rounded-full cursor-pointer flex items-center gap-1 mx-auto"
+    >
+      Share on{" "}
+      <svg
+        id="fi_5968958"
+        enableBackground="new 0 0 1226.37 1226.37"
+        viewBox="0 0 1226.37 1226.37"
+        xmlns="http://www.w3.org/2000/svg"
+        className="size-3 text-slate-100"
+        fill="currentColor"
+      >
+        <path d="m727.348 519.284 446.727-519.284h-105.86l-387.893 450.887-309.809-450.887h-357.328l468.492 681.821-468.492 544.549h105.866l409.625-476.152 327.181 476.152h357.328l-485.863-707.086zm-144.998 168.544-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721h-162.604l-323.311-462.446z"></path>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </button>
+  );
+};
+
 const page = () => {
   const triggerConfetti = () => {
     confetti({
@@ -106,14 +154,24 @@ const page = () => {
     }, 1000);
   };
 
-  const { yuzuAllocation, isLoading } = useYuzuAllocation();
+  const { yuzuAllocation, isLoading: yuzuAllocationLoading } =
+    useYuzuAllocation();
   const { isEligible, isLoading: elligleLoading } = useCheckEligibility();
 
-  const { claimYuzu, isLoading: yuzuClaimLoading, isSuccess, isError, error, data } = useClaimYuzu();
+  const {
+    claimed,
+    isLoading: yuzuClaimLoading,
+    isSuccess,
+    isError,
+    error,
+    data,
+  } = useClaimYuzu();
 
   const handleClaim = () => {
-    claimYuzu();
+    claimed();
   };
+
+  isSuccess && triggerConfetti();
 
   return (
     <main className="relaive flex flex-col w-full __bg_yuzu" aria-label="class">
@@ -145,30 +203,82 @@ const page = () => {
                     />
                   </div>
                   <h3 className="text-lg mt-4 text-slate-900">Yuzu Earned</h3>
-                  <div className="mt-2 font-bold">
-                    <h4 className="text-4xl">
-                      {String(yuzuAllocation)}{" "}
-                      <span className="text-[#F05A28]">Yuzu</span>
-                    </h4>
+                  <div className="mt-2 font-bold flex justify-center">
+                    {yuzuAllocationLoading ? (
+                      <div className="animate-pulse">
+                        <h4 className="text-4xl bg-gray-300 rounded-lg w-24 h-10"></h4>
+                      </div>
+                    ) : (
+                      <h4 className="text-4xl">
+                        {yuzuAllocation?.allocation || "0.000"}{" "}
+                        <span className="text-[#F05A28]">Yuzu</span>
+                      </h4>
+                    )}
                   </div>
-                  <p className="text-sm mt-5">
-                    {isEligible
-                      ? "You are eligible for the Pody Yuzu testnet!."
-                      : "You are not eligible for the Pody Yuzu testnet. Mainnet Yuzu reward is coming soon."}
-                  </p>
-                  <button
-                    onClick={handleClaim}
-                    disabled={yuzuClaimLoading}
-                    className="mt-8 bg-slate-300 text-sm py-3 px-8 rounded-full"
-                  >
-                    {yuzuClaimLoading ? "Claiming..." : "Claim Yuzu"}
-                  </button>
-                  <p className="text-red-500 text-sm mt-2">Error: Yuzu claimed</p>
-                  {isError && (
-                    <p className="text-red-500 text-sm mt-2">Error: {error?.message}</p>
-                  )}
+
+                  <div className="text-sm mt-3 flex justify-center">
+                    {yuzuAllocationLoading ? (
+                      <p className="animate-pulse bg-gray-300 rounded-lg w-64 h-4"></p>
+                    ) : (
+                      <>
+                        {isEligible && !yuzuAllocation?.claimed
+                          ? "You are eligible for the Pody Yuzu testnet" : yuzuAllocation?.claimed ? "You’ve successfully claimed your Pody Yuzu testnet. The distribution will begin shortly!"
+                          : "You are not eligible for the Pody Yuzu testnet. Mainnet Yuzu reward is coming soon."}
+                      </>
+                    )}
+                  </div>
+                  <div className="mt-6">
+                    {yuzuAllocation?.claimed ? (
+                      <ShareButton />
+                    ) : (
+                      <button
+                        onClick={handleClaim}
+                        disabled={
+                          yuzuClaimLoading ||
+                          yuzuAllocationLoading ||
+                          yuzuAllocation?.claimed
+                        }
+                        className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800 ${
+                          yuzuAllocation?.claimed && "bg-slate-900 text-white"
+                        }`}
+                      >
+                        {yuzuClaimLoading ? (
+                          // Display a loading spinner inside the button
+                          <div className="flex items-center justify-center">
+                            <svg
+                              className="animate-spin h-5 w-5 mr-2 text-[#F05A28]"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
+                            </svg>
+                            Claiming...
+                          </div>
+                        ) : yuzuAllocation?.claimed ? (
+                          "Yuzu Claimed"
+                        ) : (
+                          "Claim Yuzu"
+                        )}
+                      </button>
+                    )}
+                  </div>
                   {isSuccess && (
-                    <p className="text-green-500 text-sm mt-2">{data?.data.message}</p>
+                    <p className="text-green-500 text-sm mt-2">
+                      {data?.message}
+                    </p>
                   )}
                   <Countdown />
                 </div>
