@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import useMarkNotificationAsRead from "@/hooks/notification/useNotificationRead";
 import useGetNotificationStat from "@/hooks/notification/useGetNotificationStat";
+import useMarkAllNotificationsAsRead from "@/hooks/notification/useMarkAllNotificationsAsRead";
 
 // Extend dayjs with the relativeTime plugin
 dayjs.extend(relativeTime);
@@ -31,10 +32,17 @@ export default function NotificationList() {
   const { markAsRead } = useMarkNotificationAsRead();
 
   const handleMarkAsRead = (id: string) => {
-    markAsRead({ id }); 
+    markAsRead({ id });
   };
 
-  const { stat, isLoading: notifStatLoading, isError } = useGetNotificationStat();
+  const { stat, isLoading: notifStatLoading } = useGetNotificationStat();
+
+  const { markAllAsRead, isLoading: notifReadAllLoading } =
+    useMarkAllNotificationsAsRead();
+
+  const handleMarkAllAsRead = () => {
+    markAllAsRead(); // Call the mutation
+  };
 
   if (isLoading) {
     return (
@@ -60,7 +68,20 @@ export default function NotificationList() {
 
   return (
     <div className="max-w-2xl mx-auto py-6 px-8 bg-white shadow rounded-lg">
-      <h2 className="text-base text-slate-700 font-medium mb-6">Notifications {!notifStatLoading && `(${stat?.totalNotifications})`}</h2>
+      <div className="flex items-center justify-between gap-2 mb-6">
+        <h2 className="text-base text-slate-700 font-medium">
+          Notifications {!notifStatLoading && `(${stat?.totalNotifications})`}
+        </h2>
+        {stat && stat.unreadNotifications > 0 && (
+          <button
+            onClick={handleMarkAllAsRead}
+            disabled={isLoading}
+            className="bg-blue-500 text-white px-2 py-1.5 text-xs rounded hover:bg-blue-600 disabled:bg-blue-300"
+          >
+            {notifReadAllLoading ? "Updating.." : "Mark All as Read"}
+          </button>
+        )}
+      </div>
       <div className="space-y-4">
         {notifications.length === 0 ? (
           <p className="text-sm text-gray-500 text-center">No notifications</p>
