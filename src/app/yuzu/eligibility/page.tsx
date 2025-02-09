@@ -160,14 +160,12 @@ const page = () => {
     isLoading: yuzuAllocationLoading,
     refetch,
   } = useYuzuAllocation();
-  const { isEligible, isLoading: elligleLoading } = useCheckEligibility();
+  const { isEligible } = useCheckEligibility();
 
   const {
     claimed,
     isLoading: yuzuClaimLoading,
     isSuccess,
-    isError,
-    error,
     data,
   } = useClaimYuzu();
 
@@ -226,11 +224,7 @@ const page = () => {
                       <p className="animate-pulse bg-gray-300 rounded-lg w-64 h-4"></p>
                     ) : (
                       <>
-                        {isEligible && !yuzuAllocation?.claimed
-                          ? "You are eligible for the Pody Yuzu testnet"
-                          : yuzuAllocation?.claimed
-                          ? "You’ve successfully claimed your Pody Yuzu testnet. The distribution will begin shortly!"
-                          : "You are not eligible for the Pody Yuzu testnet. Mainnet Yuzu reward is coming soon."}
+                        {isEligible ? <p className="text-red-500 text-sm mt-2">You are eligible</p> : <p>You are not eligible</p>}
                       </>
                     )}
                   </div>

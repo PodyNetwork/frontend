@@ -25,7 +25,7 @@ const useCheckEligibility = () => {
   });
 
   return {
-    isEligible: data?.data.eligible ?? false,
+    isEligible: data?.data.eligible,
     isLoading,
     isError,
     refetch,
