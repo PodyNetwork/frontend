@@ -16,8 +16,7 @@ const useClaimYuzu = () => {
     mutationFn: async () => {
       const response = await axios.post<ClaimYuzuResponse>("/yuzu/claim");
       return response.data;
-    },
-    retry: 2,
+    }
   });
 
   return {

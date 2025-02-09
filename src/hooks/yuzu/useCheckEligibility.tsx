@@ -18,14 +18,15 @@ const useCheckEligibility = () => {
       const response = await axios.get<EligibilityResponse>("/yuzu/eligibility");
       return response.data;
     },
-    retry: 2,
+    retry: false, 
     staleTime: 0,
-    refetchOnMount: true,
+    refetchOnMount: true, 
     refetchOnWindowFocus: true,
   });
-
+  
+  const isEligible = data?.data?.eligible === true;
   return {
-    isEligible: data?.data.eligible,
+    isEligible: isEligible ?? false,
     isLoading,
     isError,
     refetch,

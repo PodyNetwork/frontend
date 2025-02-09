@@ -158,9 +158,8 @@ const page = () => {
   const {
     yuzuAllocation,
     isLoading: yuzuAllocationLoading,
-    refetch,
   } = useYuzuAllocation();
-  const { isEligible } = useCheckEligibility();
+  const { isEligible, refetch } = useCheckEligibility();
 
   const {
     claimed,
@@ -171,10 +170,11 @@ const page = () => {
 
   const handleClaim = async () => {
     await claimed();
-    refetch();
   };
 
   isSuccess && triggerConfetti();
+  
+  console.log(isEligible);
 
   return (
     <main className="relaive flex flex-col w-full __bg_yuzu" aria-label="class">
@@ -224,14 +224,14 @@ const page = () => {
                       <p className="animate-pulse bg-gray-300 rounded-lg w-64 h-4"></p>
                     ) : (
                       <>
-                        {isEligible ? <p className="text-red-500 text-sm mt-2">You are eligible</p> : <p>You are not eligible</p>}
+                        {isEligible ? "You are eligible for the Pody Yuzu testnet" : "You are not eligible for the Pody Yuzu testnet. Mainnet Yuzu reward is coming soon."}
                       </>
                     )}
                   </div>
                   <div className="mt-6">
                     {isEligible ? (
                       <>
-                        {yuzuAllocation?.claimed ? (
+                        {yuzuAllocation?.claimed || isSuccess ? (
                           <ShareButton />
                         ) : (
                           <button
