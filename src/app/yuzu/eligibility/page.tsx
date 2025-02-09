@@ -5,6 +5,7 @@ import confetti from "canvas-confetti";
 import useYuzuAllocation from "@/hooks/yuzu/useGetYuzuAllocation";
 import useCheckEligibility from "@/hooks/yuzu/useCheckEligibility";
 import useClaimYuzu from "@/hooks/yuzu/useClaimYuzu";
+import Link from "next/link";
 
 const Countdown = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -154,8 +155,11 @@ const page = () => {
     }, 1000);
   };
 
-  const { yuzuAllocation, isLoading: yuzuAllocationLoading } =
-    useYuzuAllocation();
+  const {
+    yuzuAllocation,
+    isLoading: yuzuAllocationLoading,
+    refetch,
+  } = useYuzuAllocation();
   const { isEligible, isLoading: elligleLoading } = useCheckEligibility();
 
   const {
@@ -167,8 +171,9 @@ const page = () => {
     data,
   } = useClaimYuzu();
 
-  const handleClaim = () => {
-    claimed();
+  const handleClaim = async () => {
+    await claimed();
+    refetch();
   };
 
   isSuccess && triggerConfetti();
@@ -222,59 +227,75 @@ const page = () => {
                     ) : (
                       <>
                         {isEligible && !yuzuAllocation?.claimed
-                          ? "You are eligible for the Pody Yuzu testnet" : yuzuAllocation?.claimed ? "You’ve successfully claimed your Pody Yuzu testnet. The distribution will begin shortly!"
+                          ? "You are eligible for the Pody Yuzu testnet"
+                          : yuzuAllocation?.claimed
+                          ? "You’ve successfully claimed your Pody Yuzu testnet. The distribution will begin shortly!"
                           : "You are not eligible for the Pody Yuzu testnet. Mainnet Yuzu reward is coming soon."}
                       </>
                     )}
                   </div>
                   <div className="mt-6">
-                    {yuzuAllocation?.claimed ? (
-                      <ShareButton />
-                    ) : (
-                      <button
-                        onClick={handleClaim}
-                        disabled={
-                          yuzuClaimLoading ||
-                          yuzuAllocationLoading ||
-                          yuzuAllocation?.claimed
-                        }
-                        className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800 ${
-                          yuzuAllocation?.claimed && "bg-slate-900 text-white"
-                        }`}
-                      >
-                        {yuzuClaimLoading ? (
-                          // Display a loading spinner inside the button
-                          <div className="flex items-center justify-center">
-                            <svg
-                              className="animate-spin h-5 w-5 mr-2 text-[#F05A28]"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                            >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              ></circle>
-                              <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                              ></path>
-                            </svg>
-                            Claiming...
-                          </div>
-                        ) : yuzuAllocation?.claimed ? (
-                          "Yuzu Claimed"
+                    {isEligible ? (
+                      <>
+                        {yuzuAllocation?.claimed ? (
+                          <ShareButton />
                         ) : (
-                          "Claim Yuzu"
+                          <button
+                            onClick={handleClaim}
+                            disabled={
+                              yuzuClaimLoading ||
+                              yuzuAllocationLoading ||
+                              yuzuAllocation?.claimed
+                            }
+                            className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800 ${
+                              yuzuAllocation?.claimed &&
+                              "bg-slate-900 text-white"
+                            }`}
+                          >
+                            {yuzuClaimLoading ? (
+                              // Display a loading spinner inside the button
+                              <div className="flex items-center justify-center">
+                                <svg
+                                  className="animate-spin h-5 w-5 mr-2 text-[#F05A28]"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                  ></circle>
+                                  <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                  ></path>
+                                </svg>
+                                Claiming...
+                              </div>
+                            ) : yuzuAllocation?.claimed ? (
+                              "Yuzu Claimed"
+                            ) : (
+                              "Claim Yuzu"
+                            )}
+                          </button>
                         )}
+                      </>
+                    ) : (
+                      <Link href="https://pody.network/login">
+                        <button
+                        className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800`}
+                      >
+                        Join Mainnet
                       </button>
+                      </Link>
                     )}
                   </div>
+
                   {isSuccess && (
                     <p className="text-green-500 text-sm mt-2">
                       {data?.message}

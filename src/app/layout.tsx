@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | Pody Classroom",
   },
   description:
-    "Learn on Open Campus and Earn Rewards your number one Web3 Alternative to Google Meet and Twitter Space",
+    "Learn and Earn Rewards in Real-time your number one Web3 Alternative to Google Meet and Twitter Space",
   keywords: [
     "web3 education",
     "blockchain learning",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pody Classroom - Get rewarded for your time.",
     description:
-      "Learn on Open Campus and Earn Rewards your number one Web3 Alternative to Google Meet and Twitter Space",
+      "Learn and Earn Rewards in Real-time your number one Web3 Alternative to Google Meet and Twitter Space",
     url: "https://pody.network",
     siteName: "Pody",
     images: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Pody Classroom | Learn & Earn in Web3",
     description:
-      "Learn on Open Campus and Earn Rewards your number one Web3 Alternative to Google Meet and Twitter Space",
+      "Learn and Earn Rewards in Real-time your number one Web3 Alternative to Google Meet and Twitter Space",
     images: ["https://pody.network/social/banner.png"],
     creator: "@PodyNetwork",
     site: "@PodyNetwork",
