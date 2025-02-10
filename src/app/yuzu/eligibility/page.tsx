@@ -20,7 +20,7 @@ const Countdown = () => {
   useEffect(() => {
     setIsClient(true);
 
-    const targetDate = new Date("2025-03-11T00:00:00").getTime();
+    const targetDate = new Date("2025-02-28T00:00:00").getTime();
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
