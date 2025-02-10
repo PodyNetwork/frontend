@@ -27,7 +27,7 @@ const useClaimPoint = (refetch?: () => void) => { // Accept refetch function as 
     mutationFn: claimHandler,
     onSuccess: () => {
       clearErrorMessage();
-      refetch?.(); // Refetch points balance after successful claim
+      refetch?.(); 
       router.push(`/dashboard/reward?claimBox=true`);
     },
     onError: (error: AxiosError | Error) => {

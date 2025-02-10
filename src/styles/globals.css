@@ -1368,7 +1368,22 @@ body {
   height: 100%;
   position: relative;
 }
-.__img_veil_grab {
+.__img_notify{
+  background-image: url("/illustration/notification.jpg");
+  width: 100%;
+  background-size: cover;
+  background-position: top;
+  height: 100%;
+  position: relative;
+}
+.__img_veil_notify{
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: rgb(0, 0, 0, 0.35);
+  transition: box-shadow 0.3s ease-in-out; 
+}
+.__img_veil_grab{
   width: 100%;
   height: 100%;
   border-radius: inherit;
@@ -1501,4 +1516,12 @@ body {
 }
 .flame {
   animation: burn 0.5s infinite alternate ease-in-out;
+}
+.__bg_yuzu{
+  background-image: url("/yuzu/edu-land-background.svg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  position: relative;
+  background-attachment: fixed;
 }
