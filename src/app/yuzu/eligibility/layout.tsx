@@ -32,7 +32,6 @@ export const metadata: Metadata = {
     site: "@PodyNetwork",
   },
 };
-
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthMiddleware>
