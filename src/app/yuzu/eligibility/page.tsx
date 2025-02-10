@@ -113,7 +113,7 @@ const ShareButton = () => {
   );
 };
 
-const page = () => {
+const Page = () => {
   const triggerConfetti = () => {
     confetti({
       particleCount: 100,
@@ -155,39 +155,33 @@ const page = () => {
     }, 1000);
   };
 
-  const {
-    yuzuAllocation,
-    isLoading: yuzuAllocationLoading,
-  } = useYuzuAllocation();
-  const { isEligible, refetch } = useCheckEligibility();
+  const { yuzuAllocation, isLoading: yuzuAllocationLoading } = useYuzuAllocation();
+  const { isEligible } = useCheckEligibility();
 
-  const {
-    claimed,
-    isLoading: yuzuClaimLoading,
-    isSuccess,
-    data,
-  } = useClaimYuzu();
+  const {claimed,isLoading: yuzuClaimLoading,isSuccess,data} = useClaimYuzu();
 
   const handleClaim = async () => {
     await claimed();
   };
 
-  isSuccess && triggerConfetti();
-  
-  console.log(isEligible);
+  useEffect(() => {
+    if (isSuccess) {
+      triggerConfetti();
+    }
+  }, [isSuccess]);
 
   return (
     <main className="relaive flex flex-col w-full __bg_yuzu" aria-label="class">
       <div className="w-full min-h-screen">
         <div className="max-w-5xl mx-auto px-6 py-4">
           <nav className="flex justify-center py-8">
-            <Image
+           <Link href="/"> <Image
               src="/logo/pody logo dark.png"
               width={60}
               height={60}
               className="object-containt w-20"
               alt="Pody logo"
-            />
+            /></Link>
           </nav>
           <div className="relative w-full">
             <div className="max-w-md mx-auto py-3">
@@ -224,7 +218,9 @@ const page = () => {
                       <p className="animate-pulse bg-gray-300 rounded-lg w-64 h-4"></p>
                     ) : (
                       <>
-                        {isEligible ? "You are eligible for the Pody Yuzu testnet" : "You are not eligible for the Pody Yuzu testnet. Mainnet Yuzu reward is coming soon."}
+                        {isEligible
+                          ? "You are eligible for the Pody Yuzu testnet"
+                          : "You are not eligible for the Pody Yuzu testnet. Mainnet Yuzu reward is coming soon."}
                       </>
                     )}
                   </div>
@@ -282,10 +278,10 @@ const page = () => {
                     ) : (
                       <Link href="https://pody.network/login">
                         <button
-                        className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800`}
-                      >
-                        Join Mainnet
-                      </button>
+                          className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800`}
+                        >
+                          Join Mainnet
+                        </button>
                       </Link>
                     )}
                   </div>
@@ -304,71 +300,77 @@ const page = () => {
             <div>
               <ul className="flex items-center gap-3 mx-auto justify-center mt-10">
                 <li>
-                  <svg
-                    id="fi_5968830"
-                    enableBackground="new 0 0 1227 1227"
-                    viewBox="0 0 1227 1227"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="size-8 text-slate-100"
-                    fill="currentColor"
-                  >
-                    <path d="m654.53 592.55 276.12 394.95h-113.32l-225.32-322.28v-.02l-33.08-47.31-263.21-376.5h113.32l212.41 303.85z"></path>
-                    <path d="m1094.42 0h-961.84c-73.22 0-132.58 59.36-132.58 132.58v961.84c0 73.22 59.36 132.58 132.58 132.58h961.84c73.22 0 132.58-59.36 132.58-132.58v-961.84c0-73.22-59.36-132.58-132.58-132.58zm-311.8 1040.52-228.01-331.84-285.47 331.84h-73.78l326.49-379.5-326.49-475.17h249.02l215.91 314.23 270.32-314.23h73.78l-311.33 361.9h-.02l338.6 492.77z"></path>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                  </svg>
+                  <Link href="https://x.com/intent/follow?screen_name=podynetwork">
+                    <svg
+                      id="fi_5968830"
+                      enableBackground="new 0 0 1227 1227"
+                      viewBox="0 0 1227 1227"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="size-8 text-slate-100"
+                      fill="currentColor"
+                    >
+                      <path d="m654.53 592.55 276.12 394.95h-113.32l-225.32-322.28v-.02l-33.08-47.31-263.21-376.5h113.32l212.41 303.85z"></path>
+                      <path d="m1094.42 0h-961.84c-73.22 0-132.58 59.36-132.58 132.58v961.84c0 73.22 59.36 132.58 132.58 132.58h961.84c73.22 0 132.58-59.36 132.58-132.58v-961.84c0-73.22-59.36-132.58-132.58-132.58zm-311.8 1040.52-228.01-331.84-285.47 331.84h-73.78l326.49-379.5-326.49-475.17h249.02l215.91 314.23 270.32-314.23h73.78l-311.33 361.9h-.02l338.6 492.77z"></path>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                      <g></g>
+                    </svg>
+                  </Link>
                 </li>
                 <li>
-                  <svg
-                    id="fi_5968759"
-                    enableBackground="new 0 0 512.6 512.6"
-                    className="size-8 text-slate-100"
-                    fill="currentColor"
-                    viewBox="0 0 512.6 512.6"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g>
-                      <path d="m227.6 270.06c0 20.56-14.73 37.29-33.25 37.29-18.23 0-33.25-16.73-33.25-37.29 0-20.55 14.73-37.29 33.25-37.29 18.66 0 33.54 16.89 33.25 37.29z"></path>
-                      <path d="m350.53 270.06c0 20.56-14.58 37.29-33.25 37.29-18.23 0-33.25-16.73-33.25-37.29 0-20.55 14.73-37.29 33.25-37.29 18.67 0 33.54 16.89 33.25 37.29z"></path>
-                      <path d="m457.21 0h-401.82c-30.59 0-55.39 24.8-55.39 55.39v401.82c0 30.59 24.8 55.39 55.39 55.39h401.82c30.59 0 55.39-24.8 55.39-55.39v-401.82c0-30.59-24.8-55.39-55.39-55.39zm-18.12 349.4c-.02.34-.2.64-.48.85-31.64 23.24-62.3 37.35-92.53 46.7-.48.15-1-.03-1.29-.44-6.99-9.72-13.33-19.97-18.89-30.73-.32-.63-.03-1.39.63-1.64 10.07-3.8 19.66-8.36 28.87-13.74.73-.43.78-1.47.1-1.97-1.95-1.45-3.89-2.98-5.74-4.51-.35-.28-.82-.34-1.21-.14-59.84 27.64-125.39 27.64-185.93 0-.4-.18-.87-.12-1.2.16-1.85 1.52-3.79 3.04-5.73 4.49-.67.5-.61 1.54.11 1.97 9.22 5.28 18.8 9.94 28.86 13.75.66.25.97 1 .65 1.63-5.44 10.78-11.79 21.03-18.9 30.74-.31.4-.82.58-1.3.43-30.09-9.35-60.74-23.46-92.38-46.7-.27-.21-.46-.53-.49-.87-6.44-69.03 6.7-138.92 54.66-210.58.12-.19.29-.34.5-.42 23.59-10.84 48.88-18.81 75.3-23.36.49-.07.97.15 1.21.57 3.27 5.79 7 13.2 9.53 19.26 27.85-4.25 56.14-4.25 84.58 0 2.52-5.93 6.12-13.47 9.38-19.26.24-.44.72-.66 1.21-.57 26.43 4.57 51.72 12.54 75.3 23.36.21.08.38.23.48.44 41.78 61.45 62.42 130.77 54.7 210.58z"></path>
-                    </g>
-                  </svg>
-                </li>
-                <li>
-                  <svg
-                    className="size-8 text-slate-100"
-                    fill="currentColor"
-                    viewBox="0 0 176 176"
-                    xmlns="http://www.w3.org/2000/svg"
-                    id="fi_3536705"
-                  >
-                    <g id="Layer_2" data-name="Layer 2">
-                      <g id="telegram">
-                        <path d="m123.33 62.35-44.63 36.48-2.1 1.72a2.27 2.27 0 0 0 -.84 1.48l-.47 3.88-1.29 10.9a.5.5 0 0 1 -1 .09l-3.63-10.9-3.75-11.15a2.24 2.24 0 0 1 1.08-2.66l46.44-26.62 8.74-5c1.27-.74 2.57.86 1.45 1.78z"></path>
-                        <path d="m152 0h-128a24 24 0 0 0 -24 24v128a24 24 0 0 0 24 24h128a24 24 0 0 0 24-24v-128a24 24 0 0 0 -24-24zm-9.11 50.94-17.18 75.91c-.81 3.56-5.33 5.17-8.5 3l-25.94-17.6-13.21 12.49a4.54 4.54 0 0 1 -7.32-1.62l-4.77-14-4.77-14-25.57-7a3.32 3.32 0 0 1 -.29-6.41l98.78-35.59 1.82-.65c3.83-1.34 7.79 1.76 6.95 5.47z"></path>
+                  <Link href="https://discord.gg/TjDpNw28pt">
+                    <svg
+                      id="fi_5968759"
+                      enableBackground="new 0 0 512.6 512.6"
+                      className="size-8 text-slate-100"
+                      fill="currentColor"
+                      viewBox="0 0 512.6 512.6"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g>
+                        <path d="m227.6 270.06c0 20.56-14.73 37.29-33.25 37.29-18.23 0-33.25-16.73-33.25-37.29 0-20.55 14.73-37.29 33.25-37.29 18.66 0 33.54 16.89 33.25 37.29z"></path>
+                        <path d="m350.53 270.06c0 20.56-14.58 37.29-33.25 37.29-18.23 0-33.25-16.73-33.25-37.29 0-20.55 14.73-37.29 33.25-37.29 18.67 0 33.54 16.89 33.25 37.29z"></path>
+                        <path d="m457.21 0h-401.82c-30.59 0-55.39 24.8-55.39 55.39v401.82c0 30.59 24.8 55.39 55.39 55.39h401.82c30.59 0 55.39-24.8 55.39-55.39v-401.82c0-30.59-24.8-55.39-55.39-55.39zm-18.12 349.4c-.02.34-.2.64-.48.85-31.64 23.24-62.3 37.35-92.53 46.7-.48.15-1-.03-1.29-.44-6.99-9.72-13.33-19.97-18.89-30.73-.32-.63-.03-1.39.63-1.64 10.07-3.8 19.66-8.36 28.87-13.74.73-.43.78-1.47.1-1.97-1.95-1.45-3.89-2.98-5.74-4.51-.35-.28-.82-.34-1.21-.14-59.84 27.64-125.39 27.64-185.93 0-.4-.18-.87-.12-1.2.16-1.85 1.52-3.79 3.04-5.73 4.49-.67.5-.61 1.54.11 1.97 9.22 5.28 18.8 9.94 28.86 13.75.66.25.97 1 .65 1.63-5.44 10.78-11.79 21.03-18.9 30.74-.31.4-.82.58-1.3.43-30.09-9.35-60.74-23.46-92.38-46.7-.27-.21-.46-.53-.49-.87-6.44-69.03 6.7-138.92 54.66-210.58.12-.19.29-.34.5-.42 23.59-10.84 48.88-18.81 75.3-23.36.49-.07.97.15 1.21.57 3.27 5.79 7 13.2 9.53 19.26 27.85-4.25 56.14-4.25 84.58 0 2.52-5.93 6.12-13.47 9.38-19.26.24-.44.72-.66 1.21-.57 26.43 4.57 51.72 12.54 75.3 23.36.21.08.38.23.48.44 41.78 61.45 62.42 130.77 54.7 210.58z"></path>
                       </g>
-                    </g>
-                  </svg>
+                    </svg>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://t.me/Podynetwork">
+                    <svg
+                      className="size-8 text-slate-100"
+                      fill="currentColor"
+                      viewBox="0 0 176 176"
+                      xmlns="http://www.w3.org/2000/svg"
+                      id="fi_3536705"
+                    >
+                      <g id="Layer_2" data-name="Layer 2">
+                        <g id="telegram">
+                          <path d="m123.33 62.35-44.63 36.48-2.1 1.72a2.27 2.27 0 0 0 -.84 1.48l-.47 3.88-1.29 10.9a.5.5 0 0 1 -1 .09l-3.63-10.9-3.75-11.15a2.24 2.24 0 0 1 1.08-2.66l46.44-26.62 8.74-5c1.27-.74 2.57.86 1.45 1.78z"></path>
+                          <path d="m152 0h-128a24 24 0 0 0 -24 24v128a24 24 0 0 0 24 24h128a24 24 0 0 0 24-24v-128a24 24 0 0 0 -24-24zm-9.11 50.94-17.18 75.91c-.81 3.56-5.33 5.17-8.5 3l-25.94-17.6-13.21 12.49a4.54 4.54 0 0 1 -7.32-1.62l-4.77-14-4.77-14-25.57-7a3.32 3.32 0 0 1 -.29-6.41l98.78-35.59 1.82-.65c3.83-1.34 7.79 1.76 6.95 5.47z"></path>
+                        </g>
+                      </g>
+                    </svg>
+                  </Link>
                 </li>
               </ul>
             </div>
             <div className="text-xs leading-relaxed my-8">
               This page is intended to help the Pody Network community claim
               their Yuzu Points. These points were allocated based on
-              participants' activities during the testnet phase. Please note
+              participants&apos; activities during the testnet phase. Please note
               that this is not an airdrop from the Pody Network. Community
               members can earn additional Yuzu Points by engaging with the Pody
               Network Mainnet. Stay active and explore more opportunities to
@@ -390,4 +392,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

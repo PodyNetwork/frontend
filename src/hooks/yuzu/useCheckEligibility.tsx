@@ -5,7 +5,6 @@ import axios from "@/network/axios";
 import { BaseResponse } from "@/types/globals";
 import queryClient from "@/utils/queryClient";
 import { useEffect, useState } from "react";
-import { set } from "date-fns";
 
 interface EligibilityResponse extends BaseResponse {
   data: {

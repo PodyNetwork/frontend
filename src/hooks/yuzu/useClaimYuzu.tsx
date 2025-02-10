@@ -11,12 +11,15 @@ interface ClaimYuzuResponse extends BaseResponse {
   };
 }
 
-const useClaimYuzu = () => {
+const useClaimYuzu = (refetch?: () => void) => {
   const mutation = useMutation<ClaimYuzuResponse, Error, void>({
     mutationFn: async () => {
       const response = await axios.post<ClaimYuzuResponse>("/yuzu/claim");
       return response.data;
-    }
+    },
+    onSuccess: () => {
+      refetch?.(); // Call refetch if it exists
+    },
   });
 
   return {

@@ -19,6 +19,13 @@ type FloatingElement = {
   left: string;
   top: string;
 };
+interface Notification {
+  _id: string;
+  read: boolean;
+  type: string;
+  message: number;
+  timeCreated: Date;
+}
 
 const AsideNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -71,7 +78,7 @@ const AsideNav = () => {
       return notifications.slice(-5);
     }, [notifications]);
 
-    const { stat, isLoading: notifStatLoading, isError } = useGetNotificationStat();
+    const { stat } = useGetNotificationStat();
   
     return (
       <li className="cursor-pointer relative" onClick={toggleDropdown}>
@@ -103,7 +110,7 @@ const AsideNav = () => {
               </div>
               <ul>
                 {latestNotifications.length > 0 ? (
-                  latestNotifications.map((notification: any) => (
+                  latestNotifications.map((notification: Notification) => (
                     <li
                       key={notification._id}
                       className="py-2 border-b text-[0.8rem] border-gray-200 truncate"
