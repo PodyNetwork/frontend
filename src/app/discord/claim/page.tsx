@@ -62,11 +62,10 @@ const Page = () => {
                 </svg>
               </Link>
               <h2 className="font-semibold text-slate-700 text-xl">
-                Connect Discord
+                Claim OP Creator
               </h2>
               <p className="text-sm text-slate-500">
-                Copy the Code below to your discord to claim OP Testnet or OP
-                Mainnet role
+                Copy the code below to <b>#claim-roles</b> Channel to claim OP Creator role
               </p>
               <div className="mt-2">
                 <label

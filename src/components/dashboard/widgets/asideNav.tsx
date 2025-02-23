@@ -65,6 +65,18 @@ const AsideNav = () => {
     );
   };
 
+  const ClaimRole = () => {
+    return (
+      <>
+        {!isLoading && profile?.isEmailVerified && profile?.walletAddress && (
+          <li className="cursor-pointer" onClick={() => handleClick("/discord/claim")}>
+            Claim Role
+          </li>
+        )}
+      </>
+    );
+  };
+
   const NotificationBell = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
@@ -198,6 +210,7 @@ const AsideNav = () => {
             </div>
             <ul className="flex flex-row items-center text-sm text-slate-700 __dashheader_icon_info">
               <ConnectEmail />
+              <ClaimRole />
               <NotificationBell />
               <li className="cursor-pointer" onClick={logout}>
                 Logout
@@ -280,6 +293,7 @@ const AsideNav = () => {
               </button>
             ))}
             <ConnectEmail />
+            <ClaimRole />
             <li className="cursor-pointer" onClick={logout}>
               Logout
             </li>
