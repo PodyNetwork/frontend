@@ -1,7 +1,7 @@
 "use client";
 import useGetDiscordVerification from "@/hooks/discord/useGetVerificationCode";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const Page = () => {
   const { verification } = useGetDiscordVerification();
@@ -20,21 +20,6 @@ const Page = () => {
     }
   };
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const [isTestnet, setIsTestnet] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const hostname = window.location.hostname;
-      const subdomain = hostname.split(".")[0];
-
-      if (subdomain === "testnet") {
-        setIsTestnet(true);
-      } else {
-        setIsTestnet(false);
-      }
-    }
-  }, []);
 
   return (
     <main className="w-full relative" aria-label="verify otp">
@@ -65,7 +50,8 @@ const Page = () => {
                 Claim OP Creator
               </h2>
               <p className="text-sm text-slate-500">
-                Copy the code below to <b>#claim-roles</b> Channel to claim OP Creator role
+                Copy the code below to <b>#claim-roles</b> Channel to claim OP
+                Creator role
               </p>
               <div className="mt-2">
                 <label
@@ -110,29 +96,16 @@ const Page = () => {
                 </button>
               </Link>
               <div className="video-container">
-                {isTestnet ? (
-                  <iframe
-                    width="560"
-                    height="315"
-                    src="https://www.youtube.com/embed/DheMf3TdBvw?si=k1bHG-dW_hreeuSH"
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  ></iframe>
-                ) : (
-                  <iframe
-                    width="560"
-                    height="315"
-                    src="https://www.youtube.com/embed/FnSEXxq1abM?si=f_QThLMxA5yR3fa3"
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  ></iframe>
-                )}
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/57ms9fBgIsg?si=u2OLaikyFEi7wqnx"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
               </div>
               <p className="text-xs mt-2 text-slate-700">
                 Disclaimer: Connecting your Discord account to our platform, you

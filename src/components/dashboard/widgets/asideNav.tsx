@@ -69,7 +69,7 @@ const AsideNav = () => {
     return (
       <>
         {!isLoading && profile?.isEmailVerified && profile?.walletAddress && (
-          <li className="cursor-pointer" onClick={() => handleClick("/discord/claim")}>
+          <li className="cursor-pointer" onClick={() => handleClick("/discord/verify")}>
             Claim Role
           </li>
         )}
