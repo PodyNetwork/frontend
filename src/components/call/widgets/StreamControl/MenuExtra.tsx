@@ -111,7 +111,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
           } else {
             enterFullscreen();
           }
-        } else if (event.key === "c") {
+        } else if (event.key === "m") {
           event.preventDefault();
           if (isChatOpen) {
             closeChat();
@@ -173,7 +173,7 @@ const MenuExtra: React.FC<MenuExtraProps> = ({ username, overflowItem }) => {
             )}
             {!isMobile && (
               <DropdownMenuShortcut>
-                {isMac ? "⌘" : "ctrl"}+C
+                {isMac ? "⌘" : "ctrl"}+M
               </DropdownMenuShortcut>
             )}
           </DropdownMenuItem>
