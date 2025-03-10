@@ -1,8 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import confetti from "canvas-confetti";
 import useYuzuAllocation from "@/hooks/yuzu/useGetYuzuAllocation";
 import useCheckEligibility from "@/hooks/yuzu/useCheckEligibility";
+import useClaimYuzu from "@/hooks/yuzu/useClaimYuzu";
 import Link from "next/link";
 
 const Countdown = () => {
@@ -18,7 +20,7 @@ const Countdown = () => {
   useEffect(() => {
     setIsClient(true);
 
-    const targetDate = new Date("2025-02-28T00:00:00").getTime();
+    const targetDate = new Date("2025-03-15T00:00:00").getTime();
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
@@ -63,33 +65,128 @@ const Countdown = () => {
   );
 };
 
+const ShareButton = () => {
+  const handleShareOnTwitter = () => {
+    const tweetText = encodeURIComponent(
+      "I just claimed my @podynetwork Testnet Yuzu! 🎉 #Yuzu #educhain"
+    );
+    const tweetUrl = encodeURIComponent(
+      "https://testnet.pody.network/yuzu/eligibility"
+    );
+    const twitterIntentUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${tweetUrl}`;
+
+    window.open(twitterIntentUrl, "_blank");
+  };
+
+  return (
+    <button
+      onClick={handleShareOnTwitter}
+      className="bg-slate-900 text-white text-sm py-3 px-8 rounded-full cursor-pointer flex items-center gap-1 mx-auto"
+    >
+      Share on{" "}
+      <svg
+        id="fi_5968958"
+        enableBackground="new 0 0 1226.37 1226.37"
+        viewBox="0 0 1226.37 1226.37"
+        xmlns="http://www.w3.org/2000/svg"
+        className="size-3 text-slate-100"
+        fill="currentColor"
+      >
+        <path d="m727.348 519.284 446.727-519.284h-105.86l-387.893 450.887-309.809-450.887h-357.328l468.492 681.821-468.492 544.549h105.866l409.625-476.152 327.181 476.152h357.328l-485.863-707.086zm-144.998 168.544-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721h-162.604l-323.311-462.446z"></path>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </button>
+  );
+};
 
 const Page = () => {
-  const { yuzuAllocation, isLoading: yuzuAllocationLoading } =
-    useYuzuAllocation();
+  const triggerConfetti = () => {
+    confetti({
+      particleCount: 100,
+      spread: 360,
+      startVelocity: 30,
+      origin: { x: 0.5, y: 0.5 },
+      angle: 90,
+      colors: ["#FFD700", "#ff8c00", "#ff007f", "#7b00ff", "#FF69B4"],
+      gravity: 0.5,
+      scalar: 0.8,
+    });
+
+    // Add a second burst
+    setTimeout(() => {
+      confetti({
+        particleCount: 100,
+        spread: 360,
+        startVelocity: 30,
+        origin: { x: 0.25, y: 0.5 }, // Slightly to the left
+        angle: 90,
+        colors: ["#FFD700", "#ff8c00", "#ff007f", "#7b00ff", "#FF69B4"],
+        gravity: 0.5,
+        scalar: 0.8,
+      });
+    }, 500);
+
+    // Add a third burst
+    setTimeout(() => {
+      confetti({
+        particleCount: 100,
+        spread: 360,
+        startVelocity: 30,
+        origin: { x: 0.75, y: 0.5 }, // Slightly to the right
+        angle: 90,
+        colors: ["#FFD700", "#ff8c00", "#ff007f", "#7b00ff", "#FF69B4"],
+        gravity: 0.5,
+        scalar: 0.8,
+      });
+    }, 1000);
+  };
+
+  const { yuzuAllocation, isLoading: yuzuAllocationLoading } = useYuzuAllocation();
   const { isEligible } = useCheckEligibility();
 
+  const {claimed,isLoading: yuzuClaimLoading,isSuccess,data} = useClaimYuzu();
+
+  const handleClaim = async () => {
+    await claimed();
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      triggerConfetti();
+    }
+  }, [isSuccess]);
 
   return (
     <main className="relaive flex flex-col w-full __bg_yuzu" aria-label="class">
       <div className="w-full min-h-screen">
         <div className="max-w-5xl mx-auto px-6 py-4">
           <nav className="flex justify-center py-8">
-            <Link href="/">
-              {" "}
-              <Image
-                src="/logo/pody logo dark.png"
-                width={60}
-                height={60}
-                className="object-containt w-20"
-                alt="Pody logo"
-              />
-            </Link>
+           <Link href="/"> <Image
+              src="/logo/pody logo dark.png"
+              width={60}
+              height={60}
+              className="object-containt w-20"
+              alt="Pody logo"
+            /></Link>
           </nav>
           <div className="relative w-full">
             <div className="max-w-md mx-auto py-3">
               <h2 className="text-center text-3xl font-bold text-slate-50 leading-tight">
-                Pody Testnet Yuzu eligibility
+                Pody Season 1 Yuzu eligibility
               </h2>
               <div className="mt-10 bg-slate-100 text-center rounded-xl px-6 md:px-12 py-6 shadow-md shadow-slate-100">
                 <div className="relative">
@@ -122,20 +219,78 @@ const Page = () => {
                     ) : (
                       <>
                         {isEligible
-                          ? "You are eligible for the Pody Yuzu testnet"
-                          : "You are not eligible for the Pody Yuzu testnet. Mainnet Yuzu reward is coming soon."}
+                          ? "You are eligible for the Pody Yuzu Season 1 Yuzu."
+                          : "You are not eligible for the Pody Yuzu Season 1 Yuzu. More season coming soon"}
                       </>
                     )}
                   </div>
                   <div className="mt-6">
-                    <Link href="https://pody.network/login">
-                      <button
-                        className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800`}
-                      >
-                        Join Mainnet
-                      </button>
-                    </Link>
+                    {isEligible ? (
+                      <>
+                        {yuzuAllocation?.claimed || isSuccess ? (
+                          <ShareButton />
+                        ) : (
+                          <button
+                            onClick={handleClaim}
+                            disabled={
+                              yuzuClaimLoading ||
+                              yuzuAllocationLoading ||
+                              yuzuAllocation?.claimed
+                            }
+                            className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800 ${
+                              yuzuAllocation?.claimed &&
+                              "bg-slate-900 text-white"
+                            }`}
+                          >
+                            {yuzuClaimLoading ? (
+                              // Display a loading spinner inside the button
+                              <div className="flex items-center justify-center">
+                                <svg
+                                  className="animate-spin h-5 w-5 mr-2 text-[#F05A28]"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                  ></circle>
+                                  <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                  ></path>
+                                </svg>
+                                Claiming...
+                              </div>
+                            ) : yuzuAllocation?.claimed ? (
+                              "Yuzu Claimed"
+                            ) : (
+                              "Claim Yuzu"
+                            )}
+                          </button>
+                        )}
+                      </>
+                    ) : (
+                      <Link href="https://pody.network/login">
+                        <button
+                          className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800`}
+                        >
+                          Join Mainnet
+                        </button>
+                      </Link>
+                    )}
                   </div>
+
+                  {isSuccess && (
+                    <p className="text-green-500 text-sm mt-2">
+                      {data?.message}
+                    </p>
+                  )}
                   <Countdown />
                 </div>
               </div>
@@ -214,9 +369,9 @@ const Page = () => {
             </div>
             <div className="text-xs leading-relaxed my-8">
               This page is intended to help the Pody Network community claim
-              their Yuzu Points. These points were allocated based on
-              participants&apos; activities during the testnet phase. Please
-              note that this is not an airdrop from the Pody Network. Community
+              their Season 1 Yuzu Points. These points were allocated based on
+              participants&apos; activities during the Testnet and Mainnet phase. Please note
+              that this is not an airdrop from the Pody Network. Community
               members can earn additional Yuzu Points by engaging with the Pody
               Network Mainnet. Stay active and explore more opportunities to
               increase your Yuzu Points!
@@ -225,8 +380,8 @@ const Page = () => {
               <div>Copyright © 2025 Pody Network. All rights reserved</div>
               <div>
                 <ul className="flex flex-row items-center gap-3">
-                  <li>Terms</li>
-                  <li>Privacy Policy</li>
+                  <a href="/terms"><li>Terms</li></a>
+                  <a href="/policy"><li>Privacy Policy</li></a>
                 </ul>
               </div>
             </div>
