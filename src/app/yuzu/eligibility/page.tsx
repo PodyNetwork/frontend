@@ -276,7 +276,7 @@ const Page = () => {
                         )}
                       </>
                     ) : (
-                      <Link href="https://pody.network/login">
+                      <Link href="https://pody.network/dashboard">
                         <button
                           className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800`}
                         >
