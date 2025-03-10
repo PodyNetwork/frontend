@@ -228,8 +228,8 @@ const Page = () => {
                     ) : (
                       <>
                         {isEligible
-                          ? "You are eligible for the Pody Yuzu Season 1 Yuzu."
-                          : "You are not eligible for the Pody Yuzu Season 1 Yuzu. More season coming soon"}
+                          ? "You are eligible for the Pody Season 1 Yuzu."
+                          : "You are not eligible for the Pody Season 1 Yuzu. More season coming soon"}
                       </>
                     )}
                   </div>
