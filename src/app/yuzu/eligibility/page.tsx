@@ -68,10 +68,10 @@ const Countdown = () => {
 const ShareButton = () => {
   const handleShareOnTwitter = () => {
     const tweetText = encodeURIComponent(
-      "I just claimed my @podynetwork Testnet Yuzu! 🎉 #Yuzu #educhain"
+      "I just claimed my @podynetwork Season 1 Yuzu! 🎉 #Yuzu #opencampus #educhain"
     );
     const tweetUrl = encodeURIComponent(
-      "https://testnet.pody.network/yuzu/eligibility"
+      "https://pody.network/yuzu/eligibility"
     );
     const twitterIntentUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${tweetUrl}`;
 
@@ -114,6 +114,8 @@ const ShareButton = () => {
 };
 
 const Page = () => {
+  const [hasEnded, setHasEnded] = useState(false);
+
   const triggerConfetti = () => {
     confetti({
       particleCount: 100,
@@ -157,8 +159,15 @@ const Page = () => {
 
   const { yuzuAllocation, isLoading: yuzuAllocationLoading } = useYuzuAllocation();
   const { isEligible } = useCheckEligibility();
+  const { claimed, isLoading: yuzuClaimLoading, isSuccess, data } = useClaimYuzu();
 
-  const {claimed,isLoading: yuzuClaimLoading,isSuccess,data} = useClaimYuzu();
+  useEffect(() => {
+    const targetDate = new Date("2025-03-15T00:00:00").getTime();
+    const now = new Date().getTime();
+    if (now > targetDate) {
+      setHasEnded(true);
+    }
+  }, []);
 
   const handleClaim = async () => {
     await claimed();
@@ -235,15 +244,15 @@ const Page = () => {
                             disabled={
                               yuzuClaimLoading ||
                               yuzuAllocationLoading ||
-                              yuzuAllocation?.claimed
+                              yuzuAllocation?.claimed ||
+                              hasEnded
                             }
                             className={`bg-slate-300 text-sm py-3 px-8 rounded-full cursor-pointer text-slate-800 ${
-                              yuzuAllocation?.claimed &&
-                              "bg-slate-900 text-white"
+                              (yuzuAllocation?.claimed || hasEnded) &&
+                              "bg-slate-900 text-white opacity-50"
                             }`}
                           >
                             {yuzuClaimLoading ? (
-                              // Display a loading spinner inside the button
                               <div className="flex items-center justify-center">
                                 <svg
                                   className="animate-spin h-5 w-5 mr-2 text-[#F05A28]"
@@ -269,6 +278,8 @@ const Page = () => {
                               </div>
                             ) : yuzuAllocation?.claimed ? (
                               "Yuzu Claimed"
+                            ) : hasEnded ? (
+                              "Claiming Period Ended"
                             ) : (
                               "Claim Yuzu"
                             )}

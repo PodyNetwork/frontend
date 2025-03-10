@@ -1,21 +1,21 @@
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Pody Testnet Yuzu eligibility",
+  title: "Pody Season 1 Yuzu eligibility",
   description:
     "Learn and Earn Rewards in Real-time your number one Web3 Alternative to Google Meet and Twitter Space",
   openGraph: {
-    title: "Pody Testnet Yuzu eligibility",
+    title: "Pody Season 1 Yuzu eligibility",
     description:
       "Learn and Earn Rewards in Real-time your number one Web3 Alternative to Google Meet and Twitter Space",
     url: "https://pody.network",
     siteName: "Pody",
     images: [
       {
-        url: "https://pody.network/social/banner-testnet.jpg",
+        url: "https://pody.network/social/banner-mainnet.jpg",
         width: 1200,
         height: 630,
-        alt: "Pody Classroom - Learn & Earn in Web3",
+        alt: "Pody Classroom - Learn & Earn Rewards in Real-time",
         type: "image/png",
       },
     ],
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pody Testnet Yuzu eligibility",
+    title: "Pody Season 1 Yuzu eligibility",
     description:
       "Learn and Earn Rewards in Real-time your number one Web3 Alternative to Google Meet and Twitter Space",
-    images: ["https://pody.network/social/banner-testnet.jpg"],
+    images: ["https://pody.network/social/banner-mainnet.jpg"],
     creator: "@PodyNetwork",
     site: "@PodyNetwork",
   },
